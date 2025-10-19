@@ -1,0 +1,99 @@
+name: Cut Release
+
+on:
+  push:
+    branches: [ main ]
+    # Auto-run the release stage when code lands on main.
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "Stage to run"
+        type: choice
+        default: release
+        options: [prepare, release]
+      bump:
+        description: "Version bump type"
+        type: choice
+        default: auto
+        options: [auto, patch, minor, major]
+      force:
+        description: "Bypass clean-tree/branch safety (advanced)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write        # push tags / create releases
+  pull-requests: write   # create PR during prepare
+  actions: read
+
+jobs:
+  cut-release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: pwsh
+
+    env:
+      # Make gh CLI use the GitHub-provided token
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set git user (for tagging/PR commits)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Determine stage & bump (from dispatch or defaults)
+        id: decide
+        run: |
+          # If this was manual (workflow_dispatch), respect inputs; otherwise default to release/auto
+          $stage = "${{ github.event.inputs.stage }}"
+          if (-not $stage) { $stage = "release" }
+
+          $bump  = "${{ github.event.inputs.bump }}"
+          if (-not $bump)  { $bump  = "auto" }
+
+          $force = "${{ github.event.inputs.force }}"
+          if (-not $force) { $force = "false" }
+
+          "stage=$stage" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "bump=$bump"   | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "force=$force" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
+      - name: Compute latest SemVer tag (FORCE_LAST_SEMVER)
+        run: |
+          # Get the most recent tag that looks like vX.Y.Z
+          $last = git tag --list --sort=-creatordate | Where-Object { $_ -match '^(v)?\d+\.\d+\.\d+$' } | Select-Object -First 1
+          if (-not $last) { $last = 'v0.0.0' }
+          "FORCE_LAST_SEMVER=$last" | Out-File -FilePath $env:GITHUB_ENV -Append
+          Write-Host "Using FORCE_LAST_SEMVER=$last"
+
+      - name: Show context
+        run: |
+          Write-Host "Stage ............: ${{ steps.decide.outputs.stage }}"
+          Write-Host "Bump .............: ${{ steps.decide.outputs.bump }}"
+          Write-Host "Force ............: ${{ steps.decide.outputs.force }}"
+          Write-Host "FORCE_LAST_SEMVER : $env:FORCE_LAST_SEMVER"
+          git status --porcelain
+
+      # -------- Prepare (changelog PR) --------
+      - name: Prepare changelog PR
+        if: ${{ steps.decide.outputs.stage == 'prepare' }}
+        run: |
+          ./Cut-Release.ps1 -Stage prepare -Bump ${{ steps.decide.outputs.bump }} -Yes
+
+      # -------- Release (tag + publish) --------
+      - name: Cut release (safe)
+        if: ${{ steps.decide.outputs.stage == 'release' && steps.decide.outputs.force != 'true' }}
+        run: |
+          ./Cut-Release.ps1 -Stage release -Bump ${{ steps.decide.outputs.bump }} -Yes
+
+      - name: Cut release (forced)
+        if: ${{ steps.decide.outputs.stage == 'release' && steps.decide.outputs.force == 'true' }}
+        run: |
+          ./Cut-Release.ps1 -Stage release -Bump ${{ steps.decide.outputs.bump }} -Yes -Force
