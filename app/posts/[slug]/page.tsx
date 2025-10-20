@@ -1,11 +1,13 @@
-import type { PageProps } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
-export default async function PostPage({ params }: PageProps<{ slug: string }>) {
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
 
-  // Try to import the MDX file for this slug
   let MDX: any;
   let meta: any = {};
   try {
@@ -19,6 +21,7 @@ export default async function PostPage({ params }: PageProps<{ slug: string }>) 
   return (
     <main className="max-w-3xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-4">{meta.title ?? slug}</h1>
+
       {meta.summary ? (
         <p className="text-gray-600 dark:text-gray-400 mb-6">{meta.summary}</p>
       ) : null}
