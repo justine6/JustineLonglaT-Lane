@@ -1,6 +1,7 @@
+import type { PageProps } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import posts from "@/content/projects/posts.json"; // adjust if your path differs
+import posts from "@/content/projects/posts.json"; // keep this path
 
 type Post = {
   slug: string;
@@ -11,21 +12,26 @@ type Post = {
   tags?: string[];
 };
 
-export default function PostPage({ params }: { params: { slug: string } }) {
-  const post = (posts as Post[]).find((p) => p.slug === params.slug);
+export default async function PostPage({ params }: PageProps<{ slug: string }>) {
+  const { slug } = await params;
+
+  const post = (posts as Post[]).find((p) => p.slug === slug);
   if (!post) return notFound();
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+
       {post.summary ? (
         <p className="text-gray-600 dark:text-gray-400 mb-6">{post.summary}</p>
       ) : null}
+
       {post.date ? (
         <div className="text-sm text-gray-500 dark:text-gray-400 mb-6">
           {new Date(post.date).toLocaleDateString()}
         </div>
       ) : null}
+
       {post.tags?.length ? (
         <div className="flex flex-wrap gap-2 mb-6">
           {post.tags.map((t) => (
@@ -49,7 +55,6 @@ export default function PostPage({ params }: { params: { slug: string } }) {
         </div>
       ) : null}
 
-      {/* Placeholder content – wire MDX later */}
       <article className="prose dark:prose-invert max-w-none">
         <p>
           This is a placeholder for the full article. You can wire MDX later and render rich content here.
@@ -59,4 +64,3 @@ export default function PostPage({ params }: { params: { slug: string } }) {
     </main>
   );
 }
-
