@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import posts from "@content/posts.json"; // adjust if your path differs
+import posts from "@/content/projects/posts.json"; // adjust if your path differs
 
 type Post = {
   slug: string;
@@ -59,3 +59,4 @@ export default function PostPage({ params }: { params: { slug: string } }) {
     </main>
   );
 }
+

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import posts from "@content/posts.json";
+import posts from "@/content/projects/posts.json";
 
 export default function PostsIndex() {
   return (
@@ -18,3 +18,4 @@ export default function PostsIndex() {
     </main>
   );
 }
+
