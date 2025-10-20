@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
+import PostCover from "@/components/PostCover"; // ← new client component below
 
 export default async function PostPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string }; // ✅ not a Promise
 }) {
-  const { slug } = await params;
+  const { slug } = params;
 
   let MDX: any;
   let meta: any = {};
@@ -35,25 +35,18 @@ export default async function PostPage({
       {Array.isArray(meta.tags) && meta.tags.length ? (
         <div className="flex flex-wrap gap-2 mb-6">
           {meta.tags.map((t: string) => (
-            <span key={t} className="text-xs px-2 py-1 rounded bg-gray-100 dark:bg-gray-800">
+            <span
+              key={t}
+              className="text-xs px-2 py-1 rounded bg-gray-100 dark:bg-gray-800"
+            >
               {t}
             </span>
           ))}
         </div>
       ) : null}
 
-      {meta.cover ? (
-        <div className="relative w-full aspect-[16/9] mb-6 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800">
-          <Image
-            src={meta.cover}
-            alt={meta.title ?? slug}
-            fill
-            className="object-cover"
-            unoptimized
-            priority
-          />
-        </div>
-      ) : null}
+      {/* ✅ Resilient cover with graceful fallback */}
+      <PostCover src={meta.cover} title={meta.title ?? slug} />
 
       <article className="prose dark:prose-invert max-w-none">
         <MDX />

@@ -1,17 +1,18 @@
 import HomeLogoBanner from "@/components/HomeLogoBanner";
 import Image from "next/image";
+import LogoShowcase from "@/components/LogoShowcase";
 import AnimatedSection from "@/components/AnimatedSection";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import CertificationsGrid from "@/components/CertificationsGrid";
 import PublicationsGrid, { type Post } from "@/components/PublicationsGrid";
-import postsData from "@/content/projects/posts.json";
+
 
 export default function HomePage() {
+  const postsData: Post[] = [];
   return (
     <main className="min-h-screen px-4 sm:px-6 py-8 sm:py-10 pt-20 md:pt-24 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
-
-      {/* ✅ Banner hero */}
-      <HomeLogoBanner />
+      {/* ✅ single hero/banner */}
+      <div className="w-full bg-gradient-to-b from-blue-600 to-blue-800 mb-12"><div className="max-w-6xl mx-auto px-4"><Image src="/brand/justine-banner.png" alt="Justine Longla — Solutions Architect & DevSecOps Engineer" width={1280} height={640} priority className="w-full h-auto rounded-xl shadow-lg transition-transform duration-500 hover:scale-[1.02]" /></div></div>
 
       {/* 🔷 Header Section */}
       <AnimatedSection>
@@ -41,22 +42,6 @@ export default function HomePage() {
           </div>
         </section>
       </AnimatedSection>
-
-      {/* 🔷 BIG Logo Showcase (card, centered) */}
-      <section className="flex justify-center py-10">
-        <div className="w-full max-w-5xl rounded-2xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-black/5 dark:ring-white/10">
-          <div className="p-4 sm:p-6 md:p-8 flex items-center justify-center">
-            <Image
-              src="/brand/justine-logo.png"
-              alt="Justine Longla T. — DevSecOps · Cloud · Sustainability"
-              width={1400}
-              height={980}
-              priority
-              className="w-full h-auto rounded-xl"
-            />
-          </div>
-        </div>
-      </section>
 
       {/* 🔷 Services Section */}
       <AnimatedSection>
@@ -129,7 +114,7 @@ export default function HomePage() {
                   href="#contact"
                   className="inline-flex items-center justify-center border border-blue-600 text-blue-600 px-5 py-2.5 rounded-xl hover:bg-blue-50"
                 >
-                  Contact
+                  View Résumé
                 </a>
                 <a
                   href="/justine-longla-resume.pdf"
@@ -153,6 +138,7 @@ export default function HomePage() {
                 Practical guides, patterns, and field notes from real engagements.
               </p>
             </div>
+
             <div className="hidden sm:block">
               <a
                 href="/posts"
@@ -224,3 +210,8 @@ export default function HomePage() {
     </main>
   );
 }
+
+
+
+
+

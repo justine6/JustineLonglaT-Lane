@@ -9,7 +9,7 @@ const withMDX = createMDX({
   },
 });
 
-/** @type {import("next").NextConfig} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
 };

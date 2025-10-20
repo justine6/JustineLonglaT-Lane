@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { motion } from "framer-motion";
+import { ReactNode } from "react";
 
 type AnimatedSectionProps = {
   children: ReactNode;
@@ -20,11 +20,11 @@ export default function AnimatedSection({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{
         duration: 0.6,
-        ease: [0.25, 0.1, 0.25, 1], // smoother cubic curve
+        ease: [0.25, 0.1, 0.25, 1],
         delay,
       }}
       viewport={{ once: true, amount: 0.25 }}
-      className="transition-colors duration-300" // ensures dark-mode bg/text transition
+      className="transition-colors duration-300"
     >
       {children}
     </motion.section>

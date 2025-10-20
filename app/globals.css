@@ -84,3 +84,11 @@ a {
 @screen lg { .container { max-width: 1024px; } }
 @screen xl { .container { max-width: 1280px; } }
 @screen 2xl { .container { max-width: 1536px; } }
+
+/* Smooth anchor scrolling site-wide */
+\nhtml { scroll-behavior: smooth; }
+\n
+/* Smooth anchor scrolling site-wide */
+html {
+  scroll-behavior: smooth;
+}
