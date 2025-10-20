@@ -2,17 +2,17 @@ import Image from "next/image";
 import AnimatedSection from "@/components/AnimatedSection";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import NewsletterSignup from "@/components/NewsletterSignup";
-import CertificationsGrid from "@/components/CertificationsGrid"; // 👈 add this
+import CertificationsGrid from "@/components/CertificationsGrid";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white text-gray-900 px-4 sm:px-6 py-8 sm:py-10 scroll-smooth">
+    <main className="min-h-screen px-4 sm:px-6 py-8 sm:py-10 pt-20 md:pt-24 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
       {/* 🔷 Banner Section */}
       <AnimatedSection>
         <div className="mb-8">
           <Image
             src="/brand/justine-logo.png"
-            alt="Justine Longla T Logo"
+            alt="Jutellane Solutions logotype"
             width={1280}
             height={600}
             sizes="(max-width: 768px) 100vw, 1280px"
@@ -28,20 +28,22 @@ export default function HomePage() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
             Cloud Confidence. Delivered.
           </h1>
-          <p className="text-base sm:text-lg md:text-xl mb-6 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl mb-6 leading-relaxed text-gray-700 dark:text-gray-300">
             Secure, Scalable AWS Services with Justine Tekang — Certified
             DevSecOps & Cloud Automation Expert
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
             <a
               href="#contact"
-              className="bg-blue-600 text-white py-3 px-6 rounded-xl text-lg hover:bg-blue-700 text-center"
+              className="bg-blue-600 text-white py-3 px-6 rounded-xl text-lg hover:bg-blue-700 text-center transition-colors"
             >
               Book a Free Assessment
             </a>
             <a
               href="/brochure.pdf"
-              className="border border-blue-600 text-blue-600 py-3 px-6 rounded-xl text-lg hover:bg-blue-50 text-center"
+              className="border border-blue-600 text-blue-600 py-3 px-6 rounded-xl text-lg hover:bg-blue-50 dark:hover:bg-blue-950/30 text-center transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Download Brochure
             </a>
@@ -53,7 +55,7 @@ export default function HomePage() {
       <AnimatedSection>
         <section
           id="services"
-          className="max-w-5xl mx-auto mb-16 px-2 scroll-mt-24"
+          className="max-w-5xl mx-auto mb-16 px-2 scroll-mt-24 md:scroll-mt-28"
         >
           <h2 className="text-2xl sm:text-3xl font-semibold mb-8 text-center">
             My Services
@@ -81,11 +83,13 @@ export default function HomePage() {
             ].map(({ title, description, price }) => (
               <div
                 key={title}
-                className="p-6 border rounded-2xl shadow hover:shadow-lg"
+                className="p-6 border rounded-2xl shadow hover:shadow-lg transition-shadow bg-white dark:bg-gray-900/80 dark:border-gray-800"
               >
                 <h3 className="text-xl font-semibold mb-2">{title}</h3>
-                <p className="text-sm sm:text-base">{description}</p>
-                <p className="mt-2 font-medium">{price}</p>
+                <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                  {description}
+                </p>
+                <p className="mt-3 font-medium">{price}</p>
               </div>
             ))}
           </div>
@@ -98,9 +102,9 @@ export default function HomePage() {
           <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
             Why Work With Me?
           </h2>
-          <ul className="list-disc list-inside text-left text-sm sm:text-base leading-relaxed">
+          <ul className="list-disc list-inside text-left text-sm sm:text-base leading-relaxed text-gray-700 dark:text-gray-300">
             <li>7+ years in cloud architecture, DevOps, and automation</li>
-            <li>AWS & Microsoft certified</li>
+            <li>AWS &amp; Microsoft certified</li>
             <li>Multilingual support – English, French, Dutch</li>
             <li>Proven success in healthcare, fintech, and e-commerce</li>
           </ul>
@@ -111,7 +115,7 @@ export default function HomePage() {
       <AnimatedSection>
         <section
           id="testimonials"
-          className="max-w-3xl mx-auto px-4 mb-16 scroll-mt-24"
+          className="max-w-3xl mx-auto px-4 mb-16 scroll-mt-24 md:scroll-mt-28"
         >
           <TestimonialSlider />
         </section>
@@ -121,12 +125,12 @@ export default function HomePage() {
       <AnimatedSection>
         <section
           id="certifications"
-          className="max-w-5xl mx-auto text-center px-4 mb-16 scroll-mt-24"
+          className="max-w-5xl mx-auto text-center px-4 mb-16 scroll-mt-24 md:scroll-mt-28"
         >
           <h2 className="text-2xl sm:text-3xl font-semibold mb-6">
-            Certifications & Expertise
+            Certifications &amp; Expertise
           </h2>
-          <p className="text-base sm:text-lg text-gray-700 mb-10">
+          <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 mb-10">
             AWS and Microsoft certifications that back every architecture
             decision and automation pipeline I deliver.
           </p>
@@ -139,7 +143,7 @@ export default function HomePage() {
       <AnimatedSection>
         <section
           id="contact"
-          className="max-w-2xl mx-auto text-center px-2 scroll-mt-24"
+          className="max-w-2xl mx-auto text-center px-2 scroll-mt-24 md:scroll-mt-28"
         >
           <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
             Get In Touch
@@ -149,7 +153,7 @@ export default function HomePage() {
               Email:{" "}
               <a
                 href="mailto:info@jutellane.com"
-                className="text-blue-600 break-all"
+                className="text-blue-600 dark:text-blue-400 break-all hover:underline"
               >
                 info@jutellane.com
               </a>
@@ -159,7 +163,9 @@ export default function HomePage() {
               LinkedIn:{" "}
               <a
                 href="https://www.linkedin.com/in/longlatjustine"
-                className="text-blue-600"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 longlatjustine
               </a>

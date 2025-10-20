@@ -1,20 +1,86 @@
+/* app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom global overrides */
+/* --- Global tweaks --- */
+
+/* Prevent sticky navbar from covering anchor links */
 :root {
-  scroll-padding-top: 5rem; /* Ensures sticky nav doesn’t hide anchor targets */
+  scroll-padding-top: 5rem;
 }
 
-html, body {
-  @apply bg-white text-gray-900 antialiased;
+/* Light/dark hints to UA widgets (e.g. form controls) */
+html {
+  color-scheme: light dark;
+}
+
+/* Better text rendering + default transitions for smooth theme swap */
+html, body, header, nav {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+body {
+  @apply bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* Make sure the navbar and footer spacing works nicely */
+/* Ensure the main area fills the screen minus navbar/footer height */
 main {
-  min-height: calc(100vh - 8rem); /* Adjust depending on Navbar/Footer height */
+  min-height: calc(100vh - 8rem); /* Adjust to your Navbar/Footer height */
 }
+
+/* Accessible link styles for both themes */
+a {
+  @apply underline text-blue-600 hover:text-blue-800
+         dark:text-blue-400 dark:hover:text-blue-200;
+}
+
+/* Consistent focus rings (keyboard friendly) */
+:focus-visible {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-950;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Highlighted text color */
+::selection {
+  background: rgba(37, 99, 235, 0.2); /* blue-600/20 */
+}
+
+/* Optional: subtle scrollbar (WebKit) */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.4); /* slate-500/40 */
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* A convenient container utility matching Tailwind breakpoints */
+.container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: 100%;
+}
+@screen sm { .container { max-width: 640px; } }
+@screen md { .container { max-width: 768px; } }
+@screen lg { .container { max-width: 1024px; } }
+@screen xl { .container { max-width: 1280px; } }
+@screen 2xl { .container { max-width: 1536px; } }
