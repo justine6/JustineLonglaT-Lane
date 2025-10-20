@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "secure-scale-aws-foundations",
+    "title": "Secure & Scale: AWS Landing Zone Foundations",
+    "summary": "A practical blueprint for bootstrapping AWS with guardrails, IaC and multi-account structure.",
+    "date": "2025-01-18",
+    "tags": ["AWS", "Landing Zone", "Security"],
+    "cover": "/images/aws.png" 
+  },
+  {
+    "slug": "devsecops-pipelines-that-stick",
+    "title": "DevSecOps Pipelines That Teams Actually Use",
+    "summary": "Patterns for merging compliance with speed: SBOM, SAST/DAST, supply chain, and developer UX.",
+    "date": "2025-01-05",
+    "tags": ["DevSecOps", "CI/CD"],
+    "cover": "/images/azure.png"
+  },
+  {
+    "slug": "cost-ops-for-startups",
+    "title": "CostOps for Startups: Visibility, Budgets, and Guardrails",
+    "summary": "How to design cost feedback loops that prevent surprise bills without slowing delivery.",
+    "date": "2024-12-12",
+    "tags": ["FinOps", "Observability"],
+    "cover": "/images/gcp.png"
+  }
+]
