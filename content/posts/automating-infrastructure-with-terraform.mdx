@@ -1,0 +1,18 @@
+export const meta = {
+  slug: "automating-infrastructure-with-terraform",
+  title: "Automating Infrastructure with Terraform",
+  summary: "Patterns for IaC in multi-account AWS environments.",
+  date: "2025-09-28",
+  cover: "/images/azure.png",
+  tags: ["IaC", "Automation", "Terraform"]
+};
+
+# Automating Infrastructure with Terraform
+
+## Patterns
+- **Workspaces per env** (dev/stage/prod).
+- **Modules** for DRY resources (VPC, ECS/EKS, RDS).
+- **Pipelines** with plan/apply gates and OPA policy checks.
+
+## State & Security
+- Remote state in S3 + DynamoDB lock; least-privilege IAM roles.
