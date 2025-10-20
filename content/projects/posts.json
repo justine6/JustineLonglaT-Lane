@@ -3,7 +3,7 @@
     "slug": "cloud-migration-best-practices",
     "title": "Cloud Migration Best Practices",
     "summary": "A guide on designing secure, cost-effective, and scalable AWS migration strategies.",
-    "cover": "/images/aws-migration.jpg",
+    "cover": "/images/aws.png",
     "date": "2025-10-15",
     "tags": ["AWS", "Migration", "DevSecOps"]
   },
@@ -11,7 +11,7 @@
     "slug": "automating-infrastructure-with-terraform",
     "title": "Automating Infrastructure with Terraform",
     "summary": "Key patterns for implementing Infrastructure as Code (IaC) using Terraform in multi-cloud environments.",
-    "cover": "/images/terraform-automation.jpg",
+    "cover": "/images/azure.png",
     "date": "2025-09-28",
     "tags": ["IaC", "Automation", "Terraform"]
   },
@@ -19,8 +19,9 @@
     "slug": "devsecops-pipeline-architecture",
     "title": "Building a DevSecOps Pipeline Architecture",
     "summary": "How to integrate security into CI/CD using GitHub Actions, AWS CodeBuild, and open-source scanning tools.",
-    "cover": "/images/devsecops-pipeline.jpg",
+    "cover": "/images/gcp.png",
     "date": "2025-08-22",
     "tags": ["DevSecOps", "CI/CD", "Security"]
   }
 ]
+

@@ -7,6 +7,7 @@ import HeroSection from '@/components/HeroSection';
 import Footer from '@/components/Footer';
 import BackToTopButton from '@/components/BackToTopButton';
 import ThemeProvider from '@/components/ThemeProvider';
+import HomeHero from '@/components/HomeHero';
 
 // ✅ Google Font
 const inter = Inter({ subsets: ['latin'] });
@@ -62,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* ✅ Theme context for next-themes */}
         <ThemeProvider>
           <Topbar />
-          <HeroSection />
+          <HomeHero />
           {children}
           <Footer />
           <BackToTopButton />
@@ -71,3 +72,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
+
+
+
+
+

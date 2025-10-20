@@ -1,0 +1,98 @@
+name: Sweep Orphaned Previews (Vercel)
+
+on:
+  schedule:
+    - cron: "20 2 * * *"   # daily at 02:20 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      MAX_AGE_DAYS: "7"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate required secrets
+        run: |
+          miss=0
+          for k in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
+            if [ -z "${!k}" ]; then echo "❌ Missing secret: $k"; miss=1; fi
+          done
+          [ "$miss" -eq 0 ] || { echo "Add missing secrets in repo settings"; exit 0; }
+
+      - name: Fetch Vercel deployments (JSON)
+        id: list
+        run: |
+          npx vercel list --json --token="$VERCEL_TOKEN" > deployments.json
+          echo "wrote deployments.json"
+          jq '. | length' deployments.json || true
+
+      - name: Sweep “orphaned” previews
+        uses: actions/github-script@v7
+        env:
+          MAX_AGE_DAYS: ${{ env.MAX_AGE_DAYS }}
+          VERCEL_TOKEN: ${{ env.VERCEL_TOKEN }}
+        with:
+          script: |
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+
+            const MAX_AGE_MS = Number(process.env.MAX_AGE_DAYS || '7') * 24 * 60 * 60 * 1000;
+            const now = Date.now();
+
+            const raw = fs.readFileSync('deployments.json', 'utf8');
+            const list = JSON.parse(raw);
+
+            // Vercel returns latest-first. Keep only non-production previews for this project.
+            const previews = list.filter(d =>
+              d.target !== 'production' &&             // ignore prod
+              (d.state === 'READY' || d.state === 'ERROR' || d.state === 'BUILDING' || d.state === 'QUEUED')
+            );
+
+            core.info(`Found ${previews.length} non-prod deployments`);
+
+            const toRemove = [];
+
+            for (const d of previews) {
+              const url = `https://${d.url}`;
+              const created = new Date(d.createdAt || d.createdAtTs || d.created || d.ready || d.createdAtMs || d.created_at).getTime();
+
+              // PR metadata varies; check common fields
+              const prId = d.meta?.githubPrId || d.meta?.githubPr || d.meta?.githubPrNumber || null;
+              let prOpen = false;
+
+              if (prId) {
+                try {
+                  const { owner, repo } = context.repo;
+                  const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number: Number(prId) });
+                  prOpen = pr.state === 'open';
+                } catch (e) {
+                  // If we can't find the PR, assume it's closed/merged
+                  prOpen = false;
+                }
+              }
+
+              const tooOld = isFinite(created) && (now - created > MAX_AGE_MS);
+
+              if (!prOpen && (prId || tooOld)) {
+                toRemove.push(url);
+              }
+            }
+
+            core.info(`Will remove ${toRemove.length} orphaned preview(s).`);
+            for (const url of toRemove) {
+              core.info(`Removing ${url}`);
+              try {
+                execSync(`npx vercel rm "${url}" --yes --safe --token="${process.env.VERCEL_TOKEN}"`, { stdio: 'inherit' });
+              } catch (e) {
+                core.warning(`Failed to remove ${url}: ${e.message}`);
+              }
+            }
