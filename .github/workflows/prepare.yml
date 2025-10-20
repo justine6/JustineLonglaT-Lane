@@ -9,21 +9,24 @@ on:
         type: choice
         default: auto
         options: [auto, patch, minor, major]
-  # Optional: create a PR automatically on weekdays at 07:00 UTC
-  schedule:
-    - cron: "0 7 * * 1-5"
+
+  # OPTIONAL: disable or make weekly if daily is too chatty
+  # schedule:
+  #   - cron: "0 7 * * 1"   # Mondays 07:00 UTC
 
 permissions:
-  contents: write        # commit/push the changelog branch
-  pull-requests: write   # open the PR
+  contents: write
+  pull-requests: write
   actions: read
 
 concurrency:
-  group: prepare-changelog-${{ github.ref }}
+  group: prepare-changelog
   cancel-in-progress: false
 
 jobs:
   prepare:
+    # Don't run on forks
+    if: github.repository_owner == 'justine6'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -57,11 +60,23 @@ jobs:
           "FORCE_LAST_SEMVER=$last" | Out-File -FilePath $env:GITHUB_ENV -Append
           Write-Host "FORCE_LAST_SEMVER ..: $last"
 
-      - name: Ensure helpful labels exist (one-time no-op if present)
+      - name: Ensure helpful labels exist (no-op if present)
         run: |
           gh label create release --color FFD700 --description "Release automation" 2>$null || $true
           gh label create chore   --color 2F4F4F --description "Chore / infra"       2>$null || $true
 
+      - name: Skip if a release PR is already open
+        id: has_pr
+        run: |
+          $existing = gh pr list --state open --label release --json number | ConvertFrom-Json
+          if ($existing -and $existing.Count -gt 0) {
+            "skip=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+            Write-Host "Found existing release PR(s). Skipping prepare."
+          } else {
+            "skip=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          }
+
       - name: Prepare changelog PR
+        if: steps.has_pr.outputs.skip != 'true'
         run: |
           ./Cut-Release.ps1 -Stage prepare -Bump ${{ steps.decide.outputs.bump }} -Yes
