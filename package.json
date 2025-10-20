@@ -10,11 +10,13 @@
     "clean": "powershell -Command \"if (Test-Path .nuxt) { Remove-Item -Recurse -Force .nuxt }; if (Test-Path .next) { Remove-Item -Recurse -Force .next }; if (Test-Path node_modules) { Remove-Item -Recurse -Force node_modules }; if (Test-Path package-lock.json) { Remove-Item -Force package-lock.json }\" && npm install"
   },
   "devDependencies": {
+    "@next/mdx": "^15.5.6",
     "@types/node": "^20.11.30",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
+    "remark-gfm": "^4.0.1",
     "tailwindcss": "^3.4.18",
     "typescript": "5.9.3"
   },
