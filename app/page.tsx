@@ -1,6 +1,8 @@
-import HomeLogoBanner from "@/components/HomeLogoBanner";
 import Image from "next/image";
+import Link from "next/link";
+
 import AnimatedSection from "@/components/AnimatedSection";
+import HomeLogoBanner from "@/components/HomeLogoBanner";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import CertificationsGrid from "@/components/CertificationsGrid";
 import PublicationsGrid, { type Post } from "@/components/PublicationsGrid";
@@ -8,31 +10,30 @@ import postsData from "@/content/projects/posts.json";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen px-4 sm:px-6 py-8 sm:py-10 pt-20 md:pt-24 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
-
+    <main className="min-h-screen bg-white px-4 py-8 pt-20 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10 md:pt-24">
       {/* ✅ Banner hero */}
       <HomeLogoBanner />
 
       {/* 🔷 Header Section */}
       <AnimatedSection>
-        <section className="max-w-5xl mx-auto text-center px-2">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
+        <section className="mx-auto max-w-5xl px-2 text-center">
+          <h1 className="mb-4 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
             Cloud Confidence. Delivered.
           </h1>
-          <p className="text-base sm:text-lg md:text-xl mb-6 leading-relaxed text-gray-700 dark:text-gray-300">
+          <p className="mb-6 text-base leading-relaxed text-gray-700 dark:text-gray-300 sm:text-lg md:text-xl">
             Secure, Scalable AWS Services with Justine Tekang — Certified
             DevSecOps &amp; Cloud Automation Expert
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
-            <a
+          <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
+            <Link
               href="/?reason=request-resume#contact"
-              className="inline-flex items-center justify-center border border-blue-600 text-blue-600 px-5 py-2.5 rounded-xl hover:bg-blue-50"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-blue-600 hover:bg-blue-50"
             >
               View Résumé
-            </a>
+            </Link>
             <a
               href="/brochure.pdf"
-              className="border border-blue-600 text-blue-600 py-3 px-6 rounded-xl text-lg hover:bg-blue-50 dark:hover:bg-blue-950/30 text-center transition-colors"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-6 py-3 text-lg text-blue-600 transition-colors hover:bg-blue-50 dark:hover:bg-blue-950/30"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -44,15 +45,15 @@ export default function HomePage() {
 
       {/* 🔷 BIG Logo Showcase (card, centered) */}
       <section className="flex justify-center py-10">
-        <div className="w-full max-w-5xl rounded-2xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-black/5 dark:ring-white/10">
-          <div className="p-4 sm:p-6 md:p-8 flex items-center justify-center">
+        <div className="w-full max-w-5xl rounded-2xl bg-white shadow-xl ring-1 ring-black/5 dark:bg-gray-900 dark:ring-white/10">
+          <div className="flex items-center justify-center p-4 sm:p-6 md:p-8">
             <Image
               src="/brand/justine-logo.png"
               alt="Justine Longla T. — DevSecOps · Cloud · Sustainability"
               width={1400}
               height={980}
               priority
-              className="w-full h-auto rounded-xl"
+              className="h-auto w-full rounded-xl"
             />
           </div>
         </div>
@@ -60,33 +61,52 @@ export default function HomePage() {
 
       {/* 🔷 Services Section */}
       <AnimatedSection>
-        <section id="services" className="max-w-5xl mx-auto mb-16 px-2 scroll-mt-24 md:scroll-mt-28">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-8 text-center">My Services</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+        <section
+          id="services"
+          className="mx-auto mb-16 max-w-5xl px-2 scroll-mt-24 md:scroll-mt-28"
+        >
+          <h2 className="mb-8 text-center text-2xl font-semibold sm:text-3xl">
+            My Services
+          </h2>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 md:grid-cols-3">
             {[
               {
                 title: "Launch & Migrate",
-                description: "Secure AWS starter migration services for startups and small businesses.",
-                price: "From $3,500",
+                description:
+                  "Secure AWS starter migration services for startups and small businesses.",
               },
               {
                 title: "Secure & Scale",
-                description: "DevSecOps pipelines, automation, and compliance for growing teams.",
-                price: "$8,000 – $12,000",
+                description:
+                  "DevSecOps pipelines, automation, and compliance for growing teams.",
               },
               {
                 title: "Operate & Optimize",
-                description: "Managed AWS services, cost audits, and 24/7 monitoring.",
-                price: "Starting at $1,250/month",
+                description:
+                  "Managed AWS services, cost audits, and 24/7 monitoring.",
               },
-            ].map(({ title, description, price }) => (
+            ].map(({ title, description }) => (
               <div
                 key={title}
-                className="p-6 border rounded-2xl shadow hover:shadow-lg transition-shadow bg-white dark:bg-gray-900/80 dark:border-gray-800"
+                className="rounded-2xl border bg-white p-6 shadow transition-shadow hover:shadow-lg dark:border-gray-800 dark:bg-gray-900/80 flex flex-col justify-between"
               >
-                <h3 className="text-xl font-semibold mb-2">{title}</h3>
-                <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">{description}</p>
-                <p className="mt-3 font-medium">{price}</p>
+                <div>
+                  <h3 className="mb-2 text-xl font-semibold">{title}</h3>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 sm:text-base">
+                    {description}
+                  </p>
+                  <p className="mt-3 font-medium text-indigo-600 dark:text-indigo-400">
+                    Contact for a custom quote
+                  </p>
+                </div>
+                <div className="mt-5">
+                  <a
+                    href="/contact"
+                    className="inline-flex w-full items-center justify-center rounded-xl border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-colors"
+                  >
+                    Get a Quote
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -95,10 +115,12 @@ export default function HomePage() {
 
       {/* 💡 Why Work With Me */}
       <AnimatedSection>
-        <section className="max-w-5xl mx-auto px-4 md:px-6 my-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-6 text-center">Why Work With Me?</h2>
+        <section className="mx-auto my-10 max-w-5xl px-4 md:px-6">
+          <h2 className="mb-6 text-center text-2xl font-semibold sm:text-3xl">
+            Why Work With Me?
+          </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-[220px,1fr] items-center gap-8 md:gap-10">
+          <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[220px,1fr] md:gap-10">
             {/* Photo */}
             <div className="justify-self-center md:justify-self-start">
               <Image
@@ -107,33 +129,34 @@ export default function HomePage() {
                 width={220}
                 height={220}
                 priority
-                className="rounded-full border-4 border-gray-200 dark:border-gray-700 object-cover shadow-md hover:scale-105 transition-transform duration-300"
+                className="rounded-full border-4 border-gray-200 object-cover shadow-md transition-transform duration-300 hover:scale-105 dark:border-gray-700"
               />
             </div>
 
             {/* Copy */}
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400 italic mb-2">
-                “Secure, scalable, and sustainable cloud solutions that move your business forward.”
+              <p className="mb-2 text-sm italic text-gray-600 dark:text-gray-400">
+                “Secure, scalable, and sustainable cloud solutions that move your
+                business forward.”
               </p>
 
-              <ul className="list-disc list-inside text-sm sm:text-base leading-relaxed text-gray-700 dark:text-gray-300 space-y-1">
+              <ul className="list-inside list-disc space-y-1 text-sm leading-relaxed text-gray-700 dark:text-gray-300 sm:text-base">
                 <li>7+ years in Cloud Architecture, DevOps, and automation</li>
                 <li>AWS &amp; Microsoft certified</li>
                 <li>Multilingual — English, French, Dutch</li>
                 <li>Proven results in healthcare, fintech, and e-commerce</li>
               </ul>
 
-              <div className="mt-5 flex flex-col sm:flex-row gap-3">
-                <a
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                <Link
                   href="#contact"
-                  className="inline-flex items-center justify-center border border-blue-600 text-blue-600 px-5 py-2.5 rounded-xl hover:bg-blue-50"
+                  className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-blue-600 hover:bg-blue-50"
                 >
                   Contact
-                </a>
+                </Link>
                 <a
                   href="/justine-longla-resume.pdf"
-                  className="inline-flex items-center justify-center border border-blue-600 text-blue-600 px-5 py-2.5 rounded-xl hover:bg-blue-50"
+                  className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-blue-600 hover:bg-blue-50"
                 >
                   View Résumé
                 </a>
@@ -145,51 +168,66 @@ export default function HomePage() {
 
       {/* 🔷 Latest Publications */}
       <AnimatedSection>
-        <section className="max-w-6xl mx-auto px-4 md:px-6 mb-16 scroll-mt-24" id="publications">
+        <section
+          id="publications"
+          className="mx-auto mb-16 max-w-6xl px-4 md:px-6 scroll-mt-24"
+        >
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-semibold">Latest Publications</h2>
+              <h2 className="text-2xl font-semibold sm:text-3xl">
+                Latest Publications
+              </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Practical guides, patterns, and field notes from real engagements.
+                Practical guides, patterns, and field notes from real
+                engagements.
               </p>
             </div>
             <div className="hidden sm:block">
-              <a
+              <Link
                 href="/posts"
-                className="inline-flex items-center rounded-xl border border-blue-600 text-blue-600 px-4 py-2 hover:bg-blue-50 dark:hover:bg-blue-950/20"
+                className="inline-flex items-center rounded-xl border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
               >
                 View all
-              </a>
+              </Link>
             </div>
           </div>
 
           <PublicationsGrid posts={postsData as Post[]} limit={6} />
 
           {/* Mobile CTA */}
-          <div className="sm:hidden mt-6">
-            <a
+          <div className="mt-6 sm:hidden">
+            <Link
               href="/posts"
-              className="block w-full text-center rounded-xl border border-blue-600 text-blue-600 px-4 py-2 hover:bg-blue-50 dark:hover:bg-blue-950/20"
+              className="block w-full rounded-xl border border-blue-600 px-4 py-2 text-center text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
             >
               View all
-            </a>
+            </Link>
           </div>
         </section>
       </AnimatedSection>
 
       {/* 🔷 Testimonials */}
       <AnimatedSection>
-        <section id="testimonials" className="max-w-3xl mx-auto px-4 mb-16 scroll-mt-24 md:scroll-mt-28">
+        <section
+          id="testimonials"
+          className="mx-auto mb-16 max-w-3xl px-4 scroll-mt-24 md:scroll-mt-28"
+        >
           <TestimonialSlider />
         </section>
       </AnimatedSection>
 
       {/* 🔷 Certifications & Expertise */}
       <AnimatedSection>
-        <section id="certifications" className="max-w-5xl mx-auto text-center px-4 mb-16 scroll-mt-24 md:scroll-mt-28">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-6">Certifications &amp; Expertise</h2>
-          <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 mb-10">
-            AWS and Microsoft certifications that back every architecture decision and automation pipeline I deliver.
+        <section
+          id="certifications"
+          className="mx-auto mb-16 max-w-5xl px-4 text-center scroll-mt-24 md:scroll-mt-28"
+        >
+          <h2 className="mb-6 text-2xl font-semibold sm:text-3xl">
+            Certifications &amp; Expertise
+          </h2>
+          <p className="mb-10 text-base text-gray-700 dark:text-gray-300 sm:text-lg">
+            AWS and Microsoft certifications that back every architecture
+            decision and automation pipeline I deliver.
           </p>
           <CertificationsGrid />
         </section>
@@ -197,12 +235,18 @@ export default function HomePage() {
 
       {/* 🔷 Contact */}
       <AnimatedSection>
-        <section id="contact" className="max-w-2xl mx-auto text-center px-2 scroll-mt-24 md:scroll-mt-28">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-4">Get In Touch</h2>
+        <section
+          id="contact"
+          className="mx-auto max-w-2xl px-2 text-center scroll-mt-24 md:scroll-mt-28"
+        >
+          <h2 className="mb-4 text-2xl font-semibold sm:text-3xl">Get In Touch</h2>
           <div className="space-y-2 text-sm sm:text-base">
             <p>
               Email:{" "}
-              <a href="mailto:info@jutellane.com" className="text-blue-600 dark:text-blue-400 break-all hover:underline">
+              <a
+                href="mailto:info@jutellane.com"
+                className="break-all text-blue-600 hover:underline dark:text-blue-400"
+              >
                 info@jutellane.com
               </a>
             </p>
@@ -211,7 +255,7 @@ export default function HomePage() {
               LinkedIn:{" "}
               <a
                 href="https://www.linkedin.com/in/longlatjustine"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
+                className="text-blue-600 hover:underline dark:text-blue-400"
                 target="_blank"
                 rel="noopener noreferrer"
               >
