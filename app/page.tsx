@@ -2,11 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import AnimatedSection from "@/components/AnimatedSection";
-import HomeLogoBanner from "@/components/HomeLogoBanner";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import CertificationsGrid from "@/components/CertificationsGrid";
 import PublicationsGrid, { type Post } from "@/components/PublicationsGrid";
 import postsData from "@/content/projects/posts.json";
+
+// ✅ Client-only wrapper for the banner (no next/dynamic here)
+import HomeLogoBanner from "@/components/HomeLogoBanner.client";
 
 export default function HomePage() {
   return (
@@ -33,9 +35,9 @@ export default function HomePage() {
             </Link>
             <a
               href="/brochure.pdf"
-              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-6 py-3 text-lg text-blue-600 transition-colors hover:bg-blue-50 dark:hover:bg-blue-950/30"
               target="_blank"
               rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-6 py-3 text-lg text-blue-600 transition-colors hover:bg-blue-50 dark:hover:bg-blue-950/30"
             >
               Download Brochure
             </a>
