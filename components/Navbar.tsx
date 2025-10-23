@@ -5,7 +5,6 @@ import { useState } from 'react';
 import Scrollspy from 'react-scrollspy';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
-// components/Navbar.tsx
 import ThemeToggle from './ThemeToggle';
 
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
@@ -14,6 +13,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
   // Scroll-driven opacity + shadow
   const { scrollY } = useScroll();
@@ -29,6 +29,7 @@ export default function Navbar() {
         className="pointer-events-none absolute inset-0 bg-white dark:bg-gray-900 backdrop-blur-md"
         style={{ opacity: bgOpacity }}
       />
+
       {/* Shadow container (toggles when scrolled) */}
       <div className={`relative ${scrolled ? 'shadow-sm' : 'shadow-none'}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -68,8 +69,24 @@ export default function Navbar() {
 
             {/* Theme toggle */}
             <ThemeToggle />
-            <a href="/resume" className="hover:underline">Resume</a>
-\ \ <a\ href="/resume"\ className="hover:underline\ ml-4">Resume</a>\r\n\ \ <a\ href="/docs/Justine_Tekang_Jutellane_Solutions_Resume\.pdf"\ download\ className="hover:underline\ ml-4">Download\ Resume</a>\r\n</nav>
+
+            {/* Resume (internal) */}
+            <Link
+              href="/resume"
+              className="hover:underline ml-4 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+            >
+              Resume
+            </Link>
+
+            {/* Download Resume (direct PDF) */}
+            <a
+              href="/docs/Justine_Tekang_Jutellane_Solutions_Resume.pdf"
+              download
+              className="hover:underline ml-2 text-blue-600 dark:text-blue-400"
+            >
+              Download&nbsp;Resume
+            </a>
+          </nav>
 
           {/* Mobile Menu Button */}
           <button
@@ -93,36 +110,51 @@ export default function Navbar() {
             >
               <a
                 href="#services"
-                onClick={toggleMenu}
+                onClick={closeMenu}
                 className="text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400"
               >
                 Services
               </a>
               <a
                 href="#testimonials"
-                onClick={toggleMenu}
+                onClick={closeMenu}
                 className="text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400"
               >
                 Testimonials
               </a>
               <a
                 href="#contact"
-                onClick={toggleMenu}
+                onClick={closeMenu}
                 className="text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400"
               >
                 Contact
               </a>
             </Scrollspy>
 
-            <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+            <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4 flex items-center justify-between">
               <ThemeToggle />
+
+              <div className="flex items-center space-x-4">
+                <Link
+                  href="/resume"
+                  onClick={closeMenu}
+                  className="hover:underline text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+                >
+                  Resume
+                </Link>
+                <a
+                  href="/docs/Justine_Tekang_Jutellane_Solutions_Resume.pdf"
+                  download
+                  onClick={closeMenu}
+                  className="hover:underline text-blue-600 dark:text-blue-400"
+                >
+                  Download
+                </a>
+              </div>
             </div>
-            <a href="/resume" className="hover:underline">Resume</a>
-\ \ <a\ href="/resume"\ className="hover:underline\ ml-4">Resume</a>\r\n\ \ <a\ href="/docs/Justine_Tekang_Jutellane_Solutions_Resume\.pdf"\ download\ className="hover:underline\ ml-4">Download\ Resume</a>\r\n</nav>
+          </nav>
         )}
       </div>
     </header>
   );
 }
-
-
