@@ -1,0 +1,277 @@
+**********************
+PowerShell transcript start
+Start time: 20251021140037
+Username: JUSTINE\justi
+RunAs User: JUSTINE\justi
+Configuration Name: 
+Machine: JUSTINE (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\Program Files\WindowsApps\Microsoft.PowerShell_7.5.4.0_x64__8wekyb3d8bbwe\pwsh.dll -noexit -command try { . "c:\Users\justi\AppData\Local\Programs\Microsoft VS Code\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 41908
+PSVersion: 7.5.4
+PSEdition: Core
+GitCommitId: 7.5.4
+OS: Microsoft Windows 10.0.26100
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+]633;D]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>param(
+    [Parameter(Mandatory = $false)]
+    [string]$To = "yourpersonalemail@gmail.com",
+
+At line:3 char:49
++     [string]$To = "yourpersonalemail@gmail.com",
++                                                 ~
+Missing expression after ','.
+
+At line:3 char:48
++     [string]$To = "yourpersonalemail@gmail.com",
++                                                ~
+Missing ')' in function parameter list.
+ParserError: 
+Line |
+   3 |      [string]$To = "yourpersonalemail@gmail.com",
+     |                                                  ~
+     | Missing expression after ','.
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>    [Parameter(Mandatory = $false)]
+    [string]$ApiKey  # If not supplied, we'll use $env:RESEND_API_KEY
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>)
+At line:1 char:1
++ )
++ ~
+Unexpected token ')' in expression or statement.
+ParserError: 
+Line |
+   1 |  )
+     |  ~
+     | Unexpected token ')' in expression or statement.
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+]633;D]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>if (-not $ApiKey) { $ApiKey = $env:RESEND_API_KEY }
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+]633;D]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>if ([string]::IsNullOrWhiteSpace($ApiKey)) {
+    Write-Error "RESEND API key missing. Pass -ApiKey or set \$env:RESEND_API_KEY."
+}
+>> TerminatingError(): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: RESEND API key missing. Pass -ApiKey or set \."
+>> TerminatingError(): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: RESEND API key missing. Pass -ApiKey or set \."
+The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: RESEND API key missing. Pass -ApiKey or set \.
+Write-Error: 
+Line |
+   2 |      Write-Error "RESEND API key missing. Pass -ApiKey or set \$env:RE …
+     |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | RESEND API key missing. Pass -ApiKey or set \.
+]633;D;1]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+]633;D]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>Write-Host "Using recipient: $To" -ForegroundColor Cyan
+Using recipient:
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>Write-Host "Sending with Resend…" -ForegroundColor Yellow
+Sending with Resend…
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+]633;D]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS># Build request
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>$headers = @{
+  "Authorization" = "Bearer $ApiKey"
+  "Content-Type"  = "application/json"
+}
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+]633;D]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>$body = @{
+  from    = "info@jutellane.com"
+  to      = $To
+  subject = "Test Email from Jutellane via Resend"
+  html    = "<h3>Hello Justine!</h3><p>Your domain-based email via Resend is fully verified and operational 🎉</p>"
+} | ConvertTo-Json
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+]633;D]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS># Send
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>$response = Invoke-RestMethod `
+  -Uri "https://api.resend.com/emails" `
+  -Method Post `
+  -Headers $headers `
+  -Body $body
+>> TerminatingError(Invoke-RestMethod): "
+{
+  "statusCode": 401,
+  "name": "validation_error",
+  "message": "API key is invalid"
+}"
+>> TerminatingError(Invoke-RestMethod): "
+{
+  "statusCode": 401,
+  "name": "validation_error",
+  "message": "API key is invalid"
+}"
+
+{
+  "statusCode": 401,
+  "name": "validation_error",
+  "message": "API key is invalid"
+}
+Invoke-RestMethod: 
+{
+  "statusCode": 401,
+  "name": "validation_error",
+  "message": "API key is invalid"
+}
+]633;D;1]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+]633;D]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>Write-Host "`nResend ID:" $response.id -ForegroundColor Green
+
+Resend ID:
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+]633;D]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+PS>} catch {
+    Write-Host "`nERROR:" $_.Exception.Message -ForegroundColor Red
+    if ($_.ErrorDetails.Message) { Write-Host $_.ErrorDetails.Message -ForegroundColor DarkRed }
+    Write-Host "See transcript: $logPath" -ForegroundColor DarkYellow
+} finally {
+    try { Stop-Transcript | Out-Null } catch {}
+    Read-Host "`nDone. Press Enter to close"
+}
+At line:1 char:1
++ } catch {
++ ~
+Unexpected token '}' in expression or statement.
+
+At line:5 char:3
++ } finally {
++   ~~~~~~~
+Unexpected token 'finally' in expression or statement.
+ParserError: 
+Line |
+   1 |  } catch {
+     |  ~
+     | Unexpected token '}' in expression or statement.
+
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cjusti\x5cDownloads\x5cjutellane-Main\x5cjutellane-MainPS C:\Users\justi\Downloads\jutellane-Main\jutellane-Main> ]633;B
+**********************
+PowerShell transcript end
+End time: 20251021140417
+**********************
+**********************
+PowerShell transcript start
+Start time: 20251021141858
+Username: JUSTINE\justi
+RunAs User: JUSTINE\justi
+Configuration Name: 
+Machine: JUSTINE (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\Program Files\WindowsApps\Microsoft.PowerShell_7.5.4.0_x64__8wekyb3d8bbwe\pwsh.dll -NoLogo -NoExit -File .\Send-JutellaneProjectsTestEmail.ps1 -To yourpersonalemail@gmail.com -ApiKey re_SkSb2cbR_F2n6UZo5Q55mUYvgig1CSe8h
+Process ID: 32140
+PSVersion: 7.5.4
+PSEdition: Core
+GitCommitId: 7.5.4
+OS: Microsoft Windows 10.0.26100
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+PS>TerminatingError(): "The term 'param' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again."
+The term 'param' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+param: C:\Users\justi\Downloads\jutellane-Main\jutellane-Main\Send-JutellaneProjectsTestEmail.ps1:10:1
+Line |
+  10 |  param(
+     |  ~~~~~
+     | The term 'param' is not recognized as a name of a cmdlet, function, script file, or executable program. Check the spelling of the name, or if a path
+     | was included, verify that the path is correct and try again.
+
+**********************
+PowerShell transcript end
+End time: 20251021141928
+**********************
+**********************
+PowerShell transcript start
+Start time: 20251021142417
+Username: JUSTINE\justi
+RunAs User: JUSTINE\justi
+Configuration Name: 
+Machine: JUSTINE (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\Program Files\WindowsApps\Microsoft.PowerShell_7.5.4.0_x64__8wekyb3d8bbwe\pwsh.dll -NoLogo -NoExit -File .\Send-JutellaneProjectsTestEmail.ps1 -To yourpersonalemail@gmail.com -ApiKey re_XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Process ID: 17432
+PSVersion: 7.5.4
+PSEdition: Core
+GitCommitId: 7.5.4
+OS: Microsoft Windows 10.0.26100
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Using recipient: yourpersonalemail@gmail.com
+Sending with Resend…
+PS>TerminatingError(Invoke-RestMethod): "
+{
+  "statusCode": 401,
+  "name": "validation_error",
+  "message": "API key is invalid"
+}"
+
+ERROR: Response status code does not indicate success: 401 (Unauthorized).
+
+{
+  "statusCode": 401,
+  "name": "validation_error",
+  "message": "API key is invalid"
+}
+See transcript: C:\Users\justi\Downloads\jutellane-Main\jutellane-Main\Send-JutellaneProjectsTestEmail.log
+**********************
+PowerShell transcript end
+End time: 20251021142417
+**********************
+**********************
+PowerShell transcript start
+Start time: 20251021143205
+Username: JUSTINE\justi
+RunAs User: JUSTINE\justi
+Configuration Name: 
+Machine: JUSTINE (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\Program Files\WindowsApps\Microsoft.PowerShell_7.5.4.0_x64__8wekyb3d8bbwe\pwsh.dll -NoLogo -NoExit -File .\Send-JutellaneProjectsTestEmail.ps1 -To yourpersonalemail@gmail.com -ApiKey re_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Process ID: 38048
+PSVersion: 7.5.4
+PSEdition: Core
+GitCommitId: 7.5.4
+OS: Microsoft Windows 10.0.26100
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Using recipient: yourpersonalemail@gmail.com
+Sending with Resend…
+PS>TerminatingError(Invoke-RestMethod): "
+{
+  "statusCode": 401,
+  "name": "validation_error",
+  "message": "API key is invalid"
+}"
+
+ERROR: Response status code does not indicate success: 401 (Unauthorized).
+
+{
+  "statusCode": 401,
+  "name": "validation_error",
+  "message": "API key is invalid"
+}
+See transcript: C:\Users\justi\Downloads\jutellane-Main\jutellane-Main\Send-JutellaneProjectsTestEmail.log
+**********************
+PowerShell transcript end
+End time: 20251021143206
+**********************
