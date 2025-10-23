@@ -68,7 +68,8 @@ export default function Navbar() {
 
             {/* Theme toggle */}
             <ThemeToggle />
-          </nav>
+            <a href="/resume" className="hover:underline">Resume</a>
+</nav>
 
           {/* Mobile Menu Button */}
           <button
@@ -116,9 +117,11 @@ export default function Navbar() {
             <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
               <ThemeToggle />
             </div>
-          </nav>
+            <a href="/resume" className="hover:underline">Resume</a>
+</nav>
         )}
       </div>
     </header>
   );
 }
+
