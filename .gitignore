@@ -53,3 +53,7 @@ next-env.d.ts
 .nuxt
 
 .vercel
+
+# editor backups
+*.bak
+

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # 🧩 Jutellane Solutions CI/CD & Documentation Status
 
 ![Prepare Workflow](https://github.com/justine6/Jutellane-Solutions/actions/workflows/prepare.yml/badge.svg)
@@ -74,3 +75,14 @@ Use this when you’ve merged new changes into `main` and want to generate a cha
 
 ```powershell
 pwsh -File .\Cut-Release.ps1 -Stage prepare -Bump auto -Yes
+=======
+## 🚀 Release Workflow
+
+This repo uses **Conventional Commits** + an automated **Cut-Release** script.
+
+### Quick Start
+1. Ensure you’re authenticated with GitHub CLI (`gh auth status`).
+2. Generate/update the changelog and open a PR:
+   ```powershell
+   .\Cut-Release.ps1 -Stage prepare   # auto-creates chore/changelog-YYYYMMDD-HHmm + PR
+>>>>>>> Stashed changes
