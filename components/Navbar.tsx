@@ -69,7 +69,7 @@ export default function Navbar() {
             {/* Theme toggle */}
             <ThemeToggle />
             <a href="/resume" className="hover:underline">Resume</a>
-</nav>
+\ \ <a\ href="/resume"\ className="hover:underline\ ml-4">Resume</a>\r\n\ \ <a\ href="/docs/Justine_Tekang_Jutellane_Solutions_Resume\.pdf"\ download\ className="hover:underline\ ml-4">Download\ Resume</a>\r\n</nav>
 
           {/* Mobile Menu Button */}
           <button
@@ -118,10 +118,11 @@ export default function Navbar() {
               <ThemeToggle />
             </div>
             <a href="/resume" className="hover:underline">Resume</a>
-</nav>
+\ \ <a\ href="/resume"\ className="hover:underline\ ml-4">Resume</a>\r\n\ \ <a\ href="/docs/Justine_Tekang_Jutellane_Solutions_Resume\.pdf"\ download\ className="hover:underline\ ml-4">Download\ Resume</a>\r\n</nav>
         )}
       </div>
     </header>
   );
 }
+
 
