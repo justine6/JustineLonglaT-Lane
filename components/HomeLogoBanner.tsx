@@ -1,22 +1,17 @@
 "use client";
 
-import Image from "next/image";
-
 export default function HomeLogoBanner() {
   return (
-    <div className="w-full bg-gradient-to-b from-blue-600 to-blue-800 mb-12">
-      <div className="max-w-6xl mx-auto px-4">
-        <Image
-          src="/brand/justine-banner.png"
-          alt="Justine Longla — Solutions Architect & DevSecOps Engineer"
-          width={1280}
-          height={640}
-          priority
-          className="w-full h-auto rounded-xl shadow-lg transition-transform duration-500 hover:scale-[1.02]"
-        />
+    <section className="mx-auto max-w-6xl px-4 py-4">
+      <div className="flex items-center gap-3">
+        <div className="h-10 w-10 rounded-lg bg-gradient-to-tr from-sky-400 via-cyan-300 to-violet-400" />
+        <div>
+          <h2 className="text-xl font-semibold">Jutellane Solutions</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Cloud · Security · DevSecOps
+          </p>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
-
-

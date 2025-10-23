@@ -1,5 +1,4 @@
 import Image from "next/image";
-import HomeLogoBannerClient from "@/components/HomeLogoBanner.client";
 import Link from "next/link";
 
 import AnimatedSection from "@/components/AnimatedSection";
@@ -8,14 +7,24 @@ import CertificationsGrid from "@/components/CertificationsGrid";
 import PublicationsGrid, { type Post } from "@/components/PublicationsGrid";
 import postsData from "@/content/projects/posts.json";
 
-// ✅ Client-only wrapper for the banner (no next/dynamic here)
-import HomeLogoBanner from "@/components/HomeLogoBanner.client";
-
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white px-4 py-8 pt-20 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10 md:pt-24">
-      {/* ✅ Banner hero */}
-      <HomeLogoBannerClient />
+      {/* ✅ Hero banner: static, server-safe */}
+      <section className="flex justify-center py-10">
+        <div className="w-full max-w-5xl rounded-2xl bg-white shadow-xl ring-1 ring-black/5 dark:bg-gray-900 dark:ring-white/10">
+          <div className="flex items-center justify-center p-4 sm:p-6 md:p-8">
+            <Image
+              src="/brand/justine-logo.png"
+              alt="Justine Longla T. — DevSecOps · Cloud · Sustainability"
+              width={1400}
+              height={980}
+              priority
+              className="h-auto w-full rounded-xl"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* 🔷 Header Section */}
       <AnimatedSection>
@@ -45,22 +54,6 @@ export default function HomePage() {
           </div>
         </section>
       </AnimatedSection>
-
-      {/* 🔷 BIG Logo Showcase (card, centered) */}
-      <section className="flex justify-center py-10">
-        <div className="w-full max-w-5xl rounded-2xl bg-white shadow-xl ring-1 ring-black/5 dark:bg-gray-900 dark:ring-white/10">
-          <div className="flex items-center justify-center p-4 sm:p-6 md:p-8">
-            <Image
-              src="/brand/justine-logo.png"
-              alt="Justine Longla T. — DevSecOps · Cloud · Sustainability"
-              width={1400}
-              height={980}
-              priority
-              className="h-auto w-full rounded-xl"
-            />
-          </div>
-        </div>
-      </section>
 
       {/* 🔷 Services Section */}
       <AnimatedSection>
@@ -271,4 +264,3 @@ export default function HomePage() {
     </main>
   );
 }
-

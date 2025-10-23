@@ -1,3 +1,6 @@
+// components/ResumeViewer.client.tsx
+"use client";
+
 import React, { useEffect, useMemo, useState } from "react";
 
 type Props = {
@@ -26,27 +29,24 @@ const Viewer = ({
   height?: number;
   onLoad: () => void;
   onError: () => void;
-}) => {
-  // Using <object> keeps it simple and works broadly
-  return (
-    <object
-      data={src}
-      type="application/pdf"
-      className="w-full"
-      style={{ height }}
-      onLoad={onLoad}
-      onError={onError as any}
-    >
-      <p className="p-4">
-        Your browser can’t display PDFs inline.{" "}
-        <a href={src} download className="text-blue-600 underline">
-          Download the PDF
-        </a>
-        .
-      </p>
-    </object>
-  );
-};
+}) => (
+  <object
+    data={src}
+    type="application/pdf"
+    className="w-full"
+    style={{ height }}
+    onLoad={onLoad}
+    onError={onError as any}
+  >
+    <p className="p-4">
+      Your browser can’t display PDFs inline.{" "}
+      <a href={src} download className="text-blue-600 underline">
+        Download the PDF
+      </a>
+      .
+    </p>
+  </object>
+);
 
 const ResumeViewer: React.FC<Props> = ({
   fullSrc = "/docs/resume.pdf",
@@ -57,14 +57,14 @@ const ResumeViewer: React.FC<Props> = ({
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
 
-  // Derive current src once from active tab
-  const current = useMemo(() => {
-    return tab === "full"
-      ? { title: "Resume (Full)", src: fullSrc }
-      : { title: "Resume (One-Page Summary)", src: summarySrc };
-  }, [tab, fullSrc, summarySrc]);
+  const current = useMemo(
+    () =>
+      tab === "full"
+        ? { title: "Resume (Full)", src: fullSrc }
+        : { title: "Resume (One-Page Summary)", src: summarySrc },
+    [tab, fullSrc, summarySrc]
+  );
 
-  // Reset loading/error whenever src changes
   useEffect(() => {
     setLoading(true);
     setFailed(false);
@@ -73,17 +73,13 @@ const ResumeViewer: React.FC<Props> = ({
   const handlePrint = () => {
     if (typeof window === "undefined") return;
     const w = window.open(current.src, "_blank", "noopener,noreferrer");
-    // Some browsers need a slight delay before print
     if (w) {
       const tryPrint = () => {
         try {
           w.focus();
           w.print();
-        } catch {
-          // ignore
-        }
+        } catch {}
       };
-      // attempt immediately + after a brief delay
       tryPrint();
       setTimeout(tryPrint, 600);
     }
@@ -151,7 +147,6 @@ const ResumeViewer: React.FC<Props> = ({
           <Skeleton height={height} />
         ) : null}
 
-        {/* Render the PDF only when not failed; keep it mounted underneath the skeleton so onLoad can fire */}
         {!failed && (
           <Viewer
             src={current.src}
@@ -169,4 +164,3 @@ const ResumeViewer: React.FC<Props> = ({
 };
 
 export default ResumeViewer;
-

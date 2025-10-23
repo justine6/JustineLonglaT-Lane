@@ -1,41 +1,51 @@
-import AnimatedSection from "@/components/AnimatedSection";
+// components/HomeHero.tsx
+import Link from "next/link";
 
 export default function HomeHero() {
   return (
-    <AnimatedSection>
-      <section
-        id="home-hero"
-        className="relative isolate bg-gradient-to-r from-sky-700 via-blue-600 to-teal-600 text-white"
+    <section
+      className="relative flex flex-col items-center justify-center text-center text-white min-h-[70vh] px-4 sm:px-6"
+    >
+      {/* 🖼️ Background banner */}
+      <div
+        className="absolute inset-0 -z-10 bg-cover bg-center"
+        style={{
+          backgroundImage: 'url("/brand/justine-banner.png")',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
-        <div className="mx-auto max-w-6xl px-4 md:px-6 py-14 md:py-20">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-center mb-4">
-            Cloud Confidence. Delivered.
-          </h1>
+        <div className="absolute inset-0 bg-black/40" /> {/* Optional dark overlay */}
+      </div>
 
-          <p className="text-base sm:text-lg md:text-xl text-white/90 text-center max-w-3xl mx-auto mb-8">
-            Secure, scalable AWS services with certified DevSecOps expertise.
-            Helping startups and growing teams achieve cloud automation with confidence.
-          </p>
+      {/* ✨ Hero content */}
+      <div className="max-w-3xl mt-16 sm:mt-20">
+        <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+          Cloud Confidence. Delivered.
+        </h1>
+        <p className="text-lg sm:text-xl mb-8">
+          Secure, scalable AWS services with certified DevSecOps expertise — helping
+          startups and growing teams achieve cloud automation with confidence.
+        </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-xl bg-white text-blue-700 px-5 py-2.5 font-medium hover:bg-blue-50 shadow transition"
-            >
-              Book a Free Assessment
-            </a>
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Link
+            href="/resume"
+            className="inline-flex items-center justify-center rounded-xl border border-white px-6 py-3 text-white font-medium hover:bg-white/10"
+          >
+            View Résumé
+          </Link>
 
-            <a
-              href="/brochure.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-white/70 px-5 py-2.5 font-medium hover:bg-white/10 transition"
-            >
-              Download Brochure
-            </a>
-          </div>
+          <a
+            href="/brochure.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-xl border border-white px-6 py-3 text-white font-medium hover:bg-white/10"
+          >
+            Download Brochure
+          </a>
         </div>
-      </section>
-    </AnimatedSection>
+      </div>
+    </section>
   );
 }
