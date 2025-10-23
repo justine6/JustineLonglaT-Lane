@@ -1,4 +1,5 @@
 import Image from "next/image";
+import HomeLogoBannerClient from "@/components/HomeLogoBanner.client";
 import Link from "next/link";
 
 import AnimatedSection from "@/components/AnimatedSection";
@@ -14,7 +15,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-white px-4 py-8 pt-20 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10 md:pt-24">
       {/* ✅ Banner hero */}
-      <HomeLogoBanner />
+      <HomeLogoBannerClient />
 
       {/* 🔷 Header Section */}
       <AnimatedSection>
@@ -270,3 +271,4 @@ export default function HomePage() {
     </main>
   );
 }
+
