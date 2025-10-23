@@ -1,0 +1,153 @@
+{
+  "basics": {
+    "name": "LONGLA JUSTINE TEKANG",
+    "label": "Cloud Solutions Architect & DevSecOps Engineer",
+    "email": "justinelongla@yahoo.com",
+    "phone": "(405) 934-5864",
+    "location": {
+      "city": "Oklahoma City",
+      "region": "OK",
+      "country": "USA"
+    },
+    "profiles": [
+      {
+        "url": "https://github.com/justine6",
+        "network": "GitHub"
+      },
+      {
+        "url": "https://jutellane.com",
+        "network": "Website"
+      }
+    ]
+  },
+  "skills": [
+    {
+      "name": "Cloud Platforms",
+      "keywords": [
+        "AWS",
+        "Azure",
+        "Vercel"
+      ]
+    },
+    {
+      "name": "Infrastructure as Code",
+      "keywords": [
+        "Terraform",
+        "Ansible",
+        "ARM/Bicep"
+      ]
+    },
+    {
+      "name": "CI/CD & Automation",
+      "keywords": [
+        "GitHub Actions",
+        "Jenkins",
+        "Docker",
+        "Kubernetes",
+        "PowerShell",
+        "Python",
+        "Bash"
+      ]
+    },
+    {
+      "name": "Security & Compliance",
+      "keywords": [
+        "IAM",
+        "KMS",
+        "Vulnerability Scanning",
+        "NIST",
+        "HIPAA",
+        "PCI-DSS"
+      ]
+    },
+    {
+      "name": "Monitoring & Observability",
+      "keywords": [
+        "CloudWatch",
+        "Prometheus",
+        "Grafana",
+        "New Relic",
+        "Azure Monitor"
+      ]
+    },
+    {
+      "name": "Web & UI",
+      "keywords": [
+        "Next.js",
+        "Tailwind CSS",
+        "REST APIs"
+      ]
+    }
+  ],
+  "work": [
+    {
+      "name": "Freelance Cloud Consultant",
+      "location": "Remote",
+      "position": "Cloud Consultant",
+      "startDate": "2024-09",
+      "endDate": "",
+      "highlights": [
+        "Designed and deployed jutellane.com (Next.js + Vercel) with IONOS DNS and professional email.",
+        "PowerShell automation for Teams alerts and MDM policy enforcement via Intune.",
+        "GitHub Actions pipelines with automated testing/versioning and DevSecOps checks."
+      ]
+    },
+    {
+      "name": "Chamco Digital",
+      "location": "Sugar Land, TX",
+      "position": "DevSecOps Engineer / Automation Engineer",
+      "startDate": "2023-07",
+      "endDate": "2024-09",
+      "highlights": [
+        "Azure cloud-native designs reducing downtime by 40%.",
+        "Automated CI/CD with Azure DevOps, Ansible, Docker; policy-as-code security gates.",
+        "Teams alerting chatbot for real-time observability."
+      ]
+    },
+    {
+      "name": "Fannie Mae",
+      "location": "Remote",
+      "position": "Cloud Engineer",
+      "startDate": "2021-01",
+      "endDate": "2023-01",
+      "highlights": [
+        "Terraform-based AWS automation (−50% provisioning time).",
+        "Hardened pipelines with Jenkins, Docker, guardrails for compliance.",
+        "Centralized logging + CloudWatch anomaly detection."
+      ]
+    }
+  ],
+
+  "certificates": [
+    {
+      "name": "AWS Solutions Architect – Professional"
+    },
+    {
+      "name": "AWS DevOps Engineer – Professional"
+    },
+    {
+      "name": "Microsoft Certified: Azure DevOps Engineer Expert"
+    },
+    {
+      "name": "Microsoft Certified: Azure AI Engineer Associate"
+    },
+    {
+      "name": "Microsoft Certified: Power BI Analyst Associate"
+    }
+  ],
+  "languages": [
+    {
+      "language": "English"
+    },
+    {
+      "language": "French"
+    },
+    {
+      "language": "Dutch"
+    }
+  ],
+  "meta": {
+    "version": "1.0",
+    "generator": "Jutellane Resume Setup Script"
+  }
+}
