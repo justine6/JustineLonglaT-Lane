@@ -1,8 +1,51 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
+
 type Props = {
-  fullSrc?: string;        // e.g. /docs/Justine_Tekang_Jutellane_Solutions_Resume.pdf
-  summarySrc?: string;     // e.g. /docs/Justine_Tekang_Jutellane_Solutions_Resume_Summary.pdf
-  height?: number;         // iframe/object height in px
+  fullSrc?: string;    // e.g. /docs/Justine_Tekang_Jutellane_Solutions_Resume.pdf
+  summarySrc?: string; // e.g. /docs/Justine_Tekang_Jutellane_Solutions_Resume_Summary.pdf
+  height?: number;     // iframe/object height in px
+};
+
+type TabKey = "full" | "summary";
+
+const Skeleton = ({ height = 900 }: { height?: number }) => (
+  <div
+    className="w-full animate-pulse rounded-2xl border border-slate-200 bg-slate-100 dark:bg-slate-800"
+    style={{ height }}
+    aria-hidden="true"
+  />
+);
+
+const Viewer = ({
+  src,
+  height = 900,
+  onLoad,
+  onError,
+}: {
+  src: string;
+  height?: number;
+  onLoad: () => void;
+  onError: () => void;
+}) => {
+  // Using <object> keeps it simple and works broadly
+  return (
+    <object
+      data={src}
+      type="application/pdf"
+      className="w-full"
+      style={{ height }}
+      onLoad={onLoad}
+      onError={onError as any}
+    >
+      <p className="p-4">
+        Your browser can’t display PDFs inline.{" "}
+        <a href={src} download className="text-blue-600 underline">
+          Download the PDF
+        </a>
+        .
+      </p>
+    </object>
+  );
 };
 
 const ResumeViewer: React.FC<Props> = ({
@@ -10,96 +53,116 @@ const ResumeViewer: React.FC<Props> = ({
   summarySrc = "/docs/Justine_Tekang_Jutellane_Solutions_Resume_Summary.pdf",
   height = 900,
 }) => {
+  const [tab, setTab] = useState<TabKey>("full");
+  const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
+
+  // Derive current src once from active tab
+  const current = useMemo(() => {
+    return tab === "full"
+      ? { title: "Resume (Full)", src: fullSrc }
+      : { title: "Resume (One-Page Summary)", src: summarySrc };
+  }, [tab, fullSrc, summarySrc]);
+
+  // Reset loading/error whenever src changes
+  useEffect(() => {
+    setLoading(true);
+    setFailed(false);
+  }, [current.src]);
+
+  const handlePrint = () => {
+    if (typeof window === "undefined") return;
+    const w = window.open(current.src, "_blank", "noopener,noreferrer");
+    // Some browsers need a slight delay before print
+    if (w) {
+      const tryPrint = () => {
+        try {
+          w.focus();
+          w.print();
+        } catch {
+          // ignore
+        }
+      };
+      // attempt immediately + after a brief delay
+      tryPrint();
+      setTimeout(tryPrint, 600);
+    }
+  };
+
   return (
     <section className="mx-auto max-w-5xl px-4 py-8">
-      {/* Full Resume */}
-      <header className="mb-3 flex items-end justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold">Resume (Full)</h2>
-          <p className="text-sm text-slate-500">PDF preview with download</p>
-        </div>
-        <div className="flex gap-2">
+      {/* Tabs */}
+      <div className="mb-4 flex items-center gap-2">
+        <button
+          onClick={() => setTab("full")}
+          className={`rounded-lg px-3 py-2 text-sm transition ${
+            tab === "full"
+              ? "bg-blue-600 text-white dark:bg-blue-500"
+              : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+          }`}
+          aria-pressed={tab === "full"}
+        >
+          Full
+        </button>
+        <button
+          onClick={() => setTab("summary")}
+          className={`rounded-lg px-3 py-2 text-sm transition ${
+            tab === "summary"
+              ? "bg-blue-600 text-white dark:bg-blue-500"
+              : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+          }`}
+          aria-pressed={tab === "summary"}
+        >
+          One-Page
+        </button>
+
+        <div className="ml-auto flex items-center gap-2">
           <a
-            href={fullSrc}
+            href={current.src}
             download
-            className="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-sm hover:bg-slate-100"
+            className="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-sm hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700"
           >
             Download PDF
           </a>
           <button
-            onClick={() =>
-              (document.getElementById("resume-full") as HTMLIFrameElement)?.contentWindow?.print()
-            }
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm hover:bg-slate-50"
+            onClick={handlePrint}
+            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-900 dark:hover:bg-slate-800"
           >
             Print
           </button>
         </div>
-      </header>
-
-      <div className="overflow-hidden rounded-2xl border border-slate-200">
-        {/* Use <object> for broad compatibility; Next.js <iframe> also works */}
-        <object
-          id="resume-full"
-          data={fullSrc}
-          type="application/pdf"
-          className="w-full"
-          style={{ height }}
-        >
-          <p className="p-4">
-            Your browser can’t display PDFs inline.{" "}
-            <a href={fullSrc} download className="text-blue-600 underline">
-              Download the resume
-            </a>
-            .
-          </p>
-        </object>
       </div>
 
-      {/* Divider */}
-      <div className="my-8 border-t border-slate-200" />
-
-      {/* Summary Resume */}
-      <header className="mb-3 flex items-end justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold">Resume (One-Page Summary)</h2>
-          <p className="text-sm text-slate-500">PDF preview with download</p>
-        </div>
-        <div className="flex gap-2">
-          <a
-            href={summarySrc}
-            download
-            className="rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-sm hover:bg-slate-100"
-          >
-            Download PDF
-          </a>
-          <button
-            onClick={() =>
-              (document.getElementById("resume-summary") as HTMLIFrameElement)?.contentWindow?.print()
-            }
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm hover:bg-slate-50"
-          >
-            Print
-          </button>
-        </div>
+      <header className="mb-3">
+        <h2 className="text-2xl font-semibold">{current.title}</h2>
+        <p className="text-sm text-slate-500">PDF preview with download & print</p>
       </header>
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200">
-        <object
-          id="resume-summary"
-          data={summarySrc}
-          type="application/pdf"
-          className="w-full"
-          style={{ height }}
-        >
-          <p className="p-4">
-            Your browser can’t display PDFs inline.{" "}
-            <a href={summarySrc} download className="text-blue-600 underline">
-              Download the one-page resume
+      <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700">
+        {failed ? (
+          <div className="p-4 text-sm text-red-600 dark:text-red-400">
+            Couldn’t load the PDF preview. You can still{" "}
+            <a href={current.src} download className="underline">
+              download the file
             </a>
             .
-          </p>
-        </object>
+          </div>
+        ) : loading ? (
+          <Skeleton height={height} />
+        ) : null}
+
+        {/* Render the PDF only when not failed; keep it mounted underneath the skeleton so onLoad can fire */}
+        {!failed && (
+          <Viewer
+            src={current.src}
+            height={height}
+            onLoad={() => setLoading(false)}
+            onError={() => {
+              setLoading(false);
+              setFailed(true);
+            }}
+          />
+        )}
       </div>
     </section>
   );
