@@ -49,8 +49,8 @@ const Viewer = ({
 };
 
 const ResumeViewer: React.FC<Props> = ({
-  fullSrc = "/docs/Justine_Tekang_Jutellane_Solutions_Resume.pdf",
-  summarySrc = "/docs/Justine_Tekang_Jutellane_Solutions_Resume_Summary.pdf",
+  fullSrc = "/docs/resume.pdf",
+  summarySrc = "/docs/resume_summary.pdf",
   height = 900,
 }) => {
   const [tab, setTab] = useState<TabKey>("full");
@@ -169,3 +169,4 @@ const ResumeViewer: React.FC<Props> = ({
 };
 
 export default ResumeViewer;
+
