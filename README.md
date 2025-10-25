@@ -8,6 +8,9 @@
 ![Latest Version](https://img.shields.io/github/v/tag/justine6/Jutellane-Solutions?label=version&color=2ea44f)
 [![Latest Release](https://img.shields.io/github/v/release/justine6/Jutellane-Solutions?include_prereleases&color=blue)](https://github.com/justine6/Jutellane-Solutions/releases/latest)
 ![Docs Build](https://github.com/justine6/Jutellane-Solutions/actions/workflows/docs.yml/badge.svg)
+[![Content Status](https://img.shields.io/github/last-commit/justine6/jutellane-blogs/main)](https://github.com/justine6/jutellane-blogs/commits/main)
+[![Site](https://img.shields.io/badge/site-live-blue)](https://justine6.github.io/jutellane-blogs/)
+
 
 > **Automated pipelines for changelog preparation, version tagging, release publication, and production verification.**
 >
