@@ -56,33 +56,33 @@ flowchart LR
   classDef dns fill:#e5e7eb,stroke:#6b7280,color:#111,stroke-width:1.5px;
 
   subgraph Repos
-    A1[md-to-html-static\n(repo)]:::repo
-    A2[jutellane-blogs\n(repo)]:::repo
-    A3[Jutellane Solutions\n(Next.js repo)]:::repo
+    A1["md-to-html-static (repo)"]:::repo
+    A2["jutellane-blogs (repo)"]:::repo
+    A3["Jutellane Solutions (Next.js repo)"]:::repo
   end
 
   subgraph CI/CD (GitHub Actions)
-    B1[Build & Deploy\nPages: build.yml]:::actions
-    B2[Build & Deploy\nPages: build.yml]:::actions
-    B3[Build & Deploy\n→ Vercel]:::actions
+    B1["Build & Deploy - Pages (build.yml)"]:::actions
+    B2["Build & Deploy - Pages (build.yml)"]:::actions
+    B3["Build & Deploy - Vercel"]:::actions
   end
 
   subgraph Hosting
-    C1[GitHub Pages\njustine6.github.io]:::host
-    C2[GitHub Pages\njustine6.github.io]:::host
-    C3[Vercel\n(Edge / CDN)]:::host
+    C1["GitHub Pages (justine6.github.io)"]:::host
+    C2["GitHub Pages (justine6.github.io)"]:::host
+    C3["Vercel (Edge/CDN)"]:::host
   end
 
   subgraph DNS (IONOS)
-    D1[generator.jutellane.com\nCNAME → justine6.github.io]:::dns
-    D2[blogs.jutellane.com\nCNAME → justine6.github.io]:::dns
-    D3[projects.jutellane.com\nCNAME → e552adc0b9fd7ba3.vercel-dns-017.com]:::dns
+    D1["generator.jutellane.com → justine6.github.io"]:::dns
+    D2["blogs.jutellane.com → justine6.github.io"]:::dns
+    D3["projects.jutellane.com → vercel-dns-017.com"]:::dns
   end
 
   A1 -->|push| B1 --> C1 --> D1
   A2 -->|push| B2 --> C2 --> D2
   A3 -->|push| B3 --> C3 --> D3
-
+```
 
 ---
 
