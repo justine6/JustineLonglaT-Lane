@@ -22,8 +22,6 @@
 
 ## 🌐 Jutellane Solutions — Live Domains Overview
 
-Below are the active subdomains currently maintained under **jutellane.com**, each hosted and deployed through independent pipelines and platforms.
-
 | Subdomain | Purpose | Hosting / Platform | Deployment Source | HTTPS Status |
 |------------|----------|--------------------|-------------------|---------------|
 | **[projects.jutellane.com](https://projects.jutellane.com)** | Main **Jutellane Solutions** website — business landing page, portfolio, and service overview. | **Vercel** | `main` branch (Next.js project) | ✅ Active |
@@ -38,8 +36,138 @@ Below are the active subdomains currently maintained under **jutellane.com**, ea
 - **Automation Tools:** PowerShell scripts (`Cut-Release.ps1`, `Generate-Changelog.ps1`)  
 - **Frameworks:** Next.js, TailwindCSS, Markdown → HTML pipeline  
 - **Domains Managed by:** [IONOS](https://ionos.com) with verified CNAME records  
-- **DNS Records:**  
-  ```bash
-  blogs.jutellane.com      → CNAME e552adc0b9fd7ba3.vercel-dns-017.com
-  projects.jutellane.com   → CNAME e552adc0b9fd7ba3.vercel-dns-017.com
-  generator.jutellane.com  → CNAME justine6.github.io
+
+**DNS Records:**  
+```bash
+blogs.jutellane.com      → CNAME e552adc0b9fd7ba3.vercel-dns-017.com
+projects.jutellane.com   → CNAME e552adc0b9fd7ba3.vercel-dns-017.com
+generator.jutellane.com  → CNAME justine6.github.io
+```
+
+---
+
+### 🗺️ Architecture & Deployment Flow
+
+```mermaid
+flowchart LR
+  classDef repo fill:#0ea5e9,stroke:#0369a1,color:#fff,stroke-width:1.5px;
+  classDef actions fill:#10b981,stroke:#047857,color:#fff,stroke-width:1.5px;
+  classDef host fill:#f59e0b,stroke:#b45309,color:#111,stroke-width:1.5px;
+  classDef dns fill:#e5e7eb,stroke:#6b7280,color:#111,stroke-width:1.5px;
+
+  subgraph Repos
+    A1[md-to-html-static\n(repo)]:::repo
+    A2[jutellane-blogs\n(repo)]:::repo
+    A3[Jutellane Solutions\n(Next.js repo)]:::repo
+  end
+
+  subgraph CI/CD (GitHub Actions)
+    B1[Build & Deploy\nPages: build.yml]:::actions
+    B2[Build & Deploy\nPages: build.yml]:::actions
+    B3[Build & Deploy\n→ Vercel]:::actions
+  end
+
+  subgraph Hosting
+    C1[GitHub Pages\njustine6.github.io]:::host
+    C2[GitHub Pages\njustine6.github.io]:::host
+    C3[Vercel\n(Edge / CDN)]:::host
+  end
+
+  subgraph DNS (IONOS)
+    D1[generator.jutellane.com\nCNAME → justine6.github.io]:::dns
+    D2[blogs.jutellane.com\nCNAME → justine6.github.io]:::dns
+    D3[projects.jutellane.com\nCNAME → e552adc0b9fd7ba3.vercel-dns-017.com]:::dns
+  end
+
+  A1 -->|push| B1 --> C1 --> D1
+  A2 -->|push| B2 --> C2 --> D2
+  A3 -->|push| B3 --> C3 --> D3
+```
+
+---
+
+### ✅ Uptime / Health Status
+
+- generator: ![status](https://img.shields.io/website?url=https%3A%2F%2Fgenerator.jutellane.com)
+- blogs: ![status](https://img.shields.io/website?url=https%3A%2F%2Fblogs.jutellane.com)
+- projects: ![status](https://img.shields.io/website?url=https%3A%2F%2Fprojects.jutellane.com)
+
+---
+
+## 📘 Documentation Workflows
+
+| Stage | Description | Trigger |
+|--------|--------------|----------|
+| **Prepare** | Creates changelog and pull request for review | Manual / Schedule |
+| **Release** | Bumps version, tags, and publishes release | Merge to `main` |
+| **Verify Production** | Runs post-deployment health checks | After release |
+| **Docs** | Builds and verifies the documentation site | On every push |
+
+📄 View documentation (once docs workflow is added):  
+➡️ [https://justine6.github.io/Jutellane-Solutions](https://justine6.github.io/Jutellane-Solutions)
+
+---
+
+# 🚀 Jutellane Solutions – Automated Release Workflow
+
+This repository contains the **Jutellane release automation system**, a PowerShell-driven workflow for preparing changelogs, generating GitHub releases, and maintaining semantic versioning consistency across projects.
+
+---
+
+## 🧩 Overview
+
+The workflow provides a **two-stage automated release process**:
+1. **Prepare Stage** – generates or updates the changelog, commits it, and opens a pull request.  
+2. **Release Stage** – publishes a new version tag on GitHub, complete with notes and comparison links.
+
+The automation is built on:
+- PowerShell (`Cut-Release.ps1`)
+- GitHub CLI (`gh`)
+- Git (`git`)
+- Semantic Versioning rules (`vX.Y.Z`)
+
+---
+
+## 📂 Key Files
+
+| File | Purpose |
+|------|----------|
+| `Cut-Release.ps1` | Main orchestrator script for preparing and publishing releases |
+| `scripts/Generate-Changelog.ps1` | Generates or updates the `CHANGELOG.md` file |
+| `CHANGELOG.md` | Tracks historical changes between releases |
+| `README.md` | Documentation for repository purpose and usage |
+| `WORKFLOW.md` | Technical breakdown of the release process |
+
+---
+
+## 🧭 Usage
+
+### 1️⃣ Prepare a Release
+
+```powershell
+pwsh -File .\Cut-Release.ps1 -Stage prepare -Bump auto -Yes
+```
+
+### 2️⃣ Publish a Release
+
+```powershell
+pwsh -File .\Cut-Release.ps1 -Stage release -Yes
+```
+
+This will:
+- Tag a new version (`vX.Y.Z`)
+- Publish the release on GitHub
+- Trigger the **Verify Production** workflow
+
+---
+
+### 💡 Notes
+- Ensure `gh auth status` is active before running scripts.
+- The release script uses semantic versioning and supports `-Bump major|minor|patch`.
+- All actions are logged to the console and tracked in GitHub Actions logs.
+
+---
+
+🛠 **Maintained by:** [Justine Longla Tekang](https://www.linkedin.com/in/longlatjustine)  
+🌍 **Website:** [jutellane.com](https://jutellane.com)  
+📧 **Email:** justinelongla@yahoo.com  
