@@ -2,12 +2,7 @@
   "name": "jutellane-main",
   "private": true,
   "type": "module",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "clean": "powershell -Command \"if (Test-Path .nuxt) { Remove-Item -Recurse -Force .nuxt }; if (Test-Path .next) { Remove-Item -Recurse -Force .next }; if (Test-Path node_modules) { Remove-Item -Recurse -Force node_modules }; if (Test-Path package-lock.json) { Remove-Item -Force package-lock.json }\" && npm install"
+  "scripts":   // Full script block from your notepad backup (keep indentation clean); if (Test-Path .next) { Remove-Item -Recurse -Force .next }; if (Test-Path node_modules) { Remove-Item -Recurse -Force node_modules }; if (Test-Path package-lock.json) { Remove-Item -Force package-lock.json }\" && npm install"
   },
   "devDependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -32,3 +27,4 @@
     "swiper": "^12.0.2"
   }
 }
+
