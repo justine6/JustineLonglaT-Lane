@@ -1,13 +1,12 @@
-<<<<<<< Updated upstream
 # 🧩 Jutellane Solutions CI/CD & Documentation Status
 
 ![Prepare Workflow](https://github.com/justine6/Jutellane-Solutions/actions/workflows/prepare.yml/badge.svg)
 ![Release Workflow](https://github.com/justine6/Jutellane-Solutions/actions/workflows/release.yml/badge.svg)
 ![Verify Production](https://github.com/justine6/Jutellane-Solutions/actions/workflows/verify-production.yml/badge.svg)
+![Docs Build](https://github.com/justine6/Jutellane-Solutions/actions/workflows/docs.yml/badge.svg)
 
 ![Latest Version](https://img.shields.io/github/v/tag/justine6/Jutellane-Solutions?label=version&color=2ea44f)
 [![Latest Release](https://img.shields.io/github/v/release/justine6/Jutellane-Solutions?include_prereleases&color=blue)](https://github.com/justine6/Jutellane-Solutions/releases/latest)
-![Docs Build](https://github.com/justine6/Jutellane-Solutions/actions/workflows/docs.yml/badge.svg)
 
 > **Automated pipelines for changelog preparation, version tagging, release publication, and production verification.**
 >
@@ -21,68 +20,26 @@
 
 ---
 
-## 📘 Documentation
+## 🌐 Jutellane Solutions — Live Domains Overview
 
-| Stage | Description | Trigger |
-|--------|--------------|----------|
-| **Prepare** | Creates changelog and pull request for review | Manual / Schedule |
-| **Release** | Bumps version, tags, and publishes release | Merge to `main` |
-| **Verify Production** | Runs post-deployment health checks | After release |
-| **Docs** | Builds and verifies the documentation site | On every push |
+Below are the active subdomains currently maintained under **jutellane.com**, each hosted and deployed through independent pipelines and platforms.
 
-📄 View documentation (once docs workflow is added):  
-➡️ [https://justine6.github.io/Jutellane-Solutions](https://justine6.github.io/Jutellane-Solutions)
+| Subdomain | Purpose | Hosting / Platform | Deployment Source | HTTPS Status |
+|------------|----------|--------------------|-------------------|---------------|
+| **[projects.jutellane.com](https://projects.jutellane.com)** | Main **Jutellane Solutions** website — business landing page, portfolio, and service overview. | **Vercel** | `main` branch (Next.js project) | ✅ Active |
+| **[blogs.jutellane.com](https://blogs.jutellane.com)** | Technical & DevOps blog — powered by Markdown + GitHub Actions for automatic publishing. | **GitHub Pages** | `jutellane-blogs` repository | ✅ Active |
+| **[generator.jutellane.com](https://generator.jutellane.com)** | Markdown-to-HTML static site generator — internal documentation & static content builder. | **GitHub Pages** | `md-to-html-static` repository | ✅ Active |
 
 ---
 
-# 🚀 Jutellane Solutions – Automated Release Workflow
-
-This repository contains the **Jutellane release automation system**, a PowerShell-driven workflow for preparing changelogs, generating GitHub releases, and maintaining semantic versioning consistency across projects.
-
----
-
-## 🧩 Overview
-
-The workflow provides a **two-stage automated release process**:
-1. **Prepare Stage** – generates or updates the changelog, commits it, and opens a pull request.  
-2. **Release Stage** – publishes a new version tag on GitHub, complete with notes and comparison links.
-
-The automation is built on:
-- PowerShell (`Cut-Release.ps1`)
-- GitHub CLI (`gh`)
-- Git (`git`)
-- Semantic Versioning rules (`vX.Y.Z`)
-
----
-
-## 📂 Key Files
-
-| File | Purpose |
-|------|----------|
-| `Cut-Release.ps1` | Main orchestrator script for preparing and publishing releases |
-| `scripts/Generate-Changelog.ps1` | Generates or updates the `CHANGELOG.md` file |
-| `CHANGELOG.md` | Tracks historical changes between releases |
-| `README.md` | Documentation for repository purpose and usage |
-| `WORKFLOW.md` | Technical breakdown of the release process |
-
----
-
-## 🧭 Usage
-
-### 1️⃣ Prepare a Release
-
-Use this when you’ve merged new changes into `main` and want to generate a changelog PR.
-
-```powershell
-pwsh -File .\Cut-Release.ps1 -Stage prepare -Bump auto -Yes
-=======
-## 🚀 Release Workflow
-
-This repo uses **Conventional Commits** + an automated **Cut-Release** script.
-
-### Quick Start
-1. Ensure you’re authenticated with GitHub CLI (`gh auth status`).
-2. Generate/update the changelog and open a PR:
-   ```powershell
-   .\Cut-Release.ps1 -Stage prepare   # auto-creates chore/changelog-YYYYMMDD-HHmm + PR
->>>>>>> Stashed changes
+### 🧩 Tech Stack Summary
+- **Static Hosting:** GitHub Pages / Vercel  
+- **CI/CD:** GitHub Actions (`build`, `release`, `verify`, `docs`)  
+- **Automation Tools:** PowerShell scripts (`Cut-Release.ps1`, `Generate-Changelog.ps1`)  
+- **Frameworks:** Next.js, TailwindCSS, Markdown → HTML pipeline  
+- **Domains Managed by:** [IONOS](https://ionos.com) with verified CNAME records  
+- **DNS Records:**  
+  ```bash
+  blogs.jutellane.com      → CNAME e552adc0b9fd7ba3.vercel-dns-017.com
+  projects.jutellane.com   → CNAME e552adc0b9fd7ba3.vercel-dns-017.com
+  generator.jutellane.com  → CNAME justine6.github.io
