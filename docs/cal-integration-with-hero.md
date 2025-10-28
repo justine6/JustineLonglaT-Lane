@@ -1,3 +1,55 @@
+# 🤝 Cal.com Integration – Jutellane Solutions
+
+## Overview
+This document explains how to integrate the **IntroCall (30 min)** event from Cal.com into the Jutellane Solutions website, aligning it with brand colors, tagline, and the animated Hero section.  
+It also covers embedding the scheduler on your **Contact page** for easy booking.
+
+---
+
+## 🧩 Prerequisites
+
+Install Framer Motion for animations:
+
+```bash
+npm install framer-motion
+
+---
+
+## Branding
+- **Tagline:** Cloud Confidence. Delivered.
+- **CTA Label:** Book IntroCall
+- **Primary Color:** #1E90FF (Jutellane blue)
+- **Booking Link:** [https://cal.jutellane.com/intro-call](https://cal.jutellane.com/intro-call)
+- **DNS Record:** `cal.jutellane.com → 76.76.21.21` (Verified)
+- **Logo:** `/brand/justine-banner.png`
+
+---
+
+## Cal.com Steps
+
+1. **Branding Setup**
+   - Upload the Jutellane logo.
+   - Set primary color to `#1E90FF`.
+   - Add tagline: *Cloud Confidence. Delivered.*
+
+2. **Create Event Type**
+   - **Name:** Intro Call (30 min)
+   - **Slug:** `/intro-call` (creates `https://cal.jutellane.com/intro-call`)
+   - **Location:** Cal Video / Google Meet / Zoom
+   - **Availability:** Choose hours and enable timezone detection.
+   - **Confirmation Page:** Optional redirect → `https://jutellane.com/thank-you`.
+
+3. **Verify Event**
+   - Open [https://cal.jutellane.com/intro-call](https://cal.jutellane.com/intro-call) in an incognito browser window.
+   - Confirm branding and availability appear as expected.
+
+---
+
+## 🌤️ Hero Section Integration (with Framer Motion)
+
+Below is the production-ready **HeroSection.tsx** code used in Jutellane Solutions, with a smooth fade-in animation for the “Book IntroCall” button and hero text.
+
+```tsx
 "use client";
 
 import { motion } from "framer-motion";

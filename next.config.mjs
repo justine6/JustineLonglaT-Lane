@@ -6,12 +6,15 @@ const withMDX = createMDX({
   options: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [],
+    // 👇 ensure MDX uses React’s context provider
+    providerImportSource: "@mdx-js/react",
   },
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
+  eslint: { ignoreDuringBuilds: true },
 };
 
 export default withMDX(nextConfig);

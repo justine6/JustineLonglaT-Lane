@@ -1,5 +1,6 @@
 declare module "*.mdx" {
-  export const meta: Record<string, any> | undefined;
-  let MDXComponent: (props: any) => JSX.Element;
+  import type { ComponentType } from "react";
+  export const meta: { title: string; summary?: string };
+  const MDXComponent: ComponentType<Record<string, unknown>>;
   export default MDXComponent;
 }
