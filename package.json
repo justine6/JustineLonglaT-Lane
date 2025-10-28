@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "check-all": "node tools/run-ps.js scripts/check-dictionaries.ps1 && node tools/run-ps.js scripts/validate-and-repair-json.ps1",
+    "check-all": "node tools/run-ps.cjs scripts/check-dictionaries.ps1 && node tools/run-ps.cjs scripts/validate-and-repair-json.ps1",
     "patch-missing": "node tools/run-ps.js scripts/patch-missing.ps1",
     "fix-footer": "node tools/run-ps.js scripts/fix-footer.ps1",
     "patch-all": "npm run patch-missing && npm run fix-footer",
