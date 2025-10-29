@@ -1,159 +1,62 @@
-'use client';
+// components/Navbar.tsx
+"use client";
 
-import Logo from '@/components/shared/Logo';
-import { useState } from 'react';
-import Scrollspy from 'react-scrollspy';
-import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
-import ThemeToggle from './ThemeToggle';
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import * as React from "react";
 
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
-
-  // Scroll-driven opacity + shadow
-  const { scrollY } = useScroll();
-  // Fade from 0 → 0.9 opacity over the first 80px of scroll
-  const bgOpacity = useTransform(scrollY, [0, 80], [0, 0.9]);
-
-  useMotionValueEvent(scrollY, 'change', (y) => setScrolled(y > 8));
+  const pathname = usePathname();
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      {/* Glass overlay that fades in */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 bg-white dark:bg-gray-900 backdrop-blur-md"
-        style={{ opacity: bgOpacity }}
-      />
+    <header className="sticky top-0 z-50 border-b border-blue-700/40 bg-[#2F66F0]/95 backdrop-blur">
+      {/* ↑ same color/behavior you liked */}
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6">
+        {/* ↑ a bit taller, wider container */}
+        <Link href="/" className="flex min-w-0 items-center gap-3">
+          <Image
+            src="/brand/justine-logo.png"
+            alt="Jutellane logo"
+            width={32}
+            height={32}
+            priority
+            className="h-8 w-8 shrink-0 rounded-full ring-2 ring-white/10"
+          />
+          <span className="whitespace-nowrap font-semibold text-white">
+            Jutellane Solutions
+          </span>
+        </Link>
 
-      {/* Shadow container (toggles when scrolled) */}
-      <div className={`relative ${scrolled ? 'shadow-sm' : 'shadow-none'}`}>
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <Logo />
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden items-center space-x-8 md:flex">
-            <Scrollspy
-              items={['services', 'testimonials', 'contact']}
-              currentClassName="text-blue-600 dark:text-blue-400 font-semibold underline"
-              offset={-100}
-              componentTag="div"
-              className="flex space-x-8"
-            >
-              <a
-                href="#services"
-                className="text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400"
+        <nav className="flex items-center gap-2 sm:gap-3">
+          {links.map((l) => {
+            const active =
+              pathname === l.href ||
+              (l.href !== "/" && pathname?.startsWith(l.href));
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={[
+                  "rounded-md px-3 py-2 text-[0.95rem] transition-all duration-200",
+                  active
+                    ? "text-white underline"
+                    : "text-blue-50/90 hover:text-white hover:bg-blue-500/30",
+                ].join(" ")}
               >
-                Services
-              </a>
-              <a
-                href="#testimonials"
-                className="text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400"
-              >
-                Testimonials
-              </a>
-              <a
-                href="#contact"
-                className="text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400"
-              >
-                Contact
-              </a>
-            </Scrollspy>
-
-            {/* Theme toggle */}
-            <ThemeToggle />
-
-            {/* Resume (internal) */}
-            <Link
-              href="/resume"
-              className="hover:underline ml-4 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
-            >
-              Resume
-            </Link>
-
-            {/* Download Resume (direct PDF) */}
-            <a
-              href="/docs/Justine_Tekang_Jutellane_Solutions_Resume.pdf"
-              download
-              className="hover:underline ml-2 text-blue-600 dark:text-blue-400"
-            >
-              Download&nbsp;Resume
-            </a>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={toggleMenu}
-            className="md:hidden text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Nav */}
-        {isOpen && (
-          <nav className="md:hidden bg-white/90 dark:bg-gray-900/90 backdrop-blur px-4 py-4">
-            <Scrollspy
-              items={['services', 'testimonials', 'contact']}
-              currentClassName="text-blue-600 dark:text-blue-400 font-semibold underline"
-              offset={-100}
-              componentTag="div"
-              className="flex flex-col space-y-4"
-            >
-              <a
-                href="#services"
-                onClick={closeMenu}
-                className="text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400"
-              >
-                Services
-              </a>
-              <a
-                href="#testimonials"
-                onClick={closeMenu}
-                className="text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400"
-              >
-                Testimonials
-              </a>
-              <a
-                href="#contact"
-                onClick={closeMenu}
-                className="text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400"
-              >
-                Contact
-              </a>
-            </Scrollspy>
-
-            <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4 flex items-center justify-between">
-              <ThemeToggle />
-
-              <div className="flex items-center space-x-4">
-                <Link
-                  href="/resume"
-                  onClick={closeMenu}
-                  className="hover:underline text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
-                >
-                  Resume
-                </Link>
-                <a
-                  href="/docs/Justine_Tekang_Jutellane_Solutions_Resume.pdf"
-                  download
-                  onClick={closeMenu}
-                  className="hover:underline text-blue-600 dark:text-blue-400"
-                >
-                  Download
-                </a>
-              </div>
-            </div>
-          </nav>
-        )}
+                {l.label}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
     </header>
   );
