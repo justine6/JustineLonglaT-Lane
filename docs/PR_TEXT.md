@@ -1,16 +1,17 @@
-# PR: Docs & Release Prep (v1.2.14)
+# PR: Docs & Release Prep (v2.5.0)
 
 ## What
-- Add unified docs (`developer-utilities.md`, `ci-cd.md`, `release-process.md`, `readme-consistency.md`).
-- Update `CHANGELOG.md` with v1.2.14 entry.
+- Add new `v2.5.0` release entry to `docs/ReleaseNotes.md`.
+- Update `PR_TEXT.md` with ready-to-use summary for next PRs.
+- Ensure documentation consistency across `developer-utilities.md`, `ci-cd.md`, and `release-process.md`.
 
 ## Why
-- Single source of truth between `jutellane-main` and `jutellane-blogs`.
-- Predictable release via `Cut-Release.ps1`.
+- Maintain parity between **Jutellane Main** and **Jutellane Blogs** projects.
+- Align Cal.com integration and responsive layout changes with documentation.
+- Prepare repository for next automated tag via `Cut-Release.ps1`.
 
 ## Test
-- Render docs locally and check links.
-- Run dry-run: `./scripts/Cut-Release.ps1 -Version 1.2.14 -DryRun -Verbose`.
-
-## After merge
-- Execute: `./scripts/Cut-Release.ps1 -Version 1.2.14 -Verbose`.
+- Render Markdown locally and confirm anchors and internal links.
+- Run dry-run validation to confirm consistency:
+  ```bash
+  ./scripts/Cut-Release.ps1 -Version 2.5.0 -DryRun -Verbose

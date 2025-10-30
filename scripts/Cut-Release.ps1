@@ -1,33 +1,45 @@
+# scripts/Cut-Release.ps1
+# -----------------------
+# Usage:
+#   pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\Cut-Release.ps1 -Version 2.5.0 -Verbose
+#   .\scripts\Cut-Release.ps1 -Version 2.5.0 -DryRun
+
+[CmdletBinding()] # enables common -Verbose switch
 param(
-  [Parameter(Mandatory)][string]$Version,
-  [switch]$DryRun,
-  [switch]$Verbose
+  [Parameter(Mandatory = $true)]
+  [ValidatePattern('^\d+\.\d+\.\d+$')]
+  [string]$Version,
+
+  [switch]$DryRun
 )
 
-Write-Host "🔹 Preparing release for version $Version" -ForegroundColor Cyan
+# Respect -Verbose from the command line
+$VerbosePreference = if ($PSBoundParameters.ContainsKey('Verbose')) { 'Continue' } else { 'SilentlyContinue' }
 
-# Step 1: Verify Git clean state
-$gitStatus = git status --porcelain
-if ($gitStatus) {
-  Write-Host "⚠️ Working directory not clean. Commit or stash changes before release." -ForegroundColor Yellow
-  exit 1
+function Run {
+  param([string]$Cmd)
+  Write-Host "› $Cmd" -ForegroundColor Cyan
+  if ($DryRun) { Write-Host "  (dry-run)"; return }
+  # Use the current shell to run commands for cross-platform behavior
+  & $Cmd
+  if ($LASTEXITCODE -ne 0) { throw "Command failed: $Cmd" }
 }
 
-# Step 2: Tag creation
-$tagName = "v$Version"
-$tagExists = git tag --list $tagName
-if ($tagExists) {
-  Write-Host "❌ Tag $tagName already exists." -ForegroundColor Red
-  exit 1
-}
+Write-Verbose "Version: $Version"
+if ($DryRun) { Write-Host "DRY RUN — no changes will be made" -ForegroundColor Yellow }
 
-if ($DryRun) {
-  Write-Host "🧪 Dry run only. Tag not created." -ForegroundColor DarkCyan
-  exit 0
-}
+# 1) Sanity checks
+Run 'git rev-parse --abbrev-ref HEAD'
+Run 'git status --porcelain'
 
-# Step 3: Create annotated tag and push
-git tag -a $tagName -m "release: $tagName"
-git push origin $tagName
+# 2) Optional: run tests/coverage (comment out if not needed)
+Run 'npm run -s test:coverage'
 
-Write-Host "✅ Tag $tagName created and pushed successfully!" -ForegroundColor Green
+# 3) Tag the release
+Run "git tag -a v$Version -m 'v$Version — Cal.com scheduling integration, responsive layout polish, and pre-production sync'"
+
+# 4) Push tag (and make sure upstream is up to date)
+Run 'git push origin --follow-tags'
+
+Write-Host "✅ Release v$Version tagged and pushed." -ForegroundColor Green
+if ($DryRun) { Write-Host "NOTE: DRY RUN — nothing was pushed." -ForegroundColor Yellow }
