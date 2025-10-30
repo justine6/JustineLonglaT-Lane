@@ -1,0 +1,21 @@
+export const dynamic = "force-static";
+
+export default function ContactPage() {
+  return (
+    <main className="mx-auto max-w-3xl px-4 py-10" id="contact">
+      <h1 className="text-3xl font-bold mb-2">Get In Touch</h1>
+      <p className="text-gray-700 dark:text-gray-300 mb-6">
+        Tell me a bit about your project and we’ll book a short intro call.
+      </p>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        <a href="mailto:info@jutellane.com" className="rounded-lg border px-4 py-3 hover:bg-blue-50 border-blue-600 text-blue-600 text-center">
+          Email: info@jutellane.com
+        </a>
+        <a href="tel:+14059345864" className="rounded-lg border px-4 py-3 hover:bg-blue-50 border-blue-600 text-blue-600 text-center">
+          Call: +1 405.934.5864
+        </a>
+      </div>
+    </main>
+  );
+}

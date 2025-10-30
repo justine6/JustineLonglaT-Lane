@@ -6,7 +6,7 @@ const withMDX = createMDX({
   options: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [],
-    // 👇 ensure MDX uses React’s context provider
+    // 🧠 ensure MDX uses React’s context provider
     providerImportSource: "@mdx-js/react",
   },
 });
@@ -15,6 +15,13 @@ const withMDX = createMDX({
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   eslint: { ignoreDuringBuilds: true },
+
+  async redirects() {
+    return [
+      { source: "/schedule", destination: "/intro-call", permanent: true },
+      { source: "/intro", destination: "/intro-call", permanent: true },
+    ];
+  },
 };
 
 export default withMDX(nextConfig);

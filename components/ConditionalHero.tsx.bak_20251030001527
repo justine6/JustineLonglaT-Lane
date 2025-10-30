@@ -1,0 +1,27 @@
+// components/ConditionalHero.tsx
+"use client";
+
+import { usePathname } from "next/navigation";
+import HeroSection from "./HeroSection";
+
+// Pages where the hero should be hidden
+const HIDE_ON = [
+  "/resume",
+  "/about",
+  "/projects",
+  "/blog",
+  "/contact",
+  "/docs",
+  "/posts",
+];
+
+export default function ConditionalHero() {
+  const pathname = usePathname() || "/";
+
+  const shouldHide = HIDE_ON.some(
+    (prefix) => pathname === prefix || pathname.startsWith(prefix + "/")
+  );
+
+  if (shouldHide) return null;
+  return <HeroSection />; // uses /brand/justine-banner.png
+}

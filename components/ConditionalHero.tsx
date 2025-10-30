@@ -1,16 +1,72 @@
-// components/ConditionalHero.tsx
 "use client";
-
-import { usePathname } from "next/navigation";
-import HomeHero from "./HomeHero";
-
-const HIDE_ON: string[] = ["/resume"];
+import Link from "next/link";
+import { LINKS } from "@/config/links";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function ConditionalHero() {
-  const pathname = usePathname();
-  const shouldHide = HIDE_ON.some(
-    (base) => pathname === base || pathname.startsWith(base + "/")
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 300], [0, 40]);
+
+  return (
+    <section
+      className="
+        relative text-white overflow-hidden
+        min-h-[60vh] md:min-h-[72vh] lg:min-h-[78vh]
+        flex items-center
+        pt-24 md:pt-28 pb-16
+      "
+    >
+      {/* Background image sits behind and is non-interactive */}
+      <motion.div
+        style={{ y, backgroundPosition: "center 28%" }}
+        className="
+          absolute inset-0 -z-10 pointer-events-none
+          bg-[url('/brand/justine-banner.png')] bg-cover bg-center
+        "
+        aria-hidden="true"
+      />
+
+      {/* Optional dark-mode overlay (non-interactive) */}
+      <div
+        className="absolute inset-0 -z-10 pointer-events-none bg-transparent dark:bg-black/35"
+        aria-hidden="true"
+      />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 1.0, ease: "easeOut" }}
+        >
+          {/* Primary CTA → internal page for best UX/SEO */}
+          <Link
+            href={LINKS.introCall}
+            className="px-6 py-3 rounded-lg bg-white text-blue-700 font-semibold hover:scale-105 transition-transform duration-300 shadow-md hover:shadow-lg"
+            prefetch
+          >
+            Schedule Your Intro Call
+          </Link>
+
+          <Link
+            href={LINKS.contact}
+            className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold hover:from-blue-700 hover:to-blue-600 transition-transform duration-300 shadow-md hover:shadow-lg"
+            prefetch
+          >
+            Contact
+          </Link>
+
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold hover:from-blue-700 hover:to-blue-600 transition-transform duration-300 shadow-md hover:shadow-lg"
+          >
+            Résumé
+          </a>
+        </motion.div>
+      </div>
+    </section>
   );
-  if (shouldHide) return null;
-  return <HomeHero />;
 }

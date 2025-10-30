@@ -1,0 +1,46 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
+export default function HeroBanner() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setShow(true), 60);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <section
+      className={`mx-auto mt-8 max-w-6xl rounded-2xl border bg-white/70 p-0 shadow-sm transition-opacity duration-700 ${
+        show ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <div className="relative aspect-[21/9] w-full overflow-hidden rounded-2xl">
+        <Image
+          src="/brand/justine-banner.png"
+          alt="Cloud Confidence. Delivered."
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+
+      <div className="px-6 py-8 text-center">
+        <h1 className="text-3xl font-bold md:text-5xl">Cloud Confidence. Delivered.</h1>
+        <p className="mx-auto mt-3 max-w-3xl text-base text-gray-600 dark:text-gray-300">
+          Secure, scalable AWS services with certified DevSecOps expertise — helping teams ship with confidence.
+        </p>
+
+        <div className="mt-6 flex justify-center gap-3">
+          <a href="/resume" className="rounded-xl border px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-900">
+            View Résumé
+          </a>
+          <a href="/docs/Jutellane-Brochure.pdf" className="rounded-xl bg-black px-4 py-2 text-sm text-white hover:opacity-90">
+            Download Brochure
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -92,3 +92,12 @@ a {
 html {
   scroll-behavior: smooth;
 }
+/***** Full-bleed helpers *****/
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+/* Exact top-bar color (tweak as you like) */
+.bg-topbar { background-color: #2757ea; } /* lively azure-blue */

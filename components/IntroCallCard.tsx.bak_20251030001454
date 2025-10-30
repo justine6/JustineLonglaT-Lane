@@ -1,0 +1,27 @@
+"use client";
+import { useMemo } from "react";
+
+export default function IntroCallCard() {
+  const href = useMemo(
+    () => process.env.NEXT_PUBLIC_INTRO_CALL_URL ?? process.env.INTRO_CALL_URL ?? "/contact#intro-call",
+    []
+  );
+  return (
+    <div id="intro-call" className="rounded-2xl border bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
+      <h3 className="text-lg font-semibold">Book a 15-Minute Intro Call</h3>
+      <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+        Quick discovery chat to understand your goals and suggest next steps.
+      </p>
+      <div className="mt-4">
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
+        >
+          Schedule Intro Call
+        </a>
+      </div>
+    </div>
+  );
+}

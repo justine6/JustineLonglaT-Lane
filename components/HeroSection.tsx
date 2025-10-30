@@ -1,83 +1,68 @@
-"use client";
-
-import { motion } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { LINKS } from "@/config/links";
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-r from-[#0047a1] to-[#00a8a8] py-20 text-center text-white overflow-hidden">
-      <div className="max-w-4xl mx-auto px-4">
-        <motion.h1
-          className="text-4xl md:text-6xl font-extrabold mb-4"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Cloud Confidence. Delivered.
-        </motion.h1>
-
-        <motion.p
-          className="text-lg md:text-xl mb-8"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-        >
-          Secure, scalable AWS services with certified DevSecOps expertise.  
-          Helping startups and growing teams achieve cloud automation with confidence.
-        </motion.p>
-
-        {/* ✨ CTA Buttons */}
-        <motion.div
-          className="flex flex-wrap items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.7 }}
-        >
-          {/* 🌟 IntroCall (Primary) */}
-          <Link
-            href="https://cal.jutellane.com/intro-call"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Book IntroCall"
-            className="inline-flex items-center justify-center rounded-lg bg-white text-blue-700 font-semibold px-8 py-3 shadow-lg hover:scale-105 hover:bg-gray-100 transition-transform duration-300"
-          >
-            Book IntroCall
-          </Link>
-
-          {/* Secondary CTAs */}
-          <a
-            href="#contact"
-            className="inline-flex items-center justify-center rounded-lg border border-white px-8 py-3 font-medium hover:bg-white/10 transition-all duration-300"
-          >
-            Book a Free Assessment
-          </a>
-
-          <a
-            href="/brochure.pdf"
-            className="inline-flex items-center justify-center rounded-lg border border-white px-8 py-3 font-medium hover:bg-white/10 transition-all duration-300"
-          >
-            Download Brochure
-          </a>
-        </motion.div>
-      </div>
-
-      {/* Banner Image */}
-      <motion.div
-        className="mt-12 flex justify-center px-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.0, duration: 1.0 }}
-      >
+    <section className="relative w-full overflow-hidden">
+      {/* Background Banner */}
+      <div className="absolute inset-0">
         <Image
           src="/brand/justine-banner.png"
-          alt="Justine Longla T Banner"
-          width={900}
-          height={500}
-          className="rounded-2xl shadow-lg object-cover"
+          alt="Justine Longla T. - Cloud Confidence Delivered"
+          fill
           priority
+          className="object-cover object-center"
         />
-      </motion.div>
+        {/* If you want it fully transparent, remove this overlay div */}
+        <div className="absolute inset-0 bg-black/25 sm:bg-black/30" />
+      </div>
+
+      {/* Content */}
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="flex min-h-[70vh] sm:min-h-[75vh] items-center justify-center text-center">
+          <div className="w-full">
+            <h1 className="text-white font-extrabold tracking-tight text-3xl sm:text-5xl lg:text-6xl">
+              Cloud Confidence. Delivered.
+            </h1>
+
+            <p className="mx-auto mt-0 max-w-4xl text-white/90 text-base sm:text-xl lg:text-2xl">
+              Secure, scalable AWS services with certified DevSecOps expertise —
+              helping startups and growing teams achieve cloud automation with confidence.
+            </p>
+
+            <div className="mt-0 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              {/* ✅ Primary: Intro Call → scroll to contact embed */}
+              <Link
+                href="/#contact"
+                className="inline-flex items-center justify-center rounded-2xl border border-white/70 bg-white/10 px-6 py-3 text-white backdrop-blur ring-1 ring-white/60 hover:bg-white/20 transition-colors"
+              >
+                Book Intro Call
+              </Link>
+
+              {/* Résumé (opens real PDF) */}
+              <Link
+                href={LINKS.resume}
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center justify-center rounded-2xl border border-white/70 bg-white/10 px-6 py-3 text-white backdrop-blur ring-1 ring-white/60 hover:bg-white/20 transition-colors"
+              >
+                View Résumé
+              </Link>
+
+              {/* Brochure (downloads real PDF) */}
+              <a
+                href={LINKS.brochure}
+                download="Jutellane-Brochure.pdf"
+                className="inline-flex items-center justify-center rounded-2xl border border-white/70 bg-white/10 px-6 py-3 text-white backdrop-blur ring-1 ring-white/60 hover:bg-white/20 transition-colors"
+              >
+                Download Brochure
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
+

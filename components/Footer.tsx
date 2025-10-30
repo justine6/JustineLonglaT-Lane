@@ -1,90 +1,82 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { Globe, ShieldCheck, Github, Mail, Linkedin, Calendar } from 'lucide-react';
-import { CONTACT, LIVE_BADGE_URL } from "@/config/links";  
+import Link from "next/link";
+import { LINKS } from "@/config/links";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t bg-gray-50 text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 mt-16">
-      <motion.div
-        className="mx-auto max-w-5xl px-4 py-8 text-center"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* Copyright */}
-        <p className="text-sm">
-          &copy; {year}{' '}
-          <span className="font-semibold text-gray-900 dark:text-white">
+    <footer className="border-t border-blue-200 bg-blue-50/90 text-slate-700 dark:bg-gray-900 dark:text-gray-200 backdrop-blur mt-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {/* 🌐 Brand Section */}
+        <div>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
             Jutellane Solutions
-          </span>
-          . All rights reserved.
-        </p>
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed">
+            Cloud Confidence. Delivered. Secure, performance-tuned solutions — built the right way.
+          </p>
 
-        {/* Contact */}
-        <div className="mt-2 flex flex-wrap items-center justify-center gap-3 text-sm">
-          <a
-            href={`mailto:${CONTACT.email}`}
-            className="inline-flex items-center gap-1 text-blue-600 hover:underline dark:text-blue-400"
-          >
-            <Mail size={16} /> {CONTACT.email}
-          </a>
-
-          <span className="text-gray-300 dark:text-gray-600">·</span>
-
-          <a
-            href={CONTACT.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-blue-600 hover:underline dark:text-blue-400"
-          >
-            <Linkedin size={16} /> LinkedIn
-          </a>
-
-          <span className="text-gray-300 dark:text-gray-600">·</span>
-
-          {/* Hire Me / Schedule a Call */}
-          <a
-            href={CONTACT.calendly}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-full bg-blue-600 px-3 py-1 text-xs font-medium text-white hover:bg-blue-700"
-          >
-            <Calendar size={14} /> Hire Me
-          </a>
+          {/* 📞 CTA Button */}
+          <div className="mt-4">
+            <Link
+              href={LINKS.introCall}
+              className="inline-block px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-sm"
+            >
+              Schedule Your Intro Call
+            </Link>
+          </div>
         </div>
 
-        {/* Divider */}
-        <div className="mx-auto my-5 h-px w-24 bg-gray-200 dark:bg-gray-800" />
+        {/* 🧭 Quick Links */}
+        <nav aria-label="Quick links">
+          <ul className="space-y-2 text-sm">
+            <li><Link href="/" className="hover:underline">Home</Link></li>
+            <li><Link href="/projects" className="hover:underline">Projects</Link></li>
+            <li><Link href="/blog" className="hover:underline">Blog</Link></li>
+            <li><Link href={LINKS.contact} className="hover:underline">Contact</Link></li>
+            <li><Link href="/resume.pdf" className="hover:underline" target="_blank">Résumé</Link></li>
+            <li><Link href="/brochure.pdf" className="hover:underline" target="_blank">Download a Brochure</Link></li>
+          </ul>
+        </nav>
 
-        {/* Site + security badges */}
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          <a
-            href={LIVE_BADGE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-full bg-green-100 px-3 py-1 text-xs text-green-700 transition-colors hover:bg-green-200 dark:bg-green-900/30 dark:text-green-300 dark:hover:bg-green-900/50"
-          >
-            <Globe size={14} /> Live: jutellane.com
-          </a>
-
-          <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
-            <ShieldCheck size={14} /> HTTPS Secured
-          </span>
-
-          <a
-            href="https://github.com/justine6/Jutellane-Solutions"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-          >
-            <Github size={14} /> GitHub
-          </a>
+        {/* 📬 Contact Info */}
+        <div className="text-sm">
+          <h4 className="font-semibold mb-2 text-slate-900 dark:text-white">CONTACT</h4>
+          <ul className="space-y-2">
+            <li>
+              <a
+                className="hover:underline"
+                href="mailto:info@jutellane.com"
+              >
+                info@jutellane.com
+              </a>
+            </li>
+            <li>
+              <a
+                className="hover:underline"
+                href="tel:+14059345864"
+              >
+                +1 405.934.5864
+              </a>
+            </li>
+            <li>
+              <a
+                className="hover:underline"
+                href="https://www.linkedin.com/in/longlatjustine"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn: longlatjustine
+              </a>
+            </li>
+          </ul>
         </div>
-      </motion.div>
+      </div>
+
+      {/* 🧾 Footer bottom bar */}
+      <div className="text-center text-xs py-4 opacity-70 border-t border-blue-100 dark:border-gray-800">
+        © {year} <span className="font-medium">Jutellane Solutions</span>. All rights reserved.
+      </div>
     </footer>
   );
 }
