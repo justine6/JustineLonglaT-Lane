@@ -67,17 +67,17 @@ export default function HomePage() {
 
           {/* Optional: resume direct link */}
           <Link
-            href="/docs/resume.pdf"
+            href="/resume.pdf"
             target="_blank"
-            rel="noopener"
-            className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-blue-600 hover:bg-blue-50"
+            rel="noopener noreferrer"
+            prefetch={false}
+            className="..."
           >
             View Résumé
           </Link>
         </div>
       </section>
     </AnimatedSection>
-
 
       {/* 🔷 Services Section */}
       {/* ...unchanged sections below ... */}

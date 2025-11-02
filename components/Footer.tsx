@@ -20,7 +20,8 @@ export default function Footer() {
           <div className="mt-4">
             <Link
               href={LINKS.introCall}
-              className="inline-block px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-sm"
+              aria-label="Schedule your intro call"
+              className="inline-block px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Schedule Your Intro Call
             </Link>
@@ -34,8 +35,30 @@ export default function Footer() {
             <li><Link href="/projects" className="hover:underline">Projects</Link></li>
             <li><Link href="/blog" className="hover:underline">Blog</Link></li>
             <li><Link href={LINKS.contact} className="hover:underline">Contact</Link></li>
-            <li><Link href="/resume.pdf" className="hover:underline" target="_blank">Résumé</Link></li>
-            <li><Link href="/brochure.pdf" className="hover:underline" target="_blank">Download a Brochure</Link></li>
+            <li>
+              <Link
+                href={LINKS.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                prefetch={false}
+                className="hover:underline"
+                aria-label="Open résumé PDF in a new tab"
+              >
+                Résumé
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={LINKS.brochure}
+                target="_blank"
+                rel="noopener noreferrer"
+                prefetch={false}
+                className="hover:underline"
+                aria-label="Open brochure PDF in a new tab"
+              >
+                Download a Brochure
+              </Link>
+            </li>
           </ul>
         </nav>
 
@@ -44,18 +67,12 @@ export default function Footer() {
           <h4 className="font-semibold mb-2 text-slate-900 dark:text-white">CONTACT</h4>
           <ul className="space-y-2">
             <li>
-              <a
-                className="hover:underline"
-                href="mailto:info@jutellane.com"
-              >
+              <a className="hover:underline" href="mailto:info@jutellane.com">
                 info@jutellane.com
               </a>
             </li>
             <li>
-              <a
-                className="hover:underline"
-                href="tel:+14059345864"
-              >
+              <a className="hover:underline" href="tel:+14059345864">
                 +1 405.934.5864
               </a>
             </li>

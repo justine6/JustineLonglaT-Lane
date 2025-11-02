@@ -1,0 +1,194 @@
+name: Verify Deployments (Prod & Preview)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+env:
+  # 🔧 Your canonical production domain
+  PROD_BASE_URL: https://jutellane.com
+
+  # 🔧 Paths to validate on each deployment
+  CHECK_PATH_1: /
+  CHECK_PATH_2: /images/aws-solutions-architect-pro.png
+  CHECK_PATH_3: /images/aws-devops-engineer-pro.png
+  CHECK_PATH_4: /images/microsoft-logo-microsoft.webp
+
+  # How long to wait for a fresh deployment to go live (seconds)
+  WAIT_TIMEOUT_S: "420"
+
+jobs:
+  verify-production:
+    name: Verify Production
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: 🛎️ Config
+        run: |
+          echo "Production base: $PROD_BASE_URL"
+          echo "Timeout: $WAIT_TIMEOUT_S s"
+
+      - name: ⏳ Wait for prod to be live
+        shell: bash
+        run: |
+          start=$(date +%s)
+          while true; do
+            if curl -I -sS -L "$PROD_BASE_URL" | grep -qE "^HTTP/.+ 200"; then
+              echo "✅ $PROD_BASE_URL live (200 OK)"
+              break
+            fi
+            now=$(date +%s); elapsed=$((now-start))
+            if [ $elapsed -gt $WAIT_TIMEOUT_S ]; then
+              echo "❌ Timed out after $WAIT_TIMEOUT_S s waiting for $PROD_BASE_URL"
+              exit 1
+            fi
+            echo "…not ready yet (elapsed ${elapsed}s), retrying in 5s"
+            sleep 5
+          done
+
+      - name: ✅ Verify prod endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          failures=0
+          for p in "$CHECK_PATH_1" "$CHECK_PATH_2" "$CHECK_PATH_3" "$CHECK_PATH_4"; do
+            url="${PROD_BASE_URL}${p}"
+            echo -e "\n🔎 $url"
+            if curl -I -sS -L --retry 6 --retry-delay 2 --retry-all-errors "$url" | grep -qE "^HTTP/.+ 200"; then
+              echo "   ✅ 200 OK"
+            else
+              echo "   ❌ Non-200 for $url"
+              failures=$((failures+1))
+            fi
+          done
+          [ "$failures" -eq 0 ] || { echo "❌ $failures check(s) failed"; exit 1; }
+          echo "🎉 Production checks passed"
+
+  verify-preview:
+    name: Verify Preview for PR/Branch
+    runs-on: ubuntu-latest
+    if: github.event_name != 'push' || github.ref != 'refs/heads/main'
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID || secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TEAM_ID: ${{ vars.VERCEL_TEAM_ID || '' }}
+    steps:
+      - name: 🧰 Show context
+        run: |
+          echo "GITHUB_SHA:        $GITHUB_SHA"
+          echo "GITHUB_HEAD_REF:   $GITHUB_HEAD_REF"
+          echo "PR NUMBER:         ${{ github.event.pull_request.number || 'n/a' }}"
+          echo "PROJECT_ID:        $VERCEL_PROJECT_ID"
+          echo "TEAM_ID:           $VERCEL_TEAM_ID"
+
+      - name: 🔎 Resolve latest Vercel preview deployment URL
+        id: find_preview
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${VERCEL_TOKEN:-}" ] || [ -z "${VERCEL_PROJECT_ID:-}" ]; then
+            echo "VERCEL_TOKEN and VERCEL_PROJECT_ID are required"; exit 1
+          fi
+
+          team_q=""
+          [ -n "${VERCEL_TEAM_ID:-}" ] && team_q="&teamId=${VERCEL_TEAM_ID}"
+
+          api="https://api.vercel.com/v13/deployments?projectId=${VERCEL_PROJECT_ID}&target=preview&limit=50${team_q}"
+          echo "GET $api"
+          resp=$(curl -sS -H "Authorization: Bearer ${VERCEL_TOKEN}" "$api")
+          echo "$resp" | jq '.deployments | length as $n | "Found \($n) preview deployment(s)"'
+
+          sha="$GITHUB_SHA"
+          branch="${GITHUB_HEAD_REF:-${GITHUB_REF##*/}}"
+          pr="${{ github.event.pull_request.number || '' }}"
+
+          # 1) Match exact commit SHA (GitHub integration adds meta.githubCommitSha)
+          url=$(echo "$resp" | jq -r --arg sha "$sha" '
+            .deployments[]
+            | select(.meta.githubCommitSha? == $sha)
+            | .url
+            ' | head -n1)
+
+          # 2) Fallback: match branch
+          if [ -z "$url" ]; then
+            url=$(echo "$resp" | jq -r --arg b "$branch" '
+              .deployments[]
+              | select(.meta.githubCommitRef? == $b)
+              | .url
+              ' | head -n1)
+          fi
+
+          # 3) Fallback: match PR number if available (meta.githubPrId)
+          if [ -z "$url" ] && [ -n "$pr" ]; then
+            url=$(echo "$resp" | jq -r --arg pr "$pr" '
+              .deployments[]
+              | select((.meta.githubPrId? // "") == $pr)
+              | .url
+              ' | head -n1)
+          fi
+
+          # 4) Final fallback: newest preview
+          if [ -z "$url" ]; then
+            url=$(echo "$resp" | jq -r '.deployments | first?.url // ""')
+          fi
+
+          if [ -z "$url" ]; then
+            echo "❌ Could not resolve a preview deployment URL"
+            exit 1
+          fi
+
+          echo "Preview deployment: $url"
+          echo "preview_url=https://$url" >> "$GITHUB_OUTPUT"
+
+      - name: ⏳ Wait for preview to be live
+        shell: bash
+        run: |
+          BASE_URL="${{ steps.find_preview.outputs.preview_url }}"
+          echo "Preview base: $BASE_URL"
+          start=$(date +%s)
+          while true; do
+            if curl -I -sS -L "$BASE_URL" | grep -qE "^HTTP/.+ 200"; then
+              echo "✅ $BASE_URL live (200 OK)"
+              break
+            fi
+            now=$(date +%s); elapsed=$((now-start))
+            if [ $elapsed -gt $WAIT_TIMEOUT_S ]; then
+              echo "❌ Timed out after $WAIT_TIMEOUT_S s waiting for $BASE_URL"
+              exit 1
+            fi
+            echo "…not ready yet (elapsed ${elapsed}s), retrying in 5s"
+            sleep 5
+          done
+          echo "PREVIEW_BASE_URL=$BASE_URL" >> "$GITHUB_ENV"
+
+      - name: ✅ Verify preview endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE_URL="$PREVIEW_BASE_URL"
+          failures=0
+          for p in "$CHECK_PATH_1" "$CHECK_PATH_2" "$CHECK_PATH_3" "$CHECK_PATH_4"; do
+            url="${BASE_URL}${p}"
+            echo -e "\n🔎 $url"
+            if curl -I -sS -L --retry 6 --retry-delay 2 --retry-all-errors "$url" | grep -qE "^HTTP/.+ 200"; then
+              echo "   ✅ 200 OK"
+            else
+              echo "   ❌ Non-200 for $url"
+              failures=$((failures+1))
+            fi
+          done
+          [ "$failures" -eq 0 ] || { echo "❌ $failures check(s) failed"; exit 1; }
+          echo "🎉 Preview checks passed"
+
+      - name: 📜 Summary
+        if: always()
+        run: |
+          echo "## Preview Verification" >> "$GITHUB_STEP_SUMMARY"
+          echo "- URL: $PREVIEW_BASE_URL" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Time: $(date -u)" >> "$GITHUB_STEP_SUMMARY"

@@ -1,9 +1,6 @@
-import { Calendar, Menu, X } from "lucide-react";
-import Link from 'next/link';
-import { LINKS } from '@/config/links';
 'use client';
 import { useEffect, useState, useCallback } from 'react';
-
+import { LINKS } from '@/config/links';
 'use client';
 
 const ECOSYSTEM = [
@@ -88,12 +85,12 @@ export default function Topbar() {
 
           {/* Schedule a Call */}
           <a
-            href={LINKS.introCall}
+            href={LINKS.contact.calendly}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-white hover:bg-white/20"
           >
-            📅 Schedule a Call
+            <Calendar size={16}/> Schedule a Call
           </a>
         </div>
 
@@ -141,13 +138,13 @@ export default function Topbar() {
             </ul>
 
             <a
-              href={LINKS.introCall}
+              href={LINKS.contact.calendly}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-white hover:bg-white/20"
               onClick={closeMenu}
             >
-              📅 Hire Me
+              <Calendar size={16}/> Hire Me
             </a>
           </div>
         </div>

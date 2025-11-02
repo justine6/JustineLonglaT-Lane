@@ -1,14 +1,20 @@
-# Changelog
+## [v2.5.0] - 2025-10-30
 
-## [v1.2.14] - 2025-10-27
 ### Added
-- Consolidated `docs/` pack with a unified **Developer Utilities** overview.
-- Standardized **CI/CD** doc structure across **Jutellane-Main** and **Jutellane-Blogs**.
+- Cal.com scheduling integration with dynamic iframe and fallback routing.
+- Automated PowerShell release script (`Cut-Release.ps1`) for tagging and publishing.
+- New responsive layout consistency across hero, footer, and navigation components.
+- New docs: developer utilities, CI/CD process, release consistency.
 
 ### Changed
-- Harmonized release process using `Cut-Release.ps1` (annotated tagging, CI trigger).
-- Polished README badges and script tables for better discoverability.
+- Footer and Hero section refactored to align with production parity design.
+- Updated README and documentation links.
+- Enhanced MDX rendering and content authoring support via `remark-gfm`.
 
 ### Fixed
-- Minor inconsistencies in script usage examples and paths.
+- Cal.com scheduling 404 fallback.
+- Layout margin inconsistencies between hero and navbar.
 
+### Testing
+- Verified using Vitest with coverage reports.
+- Coverage summary: 68.75% statements / 85.71% functions — all suites passed.

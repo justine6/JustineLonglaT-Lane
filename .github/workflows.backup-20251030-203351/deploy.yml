@@ -1,0 +1,94 @@
+name: Deploy (Vercel, Production)
+
+on:
+  release:
+    types: [published]   # Fires only when a release is published
+
+permissions:
+  contents: read
+  # Used only when we update the release body with the deployed URL:
+  # (GitHub sets this automatically for GITHUB_TOKEN)
+  # releases: write
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false  # never overlap prod deploys
+
+jobs:
+  deploy:
+    name: Deploy to Vercel (prod)
+    runs-on: ubuntu-latest
+
+    env:
+      # Required by vercel CLI (all stored as repo/environment secrets)
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate required secrets
+        run: |
+          miss=0
+          for k in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
+            if [ -z "${!k}" ]; then echo "❌ Missing secret: $k"; miss=1; fi
+          done
+          if [ "$miss" -ne 0 ]; then
+            echo "Set the missing secrets in your repository settings."
+            exit 1
+          fi
+
+      - name: Use Node.js 20 (with npm cache)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (Next.js – prebuild)
+        run: npm run build
+
+      - name: Pull Vercel env (production)
+        run: npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+
+      - name: Deploy prebuilt to Vercel (production)
+        id: vercel
+        run: |
+          # --prebuilt uses .vercel/output (Next output) created by `npm run build`
+          URL=$(npx vercel deploy --prebuilt --prod --confirm --token="$VERCEL_TOKEN")
+          echo "vercel_url=$URL" >> "$GITHUB_OUTPUT"
+          echo "Deployed: $URL"
+
+      - name: Append deployed URL to the GitHub Release notes
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = core.getInput('url', { required: true });
+            const { owner, repo } = context.repo;
+
+            // Get the release that triggered this workflow
+            const releaseId = context.payload.release.id;
+            const { data: release } = await github.rest.repos.getRelease({
+              owner, repo, release_id: releaseId
+            });
+
+            const append = `\n\n### 🚀 Deployment\n**Production URL:** ${url}\n`;
+            const body = (release.body || '') + append;
+
+            await github.rest.repos.updateRelease({
+              owner, repo, release_id: releaseId, body
+            });
+          result-encoding: string
+          inputs: |
+            url: ${{ steps.vercel.outputs.vercel_url }}
+
+      - name: Summary
+        run: |
+          echo "✅ Deployed to: ${{ steps.vercel.outputs.vercel_url }}"

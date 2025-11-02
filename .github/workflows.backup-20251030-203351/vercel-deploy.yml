@@ -1,0 +1,91 @@
+name: Deploy to Vercel (Preview & Production)
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: vercel-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Set if you want to be explicit about team scope; optional
+  TEAM_SLUG: jutellane
+  # Needed by Vercel CLI “pull/build/deploy”
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  deploy:
+    name: Deploy (${{ github.event_name == 'pull_request' && 'preview' || 'production' }})
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      # Optional — keep if you have tests
+      - name: Test
+        run: |
+          if npm run | grep -q "^  test"; then
+            npm test --if-present
+          else
+            echo "No tests defined; skipping."
+          fi
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
+
+      # Pull env + link settings for the right environment
+      - name: Vercel Pull (Preview/Prod)
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            vercel pull --yes --environment=preview  ${TEAM_SLUG:+--scope $TEAM_SLUG}
+          else
+            vercel pull --yes --environment=production ${TEAM_SLUG:+--scope $TEAM_SLUG}
+          fi
+
+      # Build once on CI — fast & deterministic
+      - name: Vercel Build
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            vercel build
+          else
+            vercel build --prod
+          fi
+
+      # Deploy the prebuilt output
+      - name: Vercel Deploy (prebuilt)
+        id: deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            url=$(vercel deploy --prebuilt ${TEAM_SLUG:+--scope $TEAM_SLUG} --token $VERCEL_TOKEN)
+          else
+            url=$(vercel deploy --prebuilt --prod ${TEAM_SLUG:+--scope $TEAM_SLUG} --token $VERCEL_TOKEN)
+          fi
+          echo "url=$url" >> $GITHUB_OUTPUT
+          echo "Deployed: $url"
+
+      - name: Comment Preview URL on PR
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: vercel-preview
+          message: |
+            ✅ **Vercel Preview** ready: ${{ steps.deploy.outputs.url }}

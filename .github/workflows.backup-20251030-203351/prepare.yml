@@ -1,0 +1,82 @@
+name: Prepare Changelog PR
+
+on:
+  # Run by hand from the Actions tab
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Version bump type for the next release"
+        type: choice
+        default: auto
+        options: [auto, patch, minor, major]
+
+  # OPTIONAL: disable or make weekly if daily is too chatty
+  # schedule:
+  #   - cron: "0 7 * * 1"   # Mondays 07:00 UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+concurrency:
+  group: prepare-changelog
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    # Don't run on forks
+    if: github.repository_owner == 'justine6'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set git user for CI commits
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Resolve bump input (default = auto)
+        id: decide
+        run: |
+          $bump = "${{ github.event.inputs.bump }}"
+          if (-not $bump) { $bump = "auto" }
+          "bump=$bump" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          Write-Host "Bump type ..........: $bump"
+
+      - name: Compute latest SemVer (FORCE_LAST_SEMVER)
+        run: |
+          $last = git tag --list --sort=-creatordate | Where-Object { $_ -match '^(v)?\d+\.\d+\.\d+$' } | Select-Object -First 1
+          if (-not $last) { $last = 'v0.0.0' }
+          "FORCE_LAST_SEMVER=$last" | Out-File -FilePath $env:GITHUB_ENV -Append
+          Write-Host "FORCE_LAST_SEMVER ..: $last"
+
+      - name: Ensure helpful labels exist (no-op if present)
+        run: |
+          gh label create release --color FFD700 --description "Release automation" 2>$null || $true
+          gh label create chore   --color 2F4F4F --description "Chore / infra"       2>$null || $true
+
+      - name: Skip if a release PR is already open
+        id: has_pr
+        run: |
+          $existing = gh pr list --state open --label release --json number | ConvertFrom-Json
+          if ($existing -and $existing.Count -gt 0) {
+            "skip=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+            Write-Host "Found existing release PR(s). Skipping prepare."
+          } else {
+            "skip=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          }
+
+      - name: Prepare changelog PR
+        if: steps.has_pr.outputs.skip != 'true'
+        run: |
+          ./Cut-Release.ps1 -Stage prepare -Bump ${{ steps.decide.outputs.bump }} -Yes

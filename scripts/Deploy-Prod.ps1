@@ -1,0 +1,25 @@
+param([switch]$PromoteOnly)
+
+# Ensure you’re on the right Vercel team scope
+vercel switch | Out-Null
+
+function Get-PreviewUrl {
+  $out = vercel --yes
+  $m = ($out | Select-String 'https://.*\.vercel\.app').Matches
+  if (-not $m -or $m.Count -eq 0) { throw "Could not find a preview URL in Vercel output." }
+  return $m[0].Value
+}
+
+if ($PromoteOnly) {
+  if ($env:PREVIEW_URL) { $url = $env:PREVIEW_URL }
+  else {
+    Write-Host "Enter preview URL to promote: " -NoNewline
+    $url = Read-Host
+  }
+} else {
+  $url = Get-PreviewUrl
+  Write-Host "Preview: $url"
+}
+
+vercel promote $url --prod --yes
+Write-Host "✅ Promoted to production."

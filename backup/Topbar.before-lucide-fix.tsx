@@ -1,4 +1,3 @@
-import { Calendar, Menu, X } from "lucide-react";
 import Link from 'next/link';
 import { LINKS } from '@/config/links';
 'use client';

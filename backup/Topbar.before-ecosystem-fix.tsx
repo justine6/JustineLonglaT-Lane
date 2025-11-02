@@ -1,19 +1,9 @@
-import { Calendar, Menu, X } from "lucide-react";
-import Link from 'next/link';
-import { LINKS } from '@/config/links';
 'use client';
+
 import { useEffect, useState, useCallback } from 'react';
-
-'use client';
-
-const ECOSYSTEM = [
-  { label: "Home",     href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "Blog",     href: "/blog" },
-  { label: "Contact",  href: LINKS.contact },
-];
-
-// Topbar
+import Link from 'next/link';
+import { Menu, X, Calendar } from 'lucide-react';
+import { ECOSYSTEM_LINKS, CONTACT } from "@/config/links";   // Topbar
 
 export default function Topbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,7 +26,7 @@ export default function Topbar() {
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Projects', href: '/projects' },
-    { name: 'LINKS.contact', href: '/LINKS.contact' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -71,7 +61,7 @@ export default function Topbar() {
               className="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out transform group-hover:translate-y-1 absolute right-0 mt-2 w-56 rounded-xl border border-white/10 bg-white/90 dark:bg-gray-900/90 backdrop-blur shadow-lg p-2 z-50"
               role="menu"
             >
-              {ECOSYSTEM.map(l => (
+              {ECOSYSTEM_LINKS.map(l => (
                 <a
                   key={l.href}
                   href={l.href}
@@ -88,12 +78,12 @@ export default function Topbar() {
 
           {/* Schedule a Call */}
           <a
-            href={LINKS.introCall}
+            href={CONTACT.calendly}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-white hover:bg-white/20"
           >
-            📅 Schedule a Call
+            <Calendar size={16}/> Schedule a Call
           </a>
         </div>
 
@@ -125,7 +115,7 @@ export default function Topbar() {
           <div className="pt-3 border-t border-white/10">
             <div className="text-xs uppercase tracking-wide text-white/70 mb-2">Ecosystem</div>
             <ul className="space-y-2">
-              {ECOSYSTEM.map(l => (
+              {ECOSYSTEM_LINKS.map(l => (
                 <li key={l.href}>
                   <a
                     href={l.href}
@@ -141,13 +131,13 @@ export default function Topbar() {
             </ul>
 
             <a
-              href={LINKS.introCall}
+              href={CONTACT.calendly}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-white hover:bg-white/20"
               onClick={closeMenu}
             >
-              📅 Hire Me
+              <Calendar size={16}/> Hire Me
             </a>
           </div>
         </div>

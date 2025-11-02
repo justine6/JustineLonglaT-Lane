@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.jutellane.com" }],
+      "destination": "https://jutellane.com/:path*",
+      "permanent": true
+    }
+  ]
+}

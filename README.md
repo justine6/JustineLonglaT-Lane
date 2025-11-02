@@ -1,3 +1,19 @@
+
+<!-- CI/CD & Site Badges -->
+[![Build & Deploy — Jutellane Solutions](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy.yml)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fjutellane.com)](https://jutellane.com)
+[![Last commit](https://img.shields.io/github/last-commit/justine6/Jutellane-Solutions/main)](https://github.com/justine6/Jutellane-Solutions/commits/main)
+[![Docs](https://img.shields.io/badge/Docs-Jutellane%20Blogs-blue)](https://justine6.github.io/jutellane-blogs/)
+
+**Live site:** https://jutellane.com
+<!-- CI/CD Status -->
+[![Preview (Vercel)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/preview-pr.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/preview-pr.yml)
+[![Production (Vercel)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy-prod.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy-prod.yml)
+[![Verify Production](https://github.com/justine6/Jutellane-Solutions/actions/workflows/verify-production.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/verify-production.yml)
+[![Docs (GitHub Pages)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/docs-pages.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/docs-pages.yml)
+
+**Docs:** https://justine6.github.io/Jutellane-Solutions/
+
 # 🧩 Jutellane Solutions CI/CD & Documentation Status
 
 ![Prepare Workflow](https://github.com/justine6/Jutellane-Solutions/actions/workflows/prepare.yml/badge.svg)
@@ -141,7 +157,32 @@ This will:
 - All actions are logged to the console and tracked in GitHub Actions logs.
 
 ---
+## 🚀 Recent Updates (v2.5.0)
+
+**Release Title:** *Cal.com Integration & Responsive Layout Overhaul*
+
+### ✅ Key Enhancements
+- Embedded **Cal.com intro call scheduling** with fallback support
+- Unified responsive layout across all sections (Navbar, Hero, Footer)
+- Added finalized **“Schedule Your Intro Call”** CTA and résumé download link
+- Enhanced **MDX pipeline** with `remark-gfm` for improved blog rendering
+- Introduced **automated release script** (`Cut-Release.ps1`) for smooth tagging and version management
+- Verified **Vitest coverage** and CI/CD integrity before tag push
+- Synced developer documentation for build and deployment consistency
+
+### 🧭 Branch and Tag
+- Branch: `feat/hero-prod-match`
+- Tag: `v2.5.0`
+
+### 🧪 Tests
+```bash
+npm run test:coverage
+vitest run --coverage
+
 
 🛠 **Maintained by:** [Justine Longla Tekang](https://www.linkedin.com/in/longlatjustine)  
 🌍 **Website:** [jutellane.com](https://jutellane.com)  
 📧 **Email:** justinelongla@yahoo.com  
+
+
+

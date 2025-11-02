@@ -16,7 +16,7 @@ export default function IntroCallPage() {
     // Cal embed params:
     // embed_type=inline keeps it embedded
     // embed_domain must match your current host
-    return `https://cal.com/${LINKS.calPath}?embed_type=inline&embed_domain=${domain}`;
+    return `https://cal.com/justine-longla-ptq4no/intro-call}`;
   }, []);
 
   return (
