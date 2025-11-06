@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {/* Sticky Topbar */}
         <Navbar />
 
-        {/* Hero sits directly under the Topbar (“kiss”) */}
+        {/* Hero sits directly under the Topbar */}
         <ConditionalHero />
 
         {/* Page body + footer */}
