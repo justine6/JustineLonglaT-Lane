@@ -1,5 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
+import { LINKS } from '@/config/links';
 
 const Viewer = dynamic(() => import("./ResumeViewer"), {
   ssr: false,
@@ -13,3 +14,4 @@ export default function ResumeViewerClient(props: {
 }) {
   return <Viewer {...props} />;
 }
+

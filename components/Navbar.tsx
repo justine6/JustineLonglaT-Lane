@@ -1,9 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { LINKS } from '@/config/links';
 import Image from "next/image";
+import { LINKS } from '@/config/links';
 import { usePathname } from "next/navigation";
+import { LINKS } from '@/config/links';
 import * as React from "react";
+import { LINKS } from '@/config/links';
 
 const links = [
   { href: "/", label: "Home" },
@@ -62,3 +66,4 @@ export default function Navbar() {
     </header>
   );
 }
+

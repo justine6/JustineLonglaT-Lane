@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { LINKS } from '@/config/links';
 
 export default function AboutSection() {
   return (
@@ -54,3 +55,4 @@ export default function AboutSection() {
     </section>
   );
 }
+

@@ -1,6 +1,7 @@
 // components/HeroBanner.tsx
 "use client";
 import Image from "next/image";
+import { LINKS } from '@/config/links';
 
 export default function HeroBanner() {
   return (
@@ -51,4 +52,5 @@ export default function HeroBanner() {
     </section>
   );
 }
+
 

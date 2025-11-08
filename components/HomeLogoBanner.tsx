@@ -1,6 +1,7 @@
 // components/HomeLogoBanner.tsx
 "use client";
 import Image from "next/image";
+import { LINKS } from '@/config/links';
 
 export default function HomeLogoBanner() {
   return (
@@ -37,4 +38,5 @@ export default function HomeLogoBanner() {
     </section>
   );
 }
+
 

@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
+import { LINKS } from '@/config/links';
 import { getAllProjects } from "@/lib/projects";
+import { LINKS } from '@/config/links';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://jutellane.com";

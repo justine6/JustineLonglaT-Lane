@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import { LINKS } from '@/config/links';
 import { motion, useReducedMotion, easeOut, type Variants } from "framer-motion";
+import { LINKS } from '@/config/links';
 
 const container: Variants = {
   hidden: { opacity: 0 },
@@ -97,3 +99,4 @@ export default function CertificationsGrid() {
     </motion.div>
   );
 }
+

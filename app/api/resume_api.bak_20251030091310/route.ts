@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import { LINKS } from '@/config/links';
 import { promises as fs } from "fs";
+import { LINKS } from '@/config/links';
 import path from "path";
+import { LINKS } from '@/config/links';
 
 export async function GET() {
   const filePath = path.join(process.cwd(), "public", "resume.json");
@@ -11,3 +14,4 @@ export async function GET() {
     return NextResponse.json({ error: "resume.json not found" }, { status: 404 });
   }
 }
+

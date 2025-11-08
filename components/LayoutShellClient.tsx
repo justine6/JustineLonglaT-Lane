@@ -1,7 +1,9 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { LINKS } from '@/config/links';
 import HeroBanner from "@/components/HeroBanner";
+import { LINKS } from '@/config/links';
 
 export default function LayoutShellClient({
   children,
@@ -18,3 +20,4 @@ export default function LayoutShellClient({
     </>
   );
 }
+

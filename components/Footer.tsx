@@ -28,39 +28,54 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* 🧭 Quick Links */}
-        <nav aria-label="Quick links">
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/" className="hover:underline">Home</Link></li>
-            <li><Link href="/projects" className="hover:underline">Projects</Link></li>
-            <li><Link href="/blog" className="hover:underline">Blog</Link></li>
-            <li><Link href={LINKS.contact} className="hover:underline">Contact</Link></li>
-            <li>
-              <Link
-                href={LINKS.resume}
-                target="_blank"
-                rel="noopener noreferrer"
-                prefetch={false}
-                className="hover:underline"
-                aria-label="Open résumé PDF in a new tab"
-              >
-                Résumé
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={LINKS.brochure}
-                target="_blank"
-                rel="noopener noreferrer"
-                prefetch={false}
-                className="hover:underline"
-                aria-label="Open brochure PDF in a new tab"
-              >
-                Download a Brochure
-              </Link>
-            </li>
-          </ul>
-        </nav>
+{/* 🧭 Quick Links */}
+<nav aria-label="Quick links">
+  <ul className="space-y-2 text-sm">
+    <li><Link href="/" className="hover:underline">Home</Link></li>
+    <li><Link href="/projects" className="hover:underline">Projects</Link></li>
+    <li><Link href="/blog" className="hover:underline">Blog</Link></li>
+    <li><Link href={LINKS.contact} className="hover:underline">Contact</Link></li>
+
+    {/* Internal résumé page (same tab) */}
+    <li>
+      <Link
+        href={LINKS.resume}
+        prefetch={false}
+        className="hover:underline"
+        aria-label="Open résumé page"
+      >
+        Résumé
+      </Link>
+    </li>
+
+    {/* PDF links must use <a> */}
+    <li>
+      <a
+        href={LINKS.resumePdf}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline"
+        aria-label="Open résumé PDF in a new tab"
+      >
+        Download Résumé (PDF)
+      </a>
+    </li>
+    <li>
+    {/* PDF links must use <a> */}
+    <li>
+      <a
+        href={LINKS.brochure}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline"
+        aria-label="Open brochure PDF in a new tab"
+      >
+        Download a Brochure
+      </a>
+    </li>
+    </li>
+  </ul>
+</nav>
 
         {/* 📬 Contact Info */}
         <div className="text-sm">

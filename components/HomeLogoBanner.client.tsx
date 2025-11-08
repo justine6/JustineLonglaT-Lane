@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { LINKS } from '@/config/links';
 
 export default function HomeLogoBannerClient() {
   return (
@@ -19,4 +20,5 @@ export default function HomeLogoBannerClient() {
     </section>
   );
 }
+
 

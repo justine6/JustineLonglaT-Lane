@@ -52,12 +52,15 @@ export default function HeroSection() {
 
               {/* Brochure (downloads real PDF) */}
               <a
-                href={LINKS.brochure}
-                download="Jutellane-Brochure.pdf"
-                className="inline-flex items-center justify-center rounded-2xl border border-white/70 bg-white/10 px-6 py-3 text-white backdrop-blur ring-1 ring-white/60 hover:bg-white/20 transition-colors"
+                href={LINKS.brochurePdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-sm"
+                aria-label="Download brochure (PDF) in a new tab"
               >
-                Download Brochure
+                Download a Brochure
               </a>
+
             </div>
           </div>
         </div>

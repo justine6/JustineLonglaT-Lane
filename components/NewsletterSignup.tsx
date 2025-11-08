@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import { LINKS } from '@/config/links';
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState('');
@@ -33,3 +34,4 @@ export default function NewsletterSignup() {
     </form>
   );
 }
+

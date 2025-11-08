@@ -1,5 +1,6 @@
 "use client";
 import ContactForm from "@/components/ContactForm";
+import { LINKS } from '@/config/links';
 export default function BodyContactSection() {
   return (
     <section id="contact" className="max-w-3xl mx-auto mt-16 mb-10">
@@ -11,3 +12,4 @@ export default function BodyContactSection() {
     </section>
   );
 }
+

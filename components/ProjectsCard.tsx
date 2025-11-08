@@ -1,6 +1,9 @@
 import Image from "next/image";
+import { LINKS } from '@/config/links';
 import Link from "next/link";
+import { LINKS } from '@/config/links';
 import type { Project } from "@/lib/get-all-projects";
+import { LINKS } from '@/config/links';
 
 type Props = {
   project: Project & { category?: string };
@@ -67,3 +70,4 @@ export default function ProjectsCard({ project }: Props) {
     </Link>
   );
 }
+

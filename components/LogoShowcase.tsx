@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LINKS } from '@/config/links';
 
 export default function LogoShowcase() {
   return (
@@ -20,3 +21,4 @@ export default function LogoShowcase() {
     </section>
   );
 }
+

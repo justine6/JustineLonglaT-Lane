@@ -1,6 +1,8 @@
 /* app/opengraph-image.tsx */
 import { ImageResponse } from "next/og";
+import { LINKS } from '@/config/links';
 import { site } from "@/lib/site";
+import { LINKS } from '@/config/links';
 
 export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
@@ -38,3 +40,4 @@ export default async function OG() {
     { ...size }
   );
 }
+

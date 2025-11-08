@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { LINKS } from '@/config/links';
 
 export default function BackToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -55,3 +56,4 @@ export default function BackToTopButton() {
     </>
   );
 }
+

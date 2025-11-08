@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LINKS } from '@/config/links';
 
 export default function HeroImage() {
   return (
@@ -12,3 +13,4 @@ export default function HeroImage() {
     />
   );
 }
+

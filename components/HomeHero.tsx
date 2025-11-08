@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { LINKS } from '@/config/links';
 
 export default function HomeHero() {
   return (
@@ -34,5 +35,6 @@ export default function HomeHero() {
     </section>
   );
 }
+
 
 

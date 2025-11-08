@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
+import { LINKS } from '@/config/links';
 
 type Props = {
   fullSrc?: string;    // e.g. /docs/Justine_Tekang_Jutellane_Solutions_Resume.pdf
@@ -164,3 +165,4 @@ const ResumeViewer: React.FC<Props> = ({
 };
 
 export default ResumeViewer;
+

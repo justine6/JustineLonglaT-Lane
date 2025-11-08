@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { LINKS } from '@/config/links';
 import { Resend } from "resend";
+import { LINKS } from '@/config/links';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -45,3 +47,4 @@ export async function POST(req: Request) {
 function escapeHtml(s: string = "") {
   return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
+

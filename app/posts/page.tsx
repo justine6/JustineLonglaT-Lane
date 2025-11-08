@@ -1,5 +1,7 @@
 import Link from 'next/link';
+import { LINKS } from '@/config/links';
 import postsData from '@/content/projects/posts.json';
+import { LINKS } from '@/config/links';
 
 export const metadata = {
   title: 'Blog — Jutellane Solutions',
@@ -55,3 +57,4 @@ export default async function PostsIndex() {
     </main>
   );
 }
+

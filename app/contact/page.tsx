@@ -1,4 +1,5 @@
 import ContactForm from "@/components/ContactForm";
+import { LINKS } from '@/config/links';
 export const metadata = { title: "Contact | Jutellane Solutions" };
 export default function ContactPage() {
   return (
@@ -11,3 +12,4 @@ export default function ContactPage() {
     </main>
   );
 }
+

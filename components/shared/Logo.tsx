@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LINKS } from '@/config/links';
 
 export default function Logo() {
   return (
@@ -15,3 +16,4 @@ export default function Logo() {
     </div>
   );
 }
+

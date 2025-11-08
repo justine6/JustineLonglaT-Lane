@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { LINKS } from '@/config/links';
 
 export default function ContactForm() {
   const [name,setName] = useState("");
@@ -55,3 +56,4 @@ export default function ContactForm() {
     </form>
   );
 }
+

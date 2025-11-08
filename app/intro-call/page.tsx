@@ -2,6 +2,9 @@
 "use client";
 
 import Script from "next/script";
+import { LINKS } from '@/config/links';
+import Link from "next/link";
+import { LINKS } from '@/config/links';
 
 export default function IntroCallPage() {
   return (
@@ -11,10 +14,9 @@ export default function IntroCallPage() {
         Pick a time that works for you. Quick chat to understand goals and fit.
       </p>
 
-      {/* Cal inline widget */}
       <div
         className="rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden"
-        style={{ minHeight: 700 }}
+        style={{ minHeight: 720 }}
       >
         <div
           className="calcom-embed"
@@ -25,11 +27,23 @@ export default function IntroCallPage() {
         />
       </div>
 
-      {/* load Cal embed script once on the page */}
-      <Script
-        src="https://cal.com/embed.js"
-        strategy="afterInteractive"
-      />
+      <noscript>
+        <p className="mt-4">
+          JavaScript is required to book inline.{" "}
+          <Link
+            href="https://cal.com/justine-longla-ptq4no/intro-call"
+            className="text-blue-600 underline"
+          >
+            Open the booking page
+          </Link>
+          .
+        </p>
+      </noscript>
+
+      {/* Load once per page visit; Cal will attach to .calcom-embed */}
+      <Script src="https://cal.com/embed.js" strategy="afterInteractive" />
     </main>
   );
 }
+
+

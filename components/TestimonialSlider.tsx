@@ -1,9 +1,13 @@
 'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { LINKS } from '@/config/links';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { LINKS } from '@/config/links';
 import 'swiper/css';
+import { LINKS } from '@/config/links';
 import 'swiper/css/pagination';
+import { LINKS } from '@/config/links';
 
 type Testimonial = {
   name: string;
@@ -57,3 +61,4 @@ export default function TestimonialSlider() {
     </div>
   );
 }
+

@@ -1,8 +1,11 @@
 'use client';
 
 import { useTheme } from 'next-themes';
+import { LINKS } from '@/config/links';
 import { useEffect, useState } from 'react';
+import { LINKS } from '@/config/links';
 import { Moon, Sun } from 'lucide-react';
+import { LINKS } from '@/config/links';
 
 export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -33,4 +36,5 @@ export default function ThemeToggle() {
     </button>
   );
 }
+
 
