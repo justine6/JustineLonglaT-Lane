@@ -6,13 +6,12 @@ const withMDX = createMDX({
   options: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [],
-    // 🧠 ensure MDX uses React’s context provider
     providerImportSource: "@mdx-js/react",
   },
 });
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig = withMDX({
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   eslint: { ignoreDuringBuilds: true },
 
@@ -20,8 +19,13 @@ const nextConfig = {
     return [
       { source: "/schedule", destination: "/intro-call", permanent: true },
       { source: "/intro", destination: "/intro-call", permanent: true },
+      {
+        source: "/docs/jutellane-brochure.pdf",
+        destination: "/docs/brochure.pdf",
+        permanent: true,
+      },
     ];
   },
-};
+});
 
-export default withMDX(nextConfig);
+export default nextConfig;
