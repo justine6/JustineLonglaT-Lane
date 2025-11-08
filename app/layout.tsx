@@ -2,16 +2,14 @@
 import type { Metadata, Viewport } from "next";
 import { LINKS } from '@/config/links';
 import type { ReactNode } from "react";
-import { LINKS } from '@/config/links';
+
 import "./globals.css";
-import { LINKS } from '@/config/links';
 
 import Navbar from "@/components/Navbar";
-import { LINKS } from '@/config/links';
+
 import Footer from "@/components/Footer";
-import { LINKS } from '@/config/links';
+
 import ConditionalHero from "@/components/ConditionalHero";
-import { LINKS } from '@/config/links';
 
 export const metadata: Metadata = {
   title: "Jutellane Solutions — Cloud Confidence. Delivered.",
@@ -59,4 +57,5 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
 

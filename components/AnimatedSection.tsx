@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { LINKS } from '@/config/links';
 import { ReactNode } from "react";
-import { LINKS } from '@/config/links';
 
 type AnimatedSectionProps = {
   children: ReactNode;
@@ -32,4 +31,5 @@ export default function AnimatedSection({
     </motion.section>
   );
 }
+
 

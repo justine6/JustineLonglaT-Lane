@@ -1,4 +1,5 @@
 import fs from "fs";
+import { LINKS } from '@/config/links';
 import path from "path";
 
 const projectsDir = path.join(process.cwd(), "app/projects");
@@ -95,3 +96,5 @@ export function getAllProjects(): ProjectMeta[] {
 
   return projects;
 }
+
+

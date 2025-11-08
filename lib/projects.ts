@@ -1,4 +1,5 @@
 import fs from "fs";
+import { LINKS } from '@/config/links';
 import path from "path";
 
 export type Project = {
@@ -39,3 +40,4 @@ export async function getProjectBySlug(slug: string) {
     updatedAt: content.updatedAt ?? new Date().toISOString(),
   };
 }
+

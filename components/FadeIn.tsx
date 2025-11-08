@@ -3,7 +3,6 @@
 import * as React from "react";
 import { LINKS } from '@/config/links';
 import { motion } from "framer-motion";
-import { LINKS } from '@/config/links';
 
 export default function FadeIn({
   children,
@@ -23,4 +22,5 @@ export default function FadeIn({
     </motion.div>
   );
 }
+
 

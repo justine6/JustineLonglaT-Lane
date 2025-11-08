@@ -1,4 +1,5 @@
 import fs from "fs";
+import { LINKS } from '@/config/links';
 import path from "path";
 
 export type Project = {
@@ -68,3 +69,5 @@ export function getAllProjects(): Project[] {
     return { slug, title, description, lastModified, image, category };
   });
 }
+
+

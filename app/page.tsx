@@ -2,20 +2,18 @@
 import Image from "next/image";
 import { LINKS } from '@/config/links';
 import Link from "next/link";
-import { LINKS } from '@/config/links';
 
 import AnimatedSection from "@/components/AnimatedSection";
-import { LINKS } from '@/config/links';
+
 import TestimonialSlider from "@/components/TestimonialSlider";
-import { LINKS } from '@/config/links';
+
 import CertificationsGrid from "@/components/CertificationsGrid";
-import { LINKS } from '@/config/links';
+
 import PublicationsGrid, { type Post } from "@/components/PublicationsGrid";
-import { LINKS } from '@/config/links';
+
 import postsData from "@/content/projects/posts.json";
-import { LINKS } from '@/config/links';
+
 import ContactSection from "@/components/ContactSection";
-import { LINKS } from '@/config/links';
 
 export default function HomePage() {
   return (
@@ -255,4 +253,5 @@ export default function HomePage() {
     </main>
   );
 }
+
 

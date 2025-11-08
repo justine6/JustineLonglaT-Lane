@@ -4,7 +4,6 @@
 import Script from "next/script";
 import { LINKS } from '@/config/links';
 import Link from "next/link";
-import { LINKS } from '@/config/links';
 
 export default function IntroCallPage() {
   return (
@@ -45,5 +44,6 @@ export default function IntroCallPage() {
     </main>
   );
 }
+
 
 

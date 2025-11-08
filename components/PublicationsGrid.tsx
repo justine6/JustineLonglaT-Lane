@@ -4,7 +4,6 @@
 import Image from "next/image";
 import { LINKS } from '@/config/links';
 import Link from "next/link";
-import { LINKS } from '@/config/links';
 
 export type Post = {
   slug: string;
@@ -80,4 +79,5 @@ export default function PublicationsGrid({ posts, limit }: Props) {
     </div>
   );
 }
+
 

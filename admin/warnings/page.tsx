@@ -1,6 +1,5 @@
 import fs from "fs";
-import path from "path";
-
+import path from "path";;
 type Warning = {
   message: string;
   timestamp: number;
@@ -60,3 +59,4 @@ export default function WarningsPage() {
     </main>
   );
 }
+

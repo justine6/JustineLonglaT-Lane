@@ -1,6 +1,8 @@
 // vitest.config.ts
 import { defineConfig } from "vitest/config";
+import { LINKS } from '@/config/links';
 import tsconfigPaths from "vite-tsconfig-paths";
+
 import { fileURLToPath } from "node:url";
 
 export default defineConfig({
@@ -21,3 +23,5 @@ export default defineConfig({
     coverage: { provider: "v8", reportsDirectory: "coverage", reporter: ["text", "html"] }
   }
 });
+
+

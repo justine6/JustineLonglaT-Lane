@@ -58,9 +58,11 @@ next-env.d.ts
 *.bak
 
 
-# Editor backups
+_backup*/
+*backup*/
 *.bak
 
-.vercel
+
 
 .vercel
+_repo-cleanup-backups/

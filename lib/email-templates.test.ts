@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { LINKS } from '@/config/links';
 import { renderContactText } from "@/lib/email-templates";
 
 describe("email templates", () => {
@@ -13,3 +14,5 @@ describe("email templates", () => {
     expect(out).toContain("justine@example.com");
   });
 });
+
+

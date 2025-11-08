@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { LINKS } from '@/config/links';
 import Link from 'next/link';
-import { LINKS } from '@/config/links';
 
 export type NavItem = {
   label: string;
@@ -89,4 +88,5 @@ export default function NavDropdown({ label, items, align = 'right', className }
     </div>
   );
 }
+
 

@@ -2,7 +2,6 @@
 import type { Metadata } from "next";
 import { LINKS } from '@/config/links';
 import Link from "next/link";
-import { LINKS } from '@/config/links';
 
 export const metadata: Metadata = {
   title: "Résumé — Jutellane Solutions",
@@ -75,4 +74,5 @@ export default function ResumePage() {
     </main>
   );
 }
+
 

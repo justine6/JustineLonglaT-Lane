@@ -1,5 +1,6 @@
 // lib/emails.ts
 import { Resend } from "resend";
+import { LINKS } from '@/config/links';
 import nodemailer from "nodemailer";
 
 type ProviderSendResult = { provider: "resend" | "smtp"; id?: string };
@@ -123,3 +124,5 @@ export async function sendAutoReply(
     "No email provider configured for auto-reply. Set RESEND_API_KEY or SMTP_* env vars."
   );
 }
+
+

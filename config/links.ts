@@ -1,7 +1,8 @@
 export const LINKS = {
   introCall: "/intro-call",
-  cal: "https://cal.com/justine-longla-ptq4no",
   contact: "/contact",
-  resume: "/resume.pdf",
-  brochure: "/brochure.pdf",
-};
+  resume: "/resume",
+  resumePdf: "/docs/resume.pdf",
+  brochure: "/docs/brochure.pdf",
+  brochurePdf: "/docs/brochure.pdf", // add this line
+} as const;

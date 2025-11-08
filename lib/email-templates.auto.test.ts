@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { LINKS } from '@/config/links';
 import { renderAutoReplyText, renderAutoReplyHtml } from "@/lib/email-templates";
 
 describe("email auto-reply", () => {
@@ -14,3 +15,5 @@ describe("email auto-reply", () => {
     expect(html).toContain("Jutellane Solutions");
   });
 });
+
+

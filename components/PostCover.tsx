@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { LINKS } from '@/config/links';
 import { useState } from "react";
-import { LINKS } from '@/config/links';
 
 type Props = { src?: string; title: string; className?: string };
 
@@ -36,6 +35,7 @@ export default function PostCover({ src, title, className = "" }: Props) {
     </div>
   );
 }
+
 
 
 

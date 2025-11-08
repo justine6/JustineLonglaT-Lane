@@ -4,7 +4,6 @@
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { LINKS } from '@/config/links';
 import type { ReactNode } from 'react';
-import { LINKS } from '@/config/links';
 
 export default function ThemeProvider({ children }: { children: ReactNode }) {
   return (
@@ -18,4 +17,5 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
     </NextThemesProvider>
   );
 }
+
 

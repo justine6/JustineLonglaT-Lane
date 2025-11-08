@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { LINKS } from '@/config/links';
 import { Resend } from "resend";
-import { LINKS } from '@/config/links';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

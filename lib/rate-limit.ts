@@ -1,4 +1,5 @@
 import { Ratelimit } from "@upstash/ratelimit";
+import { LINKS } from '@/config/links';
 import { Redis } from "@upstash/redis";
 
 /**
@@ -70,3 +71,5 @@ export function rateHeaders(limit: number, remaining: number, reset: number) {
   h.set("X-RateLimit-Reset", String(reset));
   return h;
 }
+
+

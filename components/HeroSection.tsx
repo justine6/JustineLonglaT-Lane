@@ -52,7 +52,7 @@ export default function HeroSection() {
 
               {/* Brochure (downloads real PDF) */}
               <a
-                href={LINKS.brochurePdf}
+                href={LINKS.brochure}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-sm"
