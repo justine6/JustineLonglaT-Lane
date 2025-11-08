@@ -15,9 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    },
+    "paths": { "@/*": ["./*"] },
     "plugins": [{ "name": "next" }]
   },
   "include": [
@@ -27,5 +25,11 @@
     "**/*.d.ts",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", ".next", "backup", "_backup"]
+  "exclude": [
+    "node_modules",
+    ".next",
+    "_archive",
+    "_backup",
+    "backup"
+  ]
 }
