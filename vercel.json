@@ -1,1 +1,14 @@
-{}
+{
+  "redirects": [
+    { "source": "/docs/brochure.pdf", "destination": "/docs/brochure-2025-11.pdf", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/docs/:file(.*\\.pdf)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
+        { "key": "Content-Disposition", "value": "inline" }
+      ]
+    }
+  ]
+}
