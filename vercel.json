@@ -1,19 +1,13 @@
 {
+  "redirects": [
+    { "source": "/docs/brochure.pdf", "destination": "/files/brochure.pdf", "permanent": true }
+  ],
   "headers": [
     {
-      "source": "/(docs|files)/:file(.*\\.pdf)",
+      "source": "/files/:file(.*\\.pdf)",
       "headers": [
-        { "key": "Content-Type", "value": "application/pdf" },
-        { "key": "Content-Disposition", "value": "inline" },
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
-      ]
-    },
-    {
-      "source": "/:path*",
-      "headers": [
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" }
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
+        { "key": "Content-Disposition", "value": "inline" }
       ]
     }
   ]
