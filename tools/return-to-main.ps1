@@ -1,6 +1,3 @@
-New-Item -Type Directory -Force .\tools | Out-Null
-
-@'
 param()
 
 $ErrorActionPreference = 'Stop'
@@ -40,4 +37,3 @@ if ($Host.Name -notlike "*Visual Studio Code*" -and
     $Host.Name -notlike "*ConsoleHost*") {
   Read-Host "`nPress Enter to close"
 }
-'@ | Set-Content -Encoding UTF8 .\tools\return-to-main.ps1
