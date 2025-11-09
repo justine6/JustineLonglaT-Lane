@@ -178,6 +178,16 @@ This will:
 ```bash
 npm run test:coverage
 vitest run --coverage
+## 🔁 Restore Point
+
+**Tag:** `restore/2025-11-09-brochure-fix`  
+**What’s locked:** brochure PDF served inline from `/files/brochure.pdf`, headers-only `vercel.json`, middleware excludes static assets, CTAs use `LINKS.brochure`, tests green.
+
+**Restore:**
+```bash
+git fetch --tags
+git checkout restore/2025-11-09-brochure-fix
+# (or) pwsh tools/restore.ps1
 
 
 🛠 **Maintained by:** [Justine Longla Tekang](https://www.linkedin.com/in/longlatjustine)  
