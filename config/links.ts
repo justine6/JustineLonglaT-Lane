@@ -3,5 +3,5 @@ export const LINKS = {
   contact: "/contact",
   resume: "/resume",
   resumePdf: "/docs/resume.pdf",
-  brochure: "/files/brochure.pdf", // was /docs/brochure.pdf,
+  brochure: "/files/brochure.pdf", // was /files/brochure.pdf,
 } as const;

@@ -27,7 +27,7 @@ export default function HomeHero() {
             </p>
             <div className="mt-0 flex justify-center gap-4">
               <a href="/docs/resume.pdf" className="rounded-xl border border-white/60 bg-white/10 px-5 py-2 text-white backdrop-blur hover:bg-white/20">View Résumé</a>
-              <a href="/docs/brochure.pdf" className="rounded-xl border border-white/60 bg-white/10 px-5 py-2 text-white backdrop-blur hover:bg-white/20">Download Brochure</a>
+              <a href="/files/brochure.pdf" className="rounded-xl border border-white/60 bg-white/10 px-5 py-2 text-white backdrop-blur hover:bg-white/20">Download Brochure</a>
             </div>
           </div>
         </div>

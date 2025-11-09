@@ -42,7 +42,7 @@ export default function HeroBanner() {
             View Résumé
           </a>
           <a
-            href="/docs/brochure.pdf"   // ✅ fixed (see step 4)
+            href="/files/brochure.pdf"   // ✅ fixed (see step 4)
             className="rounded-2xl border border-white/40 px-5 py-2.5"
           >
             Download Brochure

@@ -1,7 +1,4 @@
 {
-  "redirects": [
-    { "source": "/docs/brochure.pdf", "destination": "/files/brochure.pdf", "permanent": true }
-  ],
   "headers": [
     {
       "source": "/(docs|files)/:file(.*\\.pdf)",
