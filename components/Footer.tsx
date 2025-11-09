@@ -106,8 +106,13 @@ export default function Footer() {
       </div>
 
       {/* 🧾 Footer bottom bar */}
-      <div className="text-center text-xs py-4 opacity-70 border-t border-blue-100 dark:border-gray-800">
-        © {year} <span className="font-medium">Jutellane Solutions</span>. All rights reserved.
+      <div className="mt-8 text-center">
+        <p className="text-sm text-gray-500">
+          Architected & Built by <span className="font-semibold">Justine Longla T.</span>
+        </p>
+        <p className="text-xs text-gray-400 mt-1">
+          © 2025 Jutellane Solutions. All rights reserved.
+        </p>
       </div>
     </footer>
   );
