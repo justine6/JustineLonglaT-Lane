@@ -1,6 +1,24 @@
 {
   "redirects": [
     {
+      "source": "/docs/:path*",
+      "has": [{ "type": "host", "value": "www.jutellane.com" }],
+      "destination": "/docs/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/images/:path*",
+      "has": [{ "type": "host", "value": "www.jutellane.com" }],
+      "destination": "/images/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/favicon.ico",
+      "has": [{ "type": "host", "value": "www.jutellane.com" }],
+      "destination": "/favicon.ico",
+      "permanent": false
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.jutellane.com" }],
       "destination": "https://jutellane.com/:path*",
