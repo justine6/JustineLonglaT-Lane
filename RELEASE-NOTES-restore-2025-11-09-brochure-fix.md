@@ -1,9 +1,9 @@
 ## What’s locked
-- PDFs served inline from \/files/brochure.pdf\ (200 + 206, range-enabled)
-- \ercel.json\: headers-only (no risky redirects)
-- Middleware disabled for static assets
-- All CTAs use \LINKS.brochure\
-- Tests green on \main\
+- PDFs served inline from \/files/brochure.pdf\ (200 + 206)
+- \ercel.json\ headers-only + light security headers
+- Middleware excludes static assets
+- CTAs use \LINKS.brochure\
+- Tests green
 
 ## Vercel
 - Alias: https://jutellane-main.vercel.app
