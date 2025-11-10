@@ -16,14 +16,22 @@ export default function Footer() {
             Cloud Confidence. Delivered. Secure, performance-tuned solutions — built the right way.
           </p>
 
-          {/* 📞 CTA Button */}
-          <div className="mt-4">
+          {/* 📞 / 💼 CTAs */}
+          <div className="mt-4 flex flex-wrap gap-3">
             <Link
               href={LINKS.introCall}
               aria-label="Schedule your intro call"
               className="inline-block px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Schedule Your Intro Call
+            </Link>
+
+            <Link
+              href={LINKS.hireMe}
+              aria-label="Hire me"
+              className="inline-block px-5 py-2 rounded-lg border border-blue-600 text-blue-700 dark:text-blue-300 font-medium hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:scale-[1.03] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Hire Me
             </Link>
           </div>
         </div>
@@ -35,6 +43,7 @@ export default function Footer() {
             <li><Link href="/projects" className="hover:underline">Projects</Link></li>
             <li><Link href="/blog" className="hover:underline">Blog</Link></li>
             <li><Link href={LINKS.contact} className="hover:underline">Contact</Link></li>
+            <li><Link href={LINKS.hireMe} className="hover:underline">Hire Me</Link></li>
 
             {/* Internal résumé page (same tab) */}
             <li>
@@ -115,4 +124,3 @@ export default function Footer() {
   );
 }
 // deploy bump: ensure footer attribution is deployed
-

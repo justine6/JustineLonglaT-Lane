@@ -1,7 +1,9 @@
 export const LINKS = {
+  // ...existing
   introCall: "/intro-call",
+  hireMe: "/hire-me", // or your Cal.com “Hire Me” booking URL
   contact: "/contact",
   resume: "/resume",
-  resumePdf: "/docs/resume.pdf",
-  brochure: "/files/brochure.pdf", 
-} as const;
+  resumePdf: "/files/resume.pdf",
+  brochure: "/files/brochure.pdf",
+};
