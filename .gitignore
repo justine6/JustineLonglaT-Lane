@@ -67,3 +67,4 @@ _backup*/
 .vercel
 _repo-cleanup-backups/
 test-results/
+components/Footer.backup.tsx
