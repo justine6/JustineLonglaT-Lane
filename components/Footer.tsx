@@ -114,3 +114,5 @@ export default function Footer() {
     </footer>
   );
 }
+// deploy bump: ensure footer attribution is deployed
+
