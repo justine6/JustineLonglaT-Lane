@@ -1,15 +1,24 @@
+import CalPopupButton from "@/components/CalPopupButton";
 import ContactForm from "@/components/ContactForm";
-import { LINKS } from '@/config/links';
+// import { LINKS } from "@/config/links"; // remove (unused)
+
 export const metadata = { title: "Contact | Jutellane Solutions" };
+
 export default function ContactPage() {
   return (
     <main className="min-h-screen px-4 sm:px-6 py-12 pt-24">
       <section className="max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold mb-3">Contact</h1>
-        <p className="text-gray-600 dark:text-gray-300 mb-6">Send a message and I’ll get back to you shortly.</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">
+          Send a message and I’ll get back to you shortly.
+        </p>
+
         <ContactForm />
+
+        <div className="mt-6">
+          <CalPopupButton link="https://cal.com/justine/intro-call" />
+        </div>
       </section>
     </main>
   );
 }
-

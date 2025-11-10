@@ -1,12 +1,15 @@
 // src/config/links.ts
 
-// Base site URL (used for success_url redirects)
+// ---------------------------
+// Base site URL
+// Used to generate success_url redirects for Cal.com
+// ---------------------------
 const BASE =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://jutellane-main.vercel.app";
 
 export const LINKS = {
   // ---------------------------
-  // App navigation routes
+  // Internal site navigation
   // ---------------------------
   home: "/",
   projects: "/projects",
@@ -16,33 +19,40 @@ export const LINKS = {
   resumePdf: "/files/resume.pdf",
   brochure: "/files/brochure.pdf",
 
-  // Scheduling page routes
+  // ---------------------------
+  // Scheduling pages
+  // ---------------------------
   introCall: "/intro-call",
   hireMe: "/hire-me",
 
   // ---------------------------
-  // Success URLs (for banners + redirects)
+  // Success banners + redirects
+  // Triggered by ?booked=1
   // ---------------------------
   successIntro: `${BASE}/intro-call?booked=1`,
   successHire: `${BASE}/hire-me?booked=1`,
 
   // ---------------------------
   // Cal.com embed URLs
+  // Environment overrides supported
   // ---------------------------
 
-  // Intro Call embed (uses success_url)
+  /** Intro Call embed */
   calIntro:
     (process.env.NEXT_PUBLIC_CAL_INTRO_URL ??
       "https://cal.com/jutellane/intro-call?hide_event_type_details=1&primary_color=2563eb") +
     `&success_url=${encodeURIComponent(`${BASE}/intro-call?booked=1`)}`,
 
-  // Hire Me embed (uses success_url)
+  /** Hire Me embed */
   calHire:
     (process.env.NEXT_PUBLIC_CAL_HIRE_URL ??
       "https://cal.com/jutellane/hire-me?hide_event_type_details=1&primary_color=2563eb") +
     `&success_url=${encodeURIComponent(`${BASE}/hire-me?booked=1`)}`,
 
-  // Back-compat (optional)
+  // ---------------------------
+  // Backward compatibility (optional)
+  // Can be removed once everything uses Intro/Hire
+  // ---------------------------
   calEmbed:
     process.env.NEXT_PUBLIC_CAL_URL ??
     "https://cal.com/jutellane/intro-call?hide_event_type_details=1&primary_color=2563eb",
