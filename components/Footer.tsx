@@ -7,7 +7,6 @@ export default function Footer() {
   return (
     <footer className="border-t border-blue-200 bg-blue-50/90 text-slate-700 dark:bg-gray-900 dark:text-gray-200 backdrop-blur mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-
         {/* 🌐 Brand Section */}
         <div>
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
@@ -32,20 +31,12 @@ export default function Footer() {
         {/* 🧭 Quick Links */}
         <nav aria-label="Quick links">
           <ul className="space-y-2 text-sm">
-
             <li><Link href="/" className="hover:underline">Home</Link></li>
-
             <li><Link href="/projects" className="hover:underline">Projects</Link></li>
-
             <li><Link href="/blog" className="hover:underline">Blog</Link></li>
+            <li><Link href={LINKS.contact} className="hover:underline">Contact</Link></li>
 
-            <li>
-              <Link href={LINKS.contact} className="hover:underline">
-                Contact
-              </Link>
-            </li>
-
-            {/* Internal résumé page */}
+            {/* Internal résumé page (same tab) */}
             <li>
               <Link
                 href={LINKS.resume}
@@ -57,7 +48,7 @@ export default function Footer() {
               </Link>
             </li>
 
-            {/* ✅ Resume PDF (external) */}
+            {/* PDF links must use <a> */}
             <li>
               <a
                 href={LINKS.resumePdf}
@@ -69,8 +60,6 @@ export default function Footer() {
                 Download Résumé (PDF)
               </a>
             </li>
-
-            {/* ✅ Brochure PDF (external) */}
             <li>
               <a
                 href={LINKS.brochure}
@@ -82,7 +71,6 @@ export default function Footer() {
                 Download a Brochure
               </a>
             </li>
-
           </ul>
         </nav>
 
@@ -112,13 +100,12 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-
       </div>
 
       {/* 🧾 Footer bottom bar */}
       <div className="mt-8 text-center">
         <p className="text-sm text-gray-500">
-          Architected & Built by <span className="font-semibold">Justine Longla T.</span>
+          Architected &amp; Built by <span className="font-semibold">Justine Longla T.</span>
         </p>
         <p className="text-xs text-gray-400 mt-1">
           © {year} Jutellane Solutions. All rights reserved.
