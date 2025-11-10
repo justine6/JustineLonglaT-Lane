@@ -28,54 +28,51 @@ export default function Footer() {
           </div>
         </div>
 
-{/* 🧭 Quick Links */}
-<nav aria-label="Quick links">
-  <ul className="space-y-2 text-sm">
-    <li><Link href="/" className="hover:underline">Home</Link></li>
-    <li><Link href="/projects" className="hover:underline">Projects</Link></li>
-    <li><Link href="/blog" className="hover:underline">Blog</Link></li>
-    <li><Link href={LINKS.contact} className="hover:underline">Contact</Link></li>
+        {/* 🧭 Quick Links */}
+        <nav aria-label="Quick links">
+          <ul className="space-y-2 text-sm">
+            <li><Link href="/" className="hover:underline">Home</Link></li>
+            <li><Link href="/projects" className="hover:underline">Projects</Link></li>
+            <li><Link href="/blog" className="hover:underline">Blog</Link></li>
+            <li><Link href={LINKS.contact} className="hover:underline">Contact</Link></li>
 
-    {/* Internal résumé page (same tab) */}
-    <li>
-      <Link
-        href={LINKS.resume}
-        prefetch={false}
-        className="hover:underline"
-        aria-label="Open résumé page"
-      >
-        Résumé
-      </Link>
-    </li>
+            {/* Internal résumé page */}
+            <li>
+              <Link
+                href={LINKS.resume}
+                prefetch={false}
+                className="hover:underline"
+                aria-label="Open résumé page"
+              >
+                Résumé
+              </Link>
+            </li>
 
-    {/* PDF links must use <a> */}
-    <li>
-      <a
-        href={LINKS.resumePdf}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hover:underline"
-        aria-label="Open résumé PDF in a new tab"
-      >
-        Download Résumé (PDF)
-      </a>
-    </li>
-    <li>
-    {/* PDF links must use <a> */}
-    <li>
-      <a
-        href={LINKS.brochure}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hover:underline"
-        aria-label="Open brochure PDF in a new tab"
-      >
-        Download a Brochure
-      </a>
-    </li>
-    </li>
-  </ul>
-</nav>
+            {/* PDF links MUST be <a> */}
+            <li>
+              <a
+                href={LINKS.resumePdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+                aria-label="Open résumé PDF in a new tab"
+              >
+                Download Résumé (PDF)
+              </a>
+            </li>
+            <li>
+              <a
+                href={LINKS.brochure}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+                aria-label="Open brochure PDF in a new tab"
+              >
+                Download a Brochure
+              </a>
+            </li>
+          </ul>
+        </nav>
 
         {/* 📬 Contact Info */}
         <div className="text-sm">
@@ -105,13 +102,13 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* 🧾 Footer bottom bar */}
+      {/* 🧾 Footer bottom bar (server-rendered, SEO-visible) */}
       <div className="mt-8 text-center">
         <p className="text-sm text-gray-500">
-          Architected & Built by <span className="font-semibold">Justine Longla T.</span>
+          Architected &amp; Built by <span className="font-semibold">Justine Longla T.</span>
         </p>
         <p className="text-xs text-gray-400 mt-1">
-          © 2025 Jutellane Solutions. All rights reserved.
+          © {year} Jutellane Solutions. All rights reserved.
         </p>
       </div>
     </footer>
