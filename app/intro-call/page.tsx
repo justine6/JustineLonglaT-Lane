@@ -1,3 +1,4 @@
+// app/intro-call/page.tsx
 import CalEmbed from "@/components/CalEmbed";
 import { LINKS } from "@/config/links";
 import type { Metadata } from "next";
@@ -26,10 +27,8 @@ export default function IntroCallPage() {
       </p>
 
       <div className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 p-3">
-        <CalEmbed calUrl={LINKS.calEmbed} height={820} />
+        <CalEmbed calUrl={LINKS.calIntro} height={820} />
       </div>
     </main>
   );
 }
-
-

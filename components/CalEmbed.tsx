@@ -1,38 +1,30 @@
 "use client";
 
-import Script from "next/script";
-
-type Props = {
-  calUrl: string;      // e.g. https://cal.com/jutellane/intro-call?... 
-  height?: number;     // default 780
-  className?: string;
+type CalEmbedProps = {
+  calUrl: string;          // full Cal.com URL
+  title?: string;          // iframe title for a11y
+  height?: number;         // pixel height (default 760)
 };
 
-export default function CalEmbed({ calUrl, height = 780, className = "" }: Props) {
-  // Cal supports two main approaches: script tag with inline div data-cal-link
-  // or iframe. The script-powered div keeps styling cohesive.
+export default function CalEmbed({
+  calUrl,
+  title = "Cal.com Scheduler",
+  height = 760,
+}: CalEmbedProps) {
   return (
-    <>
-      {/* Load Cal embed loader once this component is on the page */}
-      <Script src="https://cal.com/embed.js" strategy="afterInteractive" />
-
-      <div
-        data-cal-link={calUrl.replace("https://cal.com/", "")} // cal expects "user/event?params"
-        data-cal-namespace="hire-me"
-        data-cal-config='{"layout":"month_view"}'
-        style={{ width: "100%", minHeight: height }}
-        className={className}
-      />
-
-      {/* A11y + fallback link if scripts are blocked */}
-      <noscript>
-        <p>
-          Booking widget requires JavaScript. Open directly:&nbsp;
-          <a href={calUrl} target="_blank" rel="noopener noreferrer">
-            Book time on Cal.com
-          </a>
-        </p>
-      </noscript>
-    </>
+    <div className="w-full">
+      <div className="relative w-full" style={{ height }}>
+        <iframe
+          src={calUrl}
+          title={title}
+          className="absolute inset-0 h-full w-full rounded-xl border border-blue-100 shadow-sm"
+          loading="lazy"
+          // Cal can use camera/mic if you enable it later
+          allow="camera; microphone; fullscreen; clipboard-read; clipboard-write"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
+      <p className="mt-3 text-xs text-gray-500">Powered by Cal.com</p>
+    </div>
   );
 }
