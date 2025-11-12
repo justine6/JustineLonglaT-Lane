@@ -63,7 +63,10 @@ const nextConfig = withMDX({
 
   async headers() {
     return [
-      { source: "/:path*", headers: [...securityHeaders, { key: "Content-Security-Policy", value: csp }] },
+      {
+        source: "/:path*",
+        headers: [...securityHeaders, { key: "Content-Security-Policy", value: csp }],
+      },
       {
         source: "/docs/:file(.*\\.pdf)",
         headers: [
@@ -71,14 +74,19 @@ const nextConfig = withMDX({
           { key: "Content-Disposition", value: "inline" },
         ],
       },
-      { source: "/intro-call", headers: [{ key: "Cache-Control", value: "no-store" }] },
+      // ⬇️ moved here
+      {
+        source: "/booking",
+        headers: [{ key: "Cache-Control", value: "no-store" }],
+      },
     ];
   },
 
   async redirects() {
     return [
-      { source: "/schedule", destination: "/intro-call", permanent: true },
-      { source: "/intro", destination: "/intro-call", permanent: true },
+      { source: "/schedule", destination: "/booking", permanent: true },
+      { source: "/intro", destination: "/booking", permanent: true },
+      { source: "/intro-call", destination: "/booking", permanent: true },
       { source: "/docs/jutellane-brochure.pdf", destination: "/docs/brochure.pdf", permanent: true },
     ];
   },
