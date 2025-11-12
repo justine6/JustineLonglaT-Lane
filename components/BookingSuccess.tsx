@@ -37,18 +37,23 @@ function buildOutlook(start?: string, end?: string, title = "Intro Call — Jute
   return `https://outlook.live.com/calendar/0/deeplink/compose?${qs}`;
 }
 
-export default function BookingSuccessPage() {
+export default async function BookingSuccessPage() {
   // feature flags (easy to toggle later or by env)
   const enableConfetti = true;
   const enableAnimatedCheck = true;
 
-  // read variant + times from URL
-  const h = headers();
-  const url = h.get("x-url") || ""; // Next sets this header; otherwise no-op
-  const u = new URL(url, "http://local");
-  const variant = (u.searchParams.get("v") || "").toLowerCase(); // "", compact, marketing
-  const start = u.searchParams.get("start") || undefined;
-  const end = u.searchParams.get("end") || undefined;
+  // read variant + times from URL (Next 15: headers() is async)
+  const h = await headers();
+  const url = h.get("x-url") ?? h.get("referer") ?? "";
+  let u: URL;
+  try {
+    u = new URL(url || "http://local");
+  } catch {
+    u = new URL("http://local");
+  }
+  const variant = (u.searchParams.get("v") ?? "").toLowerCase(); // "", compact, marketing
+  const start = u.searchParams.get("start") ?? undefined;
+  const end = u.searchParams.get("end") ?? undefined;
 
   const gcal = buildGoogle(start, end);
   const o365 = buildOutlook(start, end);
@@ -71,8 +76,8 @@ export default function BookingSuccessPage() {
   return (
     <main className={outerClasses}>
       <section className={cardClasses}>
-        {enableConfetti && <ConfettiBurst once ms={900} />}
-        {enableAnimatedCheck && <AnimatedCheck size={120} />}
+        {enableConfetti && <ConfettiBurst />}
+        {enableAnimatedCheck && <AnimatedCheck />}
 
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100 text-center">
           Your meeting is confirmed — thank you!
