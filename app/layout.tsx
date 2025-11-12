@@ -1,13 +1,15 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
-
-import { LINKS } from '@/config/links';
 import type { ReactNode } from "react";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ConditionalHero from "@/components/ConditionalHero";
+
 export const metadata: Metadata = {
+  // ✅ add this line
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+
   title: "Jutellane Solutions — Cloud Confidence. Delivered.",
   description:
     "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
@@ -28,32 +30,22 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-dvh bg-white text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
-        {/* Skip link */}
         <a
           href="#content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
         >
           Skip to content
         </a>
-
-        {/* Sticky Topbar */}
         <Navbar />
-
-        {/* Hero sits directly under the Topbar */}
         <ConditionalHero />
-
-        {/* Page body + footer */}
         <div className="flex min-h-dvh flex-col">
-          <main id="content" className="flex-1">
-            {children}
-          </main>
+          <main id="content" className="flex-1">{children}</main>
           <Footer />
         </div>
       </body>
     </html>
   );
 }
-
 
 
 

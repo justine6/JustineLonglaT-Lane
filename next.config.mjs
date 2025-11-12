@@ -7,29 +7,24 @@ const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [
-      rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: "wrap" }],
-    ],
+    rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: "wrap" }]],
     providerImportSource: "@mdx-js/react",
   },
 });
 
-/** ✅ Security Headers **/
+/** Security Headers */
 const securityHeaders = [
   { key: "Strict-Transport-Security", value: "max-age=15552000; includeSubDomains; preload" },
   { key: "X-Content-Type-Options", value: "nosniff" },
-  // You can keep XFO if you want belt + suspenders, but frame-ancestors in CSP is modern
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-  // ❌ remove COEP; it breaks cross-origin iframes like Cal.com embeds
-  // { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+  // NOTE: no COEP to avoid breaking cross-origin iframes (Cal.com)
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
 ];
 
-/** ✅ CSP tuned for Cal.com embed **/
+/** CSP tuned for Cal.com embed */
 const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cal.com https://*.cal.com",
@@ -40,28 +35,77 @@ const csp = [
   "connect-src 'self' https://api.resend.com https://v0.blob.vercel-storage.com https://cal.com https://*.cal.com",
   "object-src 'none'",
   "media-src 'self'",
-  // Modern replacement for X-Frame-Options for who may frame *you*
-  "frame-ancestors 'self'"
+  "frame-ancestors 'self'",
 ].join("; ");
 
+import createMDX from "@next/mdx";
+import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: "wrap" }]],
+    providerImportSource: "@mdx-js/react",
+  },
+});
+
+/** Security Headers */
+const securityHeaders = [
+  { key: "Strict-Transport-Security", value: "max-age=15552000; includeSubDomains; preload" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+];
+
+/** CSP tuned for Cal.com embed */
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cal.com https://*.cal.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "img-src 'self' data: https:",
+  "font-src 'self' https://fonts.gstatic.com",
+  "frame-src https://cal.com https://*.cal.com",
+  "connect-src 'self' https://api.resend.com https://v0.blob.vercel-storage.com https://cal.com https://*.cal.com",
+  "object-src 'none'",
+  "media-src 'self'",
+  "frame-ancestors 'self'",
+].join("; ");
+
+// Only set experimental flag in dev/local (Vercel will ignore it)
+const isVercel = !!process.env.VERCEL;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withMDX({
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   eslint: { ignoreDuringBuilds: true },
 
-  /** ✅ Full Header Set (CSP + securityHeaders merged) */
+  ...(isVercel
+    ? {}
+    : {
+        experimental: {
+          allowedDevOrigins: [
+            "http://localhost:3000",
+            "http://192.168.0.11:3000", // adjust if your LAN IP changes
+          ],
+        },
+      }),
+
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "cal.com" },
+      { protocol: "https", hostname: "**.cal.com" },
+    ],
+  },
+
   async headers() {
     return [
-      {
-        source: "/:path*",
-        headers: [
-          ...securityHeaders,
-          { key: "Content-Security-Policy", value: csp },
-        ],
-      },
-
-      // ✅ Inline PDFs (your previous config preserved)
+      { source: "/:path*", headers: [...securityHeaders, { key: "Content-Security-Policy", value: csp }] },
       {
         source: "/docs/:file(.*\\.pdf)",
         headers: [
@@ -69,29 +113,17 @@ const nextConfig = withMDX({
           { key: "Content-Disposition", value: "inline" },
         ],
       },
-
-      // ✅ No-cache for intro-call (ensures always fresh scheduler)
-      {
-        source: "/intro-call",
-        headers: [{ key: "Cache-Control", value: "no-store" }],
-      },
+      { source: "/intro-call", headers: [{ key: "Cache-Control", value: "no-store" }] },
     ];
   },
 
-  /** ✅ Redirects preserved + expanded */
   async redirects() {
     return [
       { source: "/schedule", destination: "/intro-call", permanent: true },
       { source: "/intro", destination: "/intro-call", permanent: true },
-      {
-        source: "/docs/jutellane-brochure.pdf",
-        destination: "/docs/brochure.pdf",
-        permanent: true,
-      },
+      { source: "/docs/jutellane-brochure.pdf", destination: "/docs/brochure.pdf", permanent: true },
     ];
   },
 });
 
 export default nextConfig;
-
-
