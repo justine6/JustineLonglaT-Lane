@@ -1,51 +1,40 @@
 // app/availability/page.tsx
+import type { Metadata } from "next";
 import CalEmbed from "@/components/CalEmbed";
 import { LINKS } from "@/config/links";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Availability | Jutellane Solutions",
+  title: "Book an Intro Call — Jutellane Solutions",
   description:
-    "Check real-time availability for Intro Calls and Hire Me sessions.",
-  alternates: { canonical: "/availability" },
+    "Pick a time that works for you. You’ll receive a calendar invite and email confirmation.",
 };
 
-export default function AvailabilityPage() {
+function buildBookingUrl(base: string) {
+  const u = new URL(base);
+  u.searchParams.set("embed", "true");
+  u.searchParams.set("primaryColor", "2563eb");
+  u.searchParams.set("locale", "en");
+  u.searchParams.set("hideEventTypeDetails", "true");
+  // Optional UTM
+  u.searchParams.set("utm_source", "site");
+  u.searchParams.set("utm_medium", "intro-call");
+  return u.toString();
+}
+
+export default function Page() {
+  const bookingUrl = buildBookingUrl(LINKS.calIntro);
+
   return (
-    <main className="mx-auto max-w-5xl px-4 sm:px-6 py-12">
-      <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">
-        Availability
-      </h1>
-      <p className="mt-3 text-slate-600 dark:text-slate-300">
-        Book a quick discovery call or a project kickoff session.
+    <section className="container mx-auto max-w-6xl px-4 py-10">
+      <h1 className="text-2xl font-bold tracking-tight">Book an Intro Call</h1>
+      <p className="mt-2 text-slate-600">
+        Pick a time that works for you. You’ll receive a calendar invite and email confirmation.
       </p>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-2">
-        <section>
-          <h2 className="text-lg font-semibold mb-3">Intro Call</h2>
-          <CalEmbed
-            url={LINKS.calIntro}
-            height={760}
-            primaryColor="2563eb"
-            locale="en"
-            hideEventDetails
-            params={{ utm_source: "website", utm_medium: "availability" }}
-          />
-        </section>
-
-        <section>
-          <h2 className="text-lg font-semibold mb-3">Hire Me</h2>
-          <CalEmbed
-            url={LINKS.calHire}
-            height={760}
-            primaryColor="2563eb"
-            locale="en"
-            hideEventDetails
-            params={{ utm_source: "website", utm_medium: "availability" }}
-          />
-        </section>
+      <div className="mt-6">
+        <CalEmbed bookingUrl={bookingUrl} />
       </div>
-    </main>
+    </section>
   );
 }
 
