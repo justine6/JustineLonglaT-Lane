@@ -1,12 +1,18 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
-
+import MDXProvider from "@/components/MDXProvider";
 import { LINKS } from '@/config/links';
+import MDXProvider from "@/components/MDXProvider";
 import type { ReactNode } from "react";
+import MDXProvider from "@/components/MDXProvider";
 import "./globals.css";
+import MDXProvider from "@/components/MDXProvider";
 import Navbar from "@/components/Navbar";
+import MDXProvider from "@/components/MDXProvider";
 import Footer from "@/components/Footer";
+import MDXProvider from "@/components/MDXProvider";
 import ConditionalHero from "@/components/ConditionalHero";
+import MDXProvider from "@/components/MDXProvider";
 export const metadata: Metadata = {
   title: "Jutellane Solutions — Cloud Confidence. Delivered.",
   description:
@@ -45,7 +51,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {/* Page body + footer */}
         <div className="flex min-h-dvh flex-col">
           <main id="content" className="flex-1">
-            {children}
+            <MDXProvider>{children}</MDXProvider>
           </main>
           <Footer />
         </div>
@@ -53,8 +59,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }
-
-
 
 
 

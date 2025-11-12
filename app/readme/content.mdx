@@ -1,0 +1,21 @@
+# Technical README
+
+Welcome! This page mirrors the repo README so stakeholders can learn about the project **without** code access.
+
+## What's inside
+- CI/CD status & workflows
+- Environments and domains
+- Security posture (headers, secrets, honeypot)
+- Getting started locally
+
+## CI/CD
+- GitHub Actions → Vercel deploys (preview & prod)
+- Vitest + coverage; PR must pass tests
+
+## Security
+- **No secrets committed** (use `.env.local`, Vercel env)
+- **Honeypot** field on forms to block bots
+- **Strict headers:** CSP, X-Frame-Options, X-Content-Type-Options
+- **Dev-only warning:** `allowedDevOrigins` is used locally to quiet LAN warnings
+
+_Last updated: {new Date().toLocaleDateString()}_

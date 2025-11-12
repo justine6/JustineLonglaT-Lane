@@ -1,0 +1,12 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jutellane Solutions//Booking Success//EN
+BEGIN:VEVENT
+UID:placeholder@jutellane
+DTSTAMP:20250101T120000Z
+DTSTART:20250101T120000Z
+DTEND:20250101T123000Z
+SUMMARY:Intro Call — Jutellane Solutions
+DESCRIPTION:We’ll replace this with dynamic ICS later.
+END:VEVENT
+END:VCALENDAR

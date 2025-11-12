@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 
 const links = [
-  { href: "/", label: "Home" },
+  { href: "/", label: "Home" }, { href: "/readme", label: "README" },
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
   { href: "https://blogs.jutellane.com", label: "Blog" },
@@ -65,5 +65,6 @@ export default function Navbar() {
     </header>
   );
 }
+
 
 

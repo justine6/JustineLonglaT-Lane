@@ -1,21 +1,50 @@
-import { NextResponse } from 'next/server';
+// middleware.ts
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-// --- Minimal pass-through middleware ---
-export function middleware(request: Request) {
-  // We do NO logic here — just pass everything through.
-  return NextResponse.next();
+/** Allow Cal.com embeds */
+const CAL = [
+  "https://cal.com",
+  "https://*.cal.com",
+  "https://embed.cal.com",
+  "https://assets.cal.com",
+  "https://app.cal.com",
+].join(" ");
+
+/** Content Security Policy */
+const csp = [
+  `default-src 'self'`,
+  `frame-src 'self' ${CAL}`,
+  `script-src 'self' 'unsafe-inline' 'unsafe-eval' ${CAL}`,
+  `style-src 'self' 'unsafe-inline' ${CAL}`,
+  `img-src 'self' data: blob: ${CAL}`,
+  `connect-src 'self' ${CAL}`,
+  `font-src 'self'`,
+  `object-src 'none'`,
+  `base-uri 'self'`,
+  `frame-ancestors 'self'`,
+].join("; ");
+
+const securityHeaders: Array<{ key: string; value: string }> = [
+  { key: "Content-Security-Policy", value: csp },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+];
+
+export function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+  for (const h of securityHeaders) res.headers.set(h.key, h.value);
+  return res;
 }
 
 /**
- * Match everything EXCEPT:
- *   - API routes
- *   - _next (Next.js internals)
- *   - static assets (favicon, images, etc.)
- *   - XML/robots.txt/sitemap.xml
- *   - anything under /files or /docs (PDFs)
+ * Exclude Next.js internals & static assets so we don’t add headers to them.
+ * Adjust the regex if you serve other file types.
  */
 export const config = {
   matcher: [
-    '/((?!api|_next|favicon\\.ico|robots\\.txt|sitemap\\.xml|badges/|files/|docs/).*)',
+    "/((?!_next/|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|map|txt|pdf)).*)",
   ],
 };
