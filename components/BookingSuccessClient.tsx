@@ -57,8 +57,7 @@ export default function BookingSuccessClient() {
   return (
     <main className={outerClasses}>
       <section className={cardClasses}>
-       <ConfettiBurst duration={900} />
-
+        <ConfettiBurst duration={900} />
         <AnimatedCheck size={120} />
 
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100 text-center">
