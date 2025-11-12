@@ -24,7 +24,7 @@ export default function AvailabilityPage() {
         <section>
           <h2 className="text-lg font-semibold mb-3">Intro Call</h2>
           <CalEmbed
-            calUrl={LINKS.calIntro}
+            url={LINKS.calIntro}
             height={760}
             primaryColor="2563eb"
             locale="en"
@@ -36,7 +36,7 @@ export default function AvailabilityPage() {
         <section>
           <h2 className="text-lg font-semibold mb-3">Hire Me</h2>
           <CalEmbed
-            calUrl={LINKS.calHire}
+            url={LINKS.calHire}
             height={760}
             primaryColor="2563eb"
             locale="en"
@@ -48,3 +48,4 @@ export default function AvailabilityPage() {
     </main>
   );
 }
+
