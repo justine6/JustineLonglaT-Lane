@@ -1,43 +1,4 @@
-import createMDX from "@next/mdx";
-import remarkGfm from "remark-gfm";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-
-const withMDX = createMDX({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: "wrap" }]],
-    providerImportSource: "@mdx-js/react",
-  },
-});
-
-/** Security Headers */
-const securityHeaders = [
-  { key: "Strict-Transport-Security", value: "max-age=15552000; includeSubDomains; preload" },
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "X-Frame-Options", value: "SAMEORIGIN" },
-  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-  // NOTE: no COEP to avoid breaking cross-origin iframes (Cal.com)
-  { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
-];
-
-/** CSP tuned for Cal.com embed */
-const csp = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cal.com https://*.cal.com",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "img-src 'self' data: https:",
-  "font-src 'self' https://fonts.gstatic.com",
-  "frame-src https://cal.com https://*.cal.com",
-  "connect-src 'self' https://api.resend.com https://v0.blob.vercel-storage.com https://cal.com https://*.cal.com",
-  "object-src 'none'",
-  "media-src 'self'",
-  "frame-ancestors 'self'",
-].join("; ");
-
+// next.config.mjs
 import createMDX from "@next/mdx";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
@@ -63,7 +24,7 @@ const securityHeaders = [
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
 ];
 
-/** CSP tuned for Cal.com embed */
+/** CSP (Cal.com friendly) */
 const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cal.com https://*.cal.com",
@@ -77,7 +38,6 @@ const csp = [
   "frame-ancestors 'self'",
 ].join("; ");
 
-// Only set experimental flag in dev/local (Vercel will ignore it)
 const isVercel = !!process.env.VERCEL;
 
 /** @type {import('next').NextConfig} */
@@ -85,16 +45,14 @@ const nextConfig = withMDX({
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   eslint: { ignoreDuringBuilds: true },
 
-  ...(isVercel
-    ? {}
-    : {
-        experimental: {
-          allowedDevOrigins: [
-            "http://localhost:3000",
-            "http://192.168.0.11:3000", // adjust if your LAN IP changes
-          ],
-        },
-      }),
+  ...(isVercel ? {} : {
+    experimental: {
+      allowedDevOrigins: [
+        "http://localhost:3000",
+        "http://192.168.0.11:3000",
+      ],
+    },
+  }),
 
   images: {
     remotePatterns: [
