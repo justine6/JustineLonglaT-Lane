@@ -1,30 +1,31 @@
 // app/booking/page.tsx
 "use client";
 
-import { InlineWidget } from "@calcom/embed-react";
+import InlineWidget from "@calcom/embed-react";
 
 export default function BookingPage() {
-  // set the exact handle/slug you copied from Cal.com dashboard
-  const calLink = process.env.NEXT_PUBLIC_CAL_LINK || "justinelongla/intro-call";
+  const callLink =
+    process.env.NEXT_PUBLIC_CAL_LINK || "justinelongla/intro-call"; // <-- your handle
 
   return (
     <div className="max-w-5xl mx-auto">
-      <h1 className="text-3xl font-semibold">Book an Intro Call</h1>
+      <h1 className="text-3xl font-semibold mt-6 mb-6">Book an Intro Call</h1>
 
-      <div className="mt-6">
-        <InlineWidget calLink={calLink} />
-      </div>
+      {/* Primary embed */}
+      <InlineWidget calLink={callLink} />
 
-      <div className="mt-4 text-sm text-slate-500">
+      {/* Fallback direct link */}
+      <div className="mt-4 text-sm text-slate-600">
         Having trouble?{" "}
         <a
           className="underline"
-          href={`https://cal.com/${calLink}`}
+          href={`https://cal.com/${callLink}`}
           target="_blank"
           rel="noreferrer"
         >
           Open the booking page directly
-        </a>.
+        </a>
+        .
       </div>
     </div>
   );
