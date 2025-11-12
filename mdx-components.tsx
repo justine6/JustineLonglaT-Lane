@@ -1,4 +1,7 @@
-import type { MDXComponents } from "mdx/types";
+import type { ComponentType } from "react";
+
+// Inline MDXComponents to avoid needing "mdx/types"
+type MDXComponents = Record<string, ComponentType<any>>;
 
 /** Map MDX tags to styled components (server-safe; no React context) */
 export function useMDXComponents(components: MDXComponents): MDXComponents {
