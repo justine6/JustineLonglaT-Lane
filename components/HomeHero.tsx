@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { LINKS } from '@/config/links';
+import { LINKS } from "@/config/links";
 
 export default function HomeHero() {
   return (
@@ -22,12 +22,27 @@ export default function HomeHero() {
               Cloud Confidence. Delivered.
             </h1>
             <p className="mt-0 text-lg sm:text-2xl text-white/90">
-              Secure, scalable AWS services with certified DevSecOps expertise — helping startups
-              and growing teams achieve cloud automation with confidence.
+              Secure, scalable AWS services with certified DevSecOps expertise —
+              helping startups and growing teams achieve cloud automation with
+              confidence.
             </p>
             <div className="mt-0 flex justify-center gap-4">
-              <a href="/docs/resume.pdf" className="rounded-xl border border-white/60 bg-white/10 px-5 py-2 text-white backdrop-blur hover:bg-white/20">View Résumé</a>
-              <a href="/files/brochure.pdf" className="rounded-xl border border-white/60 bg-white/10 px-5 py-2 text-white backdrop-blur hover:bg-white/20">Download Brochure</a>
+              <a
+                href={LINKS.resume}          // -> "/resume.pdf"
+                className="rounded-xl border border-white/60 bg-white/10 px-5 py-2 text-white backdrop-blur hover:bg-white/20"
+                target="_blank"
+                rel="noopener"
+              >
+                View Résumé
+              </a>
+              <a
+                href={LINKS.brochure}        // -> "/files/brochure.pdf"
+                className="rounded-xl border border-white/60 bg-white/10 px-5 py-2 text-white backdrop-blur hover:bg-white/20"
+                target="_blank"
+                rel="noopener"
+              >
+                Download Brochure
+              </a>
             </div>
           </div>
         </div>
@@ -35,6 +50,7 @@ export default function HomeHero() {
     </section>
   );
 }
+
 
 
 
