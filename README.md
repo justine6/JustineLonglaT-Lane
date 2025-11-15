@@ -158,3 +158,11 @@ git checkout restore/2025-11-09-brochure-fix
 **Fnu Longla Justine Tekang**  
 🌍 https://jutellane.com  
 📧 justinelongla@yahoo.com  
+## Reference States
+
+- **ref/2025-11-15-branding**  
+  Baseline branding for Jutellane Solutions:
+  - Hero uses profile photo in “Why Work With Me”
+  - Latest Publications cards use `/brand/justine-logo.png`
+  - Hire Me + Intro Call routing fixed
+  - Brochure + Résumé PDFs working from footer
