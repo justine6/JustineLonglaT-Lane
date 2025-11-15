@@ -141,11 +141,11 @@ export default function HomePage() {
             <div className="justify-self-center md:justify-self-start">
               <Image
                 src="/images/justine-profile.png"
-                alt="Justine Tekang — Cloud & DevSecOps Architect"
-                width={220}
-                height={220}
+                alt="Justine Tekang - Cloud & DevSecOps Engineer"
+                width={400}
+                height={400}
+                className="rounded-2xl shadow-lg object-cover bg-gradient-to-r from-[#0047a1] to-[#00a8a8]"
                 priority
-                className="rounded-full border-4 border-gray-200 object-cover shadow-md transition-transform duration-300 hover:scale-105 dark:border-gray-700"
               />
             </div>
             <div>

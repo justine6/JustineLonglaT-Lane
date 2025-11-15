@@ -32,15 +32,15 @@ export default function PublicationsGrid({ posts, limit }: Props) {
           {/* Cover (optional) */}
           {p.cover ? (
             <div className="relative w-full aspect-[16/9]">
-              <Image
-                src={p.cover}
-                alt={p.title}
-                fill
-                className="object-cover"
-                // keep a single unoptimized; remove duplicate
-                unoptimized
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
+            <Image
+              src="/brand/justine-logo.png"
+              alt="Justine Longla T — DevSecOps, Cloud, Sustainability"
+              width={420}
+              height={420}
+              priority
+              className="w-[260px] sm:w-[300px] md:w-[360px] lg:w-[420px] h-auto mx-auto"
+            />
+
             </div>
           ) : (
             <div className="w-full aspect-[16/9] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />

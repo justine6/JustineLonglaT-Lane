@@ -1,10 +1,10 @@
+// components/shared/HeroImage.tsx
 import Image from "next/image";
-import { LINKS } from '@/config/links';
 
 export default function HeroImage() {
   return (
     <Image
-      src="/brand/justine-profile.png"
+      src="/images/justine-profile.png"
       alt="Justine Tekang - Cloud & DevSecOps Engineer"
       width={400}
       height={400}
@@ -13,4 +13,3 @@ export default function HeroImage() {
     />
   );
 }
-
