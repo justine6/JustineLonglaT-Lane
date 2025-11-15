@@ -82,15 +82,20 @@ const nextConfig = withMDX({
     ];
   },
 
+  // next.config.mjs
+
   async redirects() {
     return [
       { source: "/schedule", destination: "/booking", permanent: true },
       { source: "/intro", destination: "/booking", permanent: true },
       { source: "/intro-call", destination: "/booking", permanent: true },
       { source: "/docs/jutellane-brochure.pdf", destination: "/docs/brochure.pdf", permanent: true },
-      { source: "https://www.jutellane.com/:path*", destination: "https://jutellane.com/:path*", permanent: true },
+
+      // ✅ NEW: make /hire-me a working alias for /booking
+      { source: "/hire-me", destination: "/booking", permanent: false },
     ];
   }
+
 });
 
 export default nextConfig;
