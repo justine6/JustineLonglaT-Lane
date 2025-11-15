@@ -88,8 +88,9 @@ const nextConfig = withMDX({
       { source: "/intro", destination: "/booking", permanent: true },
       { source: "/intro-call", destination: "/booking", permanent: true },
       { source: "/docs/jutellane-brochure.pdf", destination: "/docs/brochure.pdf", permanent: true },
+      { source: "https://www.jutellane.com/:path*", destination: "https://jutellane.com/:path*", permanent: true },
     ];
-  },
+  }
 });
 
 export default nextConfig;
