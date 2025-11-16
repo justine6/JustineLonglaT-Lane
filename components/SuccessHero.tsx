@@ -1,6 +1,9 @@
+// components/SuccessHero.tsx
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { LINKS } from "@/config/links";
 import AnimatedCheck from "@/components/AnimatedCheck";
 import AddToCalendar from "@/components/AddToCalendar";
 
@@ -21,11 +24,13 @@ export default function SuccessHero() {
         <div className="h-56 w-56 rounded-full bg-gradient-to-b from-emerald-400/40 to-blue-400/30 blur-3xl" />
       </div>
 
-      <div className={[
-        "mx-auto max-w-2xl rounded-3xl border border-slate-200/70 bg-white/70 p-8 shadow-xl backdrop-blur dark:border-slate-800/70 dark:bg-slate-900/60",
-        "transition-all duration-700",
-        visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
-      ].join(" ")}>
+      <div
+        className={[
+          "mx-auto max-w-2xl rounded-3xl border border-slate-200/70 bg-white/70 p-8 shadow-xl backdrop-blur dark:border-slate-800/70 dark:bg-slate-900/60",
+          "transition-all duration-700",
+          visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
+        ].join(" ")}
+      >
         <div className="flex flex-col items-center text-center">
           <AnimatedCheck />
 
@@ -40,24 +45,26 @@ export default function SuccessHero() {
 
           {/* Smart CTAs */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
-            <a
-              href="/"
+            <Link
+              href={LINKS.home}
               className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-transform hover:scale-[1.02] hover:bg-blue-700 active:scale-[0.98]"
             >
               Back to Home
-            </a>
-            <a
-              href="/projects"
+            </Link>
+
+            <Link
+              href={LINKS.projects}
               className="inline-flex items-center justify-center rounded-xl border border-slate-300/70 px-4 py-2 text-sm font-semibold transition-transform hover:scale-[1.02] hover:bg-slate-50 active:scale-[0.98] dark:border-slate-700 dark:hover:bg-slate-900"
             >
               Explore Projects
-            </a>
-            <a
-              href="/contact"
+            </Link>
+
+            <Link
+              href={LINKS.contact}
               className="inline-flex items-center justify-center rounded-xl border border-slate-300/70 px-4 py-2 text-sm font-semibold transition-transform hover:scale-[1.02] hover:bg-slate-50 active:scale-[0.98] dark:border-slate-700 dark:hover:bg-slate-900"
             >
               Contact
-            </a>
+            </Link>
           </div>
 
           {/* Add to Calendar */}

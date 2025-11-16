@@ -5,7 +5,7 @@
 // Used to generate success_url redirects for Cal.com
 // ---------------------------
 const BASE =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://jutellane-main.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://projects.jutellane.com";
 
 export const LINKS = {
   // ---------------------------
@@ -15,6 +15,7 @@ export const LINKS = {
   projects: "/projects",
   blog: "/blog",
   contact: "/contact",
+
   resume: "/resume",
   resumePdf: "/files/resume.pdf",
   brochure: "/files/brochure.pdf",
@@ -49,11 +50,11 @@ export const LINKS = {
       "https://cal.com/jutellane/hire-me?hide_event_type_details=1&primary_color=2563eb") +
     `&success_url=${encodeURIComponent(`${BASE}/hire-me?booked=1`)}`,
 
-  // ---------------------------
-  // Backward compatibility (optional)
-  // Can be removed once everything uses Intro/Hire
-  // ---------------------------
+  // Backward-compat embed
   calEmbed:
     process.env.NEXT_PUBLIC_CAL_URL ??
     "https://cal.com/jutellane/intro-call?hide_event_type_details=1&primary_color=2563eb",
+
+  // ➕ NEW: docs site
+  docs: "https://docs.jutellane.com",
 } as const;

@@ -38,21 +38,10 @@ const csp = [
   "frame-ancestors 'self'",
 ].join("; ");
 
-const isVercel = !!process.env.VERCEL;
-
 /** @type {import('next').NextConfig} */
 const nextConfig = withMDX({
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   eslint: { ignoreDuringBuilds: true },
-
-  ...(isVercel ? {} : {
-    experimental: {
-      allowedDevOrigins: [
-        "http://localhost:3000",
-        "http://192.168.0.11:3000",
-      ],
-    },
-  }),
 
   images: {
     remotePatterns: [
@@ -65,16 +54,18 @@ const nextConfig = withMDX({
     return [
       {
         source: "/:path*",
-        headers: [...securityHeaders, { key: "Content-Security-Policy", value: csp }],
+        headers: [
+          ...securityHeaders,
+          { key: "Content-Security-Policy", value: csp },
+        ],
       },
       {
-        source: "/docs/:file(.*\\.pdf)",
+        source: "/files/:file(.*\\.pdf)",
         headers: [
           { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
           { key: "Content-Disposition", value: "inline" },
         ],
       },
-      // ⬇️ moved here
       {
         source: "/booking",
         headers: [{ key: "Cache-Control", value: "no-store" }],
@@ -82,20 +73,45 @@ const nextConfig = withMDX({
     ];
   },
 
-  // next.config.mjs
+async redirects() {
+  return [
+    // existing booking aliases
+    { source: "/schedule", destination: "/booking", permanent: true },
+    { source: "/intro", destination: "/booking", permanent: true },
+    { source: "/intro-call", destination: "/booking", permanent: true },
 
-  async redirects() {
-    return [
-      { source: "/schedule", destination: "/booking", permanent: true },
-      { source: "/intro", destination: "/booking", permanent: true },
-      { source: "/intro-call", destination: "/booking", permanent: true },
-      { source: "/docs/jutellane-brochure.pdf", destination: "/docs/brochure.pdf", permanent: true },
+    // 🔁 Any old /docs/... PDF → /files/...
+    { source: "/docs/:path*", destination: "/files/:path*", permanent: true },
 
-      // ✅ NEW: make /hire-me a working alias for /booking
-      { source: "/hire-me", destination: "/booking", permanent: false },
-    ];
-  }
+    // 🧹 Legacy résumé URLs → new canonical file
+    { source: "/resume.pdf", destination: "/files/resume.pdf", permanent: true },
+    {
+      source: "/files/justine-longla-resume.pdf",
+      destination: "/files/resume.pdf",
+      permanent: true,
+    },
+    {
+      source: "/docs/justine-longla-resume.pdf",
+      destination: "/files/resume.pdf",
+      permanent: true,
+    },
 
+    // 🧹 Legacy brochure URLs → new canonical file
+    {
+      source: "/docs/brochure.pdf",
+      destination: "/files/brochure.pdf",
+      permanent: true,
+    },
+    {
+      source: "/docs/jutellane-brochure.pdf",
+      destination: "/files/brochure.pdf",
+      permanent: true,
+    },
+
+    // ✅ /hire-me still points to booking
+    { source: "/hire-me", destination: "/booking", permanent: false },
+  ];
+}
 });
 
 export default nextConfig;
