@@ -16,7 +16,7 @@ export async function generateMetadata(
   const project = await getProjectBySlug(slug);
   if (!project) return {};
   return {
-    title: `${project.title} | Jutellane Solutions`,
+    title: `${project.title} | Jutellane Solutions with Justine`,
     description: project.excerpt ?? project.description ?? "",
     alternates: { canonical: `/projects/${slug}` },
     openGraph: {

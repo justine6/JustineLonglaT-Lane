@@ -1,4 +1,4 @@
-export const metadata = { title: "Thanks | Jutellane Solutions" };
+export const metadata = { title: "Thanks | Jutellane Solutions with Justine" };
 
 export default function OnboardingThanksPage() {
   return (

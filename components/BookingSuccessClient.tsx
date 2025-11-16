@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 
 const ConfettiBurst = dynamic(() => import("@/components/ConfettiBurst"), { ssr: false });
 
-function buildGoogle(start?: string, end?: string, title = "Intro Call — Jutellane Solutions") {
+function buildGoogle(start?: string, end?: string, title = "Intro Call — Jutellane Solutions with Justine") {
   if (!start || !end) return undefined;
   const fmt = (s: string) => s.replace(/[-:]/g, "").replace(".000Z", "Z");
   const qs = new URLSearchParams({
@@ -19,7 +19,7 @@ function buildGoogle(start?: string, end?: string, title = "Intro Call — Jutel
   return `https://calendar.google.com/calendar/render?${qs}`;
 }
 
-function buildOutlook(start?: string, end?: string, title = "Intro Call — Jutellane Solutions") {
+function buildOutlook(start?: string, end?: string, title = "Intro Call — Jutellane Solutions with Justine") {
   if (!start || !end) return undefined;
   const qs = new URLSearchParams({
     path: "/calendar/action/compose",
@@ -82,10 +82,10 @@ export default function BookingSuccessClient() {
           <Link href="/" className="inline-flex items-center justify-center rounded-xl px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700">
             Back to Home
           </Link>
-          <Link href="/projects" className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800">
-            Explore Projects
+          <Link href="/projects" className="relative btn-shiny">
+            Explore Projectsi
           </Link>
-          <Link href="/contact" className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800">
+          <Link href="/contact" className="relative btn-shiny">
             Contact
           </Link>
         </div>
@@ -103,7 +103,7 @@ export default function BookingSuccessClient() {
           {variant === "marketing" && (
             <>
               <br />
-              <Link href="/onboarding" className="underline underline-offset-4 hover:text-slate-700 dark:hover:text-slate-200">
+              <Link href="/onboarding" className="relative btn-shiny">
                 Start the 2-minute onboarding
               </Link>
             </>

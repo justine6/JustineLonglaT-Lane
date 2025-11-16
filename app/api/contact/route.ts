@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     await resend.emails.send({ from, to, subject: `New message from ${name}`, html, replyTo: email || undefined });
     if (email) {
       await resend.emails.send({
-        from, to: email, subject: "Thanks for reaching out to Jutellane Solutions",
+        from, to: email, subject: "Thanks for reaching out to Jutellane Solutions with Justine",
         html: `<p>Hi ${escapeHtml(name)},</p><p>Thanks for your message. I’ll get back to you shortly.</p><p>— Justine</p>`
       });
     }

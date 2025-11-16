@@ -1,6 +1,6 @@
-# 🧭 Jutellane Solutions — Full Architecture & Deployment Flow
+# 🧭 Jutellane Solutions With Justine— Full Architecture & Deployment Flow
 
-Explore how Jutellane Solutions orchestrates automation across multiple repositories and live domains.  
+Explore how Justine orchestrates automation across multiple repositories and live domains.  
 The system ensures end‑to‑end CI/CD linkage, where each repo serves a unique deployment target — docs, main apps, and sub‑domains — all unified under a single architecture.
 
 ```mermaid

@@ -1,6 +1,6 @@
 // lib/site.ts
 export const site = {
-  name: "Jutellane Solutions",
+  name: "Jutellane Solutions with Justine",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ??
     (process.env.VERCEL_URL

@@ -17,7 +17,7 @@ export default function HeroBanner() {
       <div className="absolute inset-0 -z-10">
         <Image
           src="/brand/justine-banner.png"   // ✅ your image
-          alt="Jutellane Solutions — Cloud Confidence. Delivered."
+          alt="Jutellane Solutions with Justine — Cloud Confidence. Delivered."
           fill
           priority
           className="object-cover"

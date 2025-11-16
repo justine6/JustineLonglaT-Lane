@@ -5,7 +5,7 @@ const projects: Project[] = [
   { title: "CI/CD Automation Bot", href: "/projects/cicd-automation-bot" },
   { title: "Cloud Cost Optimizer", href: "/projects/cloud-cost-optimizer" },
   { title: "Epic EHR Cloud Migration", href: "/projects/epic-ehr-cloud-migration" },
-  { title: "Jutellane Solutions", href: "/projects/jutellane-solutions" },
+  { title: "Jutellane Solutions with Justine", href: "/projects/jutellane-solutions" },
   { title: "Nouvo Ayiti 2075 Blog", href: "/projects/nouvo-ayiti-2075-blog" },
   { title: "Nouvo Ayiti 2075", href: "/projects/nouvo-ayiti-2075" },
   { title: "Observability Starter Pack", href: "/projects/observability-starter-pack",
@@ -14,7 +14,7 @@ const projects: Project[] = [
   { title: "Untitled Project", href: "/projects/untitled" },
 ];
 
-export const metadata = { title: "Projects | Jutellane Solutions" };
+export const metadata = { title: "Projects | Jutellane Solutions with Justine" };
 
 export default function ProjectsPage() {
   return (

@@ -1,56 +1,59 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { LINKS } from "@/config/links";
 
 export default function HomeHero() {
   return (
-    <section className="-mt-px overflow-hidden relative">
-      <div className="relative w-full h-[70dvh] min-h-[520px]">
+    <section className="relative overflow-hidden bg-gradient-to-br from-sky-50 via-slate-50 to-emerald-50 dark:from-slate-900 dark:via-slate-950 dark:to-sky-950">
+      {/* Soft hero background image */}
+      <div className="pointer-events-none absolute inset-0 opacity-45 mix-blend-soft-light">
+        {/* Use the new light hero image you generated */}
         <Image
-          src="/brand/justine-banner.png"
-          alt="Jutellane Solutions • Cloud Confidence. Delivered."
+          src="/hero/justine-hero-soft.png"  // <- adjust path/name if different
+          alt="Justine Longla T. hero"
           fill
           priority
-          sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/35"></div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="max-w-5xl px-4 text-center">
-            <h1 className="text-4xl sm:text-6xl font-extrabold text-white drop-shadow-md">
-              Cloud Confidence. Delivered.
-            </h1>
-            <p className="mt-0 text-lg sm:text-2xl text-white/90">
-              Secure, scalable AWS services with certified DevSecOps expertise —
-              helping startups and growing teams achieve cloud automation with
-              confidence.
-            </p>
-            <div className="mt-0 flex justify-center gap-4">
-              <a
-                href={LINKS.resume}          // -> "/resume.pdf"
-                className="rounded-xl border border-white/60 bg-white/10 px-5 py-2 text-white backdrop-blur hover:bg-white/20"
-                target="_blank"
-                rel="noopener"
-              >
-                View Résumé
-              </a>
-              <a
-                href={LINKS.brochure}        // -> "/files/brochure.pdf"
-                className="rounded-xl border border-white/60 bg-white/10 px-5 py-2 text-white backdrop-blur hover:bg-white/20"
-                target="_blank"
-                rel="noopener"
-              >
-                Download Brochure
-              </a>
-            </div>
-          </div>
+      </div>
+
+      {/* Foreground content */}
+      <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-8 px-4 py-20 text-center sm:py-24 lg:py-28">
+        {/* Logo + tagline card */}
+        <div className="rounded-3xl bg-white/85 px-8 py-8 shadow-xl ring-1 ring-slate-200/70 backdrop-blur dark:bg-slate-900/80 dark:ring-slate-700/70">
+          <Image
+            src="/brand/justine-logo.png"
+            alt="Jutellane logo"
+            width={140}
+            height={140}
+            className="mx-auto h-28 w-28"
+          />
+          <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white">
+            Cloud Confidence. Delivered.
+          </h1>
+          <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+            Secure, scalable AWS and Azure architectures with production-ready
+            DevSecOps and observability — crafted with care.
+          </p>
+        </div>
+
+        {/* CTA row */}
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <Link href={LINKS.introCall} className="btn-primary-shine">
+            Schedule Your Intro Call
+          </Link>
+
+          <Link href="/#contact" className="btn-outline-soft">
+            Contact
+          </Link>
+
+          <Link href={LINKS.resume} className="btn-outline-soft">
+            Résumé
+          </Link>
         </div>
       </div>
     </section>
   );
 }
-
-
-
-

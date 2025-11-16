@@ -40,10 +40,9 @@ export default function ConditionalHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 1.0, ease: "easeOut" }}
         >
-          {/* Primary CTA → internal page for best UX/SEO */}
           <Link
             href={LINKS.introCall}
-            className="px-6 py-3 rounded-lg bg-white text-blue-700 font-semibold hover:scale-105 transition-transform duration-300 shadow-md hover:shadow-lg"
+            className="hero-cta-shine"
             prefetch
           >
             Schedule Your Intro Call
@@ -51,7 +50,7 @@ export default function ConditionalHero() {
 
           <Link
             href={LINKS.contact}
-            className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold hover:from-blue-700 hover:to-blue-600 transition-transform duration-300 shadow-md hover:shadow-lg"
+            className="hero-cta-shine"
             prefetch
           >
             Contact

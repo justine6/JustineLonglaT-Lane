@@ -2,7 +2,7 @@
 import Panel from "@/components/Panel";
 import CalBookingListener from "@/components/CalBookingListener";
 
-export const metadata = { title: "Intro Call | Jutellane Solutions" };
+export const metadata = { title: "Intro Call | Jutellane Solutions with Justine" };
 
 export default function IntroCallPage() {
   // 1) Use the exact link Cal.com gives you (Scheduling → your “Intro Call” → Embed/Share → copy link)

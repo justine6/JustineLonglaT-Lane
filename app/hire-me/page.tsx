@@ -1,6 +1,6 @@
 import CalPopupButton from "@/components/CalPopupButton";
 
-export const metadata = { title: "Hire Me | Jutellane Solutions" };
+export const metadata = { title: "Hire Me | Justine Longla T." };
 
 export default function HireMePage() {
   return (

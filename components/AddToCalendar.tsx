@@ -16,7 +16,7 @@ function fmtICS(dt: Date) {
 }
 
 export default function AddToCalendar({
-  title = "Intro Call with Jutellane Solutions",
+  title = "Intro Call with Jutellane Solutions with Justine",
   location = "Online",
   details = "Thanks for booking! You'll receive a confirmation email with the meeting link.",
 }: {
@@ -67,7 +67,7 @@ export default function AddToCalendar({
     const ics = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Jutellane Solutions//Booking//EN",
+      "PRODID:-//Jutellane Solutions with Justine//Booking//EN",
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
       "BEGIN:VEVENT",

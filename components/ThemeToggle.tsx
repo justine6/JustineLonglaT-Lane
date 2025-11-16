@@ -1,40 +1,59 @@
-'use client';
+// components/ThemeToggle.tsx
+"use client";
 
-import { useTheme } from 'next-themes';
-import { LINKS } from '@/config/links';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { Moon, Sun } from 'lucide-react';
+type Theme = "light" | "dark";
+const STORAGE_KEY = "jutellane-theme";
+
+function getInitialTheme(): Theme {
+  if (typeof window === "undefined") return "light";
+
+  const stored = window.localStorage.getItem(STORAGE_KEY);
+  if (stored === "light" || stored === "dark") return stored;
+
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  return prefersDark ? "dark" : "light";
+}
 
 export default function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<Theme | null>(null);
 
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+  // Initial theme
+  useEffect(() => {
+    const initial = getInitialTheme();
+    setTheme(initial);
+    document.documentElement.classList.toggle("dark", initial === "dark");
+  }, []);
 
-  const isDark = resolvedTheme === 'dark';
+  // Apply when changed
+  useEffect(() => {
+    if (!theme) return;
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    window.localStorage.setItem(STORAGE_KEY, theme);
+  }, [theme]);
+
+  if (!theme) return null;
+
+  const dark = theme === "dark";
 
   return (
     <button
       type="button"
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      aria-pressed={isDark}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full p-2 transition-colors duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:hover:bg-gray-800 dark:focus:ring-offset-gray-900"
-      title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      onClick={() => setTheme(dark ? "light" : "dark")}
+      aria-label="Toggle theme"
+      className="ml-3 inline-flex items-center gap-1 rounded-full border border-blue-200/80 bg-white/95 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm backdrop-blur hover:scale-105 hover:border-blue-400 hover:text-blue-700 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 transition duration-200"
     >
-      <span className="sr-only">
-        {isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      <span
+        className={`inline-flex h-5 w-5 items-center justify-center rounded-full text-[0.7rem] ${
+          dark
+            ? "bg-slate-800 text-amber-300"
+            : "bg-blue-600 text-white shadow"
+        }`}
+      >
+        {dark ? "🌙" : "☀️"}
       </span>
-      {isDark ? (
-        <Sun size={18} className="text-yellow-400" aria-hidden="true" />
-      ) : (
-        <Moon size={18} className="text-gray-700 dark:text-gray-200" aria-hidden="true" />
-      )}
+      <span className="hidden sm:inline">{dark ? "Dark" : "Light"}</span>
     </button>
   );
 }
-
-
-

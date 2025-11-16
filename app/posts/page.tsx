@@ -3,7 +3,7 @@ import { LINKS } from '@/config/links';
 import postsData from '@/content/projects/posts.json';
 
 export const metadata = {
-  title: 'Blog — Jutellane Solutions',
+  title: 'Blog — Jutellane Solutions with Justine.',
   description: 'Case studies, patterns, and how-tos.',
 };
 

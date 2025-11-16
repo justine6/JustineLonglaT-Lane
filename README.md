@@ -1,4 +1,4 @@
-# Jutellane Solutions – Full Enhanced README
+# Jutellane Solutions with justine – Full Enhanced README
 
 [![CI](https://github.com/justine6/Jutellane-Solutions/actions/workflows/ci.yml/badge.svg)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/ci.yml) 
 [![codecov](https://codecov.io/gh/justine6/Jutellane-Solutions/branch/main/graph/badge.svg)](https://codecov.io/gh/justine6/Jutellane-Solutions)

@@ -4,7 +4,7 @@ import { LINKS } from '@/config/links';
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Résumé — Jutellane Solutions",
+  title: "Résumé — Jutellane Solutions with Justine",
   description: "View or download the full and one-page résumé.",
 };
 
@@ -62,7 +62,7 @@ export default function ResumePage() {
         <h1 className="mb-2 text-3xl font-bold sm:text-4xl">Résumé</h1>
         <p className="text-slate-600 dark:text-slate-300">
           Full résumé and one-page summary. For a tailored version,{" "}
-          <Link href="/#contact" className="text-blue-600 underline">
+          <Link href="/#contact" className="relative btn-shiny">
             contact me
           </Link>
           .

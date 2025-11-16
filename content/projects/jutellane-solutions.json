@@ -1,6 +1,6 @@
 {
   "slug": "jutellane-solutions",
-  "title": "Jutellane Solutions",
+  "title": "Jutellane Solutions with Justine.",
   "summary": "Production-grade portfolio with real CI/CD, caching strategy, image optimization, and automated verification.",
   "description": "A secure, reliable portfolio that doubles as a DevSecOps demo: Next.js 15, Vercel, GitHub Actions, curl-based integrity checks, and CI for both preview and production.",
   "stack": ["Next.js", "Tailwind CSS", "Vercel", "GitHub Actions", "PowerShell"],

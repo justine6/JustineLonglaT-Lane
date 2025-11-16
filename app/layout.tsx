@@ -10,12 +10,12 @@ export const metadata: Metadata = {
   // ✅ add this line
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
 
-  title: "Jutellane Solutions — Cloud Confidence. Delivered.",
+  title: "Jutellane Solutions with Justine — Cloud Confidence. Delivered.",
   description:
     "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
   icons: { icon: "/favicon.ico", apple: "/apple-touch-icon.png" },
   openGraph: {
-    title: "Jutellane Solutions — Cloud Confidence. Delivered.",
+    title: "Jutellane Solutions with Justine — Cloud Confidence. Delivered.",
     description:
       "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
     url: "https://jutellane.com",

@@ -7,12 +7,12 @@ import { headers } from "next/headers";
 const ConfettiBurst = dynamic(() => import("@/components/ConfettiBurst"), { ssr: false });
 
 export const metadata: Metadata = {
-  title: "Booking Confirmed | Jutellane Solutions",
+  title: "Booking Confirmed | Jutellane Solutions with Justine",
   description:
     "Your meeting is confirmed. Add it to your calendar or contact us if you need to reschedule.",
 };
 
-function buildGoogle(start?: string, end?: string, title = "Intro Call — Jutellane Solutions") {
+function buildGoogle(start?: string, end?: string, title = "Intro Call — Jutellane Solutions with Justine") {
   if (!start || !end) return undefined;
   const fmt = (s: string) => s.replace(/[-:]/g, "").replace(".000Z", "Z");
   const qs = new URLSearchParams({
@@ -24,7 +24,7 @@ function buildGoogle(start?: string, end?: string, title = "Intro Call — Jutel
   return `https://calendar.google.com/calendar/render?${qs}`;
 }
 
-function buildOutlook(start?: string, end?: string, title = "Intro Call — Jutellane Solutions") {
+function buildOutlook(start?: string, end?: string, title = "Intro Call — Jutellane Solutions with Justine") {
   if (!start || !end) return undefined;
   const qs = new URLSearchParams({
     path: "/calendar/action/compose",
@@ -143,7 +143,7 @@ export default async function BookingSuccessPage() {
           {variant === "marketing" && (
             <>
               <br />
-              <Link href="/onboarding" className="underline underline-offset-4 hover:text-slate-700 dark:hover:text-slate-200">
+              <Link href="/onboarding" className="relative btn-shiny">
                 Start the 2-minute onboarding
               </Link>
             </>

@@ -22,7 +22,7 @@ export default async function ProjectPage({
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-12">
-      <Link href="/projects" className="text-blue-600 hover:underline">
+      <Link href="/projects" className="relative btn-shiny">
         &larr; Back to Projects
       </Link>
 

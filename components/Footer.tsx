@@ -10,10 +10,11 @@ export default function Footer() {
         {/* 🌐 Brand Section */}
         <div>
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-            Jutellane Solutions
+            Jutellane Solutions with Justine
           </h3>
           <p className="mt-2 text-sm leading-relaxed">
-            Cloud Confidence. Delivered. Secure, performance-tuned solutions — built the right way.
+            Cloud Confidence. Delivered. Secure, performance-tuned solutions —
+            built the right way.
           </p>
 
           {/* 📞 / 💼 CTAs */}
@@ -39,11 +40,31 @@ export default function Footer() {
         {/* 🧭 Quick Links */}
         <nav aria-label="Quick links">
           <ul className="space-y-2 text-sm">
-            <li><Link href="/" className="hover:underline">Home</Link></li>
-            <li><Link href="/projects" className="hover:underline">Projects</Link></li>
-            <li><Link href="/blog" className="hover:underline">Blog</Link></li>
-            <li><Link href={LINKS.contact} className="hover:underline">Contact</Link></li>
-            <li><Link href={LINKS.hireMe} className="hover:underline">Hire Me</Link></li>
+            <li>
+              <Link href="/" className="hover:underline">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/projects" className="hover:underline">
+                Projects
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog" className="hover:underline">
+                Blog
+              </Link>
+            </li>
+            <li>
+              <Link href={LINKS.contact} className="hover:underline">
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link href={LINKS.hireMe} className="hover:underline">
+                Hire Me
+              </Link>
+            </li>
 
             {/* Internal résumé page (same tab) */}
             <li>
@@ -85,7 +106,9 @@ export default function Footer() {
 
         {/* 📬 Contact Info */}
         <div className="text-sm">
-          <h4 className="font-semibold mb-2 text-slate-900 dark:text-white">CONTACT</h4>
+          <h4 className="font-semibold mb-2 text-slate-900 dark:text-white">
+            CONTACT
+          </h4>
           <ul className="space-y-2">
             <li>
               <a className="hover:underline" href="mailto:info@jutellane.com">
@@ -111,14 +134,46 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* 🧾 Footer bottom bar */}
-      <div className="mt-8 text-center">
-        <p className="text-sm text-gray-500">
-          Architected &amp; Built by <span className="font-semibold">Justine Longla T.</span>
-        </p>
-        <p className="text-xs text-gray-400 mt-1">
-          © {year} Jutellane Solutions. All rights reserved.
-        </p>
+      {/* 🧾 Footer bottom bar — unified with Docs/Blog/Projects */}
+      <div className="mt-6 border-t border-blue-100/70 dark:border-gray-800/80 px-4 py-4">
+        <div className="mx-auto max-w-7xl flex flex-col items-center gap-2 text-center">
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            © {year}{" "}
+            <span className="font-semibold">Justine Longla T.</span> · DevSecOps
+            • Cloud • Sustainability
+          </p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">
+            Operating under <span className="font-medium">Jutellane Solutions with Justine</span>.
+          </p>
+
+          <nav
+            aria-label="Jutellane network"
+            className="mt-2 flex flex-wrap justify-center gap-4 text-xs sm:text-sm text-blue-700 dark:text-blue-300"
+          >
+            <Link href="/blog" className="hover:underline">
+              Blog
+            </Link>
+            <Link href="/projects" className="hover:underline">
+              Projects
+            </Link>
+            <a
+              href="https://docs.jutellane.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              Docs
+            </a>
+            <a
+              href="https://docs.jutellane.com/toolkit.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              Automation Toolkit
+            </a>
+          </nav>
+        </div>
       </div>
     </footer>
   );

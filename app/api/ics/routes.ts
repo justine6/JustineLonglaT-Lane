@@ -29,10 +29,10 @@ export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const q = url.searchParams;
 
-  const title = q.get("title") || "Intro Call — Jutellane Solutions";
+  const title = q.get("title") || "Intro Call — with Justine Longla T.";
   const description =
     q.get("description") ||
-    "Thanks for booking with Jutellane Solutions. A confirmation email was sent.";
+    "Thanks for booking with Jutellane Solutions with Justine.. A confirmation email was sent.";
   const location = q.get("location") || "Online";
   const href = q.get("url") || `${url.origin}`;
 
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Jutellane Solutions//Booking//EN",
+    "PRODID:-//Jutellane Solutions with Justine.//Booking//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VEVENT",

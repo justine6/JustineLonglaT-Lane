@@ -6,7 +6,7 @@ import CalEmbed from "@/components/CalEmbed";
 import TrustBadges from "@/components/TrustBadges";
 
 export const metadata: Metadata = {
-  title: "Book an Intro Call | Jutellane Solutions",
+  title: "Book an Intro Call | Jutellane Solutions with Justine",
   description:
     "Schedule a 20–30 minute intro call to discuss cloud, DevSecOps, and performance goals.",
   alternates: { canonical: "/intro-call" },
