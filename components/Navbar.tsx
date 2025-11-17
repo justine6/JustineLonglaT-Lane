@@ -24,7 +24,11 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-blue-700/40 bg-[#2F66F0]/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6">
         {/* Logo and Title */}
-        <Link href="/" className="flex min-w-0 items-center gap-3">
+        <Link
+          href="/"
+          className="flex min-w-0 items-center gap-3"
+          aria-label="Jutellane Solutions home"
+        >
           <Image
             src="/brand/justine-logo.png"
             alt="Jutellane logo"
@@ -34,9 +38,10 @@ export default function Navbar() {
             className="h-8 w-8 shrink-0 rounded-full ring-2 ring-white/10"
           />
 
-          {/* Glowing brand pill */}
-          <span className="brand-pill whitespace-nowrap">
-            Jutellane Solutions with Justine.
+          {/* Glowing brand pill with elegant shine */}
+          <span className="brand-pill">
+            <span className="hidden sm:inline">Jutellane Solutions</span>
+            <span className="sm:ml-1">with Justine.</span>
           </span>
         </Link>
 
@@ -53,16 +58,17 @@ export default function Navbar() {
               (pathname === l.href ||
                 (l.href !== "/" && pathname?.startsWith(l.href)));
 
-            const base = "text-sm font-medium transition-colors duration-200";
+            const base =
+              "relative text-sm font-medium transition-colors duration-200";
 
             // normal nav link (Home, README, About, Projects, Contact…)
             const normalClasses = active
               ? "rounded-md px-3 py-2 text-[0.95rem] text-white underline"
               : "rounded-md px-3 py-2 text-[0.95rem] text-blue-50/90 hover:text-white hover:bg-blue-500/30";
 
-            // special pill style for Docs + Blog
+            // special pill style for Docs + Blog (with shine)
             const pillClasses =
-              "px-4 py-2 rounded-full bg-white text-blue-700 shadow-sm hover:bg-slate-100";
+              "nav-link-shine inline-flex items-center justify-center rounded-full px-4 py-2 bg-white text-blue-700 shadow-sm hover:bg-slate-100";
 
             const className = `${base} ${
               isDocs || isBlog ? pillClasses : normalClasses
@@ -75,6 +81,7 @@ export default function Navbar() {
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
                 className={className}
+                aria-current={active ? "page" : undefined}
               >
                 {l.label}
               </Link>

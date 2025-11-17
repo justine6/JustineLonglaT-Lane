@@ -1,36 +1,40 @@
 // app/projects/page.tsx
-type Project = { title: string; href: string; description?: string };
+import ProjectCard from "@/components/projects/ProjectCard";
+import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { FadeInItem } from "@/components/ui/FadeInItem";
+import { getAllProjects } from "@/lib/get-all-projects";
 
-const projects: Project[] = [
-  { title: "CI/CD Automation Bot", href: "/projects/cicd-automation-bot" },
-  { title: "Cloud Cost Optimizer", href: "/projects/cloud-cost-optimizer" },
-  { title: "Epic EHR Cloud Migration", href: "/projects/epic-ehr-cloud-migration" },
-  { title: "Jutellane Solutions with Justine", href: "/projects/jutellane-solutions" },
-  { title: "Nouvo Ayiti 2075 Blog", href: "/projects/nouvo-ayiti-2075-blog" },
-  { title: "Nouvo Ayiti 2075", href: "/projects/nouvo-ayiti-2075" },
-  { title: "Observability Starter Pack", href: "/projects/observability-starter-pack",
-    description: "Grafana, Prometheus, Loki in a box." },
-  { title: "Observability Starter", href: "/projects/observability-starter" },
-  { title: "Untitled Project", href: "/projects/untitled" },
-];
+export const metadata = {
+  title: "Projects | Jutellane Solutions with Justine",
+  description:
+    "Deep-dive case studies from Jutellane Solutions: CI/CD automation bot, cloud cost optimization, resilient migrations, and more production-grade DevSecOps work.",
+};
 
-export const metadata = { title: "Projects | Jutellane Solutions with Justine" };
+export default async function ProjectsPage() {
+  const projects = await getAllProjects();
 
-export default function ProjectsPage() {
   return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-      <h1 className="text-3xl sm:text-4xl font-extrabold mb-6">Projects</h1>
+    <main className="mx-auto max-w-6xl px-4 pb-16 pt-10">
+      <SectionFadeIn as="section" delay={0.12} className="space-y-6">
+        <header className="space-y-2">
+          <h1 className="text-2xl font-semibold text-slate-50 sm:text-3xl">
+            Projects &amp; case studies
+          </h1>
+          <p className="max-w-2xl text-sm text-slate-300 sm:text-base">
+            A focused set of automation and reliability projects shipped into
+            real environments: CI/CD helpers, migration tooling, and
+            cost-aware, observable cloud platforms.
+          </p>
+        </header>
 
-      <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {projects.map((p) => (
-          <li key={p.title} className="rounded-2xl border bg-white/50 dark:bg-gray-900/30 hover:shadow transition">
-            <a href={p.href} className="block p-4">
-              <div className="font-semibold text-blue-700 dark:text-blue-300">{p.title}</div>
-              {p.description && <p className="text-sm text-slate-600 dark:text-gray-300 mt-1">{p.description}</p>}
-            </a>
-          </li>
-        ))}
-      </ul>
+        <div className="grid gap-5 md:grid-cols-3">
+          {projects.map((project, i) => (
+            <FadeInItem key={project.slug} index={i}>
+              <ProjectCard project={project} />
+            </FadeInItem>
+          ))}
+        </div>
+      </SectionFadeIn>
     </main>
   );
 }

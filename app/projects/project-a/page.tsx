@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 export default function ProjectaPage() {
   return (
     <main className="container mx-auto py-16 px-6">

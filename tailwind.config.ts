@@ -1,38 +1,29 @@
-import type { Config } from 'tailwindcss'
+// tailwind.config.ts
+import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["class"],
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}"
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./lib/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
-      colors: {
-        "primary-light": "#F7F8FC",
-        "secondary-light": "#FFFFFF",
-        "ternary-light": "#f6f7f8",
-
-        "primary-dark": "#0D2438",
-        "secondary-dark": "#102D44",
-        "ternary-dark": "#1E3851",
-      },
-      container: {
-        padding: {
-          DEFAULT: "1rem",
-          sm: "2rem",
-          lg: "5rem",
-          xl: "6rem",
-          "2xl": "8rem",
+      keyframes: {
+        shine: {
+          "0%": { transform: "translateX(-150%)" },
+          "50%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(150%)" },
         },
       },
-    },
-  },
-  variants: {
-    extend: {
-      opacity: ["disabled"],
+      animation: {
+        // use on hover to keep it elegant
+        shine: "shine 900ms ease-out",
+      },
     },
   },
   plugins: [],
-}
+};
 
-export default config
+export default config;
