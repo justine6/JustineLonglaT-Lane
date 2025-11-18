@@ -1,6 +1,6 @@
 {
-  "image": "/brand/logo-light.svg",
-  "lastModified": "2025-10-09",
-  "description": "A short description about Project A.",
-  "title": "Project A"
+  "slug": "project-a",
+  "title": "Automation Rescue: Fixing Flaky Lambdas",
+  "summary": "How I debugged and hardened a flaky automation stack with Lambda-style handlers, queues, and CI/CD checks so deployments stopped falling over.",
+  "tags": ["Serverless", "CI/CD", "Observability"]
 }

@@ -20,7 +20,7 @@ export default async function ProjectsPage() {
       title: "Teams Proactive Messaging Bot",
       description:
         "Proactive Microsoft Teams bot that sends automated notifications from CLI triggers using Teams Toolkit, Bot Framework, and Azure Identity.",
-      image: "/favicon.ico",
+      image: "/projects/teams-proactive-bot-hero.jpg",
       featured: true,
     },
   ];
@@ -58,7 +58,5 @@ export default async function ProjectsPage() {
     </main>
   );
 }
-
-
 
 

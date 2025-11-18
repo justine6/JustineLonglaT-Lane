@@ -16,18 +16,18 @@ export default async function ProjectsPage() {
   // Featured Teams bot project
   const featuredProjects = [
     {
-      slug: "system-design",
+      slug: "teams-proactive-bot",
       title: "Teams Proactive Messaging Bot",
       description:
         "Proactive Microsoft Teams bot that sends automated notifications from CLI triggers using Teams Toolkit, Bot Framework, and Azure Identity.",
-      image: "/favicon.ico",
+      image: "/projects/teams-proactive-bot-hero.jpg",
       featured: true,
     },
   ];
 
   // Remove featured + placeholder “[slug]” from the regular list
   const nonFeatured = projects.filter(
-    (p) => p.slug !== "system-design" && p.slug !== "[slug]"
+    (p) => p.slug !== "teams-proactive-bot" && p.slug !== "[slug]"
   );
 
   const allProjects = [...featuredProjects, ...nonFeatured] as any[];
@@ -58,7 +58,3 @@ export default async function ProjectsPage() {
     </main>
   );
 }
-
-
-
-

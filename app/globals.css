@@ -335,6 +335,37 @@ html {
   color: #0f172a;
   transform: translateY(-1px);
 }
+/* === Global typography tokens ================================== */
+
+/* Page shell for main content */
+.page-shell {
+  @apply mx-auto max-w-6xl px-4 pb-16 pt-10;
+}
+
+/* Big page titles */
+.page-title {
+  @apply text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl;
+}
+
+/* Hero / page subtitles */
+.page-subtitle {
+  @apply text-sm text-slate-600 dark:text-slate-300 sm:text-base;
+}
+
+/* Section headings */
+.section-heading {
+  @apply text-2xl font-semibold text-slate-900 dark:text-slate-50;
+}
+
+/* Section body text */
+.section-body {
+  @apply text-sm leading-relaxed text-slate-700 dark:text-slate-300;
+}
+
+/* Small meta / pill label text */
+.section-meta {
+  @apply text-xs font-medium text-slate-500 dark:text-slate-300;
+}
 
 /* Dark mode adjustments */
 :root[data-theme="dark"] .btn-outline-soft {
@@ -408,4 +439,95 @@ html {
     transform: translateX(80%);
     opacity: 0;
   }
+}
+/* app/globals.css – make sure these exist */
+
+.page-shell {
+  @apply mx-auto max-w-6xl px-4 pb-16 pt-10;
+}
+
+.page-title {
+  @apply text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl;
+}
+
+.page-subtitle {
+  @apply text-sm text-slate-600 dark:text-slate-300 sm:text-base;
+}
+
+.section-heading {
+  @apply text-2xl font-semibold text-slate-900 dark:text-slate-50;
+}
+
+.section-body {
+  @apply text-sm leading-relaxed text-slate-700 dark:text-slate-300;
+}
+
+.section-meta {
+  @apply text-xs font-medium text-slate-500 dark:text-slate-300;
+}
+.case-study {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  line-height: 1.7;
+}
+
+.case-study h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+
+.case-study h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.case-study p {
+  margin: 0.5rem 0 1.25rem;
+  color: var(--text-default);
+}
+
+.case-study ul {
+  padding-left: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.case-study li {
+  margin-bottom: 0.5rem;
+}
+:root {
+  /* Brand colors */
+  --jut-primary: #2563eb;        /* blue-600 */
+  --jut-primary-soft: #1d4ed8;   /* blue-700 */
+  --jut-accent: #22c55e;         /* green-500 (pill highlight) */
+  --jut-accent-soft: #16a34a;    /* green-600 */
+  --jut-bg: #020617;             /* slate-950 */
+  --jut-surface: #020617;        /* dark cards */
+  --jut-surface-soft: #0f172a;   /* slate-900 */
+  --jut-border-subtle: rgba(148, 163, 184, 0.35);
+
+  --jut-text: #0f172a;
+  --jut-text-muted: #64748b;
+  --jut-text-on-dark: #e5e7eb;
+
+  /* Radii */
+  --jut-radius-lg: 1rem;
+  --jut-radius-xl: 1.5rem;
+  --jut-radius-pill: 999px;
+
+  /* Shadows */
+  --jut-shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.45);
+  --jut-shadow-glow: 0 0 0 1px rgba(34, 197, 94, 0.8),
+                     0 22px 60px rgba(15, 23, 42, 0.9);
+}
+
+.dark {
+  --jut-bg: #020617;
+  --jut-surface: #020617;
+  --jut-surface-soft: #020617;
+  --jut-text: #e5e7eb;
+  --jut-text-muted: #94a3b8;
 }

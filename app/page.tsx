@@ -1,3 +1,5 @@
+import { Button } from "@/components/Button";
+
 // app/page.tsx
 import Image from "next/image";
 import { LINKS } from '@/config/links';
@@ -35,47 +37,41 @@ export default function HomePage() {
       </section>
 
       {/* Header Section */}
-      <AnimatedSection>
-        <section className="mx-auto max-w-5xl px-2 text-center">
-          <h1 className="mb-4 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-            Cloud Confidence. Delivered.
-          </h1>
-          <p className="mb-6 text-base leading-relaxed text-gray-700 dark:text-gray-300 sm:text-lg md:text-xl">
-            Secure, Scalable AWS Services with Justine Tekang — Certified
-            DevSecOps &amp; Cloud Automation Expert
-          </p>
+    <AnimatedSection>
+      <section className="mx-auto max-w-5xl px-2 text-center">
+        <h1 className="mb-4 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
+          Cloud Confidence. Delivered.
+        </h1>
 
-          <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-            {/* Primary CTA → scroll to contact */}
-            <Link
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30"
-            >
-              Book Intro Call
-            </Link>
+        {/* Subheading text only */}
+        <p className="mb-4 text-base leading-relaxed text-gray-700 dark:text-gray-300 sm:text-lg md:text-xl">
+          Secure, Scalable AWS Services with Justine Tekang — Certified DevSecOps &amp; Cloud Automation Expert.
+        </p>
 
-            {/* Brochure (public/docs/jutellane-brochure.pdf) */}
-            <a
-              href="/docs/jutellane-brochure.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-6 py-3 text-lg text-blue-600 transition-colors hover:bg-blue-50 dark:hover:bg-blue-950/30"
-            >
-              Download Brochure
-            </a>
+        {/* Top hero CTAs (your beloved blue buttons 💙) */}
+        <div className="mb-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+          <Button variant="primary" href="/intro-call">
+            Book an intro call
+          </Button>
+          <Button variant="ghost" href="/projects">
+            View my work
+          </Button>
+        </div>
 
-            {/* Résumé (public/docs/justine-longla-resume.pdf) */}
-            <a
-              href="/docs/justine-longla-resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30"
-            >
-              View Résumé
-            </a>
-          </div>
-        </section>
-      </AnimatedSection>
+        {/* Secondary outline buttons row (same positions as before) */}
+        <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
+          <Button variant="secondary" href="/intro-call">
+            Book Intro Call
+          </Button>
+          <Button variant="secondary" href="/docs/jutellane-brochure.pdf" target="_blank">
+            Download Brochure
+          </Button>
+          <Button variant="secondary" href="/docs/justine-longla-resume.pdf" target="_blank">
+            View Résumé
+          </Button>
+        </div>
+      </section>
+    </AnimatedSection>
 
       {/* Services */}
       <AnimatedSection>
@@ -111,10 +107,18 @@ export default function HomePage() {
                 <div>
                   <h3 className="mb-2 text-xl font-semibold">{title}</h3>
                   <p className="text-sm text-gray-700 dark:text-gray-300 sm:text-base">
-                    {description}
-                  </p>
-                  <p className="mt-3 font-medium text-indigo-600 dark:text-indigo-400">
-                    Contact for a custom quote
+                <div className="mt-6 flex gap-4">
+                  <Button variant="primary" href="/intro-call">Book an intro call</Button>
+                  <Button variant="ghost" href="/projects">View my work</Button>
+                </div>
+                              {description}
+                            </p>
+                            <p className="mt-3 font-medium text-indigo-600 dark:text-indigo-400">
+                <div className="mt-6 flex gap-4">
+                  <Button variant="primary" href="/intro-call">Book an intro call</Button>
+                  <Button variant="ghost" href="/projects">View my work</Button>
+                </div>
+                              Contact for a custom quote
                   </p>
                 </div>
                 <div className="mt-5">
@@ -150,6 +154,10 @@ export default function HomePage() {
             </div>
             <div>
               <p className="mb-2 text-sm italic text-gray-600 dark:text-gray-400">
+      <div className="mt-6 flex gap-4">
+        <Button variant="primary" href="/intro-call">Book an intro call</Button>
+        <Button variant="ghost" href="/projects">View my work</Button>
+      </div>
                 “Secure, scalable, and sustainable cloud solutions that move
                 your business forward.”
               </p>
@@ -192,6 +200,10 @@ export default function HomePage() {
                 Latest Publications
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
+      <div className="mt-6 flex gap-4">
+        <Button variant="primary" href="/intro-call">Book an intro call</Button>
+        <Button variant="ghost" href="/projects">View my work</Button>
+      </div>
                 Practical guides, patterns, and field notes from real
                 engagements.
               </p>
@@ -240,11 +252,14 @@ export default function HomePage() {
           <h2 className="mb-6 text-2xl font-semibold sm:text-3xl">
             Certifications &amp; Expertise
           </h2>
-          <p className="mb-10 text-base text-gray-700 dark:text-gray-300 sm:text-lg">
-            AWS and Microsoft certifications that back every architecture
-            decision and automation pipeline I deliver.
+          <p className="mb-10 text-base leading-relaxed text-gray-700 dark:text-gray-300 sm:text-lg md:text-xl">
+            AWS and Microsoft certifications that back every architecture decision and automation pipeline I deliver.
           </p>
-          <CertificationsGrid />
+          <div className="mt-6 flex gap-4">
+            <Button variant="primary" href="/intro-call">Book an intro call</Button>
+            <Button variant="ghost" href="/projects">View my work</Button>
+          </div>
+
         </section>
       </AnimatedSection>
 

@@ -7,9 +7,9 @@ import Footer from "@/components/Footer";
 import ConditionalHero from "@/components/ConditionalHero";
 
 export const metadata: Metadata = {
-  // ✅ add this line
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+  ),
   title: "Jutellane Solutions with Justine — Cloud Confidence. Delivered.",
   description:
     "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
@@ -29,25 +29,25 @@ export const viewport: Viewport = { themeColor: "#1e40af" };
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-dvh bg-white text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
+      {/* Global dual-mode shell: always readable in light + dark */}
+      <body className="min-h-dvh bg-slate-100 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-50">
         <a
           href="#content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
         >
           Skip to content
         </a>
+
         <Navbar />
         <ConditionalHero />
+
         <div className="flex min-h-dvh flex-col">
-          <main id="content" className="flex-1">{children}</main>
+          <main id="content" className="flex-1">
+            {children}
+          </main>
           <Footer />
         </div>
       </body>
     </html>
   );
 }
-
-
-
-
-

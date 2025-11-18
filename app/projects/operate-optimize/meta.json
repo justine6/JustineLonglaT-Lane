@@ -1,6 +1,6 @@
 {
-  "image": "/images/gcp.png",
-  "lastModified": "2025-10-09",
-  "description": "Managed AWS services, cost audits, and 24/7 monitoring.",
-  "title": "Operate & Optimize"
+  "slug": "operate-optimize",
+  "title": "Operate & Optimize",
+  "summary": "Managed AWS operations and cost optimization with clear guardrails, observability, and calm 24/7 operations.",
+  "tags": ["AWS Operations", "Cost Optimization", "Observability"]
 }
