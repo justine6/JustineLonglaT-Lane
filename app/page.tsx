@@ -2,7 +2,7 @@ import { Button } from "@/components/Button";
 
 // app/page.tsx
 import Image from "next/image";
-import { LINKS } from '@/config/links';
+import { LINKS } from "@/config/links";
 import Link from "next/link";
 
 import AnimatedSection from "@/components/AnimatedSection";
@@ -18,6 +18,42 @@ import postsData from "@/content/projects/posts.json";
 import ContactSection from "@/components/ContactSection";
 
 export default function HomePage() {
+  const services = [
+    {
+      id: "launch",
+      title: "Launch & Migrate",
+      subtitle: "AWS foundations, greenfield & migrations",
+      body: "Design and launch a production-ready AWS foundation. I help you move from on-prem or ad-hoc cloud into a secure, cost-aware, and automation-ready environment.",
+      bullets: [
+        "Landing zones, VPC design, networking, and IAM guardrails",
+        "Migrations from on-prem or other cloud providers",
+        "CI/CD-ready environments for new products and teams",
+      ],
+    },
+    {
+      id: "secure-scale",
+      title: "Secure & Scale",
+      subtitle: "DevSecOps pipelines and platform hardening",
+      body: "Take your existing platform and make it safer, faster, and easier to deploy. We focus on security, observability, and automation so your team ships with confidence.",
+      bullets: [
+        "GitHub Actions pipelines with quality gates and approvals",
+        "Security baselines, policies, and vulnerability remediation",
+        "Monitoring, alerting, and SLO-driven reliability",
+      ],
+    },
+    {
+      id: "operate-optimize",
+      title: "Operate & Optimize",
+      subtitle: "Cloud operations, cost, and reliability",
+      body: "Keep your AWS workloads healthy and predictable. I help you establish operational practices that reduce incidents and keep costs under control.",
+      bullets: [
+        "Cost reviews, rightsizing, and tagging strategies",
+        "Incident response, runbooks, and on-call coaching",
+        "Performance tuning and availability improvements",
+      ],
+    },
+  ];
+
   return (
     <main className="min-h-screen bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 px-4 sm:px-6 pt-0 pb-8 sm:pb-10">
       {/* Hero is rendered by layout via <ConditionalHero /> */}
@@ -37,52 +73,54 @@ export default function HomePage() {
       </section>
 
       {/* Header Section */}
-    <AnimatedSection>
-      <section className="mx-auto max-w-5xl px-2 text-center">
-        <h1 className="mb-4 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-          Cloud Confidence. Delivered.
-        </h1>
+      <AnimatedSection>
+        <section className="mx-auto max-w-5xl px-2 text-center">
+          <h1 className="mb-4 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
+            Cloud Confidence. Delivered.
+          </h1>
 
-        {/* Subheading text only */}
-        <p className="mb-4 text-base leading-relaxed text-gray-700 dark:text-gray-300 sm:text-lg md:text-xl">
-          Secure, Scalable AWS Services with Justine Tekang — Certified DevSecOps &amp; Cloud Automation Expert.
-        </p>
+          {/* Subheading text only */}
+          <p className="mb-4 text-base leading-relaxed text-gray-700 dark:text-gray-300 sm:text-lg md:text-xl">
+            Secure, Scalable AWS Services with Justine Tekang — Certified
+            DevSecOps &amp; Cloud Automation Expert.
+          </p>
 
-        {/* Top hero CTAs (your beloved blue buttons 💙) */}
-        <div className="mb-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-          <Button variant="primary" href="/intro-call">
-            Book an intro call
-          </Button>
-          <Button variant="ghost" href="/projects">
-            View my work
-          </Button>
-        </div>
+          {/* Top hero CTAs */}
+          <div className="mb-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+            <Button variant="primary" href="/intro-call">
+              Book an intro call
+            </Button>
+            <Button variant="ghost" href="/projects">
+              View my work
+            </Button>
+          </div>
 
-        {/* Secondary outline buttons row (same positions as before) */}
-        <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-          <Button variant="secondary" href="/intro-call">
-            Book Intro Call
-          </Button>
+          {/* Secondary outline buttons row */}
+          <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
+            <Button variant="secondary" href="/intro-call">
+              Book Intro Call
+            </Button>
 
-          <Button
-            variant="secondary"
-            href="/docs/jutellane-brochure.pdf"
-            {...({ target: "_blank", rel: "noopener noreferrer" } as any)}
-          >
-            Download Brochure
-          </Button>
+            <Button
+              variant="secondary"
+              href="/docs/jutellane-brochure.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download Brochure
+            </Button>
 
-          <Button
-            variant="secondary"
-            href="/docs/justine-longla-resume.pdf"
-            {...({ target: "_blank", rel: "noopener noreferrer" } as any)}
-          >
-            View Résumé
-          </Button>
-        </div>
-
-      </section>
-    </AnimatedSection>
+            <Button
+              variant="secondary"
+              href="/docs/justine-longla-resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Résumé
+            </Button>
+          </div>
+        </section>
+      </AnimatedSection>
 
       {/* My Services */}
       <section
@@ -132,7 +170,7 @@ export default function HomePage() {
                   </ul>
                 </div>
 
-                <div className="mt-6 flex flex-col gap-3 pt-4 border-t border-slate-800/70">
+                <div className="mt-6 flex flex-col gap-3 border-t border-slate-800/70 pt-4">
                   <Button
                     href="/intro-call"
                     variant="primary"
@@ -175,16 +213,12 @@ export default function HomePage() {
                 alt="Justine Tekang - Cloud & DevSecOps Engineer"
                 width={400}
                 height={400}
-                className="rounded-2xl shadow-lg object-cover bg-gradient-to-r from-[#0047a1] to-[#00a8a8]"
+                className="rounded-2xl bg-gradient-to-r from-[#0047a1] to-[#00a8a8] object-cover shadow-lg"
                 priority
               />
             </div>
             <div>
               <p className="mb-2 text-sm italic text-gray-600 dark:text-gray-400">
-      <div className="mt-6 flex gap-4">
-        <Button variant="primary" href="/intro-call">Book an intro call</Button>
-        <Button variant="ghost" href="/projects">View my work</Button>
-      </div>
                 “Secure, scalable, and sustainable cloud solutions that move
                 your business forward.”
               </p>
@@ -194,6 +228,14 @@ export default function HomePage() {
                 <li>Multilingual — English, French, Dutch</li>
                 <li>Proven results in healthcare, fintech, and e-commerce</li>
               </ul>
+              <div className="mt-5 flex gap-4">
+                <Button variant="primary" href="/intro-call">
+                  Book an intro call
+                </Button>
+                <Button variant="ghost" href="/projects">
+                  View my work
+                </Button>
+              </div>
               <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/contact"
@@ -219,7 +261,7 @@ export default function HomePage() {
       <AnimatedSection>
         <section
           id="publications"
-          className="mx-auto mb-16 max-w-6xl px-4 md:px-6 scroll-mt-24"
+          className="mx-auto mb-16 max-w-6xl scroll-mt-24 px-4 md:px-6"
         >
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
@@ -227,10 +269,6 @@ export default function HomePage() {
                 Latest Publications
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-      <div className="mt-6 flex gap-4">
-        <Button variant="primary" href="/intro-call">Book an intro call</Button>
-        <Button variant="ghost" href="/projects">View my work</Button>
-      </div>
                 Practical guides, patterns, and field notes from real
                 engagements.
               </p>
@@ -264,7 +302,7 @@ export default function HomePage() {
       <AnimatedSection>
         <section
           id="testimonials"
-          className="mx-auto mb-16 max-w-3xl px-4 scroll-mt-24 md:scroll-mt-28"
+          className="mx-auto mb-16 max-w-3xl scroll-mt-24 px-4 md:scroll-mt-28"
         >
           <TestimonialSlider />
         </section>
@@ -274,26 +312,29 @@ export default function HomePage() {
       <AnimatedSection>
         <section
           id="certifications"
-          className="mx-auto mb-16 max-w-5xl px-4 text-center scroll-mt-24 md:scroll-mt-28"
+          className="mx-auto mb-16 max-w-5xl scroll-mt-24 px-4 text-center md:scroll-mt-28"
         >
           <h2 className="mb-6 text-2xl font-semibold sm:text-3xl">
             Certifications &amp; Expertise
           </h2>
           <p className="mb-10 text-base leading-relaxed text-gray-700 dark:text-gray-300 sm:text-lg md:text-xl">
-            AWS and Microsoft certifications that back every architecture decision and automation pipeline I deliver.
+            AWS and Microsoft certifications that back every architecture
+            decision and automation pipeline I deliver.
           </p>
-          <div className="mt-6 flex gap-4">
-            <Button variant="primary" href="/intro-call">Book an intro call</Button>
-            <Button variant="ghost" href="/projects">View my work</Button>
+          <CertificationsGrid />
+          <div className="mt-6 flex justify-center gap-4">
+            <Button variant="primary" href="/intro-call">
+              Book an intro call
+            </Button>
+            <Button variant="ghost" href="/projects">
+              View my work
+            </Button>
           </div>
-
         </section>
       </AnimatedSection>
 
-      {/* Contact (embed/CTA lives here) */}
+      {/* Contact */}
       <ContactSection />
     </main>
   );
 }
-
-
