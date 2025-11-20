@@ -97,23 +97,21 @@ export default function HomePage() {
 
           {/* Secondary outline buttons row */}
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-            <Button
-              variant="secondary"
-              href="/docs/jutellane-brochure.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Download Brochure
-            </Button>
+          <Button
+            variant="secondary"
+            href="/docs/jutellane-brochure.pdf"
+            {...({ target: "_blank", rel: "noopener noreferrer" } as any)}
+          >
+            Download Brochure
+          </Button>
 
-            <Button
-              variant="secondary"
-              href="/docs/justine-longla-resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Résumé
-            </Button>
+          <Button
+            variant="secondary"
+            href="/docs/justine-longla-resume.pdf"
+            {...({ target: "_blank", rel: "noopener noreferrer" } as any)}
+          >
+            View Résumé
+          </Button>
 
           </div>
         </section>
