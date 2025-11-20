@@ -6,15 +6,10 @@ import { LINKS } from "@/config/links";
 import Link from "next/link";
 
 import AnimatedSection from "@/components/AnimatedSection";
-
 import TestimonialSlider from "@/components/TestimonialSlider";
-
 import CertificationsGrid from "@/components/CertificationsGrid";
-
 import PublicationsGrid, { type Post } from "@/components/PublicationsGrid";
-
 import postsData from "@/content/projects/posts.json";
-
 import ContactSection from "@/components/ContactSection";
 
 export default function HomePage() {
@@ -97,22 +92,27 @@ export default function HomePage() {
 
           {/* Secondary outline buttons row */}
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-          <Button
-            variant="secondary"
-            href="/docs/jutellane-brochure.pdf"
-            {...({ target: "_blank", rel: "noopener noreferrer" } as any)}
-          >
-            Download Brochure
-          </Button>
+            <Button variant="secondary" href="/intro-call">
+              Book Intro Call
+            </Button>
 
-          <Button
-            variant="secondary"
-            href="/docs/justine-longla-resume.pdf"
-            {...({ target: "_blank", rel: "noopener noreferrer" } as any)}
-          >
-            View Résumé
-          </Button>
+            <Button
+              variant="secondary"
+              href="/docs/jutellane-brochure.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download Brochure
+            </Button>
 
+            <Button
+              variant="secondary"
+              href="/docs/justine-longla-resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Résumé
+            </Button>
           </div>
         </section>
       </AnimatedSection>
@@ -223,14 +223,6 @@ export default function HomePage() {
                 <li>Multilingual — English, French, Dutch</li>
                 <li>Proven results in healthcare, fintech, and e-commerce</li>
               </ul>
-              <div className="mt-5 flex gap-4">
-                <Button variant="primary" href="/intro-call">
-                  Book an intro call
-                </Button>
-                <Button variant="ghost" href="/projects">
-                  View my work
-                </Button>
-              </div>
               <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/contact"
@@ -328,7 +320,7 @@ export default function HomePage() {
         </section>
       </AnimatedSection>
 
-      {/* Contact */}
+      {/* Contact (embed/CTA lives here) */}
       <ContactSection />
     </main>
   );
