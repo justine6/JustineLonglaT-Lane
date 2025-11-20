@@ -1,0 +1,3 @@
+- Project cards & metadata refreshed (Data.Json + Guardrails & Optimize).
+- Obsolete app/projects/data.json/projects.json removed.
+- npm run check-all passing (build + tests + coverage).

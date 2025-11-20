@@ -63,13 +63,24 @@ export default function HomePage() {
           <Button variant="secondary" href="/intro-call">
             Book Intro Call
           </Button>
-          <Button variant="secondary" href="/docs/jutellane-brochure.pdf" target="_blank">
+
+          <Button
+            variant="secondary"
+            href="/docs/jutellane-brochure.pdf"
+            {...({ target: "_blank", rel: "noopener noreferrer" } as any)}
+          >
             Download Brochure
           </Button>
-          <Button variant="secondary" href="/docs/justine-longla-resume.pdf" target="_blank">
+
+          <Button
+            variant="secondary"
+            href="/docs/justine-longla-resume.pdf"
+            {...({ target: "_blank", rel: "noopener noreferrer" } as any)}
+          >
             View Résumé
           </Button>
         </div>
+
       </section>
     </AnimatedSection>
 

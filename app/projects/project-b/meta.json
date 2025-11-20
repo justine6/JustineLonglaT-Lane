@@ -1,14 +1,15 @@
 {
-  "slug": "project-b",
-  "title": "Project B — Operate & Optimize Playbooks",
-  "summary": "SLO-driven runbooks, dashboards, and incident workflows that made operations boring and predictable.",
-  "description": "A reliability and operations project focused on codifying SLOs, incidents, and runbooks into a shared set of playbooks and dashboards so teams could operate cloud workloads with confidence.",
-  "tags": ["Operate & Optimize", "SRE", "Runbooks"]
-},
-{
-  "slug": "project-c",
-  "title": "Project C — System Design: Jutellane Ecosystem",
-  "summary": "System-design case study on unifying the Jutellane main hub, docs, and blog into one cohesive multi-site platform.",
-  "description": "A platform architecture project where I redesigned the Jutellane ecosystem as a coherent multi-site system with shared branding, predictable routing, and independent CI/CD pipelines for each surface.",
-  "tags": ["System Design", "Multi-Site", "Branding"]
+  "slug": "guardrails-optimize-automation-engine",
+  "title": "Guardrails & Optimize: Reliability Automation Engine",
+  "category": "Automation",
+  "tags": [
+    "automation",
+    "reliability",
+    "guardrails",
+    "ci-cd"
+  ],
+  "date": "2025-11-18",
+  "featured": false,
+  "pinned": false,
+  "summary": "A cross-platform reliability automation engine improving system health, drift detection, and CI/CD guardrails."
 }
