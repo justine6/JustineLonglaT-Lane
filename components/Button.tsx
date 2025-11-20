@@ -1,17 +1,35 @@
 // components/Button.tsx
 import Link from "next/link";
-import { ReactNode } from "react";
+import type { ReactNode, AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
-export interface ButtonProps {
-  href?: string;
+type BaseProps = {
   variant?: ButtonVariant;
-  children: ReactNode;
   className?: string;
-  target?: string;
-  rel?: string;
-}
+  children: ReactNode;
+};
+
+/**
+ * Link-style button props
+ * - must have `href`
+ * - may have `target` / `rel` and normal <a> attributes
+ */
+type LinkButtonProps = BaseProps &
+  AnchorHTMLAttributes<HTMLAnchorElement> & {
+    href: string;
+  };
+
+/**
+ * Native <button> variant
+ * - no `href`
+ */
+type NativeButtonProps = BaseProps &
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    href?: undefined;
+  };
+
+export type ButtonProps = LinkButtonProps | NativeButtonProps;
 
 /**
  * Tiny helper instead of `clsx`
@@ -37,28 +55,23 @@ const variantClasses: Record<ButtonVariant, string> = {
     "dark:text-slate-50 dark:hover:bg-slate-800",
 };
 
-export function Button({
-  href,
-  variant = "primary",
-  children,
-  className,
-  target,
-  rel,
-}: ButtonProps) {
+export function Button(props: ButtonProps) {
+  const { variant = "primary", className, children, ...rest } = props;
   const classes = cn(baseClasses, variantClasses[variant], className);
 
-  // If href is provided → render as <Link>
-  if (href) {
+  // 🔗 Link-style button
+  if ("href" in rest && rest.href) {
+    const { href, ...linkProps } = rest;
     return (
-      <Link href={href} target={target} rel={rel} className={classes}>
+      <Link href={href} className={classes} {...linkProps}>
         {children}
       </Link>
     );
   }
 
-  // Otherwise render a plain <button>
+  // 🧩 Plain <button>
   return (
-    <button type="button" className={classes}>
+    <button type="button" className={classes} {...rest}>
       {children}
     </button>
   );

@@ -92,10 +92,6 @@ export default function HomePage() {
 
           {/* Secondary outline buttons row */}
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-            <Button variant="secondary" href="/intro-call">
-              Book Intro Call
-            </Button>
-
             <Button
               variant="secondary"
               href="/docs/jutellane-brochure.pdf"
