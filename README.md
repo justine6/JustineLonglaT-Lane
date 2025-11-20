@@ -166,3 +166,4 @@ git checkout restore/2025-11-09-brochure-fix
   - Latest Publications cards use `/brand/justine-logo.png`
   - Hire Me + Intro Call routing fixed
   - Brochure + Résumé PDFs working from footer
+  _Deployment sanity check – Justine, 11/19/2025._
