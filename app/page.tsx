@@ -122,75 +122,77 @@ export default function HomePage() {
         id="services"
         className="border-y border-slate-800 bg-slate-950/40 py-20"
       >
-        <AnimatedSection className="mx-auto flex max-w-6xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
-          <header className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              My Services
-            </h2>
-            <p className="mt-4 text-sm leading-relaxed text-slate-300 sm:text-base">
-              I help teams{" "}
-              <span className="font-semibold text-sky-300">
-                launch on AWS, secure their delivery pipelines, and run
-                production workloads with confidence.
-              </span>{" "}
-              Every engagement is hands-on: we pair on architecture, automate
-              what matters, and leave you with clear documentation and
-              repeatable workflows.
-            </p>
-          </header>
+        <AnimatedSection>
+          <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
+            <header className="mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                My Services
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-slate-300 sm:text-base">
+                I help teams{" "}
+                <span className="font-semibold text-sky-300">
+                  launch on AWS, secure their delivery pipelines, and run
+                  production workloads with confidence.
+                </span>{" "}
+                Every engagement is hands-on: we pair on architecture, automate
+                what matters, and leave you with clear documentation and
+                repeatable workflows.
+              </p>
+            </header>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            {services.map((svc) => (
-              <article
-                key={svc.id}
-                className="flex flex-col justify-between rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950/90 p-6 shadow-lg ring-1 ring-slate-800/70"
-              >
-                <div>
-                  <div className="mb-3 text-xs font-semibold uppercase tracking-wide text-sky-300/90">
-                    {svc.subtitle}
+            <div className="grid gap-6 md:grid-cols-3">
+              {services.map((svc) => (
+                <article
+                  key={svc.id}
+                  className="flex flex-col justify-between rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950/90 p-6 shadow-lg ring-1 ring-slate-800/70"
+                >
+                  <div>
+                    <div className="mb-3 text-xs font-semibold uppercase tracking-wide text-sky-300/90">
+                      {svc.subtitle}
+                    </div>
+                    <h3 className="text-lg font-semibold text-white sm:text-xl">
+                      {svc.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-300">
+                      {svc.body}
+                    </p>
+                    <ul className="mt-4 space-y-2 text-xs text-slate-300/90 sm:text-sm">
+                      {svc.bullets.map((item) => (
+                        <li key={item} className="flex gap-2">
+                          <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-sky-400" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <h3 className="text-lg font-semibold text-white sm:text-xl">
-                    {svc.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-300">
-                    {svc.body}
-                  </p>
-                  <ul className="mt-4 space-y-2 text-xs text-slate-300/90 sm:text-sm">
-                    {svc.bullets.map((item) => (
-                      <li key={item} className="flex gap-2">
-                        <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-sky-400" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
 
-                <div className="mt-6 flex flex-col gap-3 border-t border-slate-800/70 pt-4">
-                  <Button
-                    href="/intro-call"
-                    variant="primary"
-                    className="w-full justify-center"
-                  >
-                    Book an intro call
-                  </Button>
+                  <div className="mt-6 flex flex-col gap-3 border-t border-slate-800/70 pt-4">
+                    <Button
+                      href="/intro-call"
+                      variant="primary"
+                      className="w-full justify-center"
+                    >
+                      Book an intro call
+                    </Button>
 
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
-                    <Link
-                      href={`/projects#${svc.id}`}
-                      className="font-medium text-sky-300 hover:text-sky-200 hover:underline"
-                    >
-                      View related projects
-                    </Link>
-                    <Link
-                      href="/contact"
-                      className="text-slate-300 hover:text-slate-100 hover:underline"
-                    >
-                      Contact for a custom quote
-                    </Link>
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
+                      <Link
+                        href={`/projects#${svc.id}`}
+                        className="font-medium text-sky-300 hover:text-sky-200 hover:underline"
+                      >
+                        View related projects
+                      </Link>
+                      <Link
+                        href="/contact"
+                        className="text-slate-300 hover:text-slate-100 hover:underline"
+                      >
+                        Contact for a custom quote
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              ))}
+            </div>
           </div>
         </AnimatedSection>
       </section>
