@@ -169,4 +169,4 @@ git checkout restore/2025-11-09-brochure-fix
   _Deployment sanity check – Justine, 11/19/2025._
   <!-- sanity auto-deploy test - Justine, 11/19 -->
   <!-- auto deploy test -->
-
+  
