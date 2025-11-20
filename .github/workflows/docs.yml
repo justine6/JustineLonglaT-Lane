@@ -8,17 +8,20 @@ on:
       - ".github/workflows/docs.yml"
 
 jobs:
-  docs-smoke:
+  build-docs:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Verify docs folder exists
+      - name: List docs tree
         run: |
-          test -d docs
+          echo "Docs tree:"
+          ls -R docs
 
-      - name: Verify docs landing page exists
+      - name: Sanity check required files
         run: |
           test -f docs/index.html
+          test -f docs/sitemap.xml
+          echo "docs/index.html and docs/sitemap.xml are present ✅"
