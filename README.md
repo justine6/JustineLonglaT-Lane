@@ -1,4 +1,6 @@
-# Jutellane Solutions with justine – Full Enhanced README
+# JustineLonglaTe-Lane – Full Enhanced README
+![Docs Deployment](https://github.com/justine6/JustineLonglaT-Lane/actions/workflows/docs-pages.yml/badge.svg)
+
 
 [![CI](https://github.com/justine6/Jutellane-Solutions/actions/workflows/ci.yml/badge.svg)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/ci.yml) 
 [![codecov](https://codecov.io/gh/justine6/Jutellane-Solutions/branch/main/graph/badge.svg)](https://codecov.io/gh/justine6/Jutellane-Solutions)
@@ -18,7 +20,7 @@
 
 ---
 
-# 🧩 Jutellane Solutions CI/CD & Documentation Status
+# 🧩 JustineLonglaTe-Lane  CI/CD & Documentation Status
 
 ![Prepare Workflow](https://github.com/justine6/Jutellane-Solutions/actions/workflows/prepare.yml/badge.svg)
 ![Release Workflow](https://github.com/justine6/Jutellane-Solutions/actions/workflows/release.yml/badge.svg)
@@ -40,7 +42,7 @@
 
 ---
 
-## 🌐 Jutellane Solutions — Live Domains Overview
+## 🌐 JustineLonglaTe-Lane  — Live Domains Overview
 
 | Subdomain | Purpose | Hosting | Deployment | HTTPS |
 |----------|----------|---------|------------|--------|
@@ -85,7 +87,7 @@ flowchart LR
 
 ---
 
-# 🚀 Jutellane Solutions – Automated Release Workflow
+# 🚀 JustineLonglaTe-Lane  – Automated Release Workflow
 
 This system manages automated changelog creation, semantic versioning, release publication, and verification.
 
@@ -155,13 +157,13 @@ git checkout restore/2025-11-09-brochure-fix
 
 # 🛠 Maintained By
 
-**Fnu Longla Justine Tekang**  
+**Longla Justine Tekang**  
 🌍 https://jutellane.com  
 📧 justinelongla@yahoo.com  
 ## Reference States
 
 - **ref/2025-11-15-branding**  
-  Baseline branding for Jutellane Solutions:
+  Baseline branding for JustineLonglaT:
   - Hero uses profile photo in “Why Work With Me”
   - Latest Publications cards use `/brand/justine-logo.png`
   - Hire Me + Intro Call routing fixed

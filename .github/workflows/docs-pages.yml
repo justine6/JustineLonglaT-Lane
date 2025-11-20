@@ -25,15 +25,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # -----------------------------
+      # 1. Checkout repository
+      # -----------------------------
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/configure-pages@v5
+      # -----------------------------
+      # 2. Configure GitHub Pages
+      # -----------------------------
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
+      # -----------------------------
+      # 3. Upload the static docs folder
+      # -----------------------------
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs
 
+      # -----------------------------
+      # 4. Deploy to GitHub Pages
+      # -----------------------------
       - name: Deploy to Pages
         id: deployment
         uses: actions/deploy-pages@v4
