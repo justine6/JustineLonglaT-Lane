@@ -4,11 +4,13 @@ import { ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
-interface ButtonProps {
+export interface ButtonProps {
   href?: string;
   variant?: ButtonVariant;
   children: ReactNode;
   className?: string;
+  target?: string;
+  rel?: string;
 }
 
 /**
@@ -40,18 +42,24 @@ export function Button({
   variant = "primary",
   children,
   className,
+  target,
+  rel,
 }: ButtonProps) {
   const classes = cn(baseClasses, variantClasses[variant], className);
 
-  // Link-style button
+  // If href is provided → render as <Link>
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} target={target} rel={rel} className={classes}>
         {children}
       </Link>
     );
   }
 
-  // Plain button element
-  return <button className={classes}>{children}</button>;
+  // Otherwise render a plain <button>
+  return (
+    <button type="button" className={classes}>
+      {children}
+    </button>
+  );
 }
