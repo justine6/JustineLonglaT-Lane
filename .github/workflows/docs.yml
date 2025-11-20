@@ -3,118 +3,22 @@ name: Docs
 on:
   push:
     branches: [ main ]
-  pull_request:
-
-permissions:
-  contents: read
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs.yml"
 
 jobs:
-  build-docs:
-    name: Build documentation
+  docs-smoke:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Setup Node (use repo engines if defined)
-        uses: actions/setup-node@v4
-        with:
-          # If you have "engines": {"node": ">=20"} in package.json, this will be respected by corepack managers.
-          node-version: "20"
-          cache: npm
-
-      - name: Pick package manager + install deps (npm/pnpm/yarn auto-detect)
-        id: pm
+      - name: Verify docs folder exists
         run: |
-          set -e
-          echo "PM=npm" >> $GITHUB_ENV
-          if [ -f pnpm-lock.yaml ]; then
-            echo "Using pnpm"
-            echo "PM=pnpm" >> $GITHUB_ENV
-            corepack enable
-            pnpm i --frozen-lockfile
-          elif [ -f yarn.lock ]; then
-            echo "Using yarn"
-            echo "PM=yarn" >> $GITHUB_ENV
-            corepack enable
-            yarn install --frozen-lockfile
-          else
-            echo "Using npm"
-            npm ci
-          fi
+          test -d docs
 
-      - name: Build docs (root or /docs package)
+      - name: Verify docs landing page exists
         run: |
-          set -e
-
-          run_pm () {
-            if [ "$PM" = "pnpm" ]; then pnpm run "$1"
-            elif [ "$PM" = "yarn" ]; then yarn "$1"
-            else npm run "$1"
-            fi
-          }
-
-          # Prefer a dedicated docs package in /docs if present
-          if [ -d docs ] && [ -f docs/package.json ]; then
-            echo "Detected docs subpackage at ./docs"
-            pushd docs >/dev/null
-            # install docs subpackage deps if it has its own lockfile
-            if [ -f pnpm-lock.yaml ]; then corepack enable && pnpm i --frozen-lockfile; fi
-            if [ -f yarn.lock ]; then corepack enable && yarn install --frozen-lockfile; fi
-            if [ -f package-lock.json ] && [ "$PM" = "npm" ]; then npm ci; fi
-
-            # Try common docs commands in order
-            run_pm docs:build || run_pm docs || run_pm build
-            popd >/dev/null
-          else
-            echo "Building docs from repository root"
-            run_pm docs:build || run_pm docs || run_pm build
-          fi
-
-      - name: Upload docs artifact (if found)
-        uses: actions/upload-artifact@v4
-        with:
-          name: docs-site
-          if-no-files-found: ignore
-          path: |
-            docs/build/**
-            docs/.next/**
-            docs/out/**
-            docs/dist/**
-            build/**
-            out/**
-            dist/**
-            .next/**
-
-  # ------------------------
-  # OPTIONAL: GitHub Pages deploy
-  # Enable by uncommenting this job AND creating a "Pages" environment in your repo settings.
-  #
-  # deploy:
-  #   name: Deploy docs to GitHub Pages
-  #   needs: build-docs
-  #   if: ${{ github.ref == 'refs/heads/main' }}
-  #   permissions:
-  #     pages: write
-  #     id-token: write
-  #     contents: read
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Download built artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: docs-site
-  #         path: ./_site
-  #     - name: Upload Pages artifact
-  #       uses: actions/upload-pages-artifact@v3
-  #       with:
-  #         path: ./_site
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v4
+          test -f docs/index.html

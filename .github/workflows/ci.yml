@@ -11,55 +11,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # -----------------------------
       # 1. Checkout repository
-      # -----------------------------
       - name: Checkout
         uses: actions/checkout@v4
 
-      # -----------------------------
-      # 2. Setup Node with pnpm cache
-      # -----------------------------
+      # 2. Setup Node (no package manager cache here)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
 
-      # -----------------------------
-      # 3. Install pnpm (version-aligned)
-      # -----------------------------
+      # 3. Install pnpm (version aligned with your lockfile)
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
           run_install: false
 
-      # -----------------------------
       # 4. Install dependencies
-      # -----------------------------
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # -----------------------------
       # 5. Run tests with coverage
-      # -----------------------------
       - name: Run tests with coverage
         run: pnpm run test:ci
 
-      # -----------------------------
       # 6. Upload coverage artifact
-      # -----------------------------
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: coverage
 
-      # -----------------------------
       # Optional: Codecov support
-      # -----------------------------
       # - name: Upload coverage to Codecov
       #   uses: codecov/codecov-action@v4
       #   with:
