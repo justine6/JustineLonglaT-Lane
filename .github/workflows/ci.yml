@@ -11,57 +11,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # -----------------------------
-      # 1. Checkout repository
-      # -----------------------------
+      # 1) Checkout repo
       - name: Checkout
         uses: actions/checkout@v4
 
-      # -----------------------------
-      # 2. Setup Node with pnpm cache
-      # -----------------------------
+      # 2) Install pnpm FIRST (so setup-node can use it)
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      # 3) Setup Node (now pnpm exists)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache: "pnpm"
 
-      # -----------------------------
-      # 3. Install pnpm (version-aligned)
-      # -----------------------------
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-          run_install: false
-
-      # -----------------------------
-      # 4. Install dependencies
-      # -----------------------------
+      # 4) Install dependencies
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
-      # -----------------------------
-      # 5. Run tests with coverage (CI entry point)
-      # -----------------------------
+      # 5) Run tests with coverage
       - name: Run tests with coverage
         run: pnpm run test:ci
 
-      # -----------------------------
-      # 6. Upload coverage artifact
-      # -----------------------------
+      # 6) Upload coverage artifact (optional)
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: coverage
-
-      # -----------------------------
-      # Optional: Codecov support
-      # -----------------------------
-      # - name: Upload coverage to Codecov
-      #   uses: codecov/codecov-action@v4
-      #   with:
-      #     token: ${{ secrets.CODECOV_TOKEN }}
-      #     fail_ci_if_error: true
