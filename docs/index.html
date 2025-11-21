@@ -2,287 +2,386 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jutellane Solutions — Documentation</title>
+  <title>Documentation Portal — JustineLonglaT-Lane</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description"
+        content="Central portal for documentation, workflows, and related sites in the JustineLonglaT-Lane ecosystem." />
 
-  <!-- ========================= -->
-  <!-- 🚀 Updated Styling Block -->
-  <!-- ========================= -->
   <style>
     :root {
-      --bg: #f5f7fb;
-      --fg: #0f172a;
-      --card-bg: #ffffff;
-      --accent: #2563eb;
-      --accent-soft: #dbeafe;
-      --border-subtle: #e2e8f0;
+      --bg: #050816;
+      --bg-alt: #070b1f;
+      --card-bg: #0b1024;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+      --radius-xl: 18px;
+      --radius-2xl: 24px;
+      --transition-fast: 150ms ease-out;
+      --max-width: 1040px;
     }
 
-    body.dark {
-      --bg: #020617;
-      --fg: #e5e7eb;
-      --card-bg: #020617;
-      --accent: #38bdf8;
-      --accent-soft: #0b1120;
-      --border-subtle: #1f2933;
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--fg);
+      padding: 0;
       min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 0 0, rgba(59, 130, 246, 0.15), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.15), transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(56, 189, 248, 0.08), transparent 65%),
+        var(--bg);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
     }
 
-    .docs-shell {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 3rem;
+    main {
+      width: 100%;
+      max-width: var(--max-width);
+      padding: 32px 16px 40px;
     }
 
-    .docs-card {
-      border-radius: 1.25rem;
+    @media (min-width: 768px) {
+      main {
+        padding: 40px 24px 48px;
+      }
+    }
+
+    .portal-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.98));
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-soft);
       border: 1px solid var(--border-subtle);
-      background: var(--card-bg);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-      padding: 2rem 2.25rem;
+      padding: 24px 18px 26px;
+      backdrop-filter: blur(20px);
     }
 
-    .docs-header-row {
+    @media (min-width: 768px) {
+      .portal-card {
+        padding: 28px 26px 30px;
+      }
+    }
+
+    header.portal-header {
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.35);
+    }
+
+    .title-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .title-row {
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 14px;
+      }
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    @media (min-width: 640px) {
+      h1 {
+        font-size: 1.7rem;
+      }
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 420px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: 2fr 1.4fr;
+        gap: 16px;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.18), transparent 65%),
+                  linear-gradient(145deg, var(--card-bg), var(--bg-alt));
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 14px 18px;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+                  border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.85);
+      border-color: rgba(56, 189, 248, 0.7);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.25), transparent 65%),
+                  linear-gradient(145deg, #0f172a, #020617);
+    }
+
+    .card-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1.25rem;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
-    .docs-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 600;
     }
 
-    .docs-logo img {
-      height: 40px;
-      width: 40px;
+    .badge {
+      font-size: 0.7rem;
+      padding: 3px 8px;
       border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
     }
 
-    .docs-title {
-      font-weight: 650;
-      letter-spacing: 0.02em;
+    .card-body {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
     }
 
-    .docs-subtitle {
-      font-size: 0.9rem;
-      color: #64748b;
-    }
-
-    body.dark .docs-subtitle {
-      color: #9ca3af;
-    }
-
-    .theme-toggle {
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      padding: 0.45rem 0.9rem;
-      font-size: 0.8rem;
-      background: var(--card-bg);
-      color: var(--fg);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-
-    .theme-toggle span {
-      font-size: 0.95rem;
-    }
-
-    .docs-main-actions {
-      margin-top: 1.75rem;
+    .link-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
+      gap: 8px;
+      margin-top: 6px;
     }
 
-    .btn-pill {
-      border-radius: 999px;
-      padding: 0.7rem 1.4rem;
-      font-size: 0.9rem;
-      border: none;
-      cursor: pointer;
+    .link-chip {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      text-decoration: none;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #22c55e);
-      color: white;
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--accent);
-      border: 1px solid var(--accent-soft);
-    }
-
-    .btn-pill:hover {
-      filter: brightness(1.05);
-    }
-
-    /* Search area + list */
-    .docs-search-row {
-      margin-top: 2.25rem;
-      padding-top: 1.25rem;
-      border-top: 1px dashed var(--border-subtle);
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .docs-search-input {
+      gap: 6px;
+      padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      padding: 0.6rem 0.9rem;
-      font-size: 0.9rem;
-      background: var(--card-bg);
-      color: var(--fg);
-      outline: none;
-    }
-
-    .docs-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .docs-list a {
-      font-size: 0.9rem;
-      text-decoration: none;
-      color: var(--accent);
-    }
-
-    .docs-list a:hover {
-      text-decoration: underline;
-    }
-
-    .docs-empty {
       font-size: 0.8rem;
-      color: #94a3b8;
+      text-decoration: none;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-main);
+      background: rgba(15, 23, 42, 0.9);
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+                  transform var(--transition-fast);
     }
 
-    @media (max-width: 640px) {
-      .docs-card {
-        padding: 1.5rem 1.25rem;
-      }
-      .docs-header-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    .link-chip:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .link-arrow {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-top: 26px;
+      margin-bottom: 8px;
+    }
+
+    footer {
+      margin-top: 28px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 
 <body>
-  <div class="docs-shell">
-    <div class="docs-card">
-
-      <!-- ============================= -->
-      <!-- Header / Branding -->
-      <!-- ============================= -->
-      <div class="docs-header-row">
-        <div class="docs-logo">
-          <img src="logo.png" alt="Logo" />
-          <div>
-            <div class="docs-title">Jutellane Solutions Docs</div>
-            <div class="docs-subtitle">Developer utilities • Architecture • CI/CD • Integrations</div>
-          </div>
+  <main>
+    <section class="portal-card">
+      <header class="portal-header">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          Docs workflow portal
         </div>
 
-        <button class="theme-toggle" onclick="document.body.classList.toggle('dark')">
-          <span>🌓</span> Toggle
-        </button>
-      </div>
+        <div class="title-row">
+          <h1>Documentation Portal – JustineLonglaT-Lane</h1>
+          <p class="subtitle">
+            One place to reach your public sites, static documentation,
+            and the CI workflows that keep everything healthy.
+          </p>
+        </div>
+      </header>
 
-      <!-- ============================= -->
-      <!-- Main Actions -->
-      <!-- ============================= -->
-      <div class="docs-main-actions">
-        <a href="/" class="btn-pill btn-primary">← Back to Main</a>
-        <a href="/blog" class="btn-pill btn-outline">Visit Blog</a>
-      </div>
+      <!-- Primary grid -->
+      <div class="grid">
+        <!-- Left: Core links -->
+        <div>
+          <div class="section-label">Core sites</div>
 
-      <!-- ============================= -->
-      <!-- Search + Listing -->
-      <!-- ============================= -->
-      <div class="docs-search-row">
-        <input
-          class="docs-search-input"
-          id="docs-search"
-          placeholder="Search documentation..."
-        />
+          <article class="card">
+            <div class="card-header-row">
+              <div class="card-title">Jutellane Solutions</div>
+              <div class="badge">Main site</div>
+            </div>
+            <div class="card-body">
+              DevSecOps, automation, and cloud reliability services.
+              The main public-facing site for Jutellane Solutions.
+            </div>
+            <div class="link-row">
+              <a class="link-chip" href="https://jutellane.com" target="_blank" rel="noreferrer">
+                Visit site <span class="link-arrow">↗</span>
+              </a>
+            </div>
+          </article>
 
-        <ul class="docs-list" id="docs-list">
-          <!-- dynamically filtered items -->
-        </ul>
+          <article class="card">
+            <div class="card-header-row">
+              <div class="card-title">Jutellane Blogs</div>
+              <div class="badge">Technical articles</div>
+            </div>
+            <div class="card-body">
+              Deep dives on reproducible environments, pipelines, containers,
+              and the broader Jutellane engineering toolkit.
+            </div>
+            <div class="link-row">
+              <a class="link-chip"
+                 href="https://justine6.github.io/jutellane-blogs"
+                 target="_blank" rel="noreferrer">
+                Open blog <span class="link-arrow">↗</span>
+              </a>
+            </div>
+          </article>
 
-        <div class="docs-empty" id="docs-empty" style="display:none;">
-          No results found.
+          <article class="card">
+            <div class="card-header-row">
+              <div class="card-title">Static docs for this repo</div>
+              <div class="badge">GitHub Pages</div>
+            </div>
+            <div class="card-body">
+              HTML documentation published from the <code>/docs</code> folder
+              of the <code>JustineLonglaT-Lane</code> repository.
+            </div>
+            <div class="link-row">
+              <!-- Adjust this href if your doc index file is named differently -->
+              <a class="link-chip" href="docs.html">
+                View all docs <span class="link-arrow">→</span>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Right: Workflows & repo -->
+        <div>
+          <div class="section-label">Workflows & repository</div>
+
+          <article class="card">
+            <div class="card-header-row">
+              <div class="card-title">GitHub Actions</div>
+              <div class="badge">CI & Pages</div>
+            </div>
+            <div class="card-body">
+              CI coverage runs, docs deployments to GitHub Pages, and
+              badge sync workflows for this repository.
+            </div>
+            <div class="link-row">
+              <a class="link-chip"
+                 href="https://github.com/justine6/JustineLonglaT-Lane/actions"
+                 target="_blank" rel="noreferrer">
+                Open Actions <span class="link-arrow">↗</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header-row">
+              <div class="card-title">Repository</div>
+              <div class="badge">Source</div>
+            </div>
+            <div class="card-body">
+              Browse the source code, workflows, and docs for this portal
+              and the surrounding automation tooling.
+            </div>
+            <div class="link-row">
+              <a class="link-chip"
+                 href="https://github.com/justine6/JustineLonglaT-Lane"
+                 target="_blank" rel="noreferrer">
+                Open repo <span class="link-arrow">↗</span>
+              </a>
+            </div>
+          </article>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- ============================= -->
-  <!-- Search Script (unchanged) -->
-  <!-- ============================= -->
-  <script>
-    const input = document.getElementById("docs-search");
-    const list = document.getElementById("docs-list");
-    const empty = document.getElementById("docs-empty");
-
-    const items = [
-      { title: "Architecture", url: "architecture.md", keywords: "design infra architecture system" },
-      { title: "CI/CD", url: "ci-cd.md", keywords: "pipeline github actions automation deploy" },
-      { title: "Developer Utilities", url: "developer-utilities.md", keywords: "tools scripts productivity" },
-      { title: "PR Text Generator", url: "PR_TEXT.md", keywords: "pull request template automation" },
-      { title: "Cal Integration", url: "cal-integration-with-hero.md", keywords: "cal.com embed scheduling" },
-      { title: "README Consistency", url: "readme-consistency.md", keywords: "documentation rules consistency" }
-    ];
-
-    function renderList(filter = "") {
-      list.innerHTML = "";
-      let visible = 0;
-
-      items.forEach(item => {
-        const text = item.title.toLowerCase();
-        const kw = item.keywords.toLowerCase();
-        const q = filter.toLowerCase();
-
-        const show = !q || text.includes(q) || kw.includes(q);
-
-        if (show) {
-          visible++;
-          const li = document.createElement("li");
-          li.innerHTML = `<a href="${item.url}">${item.title}</a>`;
-          list.appendChild(li);
-        }
-      });
-
-      empty.style.display = visible === 0 ? "" : "none";
-    }
-
-    input.addEventListener("input", () => {
-      renderList(input.value);
-    });
-
-    renderList();
-  </script>
+      <footer>
+        Published from <code>/docs</code> on the
+        <a href="https://github.com/justine6/JustineLonglaT-Lane">JustineLonglaT-Lane</a>
+        repository via GitHub Pages and the
+        <code>Docs – Deploy to GitHub Pages</code> workflow.
+      </footer>
+    </section>
+  </main>
 </body>
 </html>
