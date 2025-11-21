@@ -19,11 +19,11 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
 
     steps:
       # 1) Checkout repo
@@ -35,49 +35,6 @@ jobs:
         uses: actions/configure-pages@v5
 
       # 3) Upload the static docs/ folder as the artifact
-      - name: Upload docs artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs
-
-      # 4) Deploy artifact to GitHub Pages
-      - name: Deploy to Pagesname: Docs (GitHub Pages)
-
-on:
-  push:
-    branches: ["main"]
-    paths:
-      - "docs/**"
-      - ".github/workflows/docs-pages.yml"
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages-${{ github.ref }}"
-  cancel-in-progress: true
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      # 1) Checkout repo
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      # 2) Configure GitHub Pages for this repo
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      # 3) Upload /docs as artifact
       - name: Upload docs artifact
         uses: actions/upload-pages-artifact@v3
         with:
