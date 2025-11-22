@@ -1,0 +1,13 @@
+{
+  "slug": "fixing-flaky-lambdas",
+  "title": "Automation Rescue: Fixing Flaky Lambdas",
+  "summary": "A reliability project restoring stability to unpredictable AWS Lambda workloads.",
+  "description": "A deep cloud reliability engagement where flaky Lambda workloads were stabilized through structured observability, throttling controls, cold-start mitigation, and staged deployment tooling.",
+  "featured": false,
+  "tags": ["serverless", "aws", "observability"],
+  "stack": ["AWS Lambda", "CloudWatch", "Node.js"],
+  "links": {
+    "live": "#",
+    "repo": "#"
+  }
+}

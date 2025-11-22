@@ -1,0 +1,13 @@
+{
+  "slug": "cicd-automation-bot",
+  "title": "CI/CD Automation Bot",
+  "summary": "An automation bot that enhances deployments with proactive notifications and safety checks.",
+  "description": "A CI/CD automation bot used to streamline releases with automated notifications, post-deploy checks, and intelligent rollback helpers. Built to improve developer experience and pipeline observability.",
+  "featured": false,
+  "tags": ["cicd", "automation", "chatops"],
+  "stack": ["PowerShell", "GitHub Actions", "Teams API"],
+  "links": {
+    "live": "#",
+    "repo": "#"
+  }
+}
