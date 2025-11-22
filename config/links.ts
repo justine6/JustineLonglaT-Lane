@@ -5,7 +5,7 @@
 // Used to generate success_url redirects for Cal.com
 // ---------------------------
 const BASE =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://projects.jutellane.com";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://projects.justinelonglat-lane.com";
 
 export const LINKS = {
   // ---------------------------
@@ -56,5 +56,5 @@ export const LINKS = {
     "https://cal.com/jutellane/intro-call?hide_event_type_details=1&primary_color=2563eb",
 
   // ➕ NEW: docs site
-  docs: "https://docs.jutellane.com",
+  docs: "https://docs.justinelonglat-lane.com",
 } as const;

@@ -1,6 +1,6 @@
 param(
   [string]$PRNumber,                # If omitted, picks the first open PR
-  [string[]]$ProdUrls = @("https://jutellane.com","https://jutellane-solutions.vercel.app")
+  [string[]]$ProdUrls = @("https://justinelonglat-lane.com","https://jutellane-solutions.vercel.app")
 )
 
 $ErrorActionPreference = "Stop"

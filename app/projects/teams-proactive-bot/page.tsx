@@ -13,7 +13,7 @@ export const metadata = {
       "Case study: building a proactive Teams bot triggered from the CLI for DevOps automation and real-time collaboration.",
     images: ["/favicon.ico"],
     type: "article",
-    url: "https://jutellane.com/projects/teams-proactive-bot",
+    url: "https://justinelonglat-lane.com/projects/teams-proactive-bot",
   },
 };
 

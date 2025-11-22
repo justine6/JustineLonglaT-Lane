@@ -3,7 +3,7 @@ import { LINKS } from '@/config/links';
 import { getAllProjects } from "@/lib/projects";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://jutellane.com";
+  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://justinelonglat-lane.com";
   const items = await getAllProjects();
   const now = new Date().toISOString();
 

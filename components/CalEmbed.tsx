@@ -60,7 +60,7 @@ export default function CalEmbed({ bookingUrl }: Props) {
               Open Scheduler in a New Tab
             </a>
             <a
-              href="mailto:hello@jutellane.com?subject=Intro%20Call%20Request"
+              href="mailto:hello@justinelonglat-lane.com?subject=Intro%20Call%20Request"
               className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
             >
               Book via Email

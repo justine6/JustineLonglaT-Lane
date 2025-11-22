@@ -10,10 +10,10 @@ import ThemeToggle from "@/components/ThemeToggle";
 const links = [
   { href: "/", label: "Home" },
   { href: "/readme", label: "README" },
-  { href: "https://docs.jutellane.com", label: "Docs" }, // docs site
+  { href: "https://docs.justinelonglat-lane.com", label: "Docs" }, // docs site
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
-  { href: "https://blogs.jutellane.com", label: "Blog" }, // blog site
+  { href: "https://blogs.justinelonglat-lane.com", label: "Blog" }, // blog site
   { href: "/#contact", label: "Contact" },
 ];
 

@@ -35,8 +35,8 @@ export default function IntroCallPage() {
 
       <section className="mt-6 text-sm text-slate-600">
         Prefer email?{" "}
-        <a className="underline underline-offset-4 hover:opacity-80" href="mailto:hello@jutellane.com">
-          hello@jutellane.com
+        <a className="underline underline-offset-4 hover:opacity-80" href="mailto:hello@justinelonglat-lane.com">
+          hello@justinelonglat-lane.com
         </a>
         .
       </section>

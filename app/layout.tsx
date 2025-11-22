@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "Jutellane Solutions with Justine — Cloud Confidence. Delivered.",
     description:
       "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
-    url: "https://jutellane.com",
+    url: "https://justinelonglat-lane.com",
     type: "website",
     images: ["/og.png"],
   },

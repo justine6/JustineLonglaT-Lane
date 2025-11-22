@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const to = process.env.CONTACT_TO_EMAIL!;
-    const from = process.env.CONTACT_FROM_EMAIL || "no-reply@jutellane.com";
+    const from = process.env.CONTACT_FROM_EMAIL || "no-reply@justinelonglat-lane.com";
 
     // Just list files by name/size for now (we’re not attaching them yet)
     const files = form.getAll("files") as File[];

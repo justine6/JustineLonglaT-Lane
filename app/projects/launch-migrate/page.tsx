@@ -11,7 +11,7 @@ export const metadata = {
     description:
       "Case study: helping teams move safely to AWS with a clear migration playbook, guardrails, and observability.",
     type: "article",
-    url: "https://jutellane.com/projects/launch-migrate",
+    url: "https://justinelonglat-lane.com/projects/launch-migrate",
   },
 };
 

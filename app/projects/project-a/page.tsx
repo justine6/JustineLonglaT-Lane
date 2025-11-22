@@ -9,7 +9,7 @@ export const metadata = {
     title: "Automation Rescue: Fixing Flaky Lambdas",
     description:
       "A practical story of tracing failing automations, tuning resources, and adding observability around serverless workloads.",
-    url: "https://jutellane.com/projects/project-a",
+    url: "https://justinelonglat-lane.com/projects/project-a",
     type: "article",
   },
 };

@@ -85,7 +85,7 @@ function baseHtml(title: string, inner: string) {
         </td></tr>
         <tr><td style="padding:24px;">${inner}</td></tr>
         <tr><td style="padding:16px 24px;background:#f8fafc;border-top:1px solid #e5e7eb;font-size:12px;color:#334155;">
-          — Sent from <a style="color:#1d4ed8;text-decoration:none;" href="https://jutellane.com">jutellane.com</a>
+          — Sent from <a style="color:#1d4ed8;text-decoration:none;" href="https://justinelonglat-lane.com">jutellane.com</a>
         </td></tr>
       </table>
       <div style="font-size:12px;color:#64748b;margin-top:10px;">© ${new Date().getFullYear()} Jutellane Solutions</div>
