@@ -27,7 +27,7 @@ jobs:
             -Owner justine6 `
             -Repo Jutellane-Solutions `
             -WorkflowFileName deploy.yml `
-            -DefaultSiteUrl "https://jutellane.com" `
+            -DefaultSiteUrl "https://justinelonglat-lane.com" `
             -DefaultBlogUrl "https://justine6.github.io/jutellane-blogs" `
             -DetectCNAME
 

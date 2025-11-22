@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
   const resend = new Resend(process.env.RESEND_API_KEY);
   const to = process.env.CONTACT_TO_EMAIL!;
-  const from = process.env.CONTACT_FROM_EMAIL || "no-reply@jutellane.com";
+  const from = process.env.CONTACT_FROM_EMAIL || "no-reply@justinelonglat-lane.com";
 
   const html = `
     <h2>New contact request</h2>

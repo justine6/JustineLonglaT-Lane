@@ -31,7 +31,7 @@ $headers = @{
 }
 
 $body = @{
-  from    = "info@jutellane.com"   # must be from your verified domain
+  from    = "info@justinelonglat-lane.com"   # must be from your verified domain
   to      = $To
   subject = "Test Email from Jutellane via Resend"
   html    = "<h3>Hello Justine!</h3><p>Your domain-based email via Resend is fully verified and operational 🎉</p>"

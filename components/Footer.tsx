@@ -111,8 +111,8 @@ export default function Footer() {
           </h4>
           <ul className="space-y-2">
             <li>
-              <a className="hover:underline" href="mailto:info@jutellane.com">
-                info@jutellane.com
+              <a className="hover:underline" href="mailto:info@justinelonglat-lane.com">
+                info@justinelonglat-lane.com
               </a>
             </li>
             <li>
@@ -157,7 +157,7 @@ export default function Footer() {
               Projects
             </Link>
             <a
-              href="https://docs.jutellane.com"
+              href="https://docs.justinelonglat-lane.com"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline"
@@ -165,7 +165,7 @@ export default function Footer() {
               Docs
             </a>
             <a
-              href="https://docs.jutellane.com/toolkit.html"
+              href="https://docs.justinelonglat-lane.com/toolkit.html"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline"

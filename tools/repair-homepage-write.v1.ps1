@@ -266,10 +266,10 @@ export default function HomePage() {
             <p>
               Email:{" "}
               <a
-                href="mailto:info@jutellane.com"
+                href="mailto:info@justinelonglat-lane.com"
                 className="break-all text-blue-600 hover:underline dark:text-blue-400"
               >
-                info@jutellane.com
+                info@justinelonglat-lane.com
               </a>
             </p>
             <p>Phone: +1 405.934.5864</p>

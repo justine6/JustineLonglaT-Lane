@@ -17,7 +17,7 @@ export default function ContactForm() {
         body: JSON.stringify({ name, email, phone, message }),
       });
       if (res.status === 503) {
-        const to = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@jutellane.com";
+        const to = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@justinelonglat-lane.com";
         const subject = encodeURIComponent(`New message from ${name}`);
         const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`);
         window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
@@ -25,7 +25,7 @@ export default function ContactForm() {
       alert("Thanks! Your message has been sent.");
       setName(""); setEmail(""); setPhone(""); setMessage("");
     } catch {
-      const to = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@jutellane.com";
+      const to = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@justinelonglat-lane.com";
       const subject = encodeURIComponent(`New message from ${name}`);
       const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`);
       window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;

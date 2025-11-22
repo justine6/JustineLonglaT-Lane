@@ -11,7 +11,7 @@ export const metadata = {
     description:
       "Case study: a CI/CD automation bot that turns raw pipeline events into readable, actionable notifications in Microsoft Teams.",
     type: "article",
-    url: "https://jutellane.com/projects/cicd-automation-bot",
+    url: "https://justinelonglat-lane.com/projects/cicd-automation-bot",
   },
 };
 

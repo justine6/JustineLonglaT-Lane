@@ -7,11 +7,11 @@
 
 <!-- CI/CD & Site Badges -->
 [![Build & Deploy — Jutellane Solutions](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy.yml)
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fjutellane.com)](https://jutellane.com)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fjutellane.com)](https://justinelonglat-lane.com)
 [![Last commit](https://img.shields.io/github/last-commit/justine6/Jutellane-Solutions/main)](https://github.com/justine6/Jutellane-Solutions/commits/main)
 [![Docs](https://img.shields.io/badge/Docs-Jutellane%20Blogs-blue)](https://justine6.github.io/jutellane-blogs/)
 
-**Live site:** https://jutellane.com
+**Live site:** https://justinelonglat-lane.com
 
 [![Preview (Vercel)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/preview-pr.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/preview-pr.yml)
 [![Production (Vercel)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy-prod.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy-prod.yml)
@@ -158,7 +158,7 @@ git checkout restore/2025-11-09-brochure-fix
 # 🛠 Maintained By
 
 **Longla Justine Tekang**  
-🌍 https://jutellane.com  
+🌍 https://justinelonglat-lane.com  
 📧 justinelongla@yahoo.com  
 ## Reference States
 

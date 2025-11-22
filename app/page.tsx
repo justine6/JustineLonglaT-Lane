@@ -260,7 +260,7 @@ export default function HomePage() {
             </div>
             <div className="hidden sm:block">
               <a
-                href="https://blogs.jutellane.com"
+                href="https://blogs.justinelonglat-lane.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center rounded-xl border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
@@ -272,7 +272,7 @@ export default function HomePage() {
           <PublicationsGrid posts={postsData as Post[]} limit={6} />
           <div className="mt-6 sm:hidden">
             <a
-              href="https://blogs.jutellane.com"
+              href="https://blogs.justinelonglat-lane.com"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full rounded-xl border border-blue-600 px-4 py-2 text-center text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"

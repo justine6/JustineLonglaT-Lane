@@ -19,7 +19,7 @@ npm install framer-motion
 - **Tagline:** Cloud Confidence. Delivered.
 - **CTA Label:** Book IntroCall
 - **Primary Color:** #1E90FF (Jutellane blue)
-- **Booking Link:** [https://cal.jutellane.com/intro-call](https://cal.jutellane.com/intro-call)
+- **Booking Link:** [https://cal.justinelonglat-lane.com/intro-call](https://cal.justinelonglat-lane.com/intro-call)
 - **DNS Record:** `cal.jutellane.com → 76.76.21.21` (Verified)
 - **Logo:** `/brand/justine-banner.png`
 
@@ -34,13 +34,13 @@ npm install framer-motion
 
 2. **Create Event Type**
    - **Name:** Intro Call (30 min)
-   - **Slug:** `/intro-call` (creates `https://cal.jutellane.com/intro-call`)
+   - **Slug:** `/intro-call` (creates `https://cal.justinelonglat-lane.com/intro-call`)
    - **Location:** Cal Video / Google Meet / Zoom
    - **Availability:** Choose hours and enable timezone detection.
-   - **Confirmation Page:** Optional redirect → `https://jutellane.com/thank-you`.
+   - **Confirmation Page:** Optional redirect → `https://justinelonglat-lane.com/thank-you`.
 
 3. **Verify Event**
-   - Open [https://cal.jutellane.com/intro-call](https://cal.jutellane.com/intro-call) in an incognito browser window.
+   - Open [https://cal.justinelonglat-lane.com/intro-call](https://cal.justinelonglat-lane.com/intro-call) in an incognito browser window.
    - Confirm branding and availability appear as expected.
 
 ---
@@ -88,7 +88,7 @@ export default function HeroSection() {
         >
           {/* 🌟 IntroCall (Primary) */}
           <Link
-            href="https://cal.jutellane.com/intro-call"
+            href="https://cal.justinelonglat-lane.com/intro-call"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Book IntroCall"

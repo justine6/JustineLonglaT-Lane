@@ -10,7 +10,7 @@ export const metadata = {
     title: "Operate & Optimize | Jutellane Solutions",
     description:
       "Cost-aware, observable cloud operations: managed AWS services, cost audits, and 24/7 monitoring for growing teams.",
-    url: "https://jutellane.com/projects/operate-optimize",
+    url: "https://justinelonglat-lane.com/projects/operate-optimize",
     type: "article",
   },
 };

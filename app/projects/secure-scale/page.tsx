@@ -10,7 +10,7 @@ export const metadata = {
     title: "Secure & Scale | Jutellane Solutions",
     description:
       "Security-first cloud platforms: DevSecOps pipelines, policy-as-code, and compliance-ready guardrails for growing teams.",
-    url: "https://jutellane.com/projects/secure-scale",
+    url: "https://justinelonglat-lane.com/projects/secure-scale",
     type: "article",
     images: ["/projects/secure-scale-hero.jpg"], // optional hero image
   },
