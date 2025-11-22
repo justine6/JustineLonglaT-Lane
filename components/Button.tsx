@@ -1,6 +1,10 @@
 // components/Button.tsx
 import Link from "next/link";
-import type { ReactNode, AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import type {
+  ReactNode,
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+} from "react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
@@ -12,28 +16,29 @@ type BaseProps = {
 
 /**
  * Link-style button props
- * - must have `href`
- * - may have `target` / `rel` and normal <a> attributes
+ *  - must have `href`
+ *  - explicitly cannot have `type`
  */
 type LinkButtonProps = BaseProps &
-  AnchorHTMLAttributes<HTMLAnchorElement> & {
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "type"> & {
     href: string;
+    type?: never;
   };
 
 /**
- * Native <button> variant
- * - no `href`
+ * Native <button> props
+ *  - no `href`
+ *  - `type` is the normal HTML button union
  */
 type NativeButtonProps = BaseProps &
-  ButtonHTMLAttributes<HTMLButtonElement> & {
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, "href"> & {
     href?: undefined;
+    type?: "button" | "submit" | "reset";
   };
 
 export type ButtonProps = LinkButtonProps | NativeButtonProps;
 
-/**
- * Tiny helper instead of `clsx`
- */
+/** Tiny helper instead of `clsx` */
 function cn(...classes: Array<string | undefined | null | false>) {
   return classes.filter(Boolean).join(" ");
 }
@@ -61,7 +66,7 @@ export function Button(props: ButtonProps) {
 
   // 🔗 Link-style button
   if ("href" in rest && rest.href) {
-    const { href, ...linkProps } = rest;
+    const { href, ...linkProps } = rest as LinkButtonProps;
     return (
       <Link href={href} className={classes} {...linkProps}>
         {children}
@@ -69,9 +74,11 @@ export function Button(props: ButtonProps) {
     );
   }
 
-  // 🧩 Plain <button>
+  // 🧩 Plain <button> (now safely narrowed to NativeButtonProps)
+  const { type = "button", ...buttonRest } = rest as NativeButtonProps;
+
   return (
-    <button type="button" className={classes} {...rest}>
+    <button type={type} className={classes} {...buttonRest}>
       {children}
     </button>
   );
