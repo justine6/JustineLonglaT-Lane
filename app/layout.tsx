@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ConditionalHero from "@/components/ConditionalHero";
+import HeroBanner from "@/components/HeroBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -39,7 +39,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </a>
 
         <Navbar />
-        <ConditionalHero />
+
+        <HeroBanner />
 
         <div className="flex min-h-dvh flex-col">
           <main id="content" className="flex-1">

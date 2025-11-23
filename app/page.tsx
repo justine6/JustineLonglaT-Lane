@@ -1,3 +1,4 @@
+// app/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,16 +7,11 @@ import TestimonialSlider from "@/components/TestimonialSlider";
 import CertificationsGrid from "@/components/CertificationsGrid";
 import PublicationsGrid, { type Post } from "@/components/PublicationsGrid";
 import postsData from "@/content/projects/posts.json";
-import HeroBanner from "@/components/HeroBanner";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white px-4 py-8 pt-20 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10 md:pt-24">
-
-      {/* ✅ Homepage-only banner under the top bar */}
-      <HeroBanner />
-
-      {/* ✅ Hero banner: static, server-safe */}
+    <main className="min-h-screen bg-white px-4 py-8 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10">
+      {/* 🔹 Logo card under the global hero */}
       <section className="flex justify-center py-10">
         <div className="w-full max-w-5xl rounded-2xl bg-white shadow-xl ring-1 ring-black/5 dark:bg-gray-900 dark:ring-white/10">
           <div className="flex items-center justify-center p-4 sm:p-6 md:p-8">
@@ -31,85 +27,59 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 🔷 Header Section */}
-      <AnimatedSection>
-        <section className="mx-auto max-w-5xl px-2 text-center">
-          <h1 className="mb-4 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-            Cloud Confidence. Delivered.
-          </h1>
-          <p className="mb-6 text-base leading-relaxed text-gray-700 dark:text-gray-300 sm:text-lg md:text-xl">
-            Secure, Scalable AWS Services with Justine Tekang — Certified
-            DevSecOps &amp; Cloud Automation Expert
-          </p>
-          <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link
-              href="/?reason=request-resume#contact"
-              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-blue-600 hover:bg-blue-50"
-            >
-              View Résumé
-            </Link>
-            <a
-              href="/brochure.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-6 py-3 text-lg text-blue-600 transition-colors hover:bg-blue-50 dark:hover:bg-blue-950/30"
-            >
-              Download Brochure
-            </a>
-          </div>
-        </section>
-      </AnimatedSection>
-
-      {/* 🔷 Services Section */}
+      {/* 🔷 Services Section — wrapped in a soft band */}
       <AnimatedSection>
         <section
           id="services"
-          className="mx-auto mb-16 max-w-5xl px-2 scroll-mt-24 md:scroll-mt-28"
+          className="mx-auto mb-16 max-w-5xl scroll-mt-24 md:scroll-mt-28"
         >
-          <h2 className="mb-8 text-center text-2xl font-semibold sm:text-3xl">
-            My Services
-          </h2>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 md:grid-cols-3">
-            {[
-              {
-                title: "Launch & Migrate",
-                description:
-                  "Secure AWS starter migration services for startups and small businesses.",
-              },
-              {
-                title: "Secure & Scale",
-                description:
-                  "DevSecOps pipelines, automation, and compliance for growing teams.",
-              },
-              {
-                title: "Operate & Optimize",
-                description:
-                  "Managed AWS services, cost audits, and 24/7 monitoring.",
-              },
-            ].map(({ title, description }) => (
-              <div
-                key={title}
-                className="rounded-2xl border bg-white p-6 shadow transition-shadow hover:shadow-lg dark:border-gray-800 dark:bg-gray-900/80 flex flex-col justify-between"
-              >
-                <div>
-                  <h3 className="mb-2 text-xl font-semibold">{title}</h3>
-                  <p className="text-sm text-gray-700 dark:text-gray-300 sm:text-base">
-                    {description}
-                  </p>
-                  <p className="mt-3 font-medium text-indigo-600 dark:text-indigo-400">
-                    Contact for a custom quote
-                  </p>
+          <div className="rounded-3xl bg-slate-50 p-8 shadow-sm dark:bg-slate-900/40">
+            <h2 className="mb-8 text-center text-2xl font-semibold sm:text-3xl">
+              My Services
+            </h2>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 md:grid-cols-3">
+              {[
+                {
+                  title: "Launch & Migrate",
+                  description:
+                    "Secure AWS starter migration services for startups and small businesses.",
+                },
+                {
+                  title: "Secure & Scale",
+                  description:
+                    "DevSecOps pipelines, automation, and compliance for growing teams.",
+                },
+                {
+                  title: "Operate & Optimize",
+                  description:
+                    "Managed AWS services, cost audits, and 24/7 monitoring.",
+                },
+              ].map(({ title, description }) => (
+                <div
+                  key={title}
+                  className="flex flex-col justify-between rounded-2xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-lg dark:border-gray-800 dark:bg-gray-900/80"
+                >
+                  <div>
+                    <h3 className="mb-2 text-xl font-semibold">{title}</h3>
+                    <p className="text-sm text-gray-700 dark:text-gray-300 sm:text-base">
+                      {description}
+                    </p>
+                    <p className="mt-3 font-medium text-indigo-600 dark:text-indigo-400">
+                      Contact for a custom quote
+                    </p>
+                  </div>
+                  <div className="mt-5">
+                    <a
+                      href="/contact"
+                      className="inline-flex w-full items-center justify-center rounded-xl border border-blue-600 px-4 py-2 text-blue-600 transition-colors hover:bg-blue-50 dark:hover:bg-blue-950/20"
+                    >
+                      Get a Quote
+                    </a>
+                  </div>
                 </div>
-                <div className="mt-5">
-                  <a
-                    href="/contact"
-                    className="inline-flex w-full items-center justify-center rounded-xl border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-colors"
-                  >
-                    Get a Quote
-                  </a>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
       </AnimatedSection>
@@ -137,8 +107,8 @@ export default function HomePage() {
             {/* Copy */}
             <div>
               <p className="mb-2 text-sm italic text-gray-600 dark:text-gray-400">
-                “Secure, scalable, and sustainable cloud solutions that move your
-                business forward.”
+                “Secure, scalable, and sustainable cloud solutions that move
+                your business forward.”
               </p>
 
               <ul className="list-inside list-disc space-y-1 text-sm leading-relaxed text-gray-700 dark:text-gray-300 sm:text-base">
@@ -171,7 +141,7 @@ export default function HomePage() {
       <AnimatedSection>
         <section
           id="publications"
-          className="mx-auto mb-16 max-w-6xl px-4 md:px-6 scroll-mt-24"
+          className="mx-auto mb-16 max-w-6xl scroll-mt-24 px-4 md:px-6"
         >
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
@@ -211,7 +181,7 @@ export default function HomePage() {
       <AnimatedSection>
         <section
           id="testimonials"
-          className="mx-auto mb-16 max-w-3xl px-4 scroll-mt-24 md:scroll-mt-28"
+          className="mx-auto mb-16 max-w-3xl scroll-mt-24 px-4 md:scroll-mt-28"
         >
           <TestimonialSlider />
         </section>
@@ -221,7 +191,7 @@ export default function HomePage() {
       <AnimatedSection>
         <section
           id="certifications"
-          className="mx-auto mb-16 max-w-5xl px-4 text-center scroll-mt-24 md:scroll-mt-28"
+          className="mx-auto mb-16 max-w-5xl scroll-mt-24 px-4 text-center md:scroll-mt-28"
         >
           <h2 className="mb-6 text-2xl font-semibold sm:text-3xl">
             Certifications &amp; Expertise
@@ -238,9 +208,11 @@ export default function HomePage() {
       <AnimatedSection>
         <section
           id="contact"
-          className="mx-auto max-w-2xl px-2 text-center scroll-mt-24 md:scroll-mt-28"
+          className="mx-auto max-w-2xl scroll-mt-24 px-2 text-center md:scroll-mt-28"
         >
-          <h2 className="mb-4 text-2xl font-semibold sm:text-3xl">Get In Touch</h2>
+          <h2 className="mb-4 text-2xl font-semibold sm:text-3xl">
+            Get In Touch
+          </h2>
           <div className="space-y-2 text-sm sm:text-base">
             <p>
               Email:{" "}

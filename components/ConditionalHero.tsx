@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { LINKS } from "@/config/links";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -33,31 +34,24 @@ export default function ConditionalHero() {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+      <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex flex-col justify-center gap-4 sm:flex-row"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 1.0, ease: "easeOut" }}
         >
-          <Link
-            href={LINKS.introCall}
-            className="hero-cta-shine"
-            prefetch
-          >
+          <Link href={LINKS.introCall} className="hero-cta-shine" prefetch>
             Schedule Your Intro Call
           </Link>
 
-          <Link
-            href={LINKS.contact}
-            className="hero-cta-shine"
-            prefetch
-          >
+          {/* Always send to homepage contact section */}
+          <Link href="/#contact" className="hero-cta-shine" prefetch={false}>
             Contact
           </Link>
 
           <a
-            href="/resume.pdf"
+            href="/justine-longla-resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold hover:from-blue-700 hover:to-blue-600 transition-transform duration-300 shadow-md hover:shadow-lg"
