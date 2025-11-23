@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { LINKS } from "@/config/links";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -34,9 +33,9 @@ export default function ConditionalHero() {
       />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
         <motion.div
-          className="flex flex-col justify-center gap-4 sm:flex-row"
+          className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 1.0, ease: "easeOut" }}
@@ -45,18 +44,26 @@ export default function ConditionalHero() {
             Schedule Your Intro Call
           </Link>
 
-          {/* Always send to homepage contact section */}
-          <Link href="/#contact" className="hero-cta-shine" prefetch={false}>
+          <Link href={LINKS.contact} className="hero-cta-shine" prefetch>
             Contact
           </Link>
 
           <a
-            href="/justine-longla-resume.pdf"
+            href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold hover:from-blue-700 hover:to-blue-600 transition-transform duration-300 shadow-md hover:shadow-lg"
           >
             Résumé
+          </a>
+
+          <a
+            href="/brochure.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3 rounded-lg bg-gradient-to-r from-emerald-500 to-emerald-400 text-white font-semibold hover:from-emerald-600 hover:to-emerald-500 transition-transform duration-300 shadow-md hover:shadow-lg"
+          >
+            Download Brochure
           </a>
         </motion.div>
       </div>
