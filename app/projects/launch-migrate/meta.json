@@ -1,0 +1,13 @@
+{
+  "slug": "launch-migrate",
+  "title": "Launch Migrate",
+  "summary": "Migration tooling for predictable cloud environment cutovers.",
+  "description": "A cloud-native migration system designed to safely cut over services with predictable routing, preflight checks, staged rollouts, and automated rollback capability.",
+  "featured": false,
+  "tags": ["migration", "cloud", "infrastructure"],
+  "stack": ["AWS", "GitHub Actions", "Node.js"],
+  "links": {
+    "live": "#",
+    "repo": "#"
+  }
+}

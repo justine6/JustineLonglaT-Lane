@@ -1,0 +1,13 @@
+{
+  "slug": "teams-proactive-messaging-bot",
+  "title": "Teams Proactive Messaging Bot",
+  "summary": "Automated Microsoft Teams bot sending proactive notifications from CLI triggers.",
+  "description": "A cloud-automated Microsoft Teams bot that sends proactive messages based on CLI events, with role-based routing, adaptive cards, and secure webhook dispatching.",
+  "featured": true,
+  "tags": ["automation", "teams", "bot", "powershell"],
+  "stack": ["Teams Toolkit", "PowerShell", "GitHub Actions"],
+  "links": {
+    "live": "#",
+    "repo": "#"
+  }
+}

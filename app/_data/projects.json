@@ -1,0 +1,46 @@
+[
+  {
+    "slug": "system-design-ecosystem",
+    "title": "System Design: JustineLonglaT-Lane Ecosystem",
+    "summary": "How Jutellane Solutions stitches portfolio, blogs, docs, and client workloads into one secure DevSecOps ecosystem.",
+    "description": "An end-to-end system design of the JustineLonglaT-Lane ecosystem...",
+    "featured": true,
+    "tags": ["system-design", "architecture", "devops", "observability", "multi-site"],
+    "stack": ["Next.js", "Vercel", "GitHub Actions", "PowerShell", "AWS", "Tailwind CSS"],
+    "links": {
+      "live": "#",
+      "repo": "#"
+    }
+  },
+
+  {
+    "slug": "platform-ecosystem-architecture",
+    "title": "Platform Architecture & Multi-Site Deployment: Building the JustineLonglaT-Lane Engineering Ecosystem",
+    "summary": "A platform engineering case study on the multi-site Jutellane ecosystem: DNS, CI/CD, email, storage, and multi-language content.",
+    "description": "How the JustineLonglaT-Lane Engineering Ecosystem was designed as a resilient, observable, multi-site platform — connecting marketing, docs, blogs, projects, and Nouvo Ayiti 2075 via stable DNS, disciplined CI/CD, and unified content governance.",
+    "stack": [
+      "Next.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "GitHub Actions",
+      "Vercel",
+      "Azure Blob Storage",
+      "Resend",
+      "IONOS DNS"
+    ],
+    "tags": [
+      "Platform Engineering",
+      "Multi-Site",
+      "CI/CD",
+      "DNS",
+      "DevSecOps"
+    ],
+    "links": {
+      "live": "/projects/platform-ecosystem-architecture",
+      "repo": "#"
+    },
+    "featured": true
+  }
+
+  
+]

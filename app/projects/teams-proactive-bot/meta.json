@@ -1,0 +1,13 @@
+{
+  "slug": "teams-proactive-bot",
+  "title": "Teams Proactive Bot",
+  "summary": "A bot that sends proactive Teams notifications using secure triggers.",
+  "description": "An automation bot that delivers proactive Teams notifications from internal platform triggers — including deployments, escalations, and reliability events.",
+  "featured": false,
+  "tags": ["teams", "bot", "automation"],
+  "stack": ["Teams API", "Node.js"],
+  "links": {
+    "live": "#",
+    "repo": "#"
+  }
+}
