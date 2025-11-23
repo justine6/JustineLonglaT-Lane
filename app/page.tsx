@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LINKS } from "@/config/links";
 
 import AnimatedSection from "@/components/AnimatedSection";
 import TestimonialSlider from "@/components/TestimonialSlider";
@@ -37,14 +38,19 @@ export default function HomePage() {
             DevSecOps &amp; Cloud Automation Expert
           </p>
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link
-              href="/?reason=request-resume#contact"
-              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-blue-600 hover:bg-blue-50"
+            {/* Open résumé PDF in new tab */}
+            <a
+              href={LINKS.resumePdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30"
             >
               View Résumé
-            </Link>
+            </a>
+
+            {/* Open brochure PDF in new tab */}
             <a
-              href="/brochure.pdf"
+              href={LINKS.brochure}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-6 py-3 text-lg text-blue-600 transition-colors hover:bg-blue-50 dark:hover:bg-blue-950/30"
@@ -52,6 +58,7 @@ export default function HomePage() {
               Download Brochure
             </a>
           </div>
+
         </section>
       </AnimatedSection>
 

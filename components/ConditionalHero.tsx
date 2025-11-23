@@ -1,7 +1,8 @@
 "use client";
+
 import Link from "next/link";
-import { LINKS } from "@/config/links";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { LINKS } from "@/config/links";
 
 export default function ConditionalHero() {
   const { scrollY } = useScroll();
@@ -33,35 +34,39 @@ export default function ConditionalHero() {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+      <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
         <motion.div
-          className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center"
+          className="flex flex-col flex-wrap justify-center gap-4 sm:flex-row"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 1.0, ease: "easeOut" }}
         >
+          {/* Intro Call (Cal.com) */}
           <Link href={LINKS.introCall} className="hero-cta-shine" prefetch>
             Schedule Your Intro Call
           </Link>
 
+          {/* Contact page */}
           <Link href={LINKS.contact} className="hero-cta-shine" prefetch>
             Contact
           </Link>
 
+          {/* Résumé PDF */}
           <a
-            href="/resume.pdf"
+            href={LINKS.resumePdf}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold hover:from-blue-700 hover:to-blue-600 transition-transform duration-300 shadow-md hover:shadow-lg"
+            className="px-6 py-3 rounded-lg border border-white/70 bg-white/10 text-sm font-semibold text-white backdrop-blur ring-1 ring-white/50 hover:bg-white/20 transition-all duration-300 shadow-sm hover:shadow-md"
           >
-            Résumé
+            Résumé (PDF)
           </a>
 
+          {/* Brochure PDF */}
           <a
-            href="/brochure.pdf"
+            href={LINKS.brochure}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 rounded-lg bg-gradient-to-r from-emerald-500 to-emerald-400 text-white font-semibold hover:from-emerald-600 hover:to-emerald-500 transition-transform duration-300 shadow-md hover:shadow-lg"
+            className="px-6 py-3 rounded-lg border border-white/70 bg-white/10 text-sm font-semibold text-white backdrop-blur ring-1 ring-white/50 hover:bg-white/20 transition-all duration-300 shadow-sm hover:shadow-md"
           >
             Download Brochure
           </a>
