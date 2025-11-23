@@ -82,7 +82,7 @@ export function getAllProjects(): ProjectMeta[] {
         warnings[`${slug}-description`] = { message: "Missing description", timestamp: Date.now() };
       }
 
-      const image = meta.image || "/brand/logo-light.svg";
+      const image = meta.image || "/brand/justine-logo.png";
       if (!meta.image && !warnings[`${slug}-image`]) {
         console.warn(`ℹ️ Project "${slug}" has no custom image. Using default logo.`);
         warnings[`${slug}-image`] = { message: "Missing image", timestamp: Date.now() };

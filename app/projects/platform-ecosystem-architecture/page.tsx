@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { LucideIcon } from "lucide-react";
 import {
   Network,
   GitBranch,
@@ -11,7 +12,6 @@ import {
   CheckCircle2,
   Timer,
   ShieldCheck,
-  LucideIcon, // Import the type for Lucide icons
 } from "lucide-react";
 
 // --- Type Definitions ---
@@ -127,7 +127,7 @@ const outcomes: string[] = [
 
 const PlatformEcosystemArchitecturePage: React.FC = () => {
   return (
-    <main className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
+    <div className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
       <section className="relative border-b border-slate-200 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
         {/* background glow only – no white wash overlay */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-64 dark:bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.25),_transparent_65%)]" />
@@ -167,15 +167,15 @@ const PlatformEcosystemArchitecturePage: React.FC = () => {
             variants={fadeUp}
             className="mt-8 flex flex-wrap gap-3 text-sm text-slate-700 dark:text-slate-300"
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-slate-200/80 dark:bg-slate-900/80 px-3 py-1">
+            <span className="inline-flex items-center gap-2 rounded-full bg-slate-200/80 px-3 py-1 text-slate-700 dark:bg-slate-900/80 dark:text-slate-300">
               <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
               Stable DNS & SSL
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-slate-200/80 dark:bg-slate-900/80 px-3 py-1">
+            <span className="inline-flex items-center gap-2 rounded-full bg-slate-200/80 px-3 py-1 text-slate-700 dark:bg-slate-900/80 dark:text-slate-300">
               <GitBranch className="h-4 w-4 text-sky-600 dark:text-sky-400" />
               Multi-environment CI/CD
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-slate-200/80 dark:bg-slate-900/80 px-3 py-1">
+            <span className="inline-flex items-center gap-2 rounded-full bg-slate-200/80 px-3 py-1 text-slate-700 dark:bg-slate-900/80 dark:text-slate-300">
               <MailCheck className="h-4 w-4 text-amber-600 dark:text-amber-300" />
               Resend Email Infrastructure
             </span>
@@ -186,25 +186,33 @@ const PlatformEcosystemArchitecturePage: React.FC = () => {
             className="mt-10 grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-4"
           >
             <div className="space-y-1">
-              <p className="text-xs uppercase text-slate-500 dark:text-slate-400">Sites</p>
+              <p className="text-xs uppercase text-slate-500 dark:text-slate-400">
+                Sites
+              </p>
               <p className="font-medium text-slate-800 dark:text-slate-100">
                 Marketing, Docs, Blogs, Projects, Foundation
               </p>
             </div>
             <div className="space-y-1">
-              <p className="text-xs uppercase text-slate-500 dark:text-slate-400">Environments</p>
+              <p className="text-xs uppercase text-slate-500 dark:text-slate-400">
+                Environments
+              </p>
               <p className="font-medium text-slate-800 dark:text-slate-100">
                 Preview · Development · Production
               </p>
             </div>
             <div className="space-y-1">
-              <p className="text-xs uppercase text-slate-500 dark:text-slate-400">Infra</p>
+              <p className="text-xs uppercase text-slate-500 dark:text-slate-400">
+                Infra
+              </p>
               <p className="font-medium text-slate-800 dark:text-slate-100">
                 Vercel · GitHub Actions · Azure Blob · Resend
               </p>
             </div>
             <div className="space-y-1">
-              <p className="text-xs uppercase text-slate-500 dark:text-slate-400">Domains</p>
+              <p className="text-xs uppercase text-slate-500 dark:text-slate-400">
+                Domains
+              </p>
               <p className="font-medium text-slate-800 dark:text-slate-100">
                 jutellane.com · *.jutellane.com · nouvoayiti2075.com
               </p>
@@ -227,9 +235,9 @@ const PlatformEcosystemArchitecturePage: React.FC = () => {
             Context: From Personal Site to Platform
           </h2>
           <p className="text-slate-700 dark:text-slate-300">
-            The JustineLonglaT-Lane Ecosystem didn&apos;t start as a platform initiative.
-            It started as a simple personal presence — a single site. Over time,
-            real engineering needs emerged:
+            The JustineLonglaT-Lane Ecosystem didn&apos;t start as a platform
+            initiative. It started as a simple personal presence — a single
+            site. Over time, real engineering needs emerged:
           </p>
           <ul className="grid gap-2 text-slate-700 dark:text-slate-300 sm:grid-cols-2">
             <li className="flex items-start gap-2">
@@ -258,9 +266,9 @@ const PlatformEcosystemArchitecturePage: React.FC = () => {
             </li>
           </ul>
           <p className="text-slate-700 dark:text-slate-300">
-            This case study captures the platform-level engineering that stitched
-            all of this together: DNS, environments, deployments, storage, email,
-            and content governance.
+            This case study captures the platform-level engineering that
+            stitched all of this together: DNS, environments, deployments,
+            storage, email, and content governance.
           </p>
         </motion.section>
 
@@ -276,7 +284,7 @@ const PlatformEcosystemArchitecturePage: React.FC = () => {
             <motion.article
               key={section.title}
               variants={fadeUp}
-              className="h-full rounded-2xl border border-slate-300 bg-white/60 dark:border-slate-800 dark:bg-slate-900/60 p-5 shadow-sm shadow-slate-200/60 dark:shadow-slate-900/60"
+              className="h-full rounded-2xl border border-slate-300 bg-white/60 p-5 shadow-sm shadow-slate-200/60 dark:border-slate-800 dark:bg-slate-900/60 dark:shadow-slate-900/60"
             >
               <div className="flex items-center gap-3">
                 <section.icon className="h-5 w-5 text-sky-600 dark:text-sky-300" />
@@ -312,39 +320,39 @@ const PlatformEcosystemArchitecturePage: React.FC = () => {
             DNS to content and infrastructure:
           </p>
 
-          <pre className="mt-4 overflow-x-auto rounded-2xl bg-slate-100/80 dark:bg-slate-950/80 p-4 text-xs text-slate-800 dark:text-slate-200">
-{`               +---------------------------+
-               |         Users             |
-               +-------------+-------------+
-                             |
-                             v
-                 +-----------+-----------+
-                 |      IONOS DNS        |
-                 +-----------+-----------+
-                             |
-     +-----------------------+-----------------------------+
-     |                       |                             |
-     v                       v                             v
-+----+------+        +-------+--------+            +------+--------+
-| jutellane |        | docs.jutellane |            | blogs.jutellane |
-|   .com    |        |     .com       |            |      .com       |
-+----+------+        +-------+--------+            +------+--------+
-     |                        |                            |
-     v                        v                            v
-+----+------------------------+----------------------------+--------+
-|                          Vercel / Static Hosting                 |
-+----+------------------------+----------------------------+--------+
-     |                        |                            |
-     v                        v                            v
-  Marketing            Documentation                   Blog & Projects
- (Next.js)               (Static / HTML)               (Static / HTML)
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-slate-100/80 p-4 text-xs text-slate-800 dark:bg-slate-950/80 dark:text-slate-200">
+{`              +---------------------------+
+              |         Users            |
+              +-------------+------------+
+                            |
+                            v
+                +-----------+-----------+
+                |       IONOS DNS      |
+                +-----------+-----------+
+                            |
+     +----------------------+----------------------------+
+     |                      |                            |
+     v                      v                            v
++----+------+       +-------+--------+           +------+--------+
+| jutellane |       | docs.jutellane |           | blogs.jutellane |
+|   .com    |       |      .com      |           |       .com      |
++----+------+       +-------+--------+           +------+--------+
+     |                      |                            |
+     v                      v                            v
++----+----------------------+----------------------------+--------+
+|                    Vercel / Static Hosting                     |
++----+----------------------+----------------------------+--------+
+     |                      |                            |
+     v                      v                            v
+  Marketing           Documentation                 Blog & Projects
+  (Next.js)             (Static / HTML)               (Static / HTML)
 
-     +--------------------------------------------------------------+
-     |                Shared Services & Integrations                |
-     |  - Azure Blob Storage (assets, docs)                         |
-     |  - Resend (/join endpoint, notifications, confirmations)     |
-     |  - GitHub Actions (CI/CD, tags, PR builds)                   |
-     +--------------------------------------------------------------+`}
+     +-----------------------------------------------------------+
+     |             Shared Services & Integrations                |
+     | - Azure Blob Storage (assets, docs)                       |
+     | - Resend (/join endpoint, notifications, confirmations)   |
+     | - GitHub Actions (CI/CD, tags, PR builds)                 |
+     +-----------------------------------------------------------+`}
           </pre>
         </motion.section>
 
@@ -362,17 +370,19 @@ const PlatformEcosystemArchitecturePage: React.FC = () => {
               Delivery Timeline
             </h2>
           </div>
-          <div className="mt-5 space-y-4 border-l border-slate-300 dark:border-slate-700 pl-4">
+          <div className="mt-5 space-y-4 border-l border-slate-300 pl-4 dark:border-slate-700">
             {timeline.map((item) => (
               <div key={item.phase} className="relative pl-4">
-                <div className="absolute left-[-0.53rem] top-1 h-3 w-3 rounded-full border border-sky-600 dark:border-sky-400 bg-white dark:bg-slate-950" />
+                <div className="absolute left-[-0.53rem] top-1 h-3 w-3 rounded-full border border-sky-600 bg-white dark:border-sky-400 dark:bg-slate-950" />
                 <p className="text-xs font-medium uppercase text-slate-500 dark:text-slate-400">
                   {item.when}
                 </p>
                 <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
                   {item.phase}
                 </h3>
-                <p className="mt-1 text-sm text-slate-700 dark:text-slate-300">{item.details}</p>
+                <p className="mt-1 text-sm text-slate-700 dark:text-slate-300">
+                  {item.details}
+                </p>
               </div>
             ))}
           </div>
@@ -424,33 +434,33 @@ const PlatformEcosystemArchitecturePage: React.FC = () => {
               className="group flex items-center justify-between rounded-xl border border-slate-300 bg-white/70 px-3 py-2 text-slate-900 hover:border-sky-500 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-50 dark:hover:bg-slate-900"
             >
               <span>Jutellane Marketing Site</span>
-              <ArrowRight className="h-4 w-4 text-sky-600 dark:text-sky-400 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight className="h-4 w-4 text-sky-600 transition-transform group-hover:translate-x-0.5 dark:text-sky-400" />
             </a>
             <a
               href="https://docs.jutellane.com"
               className="group flex items-center justify-between rounded-xl border border-slate-300 bg-white/70 px-3 py-2 text-slate-900 hover:border-sky-500 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-50 dark:hover:bg-slate-900"
             >
               <span>Documentation Hub</span>
-              <ArrowRight className="h-4 w-4 text-sky-600 dark:text-sky-400 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight className="h-4 w-4 text-sky-600 transition-transform group-hover:translate-x-0.5 dark:text-sky-400" />
             </a>
             <a
               href="https://blogs.jutellane.com"
               className="group flex items-center justify-between rounded-xl border border-slate-300 bg-white/70 px-3 py-2 text-slate-900 hover:border-sky-500 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-50 dark:hover:bg-slate-900"
             >
               <span>Blog & Project Case Studies</span>
-              <ArrowRight className="h-4 w-4 text-sky-600 dark:text-sky-400 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight className="h-4 w-4 text-sky-600 transition-transform group-hover:translate-x-0.5 dark:text-sky-400" />
             </a>
             <a
               href="https://foundation.nouvoayiti2075.com"
               className="group flex items-center justify-between rounded-xl border border-slate-300 bg-white/70 px-3 py-2 text-slate-900 hover:border-sky-500 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-50 dark:hover:bg-slate-900"
             >
               <span>Nouvo Ayiti 2075 Foundation</span>
-              <ArrowRight className="h-4 w-4 text-sky-600 dark:text-sky-400 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight className="h-4 w-4 text-sky-600 transition-transform group-hover:translate-x-0.5 dark:text-sky-400" />
             </a>
           </div>
         </motion.section>
       </main>
-    </main>
+    </div>
   );
 };
 
