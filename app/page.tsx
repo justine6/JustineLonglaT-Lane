@@ -12,18 +12,45 @@ import ContactSection from "@/components/ContactSection";
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white px-4 py-8 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10">
-      {/* 🔷 Logo card under global hero */}
-      <section className="flex justify-center py-10">
-        <div className="w-full max-w-5xl rounded-2xl bg-white shadow-xl ring-1 ring-black/5 dark:bg-gray-900 dark:ring-white/10">
-          <div className="flex items-center justify-center p-4 sm:p-6 md:p-8">
-            <Image
-              src="/brand/justine-logo.png"
-              alt="Justine Longla T. — DevSecOps · Cloud · Sustainability"
-              width={1400}
-              height={980}
-              priority
-              className="h-auto w-full rounded-xl"
-            />
+      {/* 🔷 Logo card under global hero + brochure CTA row */}
+      <section className="bg-slate-50 py-10 dark:bg-slate-950/40">
+        <div className="mx-auto max-w-2xl px-2 sm:px-0">
+          <div className="rounded-3xl bg-white/95 p-6 shadow-md ring-1 ring-slate-200 dark:bg-slate-900/80 dark:ring-slate-700">
+            {/* Smaller logo */}
+            <div className="mx-auto max-w-xs">
+              <Image
+                src="/brand/justine-logo.png"
+                alt="Justine Longla T. logo"
+                width={360}
+                height={360}
+                className="mx-auto h-auto w-44 sm:w-52 md:w-56"
+                priority
+              />
+            </div>
+
+            {/* CTA row directly under logo */}
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/intro-call"
+                className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700"
+              >
+                Book Intro Call
+              </Link>
+
+              <a
+                href="/docs/brochure-2025-11.pdf"
+                className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-4 py-2 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
+              >
+                Download Brochure
+              </a>
+
+              <Link
+                href="/resume"
+                className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-4 py-2 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
+              >
+                View Résumé
+              </Link>
+            </div>
           </div>
         </div>
       </section>
