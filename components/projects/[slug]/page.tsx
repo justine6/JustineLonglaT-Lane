@@ -6,7 +6,7 @@ import { getAllProjects } from "@/lib/get-all-projects";
 type Params = { slug: string };
 
 export async function generateStaticParams() {
-  const projects = getAllProjects();
+  const projects = await getAllProjects();
   return projects.map((p) => ({ slug: p.slug }));
 }
 
@@ -17,7 +17,7 @@ export default async function ProjectPage({
 }) {
   const { slug } = await params;
 
-  const project = getAllProjects().find((p) => p.slug === slug);
+  const project = (await getAllProjects()).find((p) => p.slug === slug);
   if (!project) notFound();
 
   return (
@@ -45,3 +45,5 @@ export default async function ProjectPage({
     </main>
   );
 }
+
+

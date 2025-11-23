@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/lib/get-all-projects";
@@ -59,7 +60,7 @@ export default function ProjectsCard({ project }: Props) {
     Cloud: "from-sky-500 to-indigo-500",
   };
 
-  const categoryIcons: Record<string, JSX.Element> = {
+  const categoryIcons: Record<string, React.ReactNode> = {
     AWS: <Cpu className="h-3.5 w-3.5" />,
     Azure: <Cloud className="h-3.5 w-3.5" />,
     DevSecOps: <ShieldCheck className="h-3.5 w-3.5" />,
@@ -134,3 +135,4 @@ export default function ProjectsCard({ project }: Props) {
     </Link>
   );
 }
+
