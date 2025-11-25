@@ -5,8 +5,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { LINKS } from '@/config/links';
 
 type Props = {
-  fullSrc?: string;    // e.g. /docs/Justine_Tekang_Jutellane_Solutions_Resume.pdf
-  summarySrc?: string; // e.g. /docs/Justine_Tekang_Jutellane_Solutions_Resume_Summary.pdf
+  fullSrc?: string;    // e.g. /docs/Justine_Tekang_Justine Longla T._Solutions_Resume.pdf
+  summarySrc?: string; // e.g. /docs/Justine_Tekang_Justine Longla T._Solutions_Resume_Summary.pdf
   height?: number;     // iframe/object height in px
 };
 

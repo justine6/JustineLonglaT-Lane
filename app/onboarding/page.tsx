@@ -1,7 +1,7 @@
 import OnboardingForm from "@/components/OnboardingForm";
 
 export const metadata = {
-  title: "Client Onboarding | Jutellane Solutions with Justine",
+  title: "Client Onboarding | Justine Longla T.",
   description: "A 2-minute onboarding checklist to prepare for a productive first session.",
 };
 
@@ -13,7 +13,7 @@ export default function OnboardingPage() {
           Welcome Aboard 👋
         </h1>
         <p className="mt-3 text-slate-600 dark:text-slate-300">
-          Thank you for choosing Jutellane Solutions with Justine. Please share a few details so we can prepare effectively.
+          Thank you for choosing Justine Longla T. Please share a few details so we can prepare effectively.
         </p>
 
         <div className="mt-10">

@@ -12,7 +12,7 @@ describe("email auto-reply", () => {
   it("renders HTML for general reason", () => {
     const html = renderAutoReplyHtml("Justine", "general");
     expect(html).toContain("Thanks for your message");
-    expect(html).toContain("Jutellane Solutions");
+    expect(html).toContain("Justine Longla T.");
   });
 });
 

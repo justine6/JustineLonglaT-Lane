@@ -1,0 +1,65 @@
+[
+  {
+    "slug": "teams-proactive-messaging-bot",
+    "title": "Teams Proactive Messaging Bot",
+    "summary": "Automated Microsoft Teams bot sending proactive notifications from CLI triggers.",
+    "featured": true,
+    "href": "/projects/teams-proactive-messaging-bot"
+  },
+  {
+    "slug": "cicd-automation-bot",
+    "title": "CI/CD Automation Bot",
+    "summary": "An automation bot that enhances deployments with proactive notifications and safety checks.",
+    "featured": false,
+    "href": "/projects/cicd-automation-bot"
+  },
+  {
+    "slug": "launch-migrate",
+    "title": "Launch Migrate",
+    "summary": "Migration tooling for predictable cloud environment cutovers.",
+    "featured": false,
+    "href": "/projects/launch-migrate"
+  },
+  {
+    "slug": "operate-optimize",
+    "title": "Operate & Optimize",
+    "summary": "Operational tuning and efficiency tooling for cloud workloads.",
+    "featured": false,
+    "href": "/projects/operate-optimize"
+  },
+  {
+    "slug": "fixing-flaky-lambdas",
+    "title": "Automation Rescue: Fixing Flaky Lambdas",
+    "summary": "A reliability project restoring stability to unpredictable AWS Lambda workloads.",
+    "featured": false,
+    "href": "/projects/fixing-flaky-lambdas"
+  },
+  {
+    "slug": "project-b",
+    "title": "Project B",
+    "summary": "A detailed case study covering Project B’s architectural and operational journey.",
+    "featured": false,
+    "href": "/projects/project-b"
+  },
+  {
+    "slug": "project-c",
+    "title": "System Design: Jutellane Ecosystem",
+    "summary": "How multiple repos were unified into a predictable, automated, multi-site platform.",
+    "featured": false,
+    "href": "/projects/project-c"
+  },
+  {
+    "slug": "secure-scale",
+    "title": "Secure & Scale",
+    "summary": "DevSecOps pipelines, automation, and compliance for growing teams.",
+    "featured": false,
+    "href": "/projects/secure-scale"
+  },
+  {
+    "slug": "teams-proactive-bot",
+    "title": "Teams Proactive Bot",
+    "summary": "A bot that sends proactive Teams notifications using secure triggers.",
+    "featured": false,
+    "href": "/projects/teams-proactive-bot"
+  }
+]

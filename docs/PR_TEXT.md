@@ -6,7 +6,7 @@
 - Ensure documentation consistency across `developer-utilities.md`, `ci-cd.md`, and `release-process.md`.
 
 ## Why
-- Maintain parity between **Jutellane Main** and **Jutellane Blogs** projects.
+- Maintain parity between **Justine Longla T. Main** and **Justine Longla T. Blogs** projects.
 - Align Cal.com integration and responsive layout changes with documentation.
 - Prepare repository for next automated tag via `Cut-Release.ps1`.
 

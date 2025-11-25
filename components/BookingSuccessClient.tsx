@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 
 const ConfettiBurst = dynamic(() => import("@/components/ConfettiBurst"), { ssr: false });
 
-function buildGoogle(start?: string, end?: string, title = "Intro Call — Jutellane Solutions with Justine") {
+function buildGoogle(start?: string, end?: string, title = "Intro Call — Justine Longla T.") {
   if (!start || !end) return undefined;
   const fmt = (s: string) => s.replace(/[-:]/g, "").replace(".000Z", "Z");
   const qs = new URLSearchParams({
@@ -19,7 +19,7 @@ function buildGoogle(start?: string, end?: string, title = "Intro Call — Jutel
   return `https://calendar.google.com/calendar/render?${qs}`;
 }
 
-function buildOutlook(start?: string, end?: string, title = "Intro Call — Jutellane Solutions with Justine") {
+function buildOutlook(start?: string, end?: string, title = "Intro Call — Justine Longla T.") {
   if (!start || !end) return undefined;
   const qs = new URLSearchParams({
     path: "/calendar/action/compose",

@@ -31,7 +31,7 @@
 - 🧰 [Developer Utilities](./docs/developer-utilities.md)
 - 🧠 [CI/CD Flow](./docs/ci-cd.md)
 
-> This release completes the full transition of Jutellane Solutions to production parity — with unified layouts, embedded scheduling, automated versioning, and verified test coverage.
+> This release completes the full transition of Justine Longla T. to production parity — with unified layouts, embedded scheduling, automated versioning, and verified test coverage.
 
 **Maintainer:** Fnu Longla Justine Tekang  
-**Project:** [Jutellane Solutions](https://github.com/justine6/Jutellane-Solutions)
+**Project:** [Justine Longla T.](https://github.com/justine6/Justine Longla T.-Solutions)

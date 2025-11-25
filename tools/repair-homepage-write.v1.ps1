@@ -206,7 +206,7 @@ export default function HomePage() {
             </div>
             <div className="hidden sm:block">
               <Link
-                href="/posts"
+                href="/blog"
                 className="inline-flex items-center rounded-xl border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
               >
                 View all
@@ -219,7 +219,7 @@ export default function HomePage() {
           {/* Mobile CTA */}
           <div className="mt-6 sm:hidden">
             <Link
-              href="/posts"
+              href="/blog"
               className="block w-full rounded-xl border border-blue-600 px-4 py-2 text-center text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
             >
               View all

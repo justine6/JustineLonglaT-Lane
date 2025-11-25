@@ -3,11 +3,11 @@ import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
 
 export const metadata = {
-  title: "Secure & Scale | Jutellane Solutions with Justine",
+  title: "Secure & Scale | Justine Longla T.",
   description:
     "DevSecOps pipelines, automation, and compliance guardrails that let growing teams ship quickly on AWS without losing control of risk, access, or reliability.",
   openGraph: {
-    title: "Secure & Scale | Jutellane Solutions",
+    title: "Secure & Scale | Justine Longla T.",
     description:
       "Security-first cloud platforms: DevSecOps pipelines, policy-as-code, and compliance-ready guardrails for growing teams.",
     url: "https://justinelonglat-lane.com/projects/secure-scale",

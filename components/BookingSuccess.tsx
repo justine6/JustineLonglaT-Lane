@@ -7,12 +7,12 @@ import { headers } from "next/headers";
 const ConfettiBurst = dynamic(() => import("@/components/ConfettiBurst"), { ssr: false });
 
 export const metadata: Metadata = {
-  title: "Booking Confirmed | Jutellane Solutions with Justine",
+  title: "Booking Confirmed | Justine Longla T.",
   description:
     "Your meeting is confirmed. Add it to your calendar or contact us if you need to reschedule.",
 };
 
-function buildGoogle(start?: string, end?: string, title = "Intro Call — Jutellane Solutions with Justine") {
+function buildGoogle(start?: string, end?: string, title = "Intro Call — Justine Longla T.") {
   if (!start || !end) return undefined;
   const fmt = (s: string) => s.replace(/[-:]/g, "").replace(".000Z", "Z");
   const qs = new URLSearchParams({
@@ -24,7 +24,7 @@ function buildGoogle(start?: string, end?: string, title = "Intro Call — Jutel
   return `https://calendar.google.com/calendar/render?${qs}`;
 }
 
-function buildOutlook(start?: string, end?: string, title = "Intro Call — Jutellane Solutions with Justine") {
+function buildOutlook(start?: string, end?: string, title = "Intro Call — Justine Longla T.") {
   if (!start || !end) return undefined;
   const qs = new URLSearchParams({
     path: "/calendar/action/compose",

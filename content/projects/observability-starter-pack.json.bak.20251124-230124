@@ -1,0 +1,15 @@
+{
+  "slug": "observability-starter-pack",
+  "title": "Observability Starter Pack",
+  "summary": "Preconfigured Grafana/Prometheus dashboards & alerts for rapid onboarding.",
+  "description": "Reusable dashboards and alerting templates for services and deployments, focused on SLOs and error budgets.",
+  "stack": ["Prometheus", "Grafana", "New Relic"],
+  "tags": ["Observability", "SRE"],
+  "links": {
+    "live": "#",
+    "repo": "#"
+  },
+  "coverImage": "/images/observability.png",
+  "date": "2024-09-18",
+  "featured": false
+}

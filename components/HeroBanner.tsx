@@ -18,7 +18,7 @@ export default function HeroBanner() {
 
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-20 md:py-24">
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-sky-200 sm:text-sm">
-          Jutellane Solutions with Justine
+          JustineLonglaT-Lane
         </p>
 
         <h1 className="mb-4 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">

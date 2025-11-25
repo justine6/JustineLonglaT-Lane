@@ -12,7 +12,7 @@ export default function Logo() {
         className="rounded-md"
         priority
       />
-      <span className="font-bold text-lg text-gray-900">Jutellane Solutions with Justine</span>
+      <span className="font-bold text-lg text-gray-900">Justine Longla T.</span>
     </div>
   );
 }

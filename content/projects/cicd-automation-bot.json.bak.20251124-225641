@@ -1,0 +1,15 @@
+{
+  "slug": "cicd-automation-bot",
+  "title": "CI/CD Automation Bot",
+  "summary": "ChatOps bot for notifications, release triggers, and post-deploy verification.",
+  "description": "PowerShell + GitHub Actions + Teams to streamline deploy feedback loops and approvals.",
+  "stack": ["PowerShell", "GitHub Actions", "Teams API"],
+  "tags": ["ChatOps", "Automation"],
+  "links": {
+    "live": "#",
+    "repo": "#"
+  },
+  "coverImage": "/images/bot.png",
+  "date": "2025-02-11",
+  "featured": false
+}

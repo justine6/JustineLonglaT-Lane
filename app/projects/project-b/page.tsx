@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "System Design: Jutellane Ecosystem — Project C",
+  title: "System Design: Justine Longla T. Ecosystem — Project C",
   description:
-    "System-design case study on unifying the Jutellane main hub, blog engine, and documentation site into one cohesive multi-site platform with shared branding and predictable CI/CD pipelines.",
+    "System-design case study on unifying the Justine Longla T. main hub, blog engine, and documentation site into one cohesive multi-site platform with shared branding and predictable CI/CD pipelines.",
 };
 
 export default function ProjectCPage() {
@@ -25,11 +25,11 @@ export default function ProjectCPage() {
         </p>
 
         <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-50">
-          System Design: Jutellane Ecosystem
+          System Design: Justine Longla T. Ecosystem
         </h1>
 
         <p className="text-base text-slate-700 dark:text-slate-200 max-w-3xl">
-          How I unified the Jutellane main hub, blog engine, and documentation site
+          How I unified the Justine Longla T. main hub, blog engine, and documentation site
           into a consistent, reliable multi-site ecosystem — with shared branding,
           predictable routing, and independent CI/CD pipelines.
         </p>
@@ -72,7 +72,7 @@ export default function ProjectCPage() {
             Overview
           </h2>
           <p>
-            As the Jutellane ecosystem grew — the main site, documentation, custom blog
+            As the Justine Longla T. ecosystem grew — the main site, documentation, custom blog
             engine, and multiple subdomains — branding inconsistencies appeared.
             Gradients, images, buttons, routing, and deployment behaviour drifted across repos.
           </p>
@@ -129,10 +129,10 @@ export default function ProjectCPage() {
             Outcomes
           </h2>
           <p>
-            The Jutellane ecosystem now behaves like a single platform instead of a
+            The Justine Longla T. ecosystem now behaves like a single platform instead of a
             collection of unrelated sites. Branding stays consistent, deployments are
             predictable, and new subdomains can be added without breaking DNS, themes,
-            or routing. It&apos;s the foundation I use for every new Jutellane surface
+            or routing. It&apos;s the foundation I use for every new Justine Longla T. surface
             going forward.
           </p>
         </div>

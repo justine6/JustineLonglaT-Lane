@@ -1,0 +1,146 @@
+import Link from "next/link";
+import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+
+export const metadata = {
+  title: "Routing Reliability: From 404s to Paved Roads | Jutellane Solutions",
+  description:
+    "How I cleaned up broken routes, slug mismatches, and dynamic href issues in a Next.js App Router project and left a predictable routing model behind.",
+  openGraph: {
+    title: "Routing Reliability: From 404s to Paved Roads",
+    description:
+      "A practical debugging story: fixing 404s, dynamic href warnings, and slug mismatches in a live Next.js/Vercel application.",
+    url: "https://jutellane.com/projects/project-b",
+    type: "article",
+  },
+};
+
+export default function ProjectBPage() {
+  return (
+    <main className="page-shell">
+      {/* Back link */}
+      <SectionFadeIn as="div" delay={0.02} className="mb-4">
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-1 text-xs font-medium text-sky-700 hover:text-sky-900 dark:text-sky-300 dark:hover:text-sky-100"
+        >
+          <span className="text-base">←</span>
+          <span>Back to projects</span>
+        </Link>
+      </SectionFadeIn>
+
+      {/* Header */}
+      <SectionFadeIn as="header" delay={0.06} className="space-y-5">
+        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/50 bg-slate-100/90 px-3 py-1 text-[0.7rem] font-medium text-emerald-800 shadow-sm dark:border-emerald-400/60 dark:bg-slate-900/70 dark:text-emerald-100 dark:shadow-[0_0_24px_rgba(16,185,129,0.5)]">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          Next.js App Router · DX · Reliability
+        </div>
+
+        <h1 className="page-title">
+          Routing Reliability: From 404s to Paved Roads
+        </h1>
+
+        <p className="page-subtitle max-w-3xl">
+          A routing-focused project where several pages in a Next.js application
+          were returning 404s or triggering runtime warnings. This case study
+          walks through how I mapped the routing model, fixed slug mismatches,
+          and set up guardrails so new pages follow a clean, predictable
+          pattern.
+        </p>
+      </SectionFadeIn>
+
+      {/* Problem */}
+      <SectionFadeIn as="section" delay={0.1} className="mt-8 space-y-3">
+        <h2 className="section-heading">The problem</h2>
+        <ul className="section-body space-y-2">
+          <li>
+            Navigating from cards to detail pages occasionally hit{" "}
+            <span className="font-medium">404: page not found</span>, even
+            though the files existed.
+          </li>
+          <li>
+            The dev console showed warnings about{" "}
+            <span className="font-medium">dynamic href in &lt;Link&gt;</span> and
+            routes that didn&apos;t match the App Router rules.
+          </li>
+          <li>
+            Some paths used one slug naming scheme (e.g.{" "}
+            <code>/projects/launch-migrate</code>) while the filesystem or data
+            model used another.
+          </li>
+        </ul>
+      </SectionFadeIn>
+
+      {/* Approach */}
+      <SectionFadeIn as="section" delay={0.14} className="mt-8 space-y-3">
+        <h2 className="section-heading">Approach</h2>
+        <p className="section-body">
+          Instead of chasing single broken links, I stepped back and treated the
+          routing as a small platform in itself:
+        </p>
+        <ul className="section-body space-y-2">
+          <li>
+            <span className="font-semibold">Mapped intended routes:</span> wrote
+            down the canonical URLs for each section (home, about, projects,
+            individual case studies, etc.).
+          </li>
+          <li>
+            <span className="font-semibold">Aligned slugs with files:</span>{" "}
+            ensured that data entries (project slugs) matched the folder names
+            under <code>app/</code> so App Router could do its job.
+          </li>
+          <li>
+            <span className="font-semibold">Removed unsupported patterns:</span>{" "}
+            fixed places where <code>&lt;Link&gt;</code> constructed dynamic
+            hrefs that App Router cannot statically analyze.
+          </li>
+          <li>
+            <span className="font-semibold">Centralized route helpers:</span>{" "}
+            added small functions/constants for paths so future components don&apos;t
+            re-type strings and accidentally drift.
+          </li>
+        </ul>
+      </SectionFadeIn>
+
+      {/* Guardrails */}
+      <SectionFadeIn as="section" delay={0.18} className="mt-8 space-y-3">
+        <h2 className="section-heading">Guardrails I put in place</h2>
+        <ul className="section-body space-y-2">
+          <li>
+            <span className="font-semibold">Type-safe slugs:</span> used a
+            shared type / union of slugs so editors and components can&apos;t
+            invent new ones without updating the central list.
+          </li>
+          <li>
+            <span className="font-semibold">Build-time checks:</span> added
+            simple scripts that verify every project in the JSON/config has a
+            matching page and vice versa.
+          </li>
+          <li>
+            <span className="font-semibold">404 experience:</span> customized
+            the not-found page so if something does break again, users still
+            receive a helpful message and a way back to the main sections.
+          </li>
+        </ul>
+      </SectionFadeIn>
+
+      {/* Outcome */}
+      <SectionFadeIn as="section" delay={0.22} className="mt-8 space-y-3">
+        <h2 className="section-heading">Outcome</h2>
+        <p className="section-body">
+          After the cleanup, navigation across the site became predictable: each
+          card goes exactly where a user expects, previews link to full case
+          studies, and the console is free of routing warnings.
+        </p>
+        <p className="section-body">
+          For me, this project reinforces a theme in my work:{" "}
+          <span className="font-medium">
+            small routing decisions are part of reliability engineering
+          </span>
+          . When URLs are stable and predictable, teams can add content,
+          marketing campaigns, and new sections without worrying about breaking
+          existing paths.
+        </p>
+      </SectionFadeIn>
+    </main>
+  );
+}

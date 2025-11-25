@@ -4,7 +4,7 @@ import CalEmbed from "@/components/CalEmbed";
 import { LINKS } from "@/config/links";
 
 export const metadata: Metadata = {
-  title: "Book an Intro Call —  Jutellane Solutions with Justine",
+  title: "Book an Intro Call —  Justine Longla T.",
   description:
     "Pick a time that works for you. You’ll receive a calendar invite and email confirmation.",
 };

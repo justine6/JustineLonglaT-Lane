@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
 
 export const metadata = {
-  title: "Automation Rescue: Fixing Flaky Lambdas | Jutellane Solutions",
+  title: "Automation Rescue: Fixing Flaky Lambdas | Justine Longla T.",
   description:
     "How I debugged failing serverless automations, fixed Lambda-style issues, and hardened the CI/CD path so deployments became boring again.",
   openGraph: {

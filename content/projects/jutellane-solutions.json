@@ -1,15 +1,29 @@
 {
   "slug": "jutellane-solutions",
-  "title": "Jutellane Solutions with Justine.",
+  "title": "Justine Longla T.",
   "summary": "Production-grade portfolio with real CI/CD, caching strategy, image optimization, and automated verification.",
   "description": "A secure, reliable portfolio that doubles as a DevSecOps demo: Next.js 15, Vercel, GitHub Actions, curl-based integrity checks, and CI for both preview and production.",
-  "stack": ["Next.js", "Tailwind CSS", "Vercel", "GitHub Actions", "PowerShell"],
-  "tags": ["DevSecOps", "CI/CD", "Performance", "SEO"],
+  "stack": [
+    "Next.js",
+    "Tailwind CSS",
+    "Vercel",
+    "GitHub Actions",
+    "PowerShell"
+  ],
+  "tags": [
+    "DevSecOps",
+    "CI/CD",
+    "Performance",
+    "SEO"
+  ],
   "links": {
     "live": "https://justinelonglat-lane.com",
     "repo": "https://github.com/justine6/jutellane-Main"
   },
   "coverImage": "/images/hero-site.png",
   "date": "2025-10-01",
-  "featured": true
+  "featured": true,
+  "updatedAt": "2025-11-24",
+  "pinned": false,
+  "excerpt": ""
 }

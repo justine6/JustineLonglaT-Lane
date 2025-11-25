@@ -1,0 +1,15 @@
+{
+  "slug": "nouvo-ayiti-2075-blog",
+  "title": "Nouvo Ayiti 2075 Blog",
+  "summary": "Subdomain MDX blog with preview/production verification and content metadata enrichment.",
+  "description": "MDX content with dynamic routing, CI-based checks, and SEO meta. Clean authoring experience for repeatable publishing.",
+  "stack": ["Next.js", "MDX", "GitHub Actions", "Vercel"],
+  "tags": ["Content", "Automation", "SEO"],
+  "links": {
+    "live": "https://blogs.justinelonglat-lane.com",
+    "repo": "https://github.com/justine6/Justine Longla T.-Solutions"
+  },
+  "coverImage": "/images/blog-cover.png",
+  "date": "2025-09-10",
+  "featured": false
+}

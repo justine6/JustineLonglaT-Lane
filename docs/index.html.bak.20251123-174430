@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jutellane Solutions — Documentation</title>
+
+  <!-- ========================= -->
+  <!-- 🚀 Updated Styling Block -->
+  <!-- ========================= -->
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --fg: #0f172a;
+      --card-bg: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --border-subtle: #e2e8f0;
+    }
+
+    body.dark {
+      --bg: #020617;
+      --fg: #e5e7eb;
+      --card-bg: #020617;
+      --accent: #38bdf8;
+      --accent-soft: #0b1120;
+      --border-subtle: #1f2933;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+    }
+
+    .docs-shell {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    .docs-card {
+      border-radius: 1.25rem;
+      border: 1px solid var(--border-subtle);
+      background: var(--card-bg);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+      padding: 2rem 2.25rem;
+    }
+
+    .docs-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+
+    .docs-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .docs-logo img {
+      height: 40px;
+      width: 40px;
+      border-radius: 999px;
+    }
+
+    .docs-title {
+      font-weight: 650;
+      letter-spacing: 0.02em;
+    }
+
+    .docs-subtitle {
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+
+    body.dark .docs-subtitle {
+      color: #9ca3af;
+    }
+
+    .theme-toggle {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 0.45rem 0.9rem;
+      font-size: 0.8rem;
+      background: var(--card-bg);
+      color: var(--fg);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .theme-toggle span {
+      font-size: 0.95rem;
+    }
+
+    .docs-main-actions {
+      margin-top: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn-pill {
+      border-radius: 999px;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #22c55e);
+      color: white;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent-soft);
+    }
+
+    .btn-pill:hover {
+      filter: brightness(1.05);
+    }
+
+    /* Search area + list */
+    .docs-search-row {
+      margin-top: 2.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px dashed var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .docs-search-input {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 0.6rem 0.9rem;
+      font-size: 0.9rem;
+      background: var(--card-bg);
+      color: var(--fg);
+      outline: none;
+    }
+
+    .docs-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .docs-list a {
+      font-size: 0.9rem;
+      text-decoration: none;
+      color: var(--accent);
+    }
+
+    .docs-list a:hover {
+      text-decoration: underline;
+    }
+
+    .docs-empty {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 640px) {
+      .docs-card {
+        padding: 1.5rem 1.25rem;
+      }
+      .docs-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="docs-shell">
+    <div class="docs-card">
+
+      <!-- ============================= -->
+      <!-- Header / Branding -->
+      <!-- ============================= -->
+      <div class="docs-header-row">
+        <div class="docs-logo">
+          <img src="logo.png" alt="Logo" />
+          <div>
+            <div class="docs-title">Jutellane Solutions Docs</div>
+            <div class="docs-subtitle">Developer utilities • Architecture • CI/CD • Integrations</div>
+          </div>
+        </div>
+
+        <button class="theme-toggle" onclick="document.body.classList.toggle('dark')">
+          <span>🌓</span> Toggle
+        </button>
+      </div>
+
+      <!-- ============================= -->
+      <!-- Main Actions -->
+      <!-- ============================= -->
+      <div class="docs-main-actions">
+        <a href="/" class="btn-pill btn-primary">← Back to Main</a>
+        <a href="/blog" class="btn-pill btn-outline">Visit Blog</a>
+      </div>
+
+      <!-- ============================= -->
+      <!-- Search + Listing -->
+      <!-- ============================= -->
+      <div class="docs-search-row">
+        <input
+          class="docs-search-input"
+          id="docs-search"
+          placeholder="Search documentation..."
+        />
+
+        <ul class="docs-list" id="docs-list">
+          <!-- dynamically filtered items -->
+        </ul>
+
+        <div class="docs-empty" id="docs-empty" style="display:none;">
+          No results found.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= -->
+  <!-- Search Script (unchanged) -->
+  <!-- ============================= -->
+  <script>
+    const input = document.getElementById("docs-search");
+    const list = document.getElementById("docs-list");
+    const empty = document.getElementById("docs-empty");
+
+    const items = [
+      { title: "Architecture", url: "architecture.md", keywords: "design infra architecture system" },
+      { title: "CI/CD", url: "ci-cd.md", keywords: "pipeline github actions automation deploy" },
+      { title: "Developer Utilities", url: "developer-utilities.md", keywords: "tools scripts productivity" },
+      { title: "PR Text Generator", url: "PR_TEXT.md", keywords: "pull request template automation" },
+      { title: "Cal Integration", url: "cal-integration-with-hero.md", keywords: "cal.com embed scheduling" },
+      { title: "README Consistency", url: "readme-consistency.md", keywords: "documentation rules consistency" }
+    ];
+
+    function renderList(filter = "") {
+      list.innerHTML = "";
+      let visible = 0;
+
+      items.forEach(item => {
+        const text = item.title.toLowerCase();
+        const kw = item.keywords.toLowerCase();
+        const q = filter.toLowerCase();
+
+        const show = !q || text.includes(q) || kw.includes(q);
+
+        if (show) {
+          visible++;
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="${item.url}">${item.title}</a>`;
+          list.appendChild(li);
+        }
+      });
+
+      empty.style.display = visible === 0 ? "" : "none";
+    }
+
+    input.addEventListener("input", () => {
+      renderList(input.value);
+    });
+
+    renderList();
+  </script>
+</body>
+</html>

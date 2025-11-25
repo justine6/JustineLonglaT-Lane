@@ -1,1 +1,9 @@
-{"excerpt":"Grafana, Prometheus, Loki in a box.","description":"Golden signals + SLOs for startups.","title":"Observability Starter","updatedAt":"2025-07-10T00:00:00.000Z"}
+{
+  "excerpt": "Grafana, Prometheus, Loki in a box.",
+  "description": "Golden signals + SLOs for startups.",
+  "title": "Observability Starter",
+  "updatedAt": "2025-07-10T00:00:00Z",
+  "pinned": false,
+  "summary": "",
+  "featured": false
+}

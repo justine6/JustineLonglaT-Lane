@@ -4,11 +4,11 @@ import Image from "next/image";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
 
 export const metadata = {
-  title: "Teams Proactive Messaging Bot | Jutellane Solutions with Justine",
+  title: "Teams Proactive Messaging Bot | Justine Longla T.",
   description:
     "A real-world automation bot that triggers proactive notifications into Microsoft Teams — directly from the command line — using Teams Toolkit, Bot Framework, and Azure Identity.",
   openGraph: {
-    title: "Teams Proactive Messaging Bot | Jutellane Solutions",
+    title: "Teams Proactive Messaging Bot | Justine Longla T.",
     description:
       "Case study: building a proactive Teams bot triggered from the CLI for DevOps automation and real-time collaboration.",
     images: ["/favicon.ico"],

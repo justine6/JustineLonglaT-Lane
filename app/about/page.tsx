@@ -1,6 +1,6 @@
 // app/about/page.tsx
 export const metadata = {
-  title: "About Justine | Jutellane Solutions",
+  title: "About Justine | Justine Longla T.",
   description: "DevSecOps Engineer & Cloud Architect — Cloud Confidence. Delivered.",
 };
 
@@ -21,7 +21,7 @@ export default function AboutPage() {
         I’m certified in both <strong>AWS</strong> and <strong>Microsoft</strong> ecosystems,
         and I believe DevSecOps isn’t just about pipelines—it’s about creating trust in every
         deployment. Each project I build is guided by that principle, from the technical rigor
-        of <em>Jutellane Solutions</em> to the vision-driven purpose of <em>Nouvo Ayiti 2075</em>.
+        of <em>Justine Longla T.</em> to the vision-driven purpose of <em>Nouvo Ayiti 2075</em>.
       </p>
 
       <p className="mb-4">

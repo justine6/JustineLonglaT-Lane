@@ -3,30 +3,33 @@
 import { Calendar, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useCallback } from "react";
-import { usePathname } from "next/navigation"; // ✅ NEW
+import { usePathname } from "next/navigation";
 
 import { LINKS } from "@/config/links";
 import ThemeToggle from "@/components/ThemeToggle";
 
+// Ecosystem dropdown = cross-site navigation
 const ECOSYSTEM = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: LINKS.contact },
+  { label: "Consulting site", href: "https://consulting.justinelonglat-lane.com" },
+  { label: "Docs", href: LINKS.docs },
+  { label: "Blog", href: LINKS.blog },
 ];
 
+// Main nav for this site
 const navLinks = [
-  { name: "Home", href: "/" },
+  { name: "Home", href: LINKS.home },
+  { name: "README", href: LINKS.readme },
+  { name: "Docs", href: "/docs" },
   { name: "About", href: "/about" },
-  { name: "Projects", href: "/projects" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/contact" },
+  { name: "Projects", href: LINKS.projects },
+  { name: "Blog", href: LINKS.blog },
+  { name: "Contact", href: LINKS.contact },
 ];
 
 export default function Topbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname(); // ✅ current route
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -57,27 +60,38 @@ export default function Topbar() {
           href="/"
           className="flex items-center gap-2 text-lg sm:text-xl font-semibold text-white tracking-wide hover:text-gray-100"
         >
-          <span>Jutellane</span>
+          <span>Justine Longla T.</span>
           <span className="rounded-full border border-blue-200/70 bg-blue-500/70 px-2 py-[2px] text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-white/95">
-            Projects
+            Consulting
           </span>
         </Link>
 
         {/* Desktop Nav */}
         <div className="hidden items-center space-x-4 md:flex">
           {navLinks.map((link) => {
+            const isExternal = link.href.startsWith("http");
             const isActive =
-              pathname === link.href ||
-              (link.href !== "/" && pathname.startsWith(link.href));
+              !isExternal &&
+              (pathname === link.href ||
+                (link.href !== "/" && pathname.startsWith(link.href)));
 
-            return (
-              <Link
+            const className = `nav-pill ${
+              isActive ? "nav-pill-active" : "nav-pill-idle"
+            }`;
+
+            // For external links, use <a>. For internal, use <Link>.
+            return isExternal ? (
+              <a
                 key={link.name}
                 href={link.href}
-                className={`nav-pill ${
-                  isActive ? "nav-pill-active" : "nav-pill-idle"
-                }`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={className}
               >
+                {link.name}
+              </a>
+            ) : (
+              <Link key={link.name} href={link.href} className={className}>
                 {link.name}
               </Link>
             );
@@ -115,7 +129,7 @@ export default function Topbar() {
           {/* Theme toggle */}
           <ThemeToggle />
 
-          {/* Schedule a Call — keep as simple pill for now */}
+          {/* Schedule Intro Call – unified wording */}
           <a
             href={LINKS.introCall}
             target="_blank"
@@ -123,7 +137,7 @@ export default function Topbar() {
             className="ml-2 inline-flex items-center gap-2 rounded-xl border border-white/40 bg-white/10 px-3 py-2 text-sm font-medium text-white hover:bg-white/20"
           >
             <Calendar className="h-4 w-4" />
-            <span>Schedule a Call</span>
+            <span>Intro call</span>
           </a>
         </div>
 
@@ -149,16 +163,35 @@ export default function Topbar() {
             <ThemeToggle />
           </div>
 
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={closeMenu}
-              className="block text-lg font-medium text-white/90 transition hover:text-white"
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isExternal = link.href.startsWith("http");
+
+            if (isExternal) {
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMenu}
+                  className="block text-lg font-medium text-white/90 transition hover:text-white"
+                >
+                  {link.name}
+                </a>
+              );
+            }
+
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={closeMenu}
+                className="block text-lg font-medium text-white/90 transition hover:text-white"
+              >
+                {link.name}
+              </Link>
+            );
+          })}
 
           <div className="border-t border-white/10 pt-3">
             <div className="mb-2 text-xs uppercase tracking-wide text-white/70">
@@ -187,7 +220,7 @@ export default function Topbar() {
               className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-white hover:bg-white/20"
               onClick={closeMenu}
             >
-              📅 Hire Me
+              📅 Intro call
             </a>
           </div>
         </div>

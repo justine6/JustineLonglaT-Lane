@@ -14,23 +14,23 @@ const HERO_CARDS: HeroCard[] = [
   {
     title: "DevSecOps Pipeline Architecture",
     tag: "Delivery • Reliability",
-    href: "/projects/devsecops-pipeline-architecture",
+    href: "/posts/devsecops-pipeline-architecture",
     description:
-      "How I turn flaky, multi-stage pipelines into a resilient, observable delivery system with guardrails for secrets, compliance, and runtime drift.",
+      "How I turn flaky, multi-stage pipelines into a resilient system…",
   },
   {
     title: "Cloud Migration Best Practices",
     tag: "AWS • Migration",
-    href: "/projects/cloud-migration-best-practices",
+    href: "/posts/cloud-migration-best-practices",
     description:
-      "Patterns I use to move workloads to AWS without weekend fire drills—landing zones, cutover strategies, and rollback-friendly deployments.",
+      "Patterns I use to move workloads to AWS without weekend fire drills…",
   },
   {
     title: "Platform Ecosystem Architecture",
-    tag: "Platforms • DX",
-    href: "/projects/platform-ecosystem-architecture",
+    tag: "Platform • DX",
+    href: "/posts/platform-ecosystem-architecture",
     description:
-      "Behind the scenes of the Jutellane multi-site platform: DNS, subdomains, CI/CD, and environment isolation for docs, blog, and marketing sites.",
+      "Behind the scenes of the Justine Longla T. multi-site platform…",
   },
 ];
 

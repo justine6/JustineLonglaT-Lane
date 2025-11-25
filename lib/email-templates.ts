@@ -51,7 +51,7 @@ export function renderAutoReplyHtml(name: string, reason: Reason) {
         : `<p style="margin:0 0 12px 0;">I’ll get back to you shortly with next steps.</p>`
     }
     <p style="margin:0 0 4px 0;">— Justine Tekang</p>
-    <p style="margin:0;color:#64748b;">Jutellane Solutions</p>
+    <p style="margin:0;color:#64748b;">Justine Longla T.</p>
   `;
   return baseHtml(title, body);
 }
@@ -69,7 +69,7 @@ ${
 }
 
 — Justine Tekang
-Jutellane Solutions`;
+Justine Longla T.`;
 }
 
 function baseHtml(title: string, inner: string) {
@@ -80,7 +80,7 @@ function baseHtml(title: string, inner: string) {
     <tr><td align="center">
       <table role="presentation" width="640" cellspacing="0" cellpadding="0" style="background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;">
         <tr><td style="padding:20px 24px;background:#1d4ed8;color:#ffffff;">
-          <div style="font-weight:700;font-size:18px;">Jutellane Solutions</div>
+          <div style="font-weight:700;font-size:18px;">Justine Longla T.</div>
           <div style="opacity:.9;font-size:14px;margin-top:2px;">${escapeHtml(title)}</div>
         </td></tr>
         <tr><td style="padding:24px;">${inner}</td></tr>
@@ -88,7 +88,7 @@ function baseHtml(title: string, inner: string) {
           — Sent from <a style="color:#1d4ed8;text-decoration:none;" href="https://justinelonglat-lane.com">jutellane.com</a>
         </td></tr>
       </table>
-      <div style="font-size:12px;color:#64748b;margin-top:10px;">© ${new Date().getFullYear()} Jutellane Solutions</div>
+      <div style="font-size:12px;color:#64748b;margin-top:10px;">© ${new Date().getFullYear()} Justine Longla T.</div>
     </td></tr>
   </table>
 </body></html>`;

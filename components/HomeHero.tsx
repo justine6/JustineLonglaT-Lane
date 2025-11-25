@@ -24,7 +24,7 @@ export default function HomeHero() {
         <div className="rounded-3xl bg-white/85 px-8 py-8 shadow-xl ring-1 ring-slate-200/70 backdrop-blur dark:bg-slate-900/80 dark:ring-slate-700/70">
           <Image
             src="/brand/justine-logo.png"
-            alt="Jutellane logo"
+            alt="Justine Longla T. logo"
             width={140}
             height={140}
             className="mx-auto h-28 w-28"

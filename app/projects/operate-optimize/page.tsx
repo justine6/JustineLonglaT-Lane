@@ -3,11 +3,11 @@ import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
 
 export const metadata = {
-  title: "Operate & Optimize | Jutellane Solutions with Justine",
+  title: "Operate & Optimize | Justine Longla T.",
   description:
     "Managed AWS services, cost audits, and 24/7 monitoring that keep cloud environments healthy, observable, and cost-aware — without slowing teams down.",
   openGraph: {
-    title: "Operate & Optimize | Jutellane Solutions",
+    title: "Operate & Optimize | Justine Longla T.",
     description:
       "Cost-aware, observable cloud operations: managed AWS services, cost audits, and 24/7 monitoring for growing teams.",
     url: "https://justinelonglat-lane.com/projects/operate-optimize",

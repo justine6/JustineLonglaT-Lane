@@ -4,7 +4,7 @@ import { LINKS } from '@/config/links';
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Résumé — Jutellane Solutions with Justine",
+  title: "Résumé — Justine Longla T.",
   description: "View or download the full and one-page résumé.",
 };
 

@@ -1,6 +1,8 @@
 // app/page.tsx
 import Image from "next/image";
 import Link from "next/link";
+import { PlayCircle, Network } from "lucide-react"; 
+import VideosTeaser from "@/components/VideosTeaser";
 
 import AnimatedSection from "@/components/AnimatedSection";
 import TestimonialSlider from "@/components/TestimonialSlider";
@@ -30,25 +32,37 @@ export default function HomePage() {
 
             {/* CTA row directly under logo */}
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              {/* Intro call – primary button */}
               <Link
                 href="/intro-call"
-                className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700"
+                className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 Book Intro Call
               </Link>
 
+              {/* Consulting brochure – outline button */}
               <a
-                href="/docs/brochure-2025-11.pdf"
-                className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-4 py-2 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
+                href="/files/JLT-Consulting-Brochure.pdf"
+                className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-4 py-2 text-sm font-semibold text-blue-600 bg-white hover:bg-blue-50 dark:border-blue-400 dark:text-blue-100 dark:bg-slate-900 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 Download Brochure
               </a>
 
-              <Link
-                href="/resume"
-                className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-4 py-2 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
+              {/* Résumé – outline button */}
+              <a
+                href="/files/resume.pdf"
+                className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-4 py-2 text-sm font-semibold text-blue-600 bg-white hover:bg-blue-50 dark:border-blue-400 dark:text-blue-100 dark:bg-slate-900 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 View Résumé
+              </a>
+
+              {/* Engineering Mesh Hub – fourth button */}
+              <Link
+                href="/mesh"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-400 px-4 py-2 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-100 dark:border-slate-600 dark:text-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+              >
+                <span className="mr-2">🧩</span>
+                Engineering Mesh Hub
               </Link>
             </div>
           </div>
@@ -131,7 +145,7 @@ export default function HomePage() {
             </div>
             <div className="hidden sm:block">
               <Link
-                href="/posts"
+                href="/blog"
                 className="inline-flex items-center rounded-xl border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
               >
                 View all
@@ -145,13 +159,18 @@ export default function HomePage() {
           {/* Mobile CTA */}
           <div className="mt-6 sm:hidden">
             <Link
-              href="/posts"
+              href="/blog"
               className="block w-full rounded-xl border border-blue-600 px-4 py-2 text-center text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
             >
               View all
             </Link>
           </div>
         </section>
+      </AnimatedSection>
+
+            {/* 🎥 Featured videos teaser */}
+      <AnimatedSection>
+        <VideosTeaser />
       </AnimatedSection>
 
       {/* 🔷 Testimonials */}
@@ -218,18 +237,31 @@ export default function HomePage() {
           </div>
 
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:justify-center">
+            {/* Intro call page */}
             <Link
               href="/intro-call"
               className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-blue-700"
             >
               Schedule an Intro Call
             </Link>
+
+            {/* Résumé page */}
             <Link
               href="/resume"
               className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
             >
-              View Résumé
+              View Resumé
             </Link>
+
+            {/* Brochure PDF – open in new tab */}
+            <a
+              href="/files/JLT-Consulting-Brochure.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
+            >
+              Download Brochure
+            </a>
           </div>
         </section>
       </AnimatedSection>

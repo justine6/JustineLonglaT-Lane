@@ -1,0 +1,15 @@
+{
+  "slug": "epic-ehr-cloud-migration",
+  "title": "Epic EHR Cloud Migration",
+  "summary": "HIPAA-aligned migration to Azure with IaC, observability, and cost controls.",
+  "description": "Ref architecture and automation for Epic workloads on Azure with Terraform, Kubernetes, and policy guardrails.",
+  "stack": ["Azure", "Terraform", "Kubernetes", "Python", "Prometheus"],
+  "tags": ["Healthcare", "Security", "IaC"],
+  "links": {
+    "live": "#",
+    "repo": "#"
+  },
+  "coverImage": "/images/epic-ehr.png",
+  "date": "2024-11-01",
+  "featured": false
+}

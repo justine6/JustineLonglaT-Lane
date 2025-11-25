@@ -1,7 +1,7 @@
-# 🤝 Cal.com Integration – Jutellane Solutions
+# 🤝 Cal.com Integration – Justine Longla T.
 
 ## Overview
-This document explains how to integrate the **IntroCall (30 min)** event from Cal.com into the Jutellane Solutions website, aligning it with brand colors, tagline, and the animated Hero section.  
+This document explains how to integrate the **IntroCall (30 min)** event from Cal.com into the Justine Longla T. website, aligning it with brand colors, tagline, and the animated Hero section.  
 It also covers embedding the scheduler on your **Contact page** for easy booking.
 
 ---
@@ -18,7 +18,7 @@ npm install framer-motion
 ## Branding
 - **Tagline:** Cloud Confidence. Delivered.
 - **CTA Label:** Book IntroCall
-- **Primary Color:** #1E90FF (Jutellane blue)
+- **Primary Color:** #1E90FF (Justine Longla T. blue)
 - **Booking Link:** [https://cal.justinelonglat-lane.com/intro-call](https://cal.justinelonglat-lane.com/intro-call)
 - **DNS Record:** `cal.jutellane.com → 76.76.21.21` (Verified)
 - **Logo:** `/brand/justine-banner.png`
@@ -28,7 +28,7 @@ npm install framer-motion
 ## Cal.com Steps
 
 1. **Branding Setup**
-   - Upload the Jutellane logo.
+   - Upload the Justine Longla T. logo.
    - Set primary color to `#1E90FF`.
    - Add tagline: *Cloud Confidence. Delivered.*
 
@@ -47,7 +47,7 @@ npm install framer-motion
 
 ## 🌤️ Hero Section Integration (with Framer Motion)
 
-Below is the production-ready **HeroSection.tsx** code used in Jutellane Solutions, with a smooth fade-in animation for the “Book IntroCall” button and hero text.
+Below is the production-ready **HeroSection.tsx** code used in Justine Longla T., with a smooth fade-in animation for the “Book IntroCall” button and hero text.
 
 ```tsx
 "use client";

@@ -5,7 +5,15 @@
     "summary": "A guide on designing secure, cost-effective, and scalable AWS migration strategies.",
     "cover": "/images/aws.png",
     "date": "2025-10-15",
-    "tags": ["AWS", "Migration", "DevSecOps"]
+    "tags": [
+      "AWS",
+      "Migration",
+      "DevSecOps"
+    ],
+    "updatedAt": "2025-11-24",
+    "pinned": false,
+    "excerpt": "",
+    "featured": false
   },
   {
     "slug": "automating-infrastructure-with-terraform",
@@ -13,7 +21,15 @@
     "summary": "Key patterns for implementing Infrastructure as Code (IaC) using Terraform in multi-cloud environments.",
     "cover": "/images/azure.png",
     "date": "2025-09-28",
-    "tags": ["IaC", "Automation", "Terraform"]
+    "tags": [
+      "IaC",
+      "Automation",
+      "Terraform"
+    ],
+    "updatedAt": "2025-11-24",
+    "pinned": false,
+    "excerpt": "",
+    "featured": false
   },
   {
     "slug": "devsecops-pipeline-architecture",
@@ -21,7 +37,14 @@
     "summary": "How to integrate security into CI/CD using GitHub Actions, AWS CodeBuild, and open-source scanning tools.",
     "cover": "/images/gcp.png",
     "date": "2025-08-22",
-    "tags": ["DevSecOps", "CI/CD", "Security"]
+    "tags": [
+      "DevSecOps",
+      "CI/CD",
+      "Security"
+    ],
+    "updatedAt": "2025-11-24",
+    "pinned": false,
+    "excerpt": "",
+    "featured": false
   }
 ]
-

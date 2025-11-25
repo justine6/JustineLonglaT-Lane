@@ -7,7 +7,7 @@ export function Header() {
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2 text-slate-900 dark:text-slate-100">
-          <span className="font-semibold tracking-tight">Jutellane</span>
+          <span className="font-semibold tracking-tight">Justine Longla T.</span>
           <span className="rounded-full border border-blue-300/70 bg-blue-50/80 px-2 py-[2px] text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-blue-700 dark:border-slate-700 dark:bg-slate-900/80 dark:text-blue-300">
             Projects
           </span>

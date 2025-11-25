@@ -80,11 +80,11 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from,
       to: email,
-      subject: "Thanks for your premium onboarding — Jutellane Solutions",
+      subject: "Thanks for your premium onboarding — Justine Longla T.",
       html: `
         <p>Hi ${escapeHtml(name)},</p>
         <p>Thanks for sharing these details. I’ll review everything before our session and follow up if I need clarifications.</p>
-        <p>— Justine<br/>Jutellane Solutions with Justine</p>
+        <p>— Justine<br/>Justine Longla T.</p>
       `,
     });
 

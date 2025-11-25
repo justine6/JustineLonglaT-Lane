@@ -1,4 +1,4 @@
-# 🧭 Jutellane Solutions With Justine— Full Architecture & Deployment Flow
+# 🧭 Justine Longla T.—Lane Full Architecture & Deployment Flow
 
 Explore how Justine orchestrates automation across multiple repositories and live domains.  
 The system ensures end‑to‑end CI/CD linkage, where each repo serves a unique deployment target — docs, main apps, and sub‑domains — all unified under a single architecture.
@@ -29,7 +29,7 @@ flowchart LR
 
     A1["md→HTML (repo)"]:::repo -->|push| B1["Build+Deploy Pages"]:::actions --> C1["GitHub Pages"]:::host --> D1["generator.jutellane.com"]:::dns
     A2["jutellane-blogs (repo)"]:::repo -->|push| B2["Docs Build"]:::actions --> C2["GitHub Pages"]:::host --> D2["blogs.jutellane.com"]:::dns
-    A3["Jutellane-Main (Next.js)"]:::repo -->|push| B3["Vercel Deploy"]:::actions --> C3["Vercel Edge/CDN"]:::host --> D3["projects.jutellane.com"]:::dns
+    A3["Justine Longla T.-Main (Next.js)"]:::repo -->|push| B3["Vercel Deploy"]:::actions --> C3["Vercel Edge/CDN"]:::host --> D3["projects.jutellane.com"]:::dns
 ```
 
 This diagram visually represents the entire deployment chain. It’s ideal for embedding in blog posts or internal documentation.

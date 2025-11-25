@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LINKS } from '@/config/links';
 
 export const metadata = {
-  title: "Résumé — Jutellane Solutions Justine",
+  title: "Résumé — Justine Longla T. Justine",
   description:
     "Full résumé and one-page summary for Justine Longla. Download PDF or view in-browser.",
   alternates: { canonical: "/resume" },

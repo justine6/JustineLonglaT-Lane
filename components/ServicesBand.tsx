@@ -28,7 +28,7 @@ export default function ServicesBand() {
       <div className="mx-auto max-w-5xl px-4 md:px-6">
         <div className="mb-8 text-center md:mb-10">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-300">
-            Jutellane Solutions with Justine
+            Justine Longla T.
           </p>
           <h2 className="mt-3 text-2xl font-semibold sm:text-3xl">
             Cloud Services, Tuned for Your Team

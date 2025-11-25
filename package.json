@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "validate:links": "node tools/validate-links.mjs",
     "lint": "next lint",
     "prepare": "husky",
     "check-all": "node tools/run-ps.cjs scripts/check-dictionaries.ps1 && node tools/run-ps.cjs scripts/validate-and-repair-json.ps1",

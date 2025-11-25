@@ -25,7 +25,7 @@ jobs:
           pwsh -File ./Update-ReadmeBadges.ps1 `
             -RepoKind main `
             -Owner justine6 `
-            -Repo Jutellane-Solutions `
+            -Repo Justine Longla T.-Solutions `
             -WorkflowFileName deploy.yml `
             -DefaultSiteUrl "https://justinelonglat-lane.com" `
             -DefaultBlogUrl "https://justine6.github.io/jutellane-blogs" `

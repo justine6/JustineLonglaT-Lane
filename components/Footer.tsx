@@ -10,7 +10,7 @@ export default function Footer() {
         {/* 🌐 Brand Section */}
         <div>
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-            Jutellane Solutions with Justine
+            Justine Longla T.
           </h3>
           <p className="mt-2 text-sm leading-relaxed">
             Cloud Confidence. Delivered. Secure, performance-tuned solutions —
@@ -41,20 +41,28 @@ export default function Footer() {
         <nav aria-label="Quick links">
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/" className="hover:underline">
+              <Link href={LINKS.home} className="hover:underline">
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/projects" className="hover:underline">
+              <Link href={LINKS.projects} className="hover:underline">
                 Projects
               </Link>
             </li>
+
+            {/* Blog is external */}
             <li>
-              <Link href="/blog" className="hover:underline">
+              <a
+                href={LINKS.blog}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
                 Blog
-              </Link>
+              </a>
             </li>
+
             <li>
               <Link href={LINKS.contact} className="hover:underline">
                 Contact
@@ -66,7 +74,7 @@ export default function Footer() {
               </Link>
             </li>
 
-            {/* Internal résumé page (same tab) */}
+            {/* Internal résumé page */}
             <li>
               <Link
                 href={LINKS.resume}
@@ -78,7 +86,7 @@ export default function Footer() {
               </Link>
             </li>
 
-            {/* PDF links must use <a> */}
+            {/* PDF links */}
             <li>
               <a
                 href={LINKS.resumePdf}
@@ -111,10 +119,18 @@ export default function Footer() {
           </h4>
           <ul className="space-y-2">
             <li>
-              <a className="hover:underline" href="mailto:info@justinelonglat-lane.com">
+              <a
+                className="hover:underline"
+                href="mailto:info@justinelonglat-lane.com"
+              >
                 info@justinelonglat-lane.com
               </a>
             </li>
+            <li>
+            <Link href={LINKS.videos} className="hover:underline">
+              Videos
+            </Link>
+          </li>
             <li>
               <a className="hover:underline" href="tel:+14059345864">
                 +1 405.934.5864
@@ -143,29 +159,38 @@ export default function Footer() {
             • Cloud • Sustainability
           </p>
           <p className="text-xs text-gray-400 dark:text-gray-500">
-            Operating under <span className="font-medium">Jutellane Solutions with Justine</span>.
+            Operating under{" "}
+            <span className="font-medium">JustineLonglaT-Lane Consulting.</span>
           </p>
 
           <nav
-            aria-label="Jutellane network"
+            aria-label="Justine Longla T. network"
             className="mt-2 flex flex-wrap justify-center gap-4 text-xs sm:text-sm text-blue-700 dark:text-blue-300"
           >
-            <Link href="/blog" className="hover:underline">
+            {/* Blog external */}
+            <a
+              href={LINKS.blog}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
               Blog
-            </Link>
-            <Link href="/projects" className="hover:underline">
+            </a>
+
+            <Link href={LINKS.projects} className="hover:underline">
               Projects
             </Link>
             <a
-              href="https://docs.justinelonglat-lane.com"
+              href={LINKS.docs}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline"
             >
               Docs
             </a>
+            
             <a
-              href="https://docs.justinelonglat-lane.com/toolkit.html"
+              href={LINKS.toolkit}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline"
@@ -178,4 +203,3 @@ export default function Footer() {
     </footer>
   );
 }
-// deploy bump: ensure footer attribution is deployed

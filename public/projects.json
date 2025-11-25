@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
 
 export const metadata = {
-  title: "Routing Reliability: From 404s to Paved Roads | Jutellane Solutions",
+  title: "Routing Reliability: From 404s to Paved Roads | Justine Longla T.",
   description:
     "How I cleaned up broken routes, slug mismatches, and dynamic href issues in a Next.js App Router project and left a predictable routing model behind.",
   openGraph: {

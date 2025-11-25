@@ -1,0 +1,15 @@
+{
+  "slug": "cloud-cost-optimizer",
+  "title": "Cloud Cost Optimizer",
+  "summary": "Automated cost insights with alerts and Power BI dashboards.",
+  "description": "AWS Lambda + CloudWatch pipelines feeding Power BI to surface anomalies and optimization opportunities.",
+  "stack": ["AWS Lambda", "CloudWatch", "Python", "Power BI"],
+  "tags": ["FinOps", "Automation"],
+  "links": {
+    "live": "#",
+    "repo": "#"
+  },
+  "coverImage": "/images/finops.png",
+  "date": "2025-01-20",
+  "featured": false
+}

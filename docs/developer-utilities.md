@@ -1,6 +1,6 @@
 # Developer Utilities Overview
 
-Quick reference for all PowerShell helper scripts used across the Jutellane projects.
+Quick reference for all PowerShell helper scripts used across the Justine Longla T. projects.
 
 ## Script Catalog
 | Script | Location | Purpose | Core Usage |

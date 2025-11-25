@@ -16,11 +16,11 @@
 - ✅ Branch: `feat/hero-prod-match` → `origin/feat/hero-prod-match`
 
 ### 🔗 Links
-- GitHub Tag: [v2.5.0](https://github.com/justine6/Jutellane-Solutions/releases/tag/v2.5.0)
+- GitHub Tag: [v2.5.0](https://github.com/justine6/Justine Longla T.-Solutions/releases/tag/v2.5.0)
 - Live Preview: `https://jutellane-solutions.vercel.app`
 - Docs Reference: [`developer-utilities.md`](./developer-utilities.md)
 
-> This release brings the Jutellane Solutions site to **production parity**, fully integrated, tested, and deployment-ready.
+> This release brings the Justine Longla T. site to **production parity**, fully integrated, tested, and deployment-ready.
 
 ## 🚀 v2.5.0 — Intro Call Integration & UI Polishing (2025-10-30)
 

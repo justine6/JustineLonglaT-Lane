@@ -3,11 +3,11 @@ import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
 
 export const metadata = {
-  title: "CI/CD Automation Bot | Jutellane Solutions with Justine",
+  title: "CI/CD Automation Bot | Justine Longla T.",
   description:
     "A CI/CD companion bot that posts rich deployment notifications into Microsoft Teams with commit, actor, environment, and links to deeper logs.",
   openGraph: {
-    title: "CI/CD Automation Bot | Jutellane Solutions",
+    title: "CI/CD Automation Bot | Justine Longla T.",
     description:
       "Case study: a CI/CD automation bot that turns raw pipeline events into readable, actionable notifications in Microsoft Teams.",
     type: "article",

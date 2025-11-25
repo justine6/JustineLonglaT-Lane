@@ -1,0 +1,15 @@
+{
+  "slug": "nouvo-ayiti-2075",
+  "title": "Nouvo Ayiti 2075",
+  "summary": "Multilingual initiative platform with global reach and strong accessibility and SEO.",
+  "description": "A mission-driven, multilingual platform (EN/FR/HT/ES) deployed on Vercel. Focus on accessibility, DX, and resilient content workflows.",
+  "stack": ["Next.js App Router", "Tailwind", "Vercel", "i18n"],
+  "tags": ["Mission-driven", "Accessibility", "SEO"],
+  "links": {
+    "live": "https://blogs.justinelonglat-lane.com",
+    "repo": "https://github.com/justine6/Jutellane-Solutions"
+  },
+  "coverImage": "/images/ayiti-cover.png",
+  "date": "2025-08-15",
+  "featured": false
+}

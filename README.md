@@ -2,33 +2,33 @@
 ![Docs Deployment](https://github.com/justine6/JustineLonglaT-Lane/actions/workflows/docs-pages.yml/badge.svg)
 
 
-[![CI](https://github.com/justine6/Jutellane-Solutions/actions/workflows/ci.yml/badge.svg)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/ci.yml) 
-[![codecov](https://codecov.io/gh/justine6/Jutellane-Solutions/branch/main/graph/badge.svg)](https://codecov.io/gh/justine6/Jutellane-Solutions)
+[![CI](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/ci.yml/badge.svg)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/ci.yml) 
+[![codecov](https://codecov.io/gh/justine6/Justine Longla T.-Solutions/branch/main/graph/badge.svg)](https://codecov.io/gh/justine6/Justine Longla T.-Solutions)
 
 <!-- CI/CD & Site Badges -->
-[![Build & Deploy — Jutellane Solutions](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy.yml)
+[![Build & Deploy — Justine Longla T.](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/deploy.yml)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fjutellane.com)](https://justinelonglat-lane.com)
-[![Last commit](https://img.shields.io/github/last-commit/justine6/Jutellane-Solutions/main)](https://github.com/justine6/Jutellane-Solutions/commits/main)
-[![Docs](https://img.shields.io/badge/Docs-Jutellane%20Blogs-blue)](https://justine6.github.io/jutellane-blogs/)
+[![Last commit](https://img.shields.io/github/last-commit/justine6/Justine Longla T.-Solutions/main)](https://github.com/justine6/Justine Longla T.-Solutions/commits/main)
+[![Docs](https://img.shields.io/badge/Docs-Justine Longla T.%20Blogs-blue)](https://justine6.github.io/jutellane-blogs/)
 
 **Live site:** https://justinelonglat-lane.com
 
-[![Preview (Vercel)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/preview-pr.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/preview-pr.yml)
-[![Production (Vercel)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy-prod.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/deploy-prod.yml)
-[![Verify Production](https://github.com/justine6/Jutellane-Solutions/actions/workflows/verify-production.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/verify-production.yml)
-[![Docs (GitHub Pages)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/docs-pages.yml/badge.svg?branch=main)](https://github.com/justine6/Jutellane-Solutions/actions/workflows/docs-pages.yml)
+[![Preview (Vercel)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/preview-pr.yml/badge.svg?branch=main)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/preview-pr.yml)
+[![Production (Vercel)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/deploy-prod.yml/badge.svg?branch=main)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/deploy-prod.yml)
+[![Verify Production](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/verify-production.yml/badge.svg?branch=main)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/verify-production.yml)
+[![Docs (GitHub Pages)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/docs-pages.yml/badge.svg?branch=main)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/docs-pages.yml)
 
 ---
 
 # 🧩 JustineLonglaTe-Lane  CI/CD & Documentation Status
 
-![Prepare Workflow](https://github.com/justine6/Jutellane-Solutions/actions/workflows/prepare.yml/badge.svg)
-![Release Workflow](https://github.com/justine6/Jutellane-Solutions/actions/workflows/release.yml/badge.svg)
-![Verify Production](https://github.com/justine6/Jutellane-Solutions/actions/workflows/verify-production.yml/badge.svg)
-![Docs Build](https://github.com/justine6/Jutellane-Solutions/actions/workflows/docs.yml/badge.svg)
+![Prepare Workflow](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/prepare.yml/badge.svg)
+![Release Workflow](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/release.yml/badge.svg)
+![Verify Production](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/verify-production.yml/badge.svg)
+![Docs Build](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/docs.yml/badge.svg)
 
-![Latest Version](https://img.shields.io/github/v/tag/justine6/Jutellane-Solutions?label=version&color=2ea44f)
-[![Latest Release](https://img.shields.io/github/v/release/justine6/Jutellane-Solutions?include_prereleases&color=blue)](https://github.com/justine6/Jutellane-Solutions/releases/latest)
+![Latest Version](https://img.shields.io/github/v/tag/justine6/Justine Longla T.-Solutions?label=version&color=2ea44f)
+[![Latest Release](https://img.shields.io/github/v/release/justine6/Justine Longla T.-Solutions?include_prereleases&color=blue)](https://github.com/justine6/Justine Longla T.-Solutions/releases/latest)
 
 ---
 
@@ -46,8 +46,8 @@
 
 | Subdomain | Purpose | Hosting | Deployment | HTTPS |
 |----------|----------|---------|------------|--------|
-| **projects.jutellane.com** | Business site + services | Vercel | Main branch | ✅ |
-| **blogs.jutellane.com** | DevOps & Engineering Blog | GitHub Pages | jutellane-blogs repo | ✅ |
+| **consulting.justinelonglat-lane.com** | Business site + services | Vercel | Main branch | ✅ |
+| **blogs.justinelonglat-lane.com** | DevOps & Engineering Blog | GitHub Pages | jutellane-blogs repo | ✅ |
 | **generator.jutellane.com** | Markdown → HTML static generator | GitHub Pages | md-to-html-static repo | ✅ |
 
 ---
@@ -73,8 +73,8 @@ flowchart LR
   classDef dns fill:#e5e7eb,stroke:#6b7280,color:#000;
 
   A1["md→HTML Repo"]:::repo --> B1["Pages Deploy"]:::actions --> C1["GitHub Pages"]:::host --> D1["generator.jutellane.com"]:::dns
-  A2["jutellane-blogs"]:::repo --> B2["Docs Build"]:::actions --> C2["GitHub Pages"]:::host --> D2["blogs.jutellane.com"]:::dns
-  A3["Jutellane Main (Next.js)"]:::repo --> B3["Vercel Deploy"]:::actions --> C3["Vercel CDN"]:::host --> D3["projects.jutellane.com"]:::dns
+  A2["jutellane-blogs"]:::repo --> B2["Docs Build"]:::actions --> C2["GitHub Pages"]:::host --> D2["blogs.justinelonglat-lane.com"]:::dns
+  A3["Justine Longla T. Main (Next.js)"]:::repo --> B3["Vercel Deploy"]:::actions --> C3["Vercel CDN"]:::host --> D3["consulting.justinelonglat-lane.com"]:::dns
 ```
 
 ---
@@ -82,8 +82,8 @@ flowchart LR
 ## ✅ Uptime / Health Status
 
 - Generator: ![status](https://img.shields.io/website?url=https%3A%2F%2Fgenerator.jutellane.com)
-- Blogs: ![status](https://img.shields.io/website?url=https%3A%2F%2Fblogs.jutellane.com)
-- Projects: ![status](https://img.shields.io/website?url=https%3A%2F%2Fprojects.jutellane.com)
+- Blogs: ![status](https://img.shields.io/website?url=https%3A%2F%2Fblogs.justinelonglat-lane.com)
+- Projects: ![status](https://img.shields.io/website?url=https%3A%2F%2Fconsulting.justinelonglat-lane.com)
 
 ---
 

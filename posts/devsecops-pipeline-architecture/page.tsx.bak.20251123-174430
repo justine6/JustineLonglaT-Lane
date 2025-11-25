@@ -1,0 +1,335 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "DevSecOps Pipeline Architecture — Jutellane Engineering",
+  description:
+    "A field-tested blueprint for building resilient, secure, observable pipelines—covering supply chain security, multi-stage orchestration, secrets governance, and runtime drift protection.",
+};
+
+export default function DevSecOpsPipelineArchitecture() {
+  return (
+    <main className="min-h-screen bg-white px-6 py-10 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+      <article className="mx-auto max-w-4xl space-y-10 leading-relaxed">
+        {/* Breadcrumb */}
+        <div className="text-sm text-slate-500 dark:text-slate-400">
+          <Link href="/posts" className="hover:underline">
+            ← Back to Articles
+          </Link>
+        </div>
+
+        {/* Header */}
+        <header className="space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-500">
+            DevSecOps • CI/CD • Reliability
+          </p>
+
+          <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-50">
+            DevSecOps Pipeline Architecture
+          </h1>
+
+          <p className="max-w-2xl text-lg text-slate-700 dark:text-slate-300">
+            How I convert fragile, multi-stage pipelines into a resilient,
+            predictable, and security-hardened delivery engine. From supply
+            chain security to orchestration, runtime drift detection, and
+            zero-downtime releases — this is my blueprint for pipelines that
+            don&apos;t wake you up at 2 AM.
+          </p>
+
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            This article walks through the architecture I use in real projects:
+            how I break the pipeline into layers, wire security into the flow,
+            and turn YAML into a reliable, observable system.
+          </p>
+        </header>
+
+        {/* Section 1 */}
+        <section id="architecture">
+          <h2 className="mb-3 text-2xl font-semibold">
+            1. A Pipeline Is an Architecture, Not a Script
+          </h2>
+          <p>
+            Most pipelines fail because they&apos;re treated as a single YAML
+            file rather than an engineered system. When everything lives in one
+            file, you end up with copy-pasted jobs, hidden dependencies, and
+            security sprinkled in as an afterthought.
+          </p>
+
+          <p className="mt-3">
+            I start by breaking the pipeline into clear layers with distinct
+            responsibilities:
+          </p>
+
+          <ul className="mt-3 list-inside list-disc space-y-1">
+            <li>Orchestration layer (GitHub Actions, GitLab CI, Jenkins)</li>
+            <li>Execution layer (ephemeral, container-based runners)</li>
+            <li>Secrets and identity layer (Vault, AWS Secrets Manager, SSM)</li>
+            <li>Artifact and provenance layer (ECR, S3, Artifact Registry)</li>
+            <li>Policy enforcement layer (OPA, Checkov, Conftest)</li>
+          </ul>
+
+          <p className="mt-4">
+            Once you draw this architecture, the YAML simply becomes the wiring
+            — not the design. That shift is what makes the system testable,
+            observable, and secure by default.
+          </p>
+        </section>
+
+        {/* Section 2 */}
+        <section id="supply-chain">
+          <h2 className="mb-3 text-2xl font-semibold">
+            2. Secure the Supply Chain — The Real Attack Surface
+          </h2>
+          <p>
+            Modern attacks rarely target your application code directly. They
+            target the build system: dependency downloads, container builds,
+            and artifact promotion. DevSecOps starts with supply chain
+            integrity.
+          </p>
+
+          <p className="mt-3">
+            In a typical engagement, I wire the pipeline to enforce:
+          </p>
+
+          <ul className="mt-3 list-inside list-disc space-y-1">
+            <li>Dependency scanning (SCA) with SBOM generation per build</li>
+            <li>Image scanning using Trivy or Grype as a mandatory gate</li>
+            <li>Signature and provenance checks with Sigstore or AWS KMS</li>
+            <li>Immutable artifacts with digest pinning (no mutable tags)</li>
+            <li>
+              Private registries to prevent dependency confusion and typosquats
+            </li>
+          </ul>
+
+          <p className="mt-4">
+            The goal is simple: nothing enters production unless its origin,
+            integrity, and lineage are known and verifiable. If we can&apos;t
+            prove where it came from, it doesn&apos;t ship.
+          </p>
+        </section>
+
+        {/* Section 3 */}
+        <section id="secrets">
+          <h2 className="mb-3 text-2xl font-semibold">
+            3. Secrets Belong <em>Outside</em> the Pipeline
+          </h2>
+          <p>
+            The number one cause of deployment-time breaches is still secrets
+            living in pipeline configuration — environment variables, YAML
+            files, or &quot;temporary&quot; hard-coded tokens that never went
+            away.
+          </p>
+
+          <p className="mt-3">
+            In a secure pipeline, credentials are always:
+          </p>
+
+          <ul className="mt-3 list-inside list-disc space-y-1">
+            <li>Stored in a dedicated secret system, never in YAML</li>
+            <li>
+              Injected just-in-time and scoped to a single job or environment
+            </li>
+            <li>Short-lived (minutes), not long-lived API keys</li>
+            <li>
+              Based on identity (OIDC, IAM roles, workload identities), not
+              static tokens
+            </li>
+          </ul>
+
+          <p className="mt-4">
+            When we switch from static credentials to identity-based access,
+            the pipeline becomes far more resilient: rotating keys is trivial,
+            auditing is easier, and leaked secrets lose their power quickly.
+          </p>
+        </section>
+
+        {/* Section 4 */}
+        <section id="quality-gates">
+          <h2 className="mb-3 text-2xl font-semibold">
+            4. Quality &amp; Security Gates as a Policy, Not a Preference
+          </h2>
+          <p>
+            Pipelines often have lint and security steps that run but don&apos;t
+            block. They produce red text in the logs, everyone ignores it, and
+            releases keep going. That&apos;s not DevSecOps — that&apos;s a
+            suggestion engine.
+          </p>
+
+          <p className="mt-3">
+            In the architectures I design, gates are explicit policy:
+          </p>
+
+          <ul className="mt-3 list-inside list-disc space-y-1">
+            <li>Static analysis and unit tests must pass to build artifacts.</li>
+            <li>
+              SCA and image scanning must meet a defined severity threshold
+              (for example: block on critical and high).
+            </li>
+            <li>
+              Infrastructure-as-Code checks (Terraform, Kubernetes manifests)
+              must pass policy-as-code evaluation.
+            </li>
+            <li>
+              Promotion between stages (dev → stage → prod) always goes through
+              verified artifacts, never ad-hoc rebuilds.
+            </li>
+          </ul>
+
+          <p className="mt-4">
+            These policies live alongside the code, not in a slide deck —
+            versioned, peer-reviewed, and enforced the same way everywhere.
+          </p>
+        </section>
+
+        {/* Section 5 */}
+        <section id="observability">
+          <h2 className="mb-3 text-2xl font-semibold">
+            5. Observability Is a First-Class Pipeline Feature
+          </h2>
+          <p>
+            A production-grade pipeline should tell you exactly what it&apos;s
+            doing at any moment. Hunting through 10,000 lines of unstructured
+            logs at 1 AM is a sign that observability was never part of the
+            design.
+          </p>
+
+          <p className="mt-3">
+            My minimum observability baseline looks like this:
+          </p>
+
+          <ul className="mt-3 list-inside list-disc space-y-1">
+            <li>
+              Structured logs with correlation IDs across build, test, and
+              deploy jobs
+            </li>
+            <li>
+              Metrics for build duration, success rate, queue time, and rollback
+              frequency
+            </li>
+            <li>
+              Dashboards showing release health per service and per environment
+            </li>
+            <li>
+              SLOs around deployment latency and change failure rate, with error
+              budgets
+            </li>
+            <li>
+              Notifications routed by severity and owner (not everyone in one
+              giant channel)
+            </li>
+          </ul>
+
+          <p className="mt-4">
+            When teams can see the pipeline as a living system — not a black
+            box — they debug faster, ship more often, and trust releases again.
+          </p>
+        </section>
+
+        {/* Section 6 */}
+        <section id="drift">
+          <h2 className="mb-3 text-2xl font-semibold">
+            6. Enforce Runtime Drift Protection
+          </h2>
+          <p>
+            Deploying an artifact is meaningless if the runtime environment
+            slowly drifts away from the state you tested. It&apos;s one of the
+            most common sources of &quot;it worked in staging&quot; incidents.
+          </p>
+
+          <p className="mt-3">
+            I enforce drift protection with a mix of controls:
+          </p>
+
+          <ul className="mt-3 list-inside list-disc space-y-1">
+            <li>Image digest pinning (no <code>:latest</code> tags, ever)</li>
+            <li>
+              Infrastructure drift detection via Terraform Cloud, Spacelift, or
+              Atlantis
+            </li>
+            <li>
+              Admission controllers that reject unverified or unscanned images
+            </li>
+            <li>
+              Runtime scanning and configuration checks after deployment,
+              feeding back into the pipeline as signals
+            </li>
+          </ul>
+
+          <p className="mt-4">
+            Drift is the silent killer of reliability. Pipelines shouldn&apos;t
+            just ship code — they should continuously verify that what&apos;s
+            running matches what we intended.
+          </p>
+        </section>
+
+        {/* Section 7 */}
+        <section id="releases">
+          <h2 className="mb-3 text-2xl font-semibold">
+            7. Orchestrate Multi-Stage, Safe Releases
+          </h2>
+          <p>
+            The best pipelines support multiple release patterns depending on
+            risk, service criticality, and regulatory constraints. Not every
+            change deserves the same rollout strategy.
+          </p>
+
+          <p className="mt-3">
+            In practice, I design pipelines with support for:
+          </p>
+
+          <ul className="mt-3 list-inside list-disc space-y-1">
+            <li>Blue/green deployments with automated health checks</li>
+            <li>
+              Canary releases with progressive traffic shifting and automatic
+              rollback on SLO violations
+            </li>
+            <li>
+              Feature-flag-driven rollouts so risky changes can be decoupled
+              from deployments
+            </li>
+            <li>
+              Shadow deployments that replay production traffic in a safe
+              environment before full cutover
+            </li>
+          </ul>
+
+          <p className="mt-4">
+            A mature DevSecOps pipeline never forces engineering into a big-bang
+            release. Instead, it gives teams multiple safe paths to production,
+            with rollback as a first-class operation.
+          </p>
+        </section>
+
+        {/* Closing Callout */}
+        <section className="border-l-4 border-sky-500 bg-sky-50 p-4 text-sm dark:border-sky-600 dark:bg-sky-900/20">
+          <p>
+            <strong>Final thought:</strong> a DevSecOps pipeline is not a tool
+            — it is a discipline. When you design the pipeline as a secure,
+            observable, multi-layered architecture, it becomes the backbone of
+            reliable engineering and predictable delivery. Incidents still
+            happen, but they&apos;re contained, understood, and fixable — not
+            mysterious.
+          </p>
+        </section>
+
+        {/* CTA */}
+        <footer className="pb-20 pt-4">
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/intro-call"
+              className="inline-flex rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow hover:bg-blue-700"
+            >
+              Schedule an Intro Call
+            </Link>
+            <Link
+              href="/projects/devsecops-pipeline-architecture"
+              className="inline-flex rounded-xl border border-blue-600 px-5 py-3 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
+            >
+              View the Architecture Case Study
+            </Link>
+          </div>
+        </footer>
+      </article>
+    </main>
+  );
+}

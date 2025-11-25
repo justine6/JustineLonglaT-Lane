@@ -3,11 +3,11 @@ import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
 
 export const metadata = {
-  title: "Launch & Migrate | Jutellane Solutions with Justine",
+  title: "Launch & Migrate | Justine Longla T.",
   description:
     "AWS migration starter services: assess, plan, and execute secure, cost-aware migrations for startups and small businesses.",
   openGraph: {
-    title: "Launch & Migrate | Jutellane Solutions",
+    title: "Launch & Migrate | Justine Longla T.",
     description:
       "Case study: helping teams move safely to AWS with a clear migration playbook, guardrails, and observability.",
     type: "article",
