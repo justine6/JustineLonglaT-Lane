@@ -1,0 +1,35 @@
+// app/videos/[slug]/page.tsx
+import { notFound } from "next/navigation";
+
+// Next.js-required shape for dynamic route props
+export default function Page({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = params;
+
+  if (!slug) {
+    return notFound();
+  }
+
+  return (
+    <main className="px-6 py-10">
+      <h1 className="text-3xl font-bold">Video: {slug}</h1>
+      <p className="mt-4 text-lg text-gray-600">
+        Video details will appear here soon.
+      </p>
+    </main>
+  );
+}
+
+// Next.js 15 metadata signature for dynamic routes
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  return {
+    title: `Video — ${params.slug}`,
+  };
+}

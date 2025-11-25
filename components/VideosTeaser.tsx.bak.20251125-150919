@@ -1,0 +1,64 @@
+"use client";
+
+import Link from "next/link";
+import { VIDEOS } from "@/lib/videos";
+
+// Only show the first 2 videos as a teaser
+const TEASER_VIDEOS = VIDEOS.slice(0, 2);
+
+export default function VideosTeaser() {
+  if (!TEASER_VIDEOS.length) return null;
+
+  return (
+    <section className="mx-auto mt-16 max-w-6xl px-4">
+      <div className="flex items-baseline justify-between gap-4">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
+          Videos & Walkthroughs
+        </h2>
+
+        <Link
+          href="/videos"
+          className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        >
+          View all videos →
+        </Link>
+      </div>
+
+      <div className="mt-6 grid gap-6 md:grid-cols-2">
+        {TEASER_VIDEOS.map((video) => (
+          <article
+            key={video.slug}
+            className="rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/60"
+          >
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+              Watch • {video.duration}
+            </p>
+
+            <h3 className="mt-2 text-lg font-semibold text-slate-900 dark:text-slate-50">
+              <Link href={video.href} className="hover:underline">
+                {video.title}
+              </Link>
+            </h3>
+
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+              {video.description}
+            </p>
+
+            {video.tags?.length ? (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {video.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}

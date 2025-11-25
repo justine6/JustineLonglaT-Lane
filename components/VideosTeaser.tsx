@@ -1,68 +1,49 @@
-// components/VideosTeaser.tsx
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
-// components/VideosTeaser.tsx
+import type { VideoItem } from "@/lib/videos";
 import { VIDEOS } from "@/lib/videos";
 
-
-// Local teaser list — first 2 videos only.
-// Make sure this matches app/videos/page.tsx
-const VIDEOS = [
-  {
-    slug: "devsecops-pipeline-walkthrough",
-    title: "DevSecOps Pipeline Walkthrough",
-    src: "/videos/devsecops-pipeline.mp4",
-    thumbnail: "/images/devsecops-thumb.jpg",
-    duration: "06:32",
-  },
-  {
-    slug: "cloud-migration-blueprint",
-    title: "Cloud Migration Blueprint (AWS & Azure)",
-    src: "/videos/cloud-migration-blueprint.mp4",
-    thumbnail: "/images/cloud-migration-thumb.jpg",
-    duration: "08:47",
-  },
-];
+// Local teaser list – first 2 videos only.
+const teaserVideos: VideoItem[] = VIDEOS.slice(0, 2);
 
 export default function VideosTeaser() {
-  const featured = VIDEOS.slice(0, 2);
+  if (!teaserVideos.length) return null;
 
   return (
-    <section className="mx-auto mt-12 max-w-5xl px-4 sm:px-6">
-      <h2 className="mb-6 text-center text-2xl font-semibold sm:text-3xl">
-        Featured Videos
-      </h2>
+    <section className="mt-16">
+      <div className="flex items-baseline justify-between gap-4">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
+          Featured videos
+        </h2>
 
-      <div className="grid gap-8 md:grid-cols-2">
-        {featured.map((video) => (
-          <Link
+        <Link
+          href="/videos"
+          className="text-sm font-medium text-blue-600 hover:text-blue-500"
+        >
+          View all videos →
+        </Link>
+      </div>
+
+      <div className="mt-6 grid gap-6 md:grid-cols-2">
+        {teaserVideos.map((video) => (
+          <article
             key={video.slug}
-            href={`/videos/${video.slug}`}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/80 shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900/70"
+            className="rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/70"
           >
-            <div className="relative aspect-video bg-black">
-              {video.thumbnail && (
-                <Image
-                  src={video.thumbnail}
-                  alt={video.title}
-                  fill
-                  className="object-cover opacity-80 transition group-hover:opacity-60"
-                />
-              )}
+            <h3 className="mt-2 text-lg font-semibold text-slate-900 dark:text-slate-50">
+              {video.title}
+            </h3>
 
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="inline-flex items-center rounded-full bg-black/70 px-4 py-1 text-xs font-semibold text-white">
-                  ▶ Watch • {video.duration}
-                </span>
-              </div>
+            <div className="mt-4">
+              <Link
+                href={`/videos/${video.slug}`}
+                className="text-sm font-medium text-blue-600 hover:text-blue-500"
+              >
+                Watch walkthrough →
+              </Link>
             </div>
-
-            <div className="p-4">
-              <h3 className="text-lg font-medium group-hover:text-blue-600">
-                {video.title}
-              </h3>
-            </div>
-          </Link>
+          </article>
         ))}
       </div>
     </section>
