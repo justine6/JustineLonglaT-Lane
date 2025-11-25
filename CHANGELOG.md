@@ -33,3 +33,13 @@
 - Consistent naming and wording across navigation, titles, and metadata
 - Better structure to support future case studies, offers, and content expansions
 [2.0.0]: https://github.com/justine6/<YOUR-REPO>/releases/tag/v2.0.0
+
+feat: v2.0.0 — JustineLonglaT Consulting milestone
+
+- Locked in new brand name across the site: “JustineLonglaT Consulting”
+- Polished hero copy, CTAs, and intro call funnel for clarity and impact
+- Wired brochure download as a first-class call-to-action
+- Confirmed live branding before tagging this milestone release
+- Prepared the ground for future case studies, offers, and empire-building content
+
+This release marks the official consulting-era baseline for JustineLonglaT-Lane.

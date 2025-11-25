@@ -12,10 +12,10 @@ const links = [
   { href: "/readme", label: "README" },
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
-  { href: "/videos", label: "Videos" }, // ← NEW internal videos page
+  { href: "/videos", label: "Videos" }, // internal videos page
   { href: "/blog", label: "Blog" },     // internal redirect route
   { href: "/docs", label: "Docs" },     // internal redirect route
-  { href: "/#contact", label: "Contact" },
+  { href: "/contact", label: "Contact" }, // ✅ FIXED: was "/#contact"
 ];
 
 export default function Navbar() {
@@ -56,7 +56,8 @@ export default function Navbar() {
               (pathname === l.href ||
                 (l.href !== "/" && pathname?.startsWith(l.href)));
 
-            const base = "relative text-sm font-medium transition-colors duration-200";
+            const base =
+              "relative text-sm font-medium transition-colors duration-200";
 
             const normalClasses = active
               ? "rounded-md px-3 py-2 text-[0.95rem] text-white underline"

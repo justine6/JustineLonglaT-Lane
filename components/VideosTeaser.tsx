@@ -1,6 +1,9 @@
 // components/VideosTeaser.tsx
 import Image from "next/image";
 import Link from "next/link";
+// components/VideosTeaser.tsx
+import { VIDEOS } from "@/lib/videos";
+
 
 // Local teaser list — first 2 videos only.
 // Make sure this matches app/videos/page.tsx

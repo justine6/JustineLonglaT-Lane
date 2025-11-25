@@ -1,30 +1,7 @@
 // app/videos/page.tsx
 import Image from "next/image";
 import Link from "next/link";
-
-// Local in-file list of videos — no external import
-const VIDEOS = [
-  {
-    slug: "devsecops-pipeline-walkthrough",
-    title: "DevSecOps Pipeline Walkthrough",
-    description:
-      "High-level tour of a secure CI/CD pipeline: gated releases, policy as code, and observability.",
-    src: "/videos/devsecops-pipeline.mp4",
-    thumbnail: "/images/devsecops-thumb.jpg",
-    duration: "06:32",
-    tags: ["DevSecOps", "CI/CD", "Automation"],
-  },
-  {
-    slug: "cloud-migration-blueprint",
-    title: "Cloud Migration Blueprint (AWS & Azure)",
-    description:
-      "How I approach phased migrations: discovery, landing zone, cutover, and steady-state operations.",
-    src: "/videos/cloud-migration-blueprint.mp4",
-    thumbnail: "/images/cloud-migration-thumb.jpg",
-    duration: "08:47",
-    tags: ["Cloud Architecture", "AWS", "Azure"],
-  },
-];
+import { VIDEOS } from "@/lib/videos";   // ⬅️ new import
 
 export default function VideosPage() {
   return (
@@ -56,7 +33,7 @@ export default function VideosPage() {
                     src={video.thumbnail}
                     alt={video.title}
                     fill
-                    className="object-cover opacity-80 group-hover:opacity-60 transition"
+                    className="object-cover opacity-80 transition group-hover:opacity-60"
                   />
                 )}
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -66,7 +43,7 @@ export default function VideosPage() {
                 </div>
               </Link>
 
-              {/* Copy + player */}
+              {/* Copy + inline player */}
               <div className="flex flex-1 flex-col gap-3 p-4 sm:p-5">
                 <header>
                   <h2 className="text-lg font-semibold">

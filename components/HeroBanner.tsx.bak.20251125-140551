@@ -48,10 +48,10 @@ export default function HeroBanner() {
           </Link>
 
           <Link
-            href="/projects"
+            href="/justine-longla-resume.pdf"
             className="inline-flex items-center justify-center rounded-full border border-white/60 px-5 py-2 text-xs font-medium text-sky-100 hover:bg-white/10 sm:text-sm"
           >
-            View Projects
+            Résumé
           </Link>
         </div>
       </div>

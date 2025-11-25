@@ -1,11 +1,14 @@
 // app/resume/page.tsx
 import Link from "next/link";
-import { LINKS } from '@/config/links';
+import { LINKS } from "@/config/links";
+
+// Always rely on config — no fallback mismatches
+const RESUME_PDF = LINKS.resumePdf;
 
 export const metadata = {
-  title: "Résumé — Justine Longla T. Justine",
+  title: "Résumé — Justine Longla T.",
   description:
-    "Full résumé and one-page summary for Justine Longla. Download PDF or view in-browser.",
+    "Full résumé and one-page summary for Justine Longla T. Download PDF or view it directly in your browser.",
   alternates: { canonical: "/resume" },
 };
 
@@ -26,29 +29,31 @@ export default function ResumePage() {
         </p>
 
         <div className="mt-6 flex gap-3">
-          <Link
-            href="/resume.pdf"
-            prefetch={false}
+          {/* Download PDF */}
+          <a
+            href={RESUME_PDF}
+            download
             className="inline-flex items-center rounded-lg border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40"
           >
             Download PDF
-          </Link>
-          <Link
-            href="/resume.pdf"
+          </a>
+
+          {/* View in new tab */}
+          <a
+            href={RESUME_PDF}
             target="_blank"
             rel="noopener noreferrer"
-            prefetch={false}
             className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white hover:opacity-90"
           >
             Open in new tab
-          </Link>
+          </a>
         </div>
 
-        {/* Simple embedded PDF viewer center-aligned, no extra chrome */}
+        {/* Embedded PDF Viewer */}
         <div className="mt-6 rounded-xl ring-1 ring-black/10 dark:ring-white/10 overflow-hidden bg-gray-50 dark:bg-gray-900">
           <iframe
             title="resume-pdf"
-            src="/resume.pdf#view=FitH"
+            src={`${RESUME_PDF}#view=FitH`}
             className="w-full"
             style={{ minHeight: "78vh", border: 0 }}
           />
@@ -57,4 +62,3 @@ export default function ResumePage() {
     </main>
   );
 }
-

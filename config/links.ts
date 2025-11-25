@@ -21,8 +21,8 @@ export const LINKS = {
   // ---------------------------
   // Résumé & Brochure
   // ---------------------------
-  resume: "/resume",                     // internal page
-  resumePdf: "/files/resume.pdf",        // public PDF
+  resume: "/resume",                   // ⭐ Internal résumé page
+  resumePdf: "/files/resume.pdf",      // ⭐ Public PDF in /public/files/
   brochure: "/files/JLT-Consulting-Brochure.pdf",
 
   // ---------------------------

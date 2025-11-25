@@ -1,51 +1,35 @@
-// components/HeroCTA.tsx
 "use client";
 
 import Link from "next/link";
+import { FolderGit2 } from "lucide-react";
 import { LINKS } from "@/config/links";
 
 export default function HeroCTA() {
   return (
-    <div className="mt-6 flex flex-wrap gap-3">
-      {/* ✅ Intro Call / Cal.com link */}
+    <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+      {/* Primary CTA – intro call */}
       <Link
         href={LINKS.introCall}
-        className="inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200 shadow-sm"
+        className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-500/40 hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-slate-900"
       >
-        Book Intro Call
+        Schedule Your Intro Call
       </Link>
 
-      {/* ✅ Brochure PDF — now 100% correct */}
+      {/* Secondary CTA – contact */}
       <Link
-        href={LINKS.brochure} // /files/brochure.pdf
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Open brochure (PDF) in a new tab"
-        className="inline-flex items-center px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition-all duration-200 shadow-sm"
+        href={LINKS.contact}
+        className="inline-flex items-center justify-center rounded-full border border-white/70 px-5 py-2 text-sm font-medium text-white/90 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-300 focus-visible:ring-offset-slate-900"
       >
-        Download Brochure (PDF)
+        Contact
       </Link>
 
-      {/* ⭐ NEW: Docs & Toolkit button */}
+      {/* New CTA – projects */}
       <Link
-        href={LINKS.docs}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Open technical docs and automation toolkit"
-        className="inline-flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 via-sky-400 to-emerald-400 text-white font-semibold shadow-sm hover:from-blue-600 hover:via-sky-500 hover:to-emerald-500 hover:shadow-lg transition-all duration-200"
+        href={LINKS.projects}
+        className="inline-flex items-center justify-center rounded-full border border-white/70 px-5 py-2 text-sm font-medium text-white/90 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-300 focus-visible:ring-offset-slate-900"
       >
-        View Docs
-      </Link>
-
-      {/* ✅ Résumé PDF */}
-      <Link
-        href={LINKS.resumePdf}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Open résumé (PDF) in a new tab"
-        className="inline-flex items-center px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-50 transition-all duration-200"
-      >
-        View Résumé (PDF)
+        <FolderGit2 className="mr-2 h-4 w-4" aria-hidden="true" />
+        View Projects
       </Link>
     </div>
   );
