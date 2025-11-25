@@ -18,3 +18,18 @@
 ### Testing
 - Verified using Vitest with coverage reports.
 - Coverage summary: 68.75% statements / 85.71% functions — all suites passed.
+
+## [2.0.0] - 2025-11-25
+### Milestone
+- Officially rebranded the site as **JustineLonglaT Consulting**
+- Treated this as the new baseline for consulting-era growth
+
+### Added
+- Refined homepage hero copy aligned to the consulting brand
+- Clear CTA row: Intro Call booking, brochure download, and ways to work together
+- Stronger narrative around who Justine is and what clients can expect
+
+### Improved
+- Consistent naming and wording across navigation, titles, and metadata
+- Better structure to support future case studies, offers, and content expansions
+[2.0.0]: https://github.com/justine6/<YOUR-REPO>/releases/tag/v2.0.0
