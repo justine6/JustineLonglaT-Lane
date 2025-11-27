@@ -3,21 +3,52 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --- Global tweaks --- */
+/* ---------------------------
+   Base layout & global tokens
+   --------------------------- */
 
-/* Prevent sticky navbar from covering anchor links */
+/* Prevent sticky navbar from covering anchor targets */
 :root {
   scroll-padding-top: 5rem;
+
+  /* Brand colors / tokens */
+  --jut-primary: #2563eb;        /* blue-600 */
+  --jut-primary-soft: #1d4ed8;   /* blue-700 */
+  --jut-accent: #22c55e;         /* green-500 */
+  --jut-accent-soft: #16a34a;    /* green-600 */
+  --jut-bg: #020617;             /* slate-950 */
+  --jut-surface: #020617;
+  --jut-surface-soft: #0f172a;
+  --jut-border-subtle: rgba(148, 163, 184, 0.35);
+
+  --jut-text: #0f172a;
+  --jut-text-muted: #64748b;
+  --jut-text-on-dark: #e5e7eb;
 }
 
-/* Light/dark hints to UA widgets (e.g. form controls) */
+.dark {
+  --jut-bg: #020617;
+  --jut-surface: #020617;
+  --jut-surface-soft: #020617;
+  --jut-text: #e5e7eb;
+  --jut-text-muted: #94a3b8;
+}
+
+/* Light/dark hints to UA widgets (scrollbars, inputs, etc.) */
 html {
   color-scheme: light dark;
+  scroll-behavior: smooth;
 }
 
-/* Better text rendering + default transitions for smooth theme swap */
-html, body, header, nav {
-  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+/* Smooth theme swap */
+html,
+body,
+header,
+nav {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
 }
 
 body {
@@ -31,16 +62,18 @@ body {
 
 /* Ensure the main area fills the screen minus navbar/footer height */
 main {
-  min-height: calc(100vh - 8rem); /* Adjust to your Navbar/Footer height */
+  min-height: calc(100vh - 8rem);
 }
 
-/* Accessible link styles for both themes */
+/* ---------------------------
+   Global link + focus styles
+   --------------------------- */
+
 a {
   @apply underline text-blue-600 hover:text-blue-800
-         dark:text-blue-400 dark:hover:text-blue-200;
+    dark:text-blue-400 dark:hover:text-blue-200;
 }
 
-/* Consistent focus rings (keyboard friendly) */
 :focus-visible {
   @apply outline-none ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-950;
 }
@@ -55,12 +88,12 @@ a {
   }
 }
 
-/* Highlighted text color */
+/* Text selection */
 ::selection {
   background: rgba(37, 99, 235, 0.2); /* blue-600/20 */
 }
 
-/* Optional: subtle scrollbar (WebKit) */
+/* Subtle scrollbars (WebKit) */
 *::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -73,146 +106,124 @@ a {
   background: transparent;
 }
 
-/* A convenient container utility matching Tailwind breakpoints */
+/* ---------------------------
+   Container helper
+   --------------------------- */
+
 .container {
   margin-inline: auto;
   padding-inline: 1rem;
   max-width: 100%;
 }
-@screen sm { .container { max-width: 640px; } }
-@screen md { .container { max-width: 768px; } }
-@screen lg { .container { max-width: 1024px; } }
-@screen xl { .container { max-width: 1280px; } }
-@screen 2xl { .container { max-width: 1536px; } }
 
-/* Smooth anchor scrolling site-wide */
-\nhtml { scroll-behavior: smooth; }
-\n
-/* Smooth anchor scrolling site-wide */
-html {
-  scroll-behavior: smooth;
+@screen sm {
+  .container {
+    max-width: 640px;
+  }
 }
-/***** Full-bleed helpers *****/
+@screen md {
+  .container {
+    max-width: 768px;
+  }
+}
+@screen lg {
+  .container {
+    max-width: 1024px;
+  }
+}
+@screen xl {
+  .container {
+    max-width: 1280px;
+  }
+}
+@screen 2xl {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+/* ---------------------------
+   Layout helpers
+   --------------------------- */
+
+/* Full-bleed sections */
 .full-bleed {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 }
 
-/* Exact top-bar color (tweak as you like) */
-.bg-topbar { background-color: #2757ea; } /* lively azure-blue */
-/* === Hero CTA buttons: gradient + shine ============================= */
+/* Exact top-bar color (gradient navbar sits over this) */
+.bg-topbar {
+  background-color: #2757ea;
+}
 
-.btn-primary-shine {
-  @apply relative inline-flex items-center justify-center rounded-full px-6 sm:px-7 py-2.5 sm:py-3 text-sm sm:text-base font-semibold shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500;
+/* ---------------------------
+   Brand pill in topbar
+   --------------------------- */
 
-  background-image: linear-gradient(90deg, #2563eb, #0ea5e9);
-  color: #fff;
-  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.35);
+.brand-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  background: linear-gradient(90deg, #2563eb, #0ea5e9, #22c55e);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.25),
+    0 0 24px rgba(37, 99, 235, 0.8),
+    0 0 40px rgba(14, 165, 233, 0.75);
   overflow: hidden;
 }
 
-/* moving light streak */
-.btn-primary-shine::before {
+/* moving light sweep – triggered on hover/focus */
+.brand-pill::before {
   content: "";
   position: absolute;
   inset: -40%;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.9) 45%,
-    transparent 100%
-  );
-  transform: translateX(-130%);
-  opacity: 0;
-}
-
-.btn-primary-shine:hover::before,
-.btn-primary-shine:focus-visible::before {
-  animation: heroShine 0.9s ease-out forwards;
-  opacity: 1;
-}
-
-@keyframes heroShine {
-  0% {
-    transform: translateX(-130%);
-  }
-  100% {
-    transform: translateX(130%);
-  }
-}
-.nav-link-active {
-  box-shadow: 0 0 18px rgba(34, 197, 94, 0.55);
-  filter: brightness(1.15);
-}
-
-/* --- Shiny nav pills for topbar --- */
-.nav-link-shine {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #ffffff;
-  background-image: linear-gradient(120deg, #2563eb, #22c55e);
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
-  white-space: nowrap;
-  overflow: hidden;
-  gap: 0.25rem;
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease,
-    filter 180ms ease;
-}
-/* --- Hero CTA shiny buttons --- */
-.hero-cta-shine {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.6rem;
-  border-radius: 0.75rem;
-  font-weight: 600;
-  font-size: 1rem;
-  background-image: linear-gradient(120deg, #2563eb, #22c55e);
-  color: white;
-  overflow: hidden;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
-  transition: 
-    transform 200ms ease,
-    box-shadow 200ms ease,
-    filter 200ms ease;
-}
-
-.hero-cta-shine::before {
-  content: "";
-  position: absolute;
-  inset: -130% -40%;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0.7),
+  background: radial-gradient(
+    circle at 0% 50%,
+    rgba(255, 255, 255, 0.55),
     transparent 55%
   );
-  transform: translateX(-140%) rotate(18deg);
-  animation: shineSweep 3.2s ease-in-out infinite;
+  transform: translateX(-70%);
   opacity: 0;
-  pointer-events: none;
 }
 
-.hero-cta-shine:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
-  filter: brightness(1.07);
+.brand-pill:hover::before,
+.brand-pill:focus-visible::before {
+  animation: brand-pill-shine 1.1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.hero-cta-shine:hover::before {
-  opacity: 1;
+@keyframes brand-pill-shine {
+  0% {
+    transform: translateX(-70%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  40% {
+    transform: translateX(60%);
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(80%);
+    opacity: 0;
+  }
 }
 
-/* === Shiny nav pills for topbar === */
+/* ---------------------------
+   Shiny nav pills (Blog / Docs)
+   --------------------------- */
+
 .nav-pill {
   position: relative;
   display: inline-flex;
@@ -243,7 +254,8 @@ html {
 /* brighter halo for active route */
 .nav-pill-active {
   opacity: 1;
-  box-shadow: 0 0 18px rgba(34, 197, 94, 0.8),
+  box-shadow:
+    0 0 18px rgba(34, 197, 94, 0.8),
     0 10px 26px rgba(15, 23, 42, 0.6);
 }
 
@@ -273,7 +285,7 @@ html {
   opacity: 1;
 }
 
-/* used by both nav + (later) hero buttons */
+/* Used by both nav-link-shine + hero CTAs */
 @keyframes shineSweep {
   0% {
     transform: translateX(-140%) rotate(18deg);
@@ -286,7 +298,7 @@ html {
   }
 }
 
-/* moving shine strip – reuses your existing shineSweep animation */
+/* Moving shine strip (for alternate link style) */
 .nav-link-shine {
   position: relative;
   display: inline-flex;
@@ -320,13 +332,55 @@ html {
   opacity: 1;
 }
 
+/* ---------------------------
+   Hero CTA buttons
+   --------------------------- */
+
+.btn-primary-shine {
+  @apply relative inline-flex items-center justify-center rounded-full px-6 sm:px-7 py-2.5 sm:py-3 text-sm sm:text-base font-semibold shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500;
+
+  background-image: linear-gradient(90deg, #2563eb, #0ea5e9);
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.35);
+  overflow: hidden;
+}
+
+.btn-primary-shine::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.9) 45%,
+    transparent 100%
+  );
+  transform: translateX(-130%);
+  opacity: 0;
+}
+
+.btn-primary-shine:hover::before,
+.btn-primary-shine:focus-visible::before {
+  animation: heroShine 0.9s ease-out forwards;
+  opacity: 1;
+}
+
+@keyframes heroShine {
+  0% {
+    transform: translateX(-130%);
+  }
+  100% {
+    transform: translateX(130%);
+  }
+}
+
 /* Secondary pill buttons */
 .btn-outline-soft {
   @apply inline-flex items-center justify-center rounded-full border px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-medium transition;
 
   border-color: rgba(37, 99, 235, 0.7);
   color: #1d4ed8;
-  background: white;
+  background: #ffffff;
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
 }
 
@@ -335,39 +389,8 @@ html {
   color: #0f172a;
   transform: translateY(-1px);
 }
-/* === Global typography tokens ================================== */
 
-/* Page shell for main content */
-.page-shell {
-  @apply mx-auto max-w-6xl px-4 pb-16 pt-10;
-}
-
-/* Big page titles */
-.page-title {
-  @apply text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl;
-}
-
-/* Hero / page subtitles */
-.page-subtitle {
-  @apply text-sm text-slate-600 dark:text-slate-300 sm:text-base;
-}
-
-/* Section headings */
-.section-heading {
-  @apply text-2xl font-semibold text-slate-900 dark:text-slate-50;
-}
-
-/* Section body text */
-.section-body {
-  @apply text-sm leading-relaxed text-slate-700 dark:text-slate-300;
-}
-
-/* Small meta / pill label text */
-.section-meta {
-  @apply text-xs font-medium text-slate-500 dark:text-slate-300;
-}
-
-/* Dark mode adjustments */
+/* Dark-mode tuning for outline button */
 :root[data-theme="dark"] .btn-outline-soft {
   border-color: rgba(191, 219, 254, 0.8);
   background: rgba(15, 23, 42, 0.95);
@@ -380,67 +403,9 @@ html {
   color: #f9fafb;
 }
 
-/* === Brand pill glow (navbar title) ========================= */
-
-.brand-pill {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  padding: 0.35rem 0.9rem;
-  border-radius: 9999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  color: #ffffff;
-  background: linear-gradient(90deg, #2563eb, #0ea5e9, #22c55e);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.25),
-    0 0 24px rgba(37, 99, 235, 0.8),
-    0 0 40px rgba(14, 165, 233, 0.75);
-  overflow: hidden;
-}
-
-/* moving light sweep – elegant, triggered on interaction */
-.brand-pill::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background: radial-gradient(
-    circle at 0% 50%,
-    rgba(255, 255, 255, 0.55),
-    transparent 55%
-  );
-  transform: translateX(-70%);
-  opacity: 0;
-}
-
-/* run the shine when the pill is hovered or focused */
-.brand-pill:hover::before,
-.brand-pill:focus-visible::before {
-  animation: brand-pill-shine 1.1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes brand-pill-shine {
-  0% {
-    transform: translateX(-70%);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.9;
-  }
-  40% {
-    transform: translateX(60%);
-    opacity: 0.9;
-  }
-  60% {
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(80%);
-    opacity: 0;
-  }
-}
-/* app/globals.css – make sure these exist */
+/* ---------------------------
+   Page typography helpers
+   --------------------------- */
 
 .page-shell {
   @apply mx-auto max-w-6xl px-4 pb-16 pt-10;
@@ -465,6 +430,11 @@ html {
 .section-meta {
   @apply text-xs font-medium text-slate-500 dark:text-slate-300;
 }
+
+/* ---------------------------
+   Case study layout
+   --------------------------- */
+
 .case-study {
   max-width: 900px;
   margin: 0 auto;
@@ -487,7 +457,7 @@ html {
 
 .case-study p {
   margin: 0.5rem 0 1.25rem;
-  color: var(--text-default);
+  color: var(--text-default, #0f172a);
 }
 
 .case-study ul {
@@ -498,36 +468,52 @@ html {
 .case-study li {
   margin-bottom: 0.5rem;
 }
-:root {
-  /* Brand colors */
-  --jut-primary: #2563eb;        /* blue-600 */
-  --jut-primary-soft: #1d4ed8;   /* blue-700 */
-  --jut-accent: #22c55e;         /* green-500 (pill highlight) */
-  --jut-accent-soft: #16a34a;    /* green-600 */
-  --jut-bg: #020617;             /* slate-950 */
-  --jut-surface: #020617;        /* dark cards */
-  --jut-surface-soft: #0f172a;   /* slate-900 */
-  --jut-border-subtle: rgba(148, 163, 184, 0.35);
 
-  --jut-text: #0f172a;
-  --jut-text-muted: #64748b;
-  --jut-text-on-dark: #e5e7eb;
+/* ---------------------------
+   Profile pill (topbar “Consulting by Justine…”)
+   --------------------------- */
 
-  /* Radii */
-  --jut-radius-lg: 1rem;
-  --jut-radius-xl: 1.5rem;
-  --jut-radius-pill: 999px;
-
-  /* Shadows */
-  --jut-shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.45);
-  --jut-shadow-glow: 0 0 0 1px rgba(34, 197, 94, 0.8),
-                     0 22px 60px rgba(15, 23, 42, 0.9);
+.profile-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 1px rgba(148, 163, 184, 0.35),
+    0 10px 24px rgba(15, 23, 42, 0.28);
 }
 
-.dark {
-  --jut-bg: #020617;
-  --jut-surface: #020617;
-  --jut-surface-soft: #020617;
-  --jut-text: #e5e7eb;
-  --jut-text-muted: #94a3b8;
+.profile-pill__avatar {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.profile-pill__avatar img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.profile-pill__meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.profile-pill__label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #64748b; /* slate-500 */
+}
+
+.profile-pill__name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #020617;
 }

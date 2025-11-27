@@ -2,11 +2,13 @@
 
 import { Calendar, Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
 
 import { LINKS } from "@/config/links";
 import ThemeToggle from "@/components/ThemeToggle";
+import { ProfilePill } from "@/components/ProfilePill";
 
 // Ecosystem dropdown = cross-site navigation
 const ECOSYSTEM = [
@@ -31,12 +33,14 @@ export default function Topbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  // Add shadow / stronger bg after scroll
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Escape closes mobile menu
   const closeMenu = useCallback(() => setMenuOpen(false), []);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -54,19 +58,51 @@ export default function Topbar() {
           : "bg-blue-500/60 dark:bg-blue-950/60 shadow-md"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        {/* Brand */}
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
+        {/* Brand + name + signature */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-lg sm:text-xl font-semibold text-white tracking-wide hover:text-gray-100"
+          className="flex items-center gap-3 sm:gap-4 text-white"
+          aria-label="Justine Longla T. home"
         >
-          <span>Justine Longla T.</span>
-          <span className="rounded-full border border-blue-200/70 bg-blue-500/70 px-2 py-[2px] text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-white/95">
-            Consulting
-          </span>
+          {/* Logo (PNG) — NOT the favicon.ico */}
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+            <Image
+              src="/brand/justine-logo.png"
+              alt="brand/favicon.ico"
+              width={32}
+              height={32}
+              className="rounded-full"
+              priority
+            />
+          </div>
+
+          {/* Name + Consulting pill + signature */}
+          <div className="flex flex-col items-start leading-tight">
+            {/* Name + Consulting pill */}
+            <div className="flex items-center gap-2 text-sm sm:text-base font-semibold tracking-wide">
+              <span>Justine Longla T.</span>
+              <span className="rounded-full border border-blue-200/70 bg-blue-500/70 px-2 py-[2px] text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-white/95 shadow-sm">
+                Consulting
+              </span>
+            </div>
+
+            {/* Signature with glowing underline */}
+            <span className="mt-1 text-[10px] sm:text-[11px] text-white/90 font-medium tracking-tight">
+              by{" "}
+              <span className="relative inline-block font-semibold">
+                Justine Longla T.
+                <span
+                  className="pointer-events-none absolute left-0 right-0 -bottom-[1px] h-[2px] rounded-full
+                             bg-gradient-to-r from-green-300 via-teal-300 to-blue-400
+                             blur-[2px] opacity-80"
+                />
+              </span>
+            </span>
+          </div>
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Nav + ecosystem + profile + CTA */}
         <div className="hidden items-center space-x-4 md:flex">
           {navLinks.map((link) => {
             const isExternal = link.href.startsWith("http");
@@ -79,7 +115,6 @@ export default function Topbar() {
               isActive ? "nav-pill-active" : "nav-pill-idle"
             }`;
 
-            // For external links, use <a>. For internal, use <Link>.
             return isExternal ? (
               <a
                 key={link.name}
@@ -126,10 +161,14 @@ export default function Topbar() {
             </div>
           </div>
 
-          {/* Theme toggle */}
+          {/* Profile + theme toggle */}
+          <div className="hidden lg:block">
+            <ProfilePill />
+          </div>
+
           <ThemeToggle />
 
-          {/* Schedule Intro Call – unified wording */}
+          {/* Schedule Intro Call */}
           <a
             href={LINKS.introCall}
             target="_blank"
@@ -155,7 +194,7 @@ export default function Topbar() {
       {/* Mobile Dropdown */}
       {menuOpen && (
         <div className="space-y-4 bg-blue-600/95 px-6 pb-6 backdrop-blur-lg dark:bg-blue-950/95 md:hidden">
-          {/* Theme toggle row for mobile */}
+          {/* Appearance row */}
           <div className="flex items-center justify-between border-b border-white/10 pt-3 pb-1">
             <span className="text-xs uppercase tracking-wide text-white/70">
               Appearance
