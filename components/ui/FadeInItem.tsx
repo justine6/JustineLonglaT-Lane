@@ -1,27 +1,60 @@
-// components/ui/FadeInItem.tsx
 "use client";
 
-import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import {
+  type ComponentPropsWithoutRef,
+  type ElementType,
+  type ReactNode,
+} from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import clsx from "clsx";
 
-type Props = {
+/**
+ * Base props that we control for the wrapper.
+ */
+type OwnProps<E extends ElementType> = {
+  as?: E;
+  delay?: number;
+  className?: string;
   children: ReactNode;
-  index?: number;
 };
 
-export function FadeInItem({ children, index = 0 }: Props) {
+/**
+ * Full props = our own props + all valid props for the chosen element,
+ * with our keys taking precedence (so className/delay/as don’t conflict).
+ */
+export type SectionFadeInProps<E extends ElementType = "div"> = OwnProps<E> &
+  Omit<ComponentPropsWithoutRef<E>, keyof OwnProps<E>>;
+
+export function SectionFadeIn<E extends ElementType = "div">(
+  props: SectionFadeInProps<E>
+) {
+  const {
+    as,
+    delay = 0.08,
+    className,
+    children,
+    ...rest // <- id, aria-*, data-*, etc. land here
+  } = props;
+
+  const prefersReducedMotion = useReducedMotion();
+  const Component = (as ?? "div") as ElementType;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
+      whileInView={
+        prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+      }
       viewport={{ once: true, amount: 0.25 }}
       transition={{
-        duration: 0.3,
-        delay: 0.05 + index * 0.04,
+        duration: 0.35,
+        delay,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
     >
-      {children}
+      <Component className={clsx(className)} {...rest}>
+        {children}
+      </Component>
     </motion.div>
   );
 }
