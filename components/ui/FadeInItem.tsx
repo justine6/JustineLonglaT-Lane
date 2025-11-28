@@ -1,60 +1,39 @@
 "use client";
 
-import {
-  type ComponentPropsWithoutRef,
-  type ElementType,
-  type ReactNode,
-} from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import type { ElementType, ReactNode } from "react";
+import { motion } from "framer-motion";
 import clsx from "clsx";
 
-/**
- * Base props that we control for the wrapper.
- */
-type OwnProps<E extends ElementType> = {
+type SectionFadeInProps<E extends ElementType> = {
   as?: E;
   delay?: number;
   className?: string;
   children: ReactNode;
-};
-
-/**
- * Full props = our own props + all valid props for the chosen element,
- * with our keys taking precedence (so className/delay/as don’t conflict).
- */
-export type SectionFadeInProps<E extends ElementType = "div"> = OwnProps<E> &
-  Omit<ComponentPropsWithoutRef<E>, keyof OwnProps<E>>;
+} & Omit<React.ComponentPropsWithoutRef<E>, "as" | "children">;
 
 export function SectionFadeIn<E extends ElementType = "div">(
   props: SectionFadeInProps<E>
 ) {
-  const {
-    as,
-    delay = 0.08,
-    className,
-    children,
-    ...rest // <- id, aria-*, data-*, etc. land here
-  } = props;
+  const { as, delay = 0, className, children, ...rest } = props;
 
-  const prefersReducedMotion = useReducedMotion();
-  const Component = (as ?? "div") as ElementType;
+  // Choose which element to render (div, section, header, etc.)
+  const Component: ElementType =
+    (motion as any)[as ?? "div"] ?? motion.div;
 
   return (
-    <motion.div
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
-      whileInView={
-        prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-      }
+    <Component
+      {...rest}
+      className={clsx(className)}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{
-        duration: 0.35,
+        duration: 0.38,
         delay,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.22, 0.48, 0.36, 0.98],
       }}
     >
-      <Component className={clsx(className)} {...rest}>
-        {children}
-      </Component>
-    </motion.div>
+      {children}
+    </Component>
   );
 }
