@@ -1,47 +1,48 @@
 // components/ui/SectionFadeIn.tsx
 "use client";
 
-import type { ReactNode, ElementType } from "react";
-import { motion, type Variants } from "framer-motion";
-
-const variants: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.45,
-      ease: [0.21, 0.47, 0.32, 0.99],
-    },
-  },
-};
+import type {
+  ReactNode,
+  ElementType,
+  ComponentPropsWithoutRef,
+} from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import clsx from "clsx";
 
 type SectionFadeInProps = {
-  children: ReactNode;
+  as?: ElementType;
   delay?: number;
   className?: string;
-  as?: ElementType; // no JSX namespace needed
-};
+  id?: string;              // allow id to be passed through
+  children: ReactNode;
+} & ComponentPropsWithoutRef<"div">;
 
 export function SectionFadeIn({
-  children,
+  as: Tag = "div",
   delay = 0,
   className,
-  as,
+  id,
+  children,
+  ...rest
 }: SectionFadeInProps) {
-  const Tag = (as ?? "section") as ElementType;
-  const MotionTag = motion(Tag);
+  const shouldReduce = useReducedMotion();
+  const actualDelay = shouldReduce ? 0 : delay;
 
   return (
-    <MotionTag
-      className={className}
-      variants={variants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ delay }}
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px -20% 0px" }}
+      transition={{
+        duration: 0.3,
+        delay: actualDelay,
+        ease: [0.19, 0.48, 0.36, 1],
+      }}
+      className={clsx("opacity-0", className)}
     >
-      {children}
-    </MotionTag>
+      <Tag id={id} {...rest}>
+        {children}
+      </Tag>
+    </motion.div>
   );
 }
