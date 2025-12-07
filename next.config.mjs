@@ -15,11 +15,17 @@ const withMDX = createMDX({
 
 /** Security Headers */
 const securityHeaders = [
-  { key: "Strict-Transport-Security", value: "max-age=15552000; includeSubDomains; preload" },
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=15552000; includeSubDomains; preload",
+  },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=()",
+  },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
 ];
@@ -62,7 +68,10 @@ const nextConfig = withMDX({
       {
         source: "/files/:file(.*\\.pdf)",
         headers: [
-          { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, must-revalidate",
+          },
           { key: "Content-Disposition", value: "inline" },
         ],
       },
@@ -73,45 +82,65 @@ const nextConfig = withMDX({
     ];
   },
 
-async redirects() {
-  return [
-    // existing booking aliases
-    { source: "/schedule", destination: "/booking", permanent: true },
-    { source: "/intro", destination: "/booking", permanent: true },
-    { source: "/intro-call", destination: "/booking", permanent: true },
+  async redirects() {
+    return [
+      // Booking aliases
+      { source: "/schedule", destination: "/booking", permanent: true },
+      { source: "/intro", destination: "/booking", permanent: true },
+      { source: "/intro-call", destination: "/booking", permanent: true },
 
-    // 🔁 Any old /docs/... PDF → /files/...
-    { source: "/docs/:path*", destination: "/files/:path*", permanent: true },
+      // 🔁 Any old /docs/... PDF → /files/...
+      {
+        source: "/docs/:path*",
+        destination: "/files/:path*",
+        permanent: true,
+      },
 
-    // 🧹 Legacy résumé URLs → new canonical file
-    { source: "/resume.pdf", destination: "/files/resume.pdf", permanent: true },
-    {
-      source: "/files/justine-longla-resume.pdf",
-      destination: "/files/resume.pdf",
-      permanent: true,
-    },
-    {
-      source: "/docs/justine-longla-resume.pdf",
-      destination: "/files/resume.pdf",
-      permanent: true,
-    },
+      // 🧭 Canonical résumé routes → single versioned file
+      {
+        source: "/resume",
+        destination: "/files/justine-longla-resume-2025.pdf",
+        permanent: true,
+      },
+      {
+        source: "/resume.pdf",
+        destination: "/files/justine-longla-resume-2025.pdf",
+        permanent: true,
+      },
 
-    // 🧹 Legacy brochure URLs → new canonical file
-    {
-      source: "/docs/brochure.pdf",
-      destination: "/files/brochure.pdf",
-      permanent: true,
-    },
-    {
-      source: "/docs/jutellane-brochure.pdf",
-      destination: "/files/brochure.pdf",
-      permanent: true,
-    },
+      // 🧹 Legacy résumé URLs → new canonical file
+      {
+        source: "/files/resume.pdf",
+        destination: "/files/justine-longla-resume-2025.pdf",
+        permanent: true,
+      },
+      {
+        source: "/files/justine-longla-resume.pdf",
+        destination: "/files/justine-longla-resume-2025.pdf",
+        permanent: true,
+      },
+      {
+        source: "/docs/justine-longla-resume.pdf",
+        destination: "/files/justine-longla-resume-2025.pdf",
+        permanent: true,
+      },
 
-    // ✅ /hire-me still points to booking
-    { source: "/hire-me", destination: "/booking", permanent: false },
-  ];
-}
+      // 🧹 Legacy brochure URLs → canonical brochure
+      {
+        source: "/docs/brochure.pdf",
+        destination: "/files/brochure.pdf",
+        permanent: true,
+      },
+      {
+        source: "/docs/jutellane-brochure.pdf",
+        destination: "/files/brochure.pdf",
+        permanent: true,
+      },
+
+      // ✅ /hire-me still points to booking
+      { source: "/hire-me", destination: "/booking", permanent: false },
+    ];
+  },
 });
 
 export default nextConfig;
