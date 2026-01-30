@@ -11,11 +11,11 @@ import { LINKS } from "@/config/links";
 import ThemeToggle from "@/components/ThemeToggle";
 import { ProfilePill } from "@/components/ProfilePill";
 
-// Cross-site navigation
+// Cross-site navigation (external ecosystem)
 const ECOSYSTEM = [
-  { label: "Main ↗", href: "https://justinelonglat-lane.com" },
-  { label: "Docs ↗", href: LINKS.docs },
-  { label: "Blog ↗", href: LINKS.blog },
+  { label: "Main ↗", href: LINKS.mainSite },
+  { label: "Docs ↗", href: LINKS.docsSite },
+  { label: "Blog ↗", href: LINKS.blogSite },
 ];
 
 // Main nav for this site
@@ -185,15 +185,14 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Profile pill with theme toggle (desktop only) */}
-            <div className="hidden items-center gap-3 lg:flex">
-              <ProfilePill />
-              <ThemeToggle />
-            </div>
+              {/* Profile pill (desktop only) */}
+              <div className="hidden items-center gap-3 lg:flex">
+                <ProfilePill />
+              </div>
 
             {/* Intro call CTA */}
             <a
-              href={LINKS.introCall}
+              href={LINKS.calIntro}
               target="_blank"
               rel="noopener noreferrer"
               className="ml-1 inline-flex items-center gap-2 rounded-xl border border-white/40 bg-white/10 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 dark:focus-visible:ring-offset-blue-950"

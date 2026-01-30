@@ -52,7 +52,7 @@ const nextConfig = withMDX({
   /**
    * ✅ REQUIRED for Docker / standalone container builds
    */
-  output: "standalone",
+  // output: "standalone",
 
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   eslint: { ignoreDuringBuilds: true },

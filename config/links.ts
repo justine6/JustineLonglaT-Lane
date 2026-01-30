@@ -60,9 +60,13 @@ export const LINKS = {
     process.env.NEXT_PUBLIC_CAL_URL ??
     "https://cal.com/jutellane/intro-call?hide_event_type_details=1&primary_color=2563eb",
 
-  // ---------------------------
   // External ecosystem links
-  // ---------------------------
+  consultingSite: "https://consulting.justinelonglat-lane.com",
+  mainSite: "https://justinelonglat-lane.com",
+  blogSite: "https://blogs.justinelonglat-lane.com",
+  docsSite: "https://docs.justinelonglat-lane.com",
+
   docs: "https://docs.justinelonglat-lane.com",
   toolkit: "https://docs.justinelonglat-lane.com/toolkit.html",
+
 } as const;
