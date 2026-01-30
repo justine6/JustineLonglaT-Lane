@@ -127,6 +127,11 @@ const nextConfig = withMDX({
         destination: "/files/justine-longla-resume-2025.pdf",
         permanent: true,
       },
+      {
+        source: "/mesh",
+        destination: "/contact",
+        permanent: false,
+      },
 
       {
         source: "/docs/brochure.pdf",

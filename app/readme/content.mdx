@@ -1,21 +1,44 @@
-# Technical README
+## Platform Architecture (Operational Overview)
 
-Welcome! This page mirrors the repo README so stakeholders can learn about the project **without** code access.
+This platform is engineered using the same structured delivery, security, and governance principles applied in enterprise and federal cloud environments. It demonstrates how modern cloud consulting operations can be built with **predictability, traceability, and built-in security**.
 
-## What's inside
-- CI/CD status & workflows
-- Environments and domains
-- Security posture (headers, secrets, honeypot)
-- Getting started locally
+### System Architecture (Conceptual)
 
-## CI/CD
-- GitHub Actions → Vercel deploys (preview & prod)
-- Vitest + coverage; PR must pass tests
+```text
+                    ┌────────────────────────┐
+                    │     End Users /        │
+                    │   Clients & Partners   │
+                    └─────────────┬──────────┘
+                                  │ HTTPS
+                                  v
+                    ┌────────────────────────┐
+                    │   Vercel Edge Network   │
+                    │  • Global CDN delivery  │
+                    │  • Secure routing       │
+                    └─────────────┬──────────┘
+                                  │
+                                  v
+                    ┌────────────────────────┐
+                    │   Next.js Application   │
+                    │  • Consulting site UI   │
+                    │  • MDX technical docs   │
+                    │  • Secure file serving  │
+                    └───────┬────────┬───────┘
+                            │        │
+                            │        │
+                            v        v
+           ┌────────────────────┐   ┌────────────────────────┐
+           │ Controlled File     │   │ Integrated Services     │
+           │ Distribution        │   │ • Cal.com (Scheduling)  │
+           │ • Resume / Brochure │   │ • Resend (Email)        │
+           │ • Capability Docs   │   │ • Future APIs           │
+           └────────────────────┘   └────────────────────────┘
 
-## Security
-- **No secrets committed** (use `.env.local`, Vercel env)
-- **Honeypot** field on forms to block bots
-- **Strict headers:** CSP, X-Frame-Options, X-Content-Type-Options
-- **Dev-only warning:** `allowedDevOrigins` is used locally to quiet LAN warnings
-
-_Last updated: {new Date().toLocaleDateString()}_
+                                  ▲
+                                  │ CI/CD Pipeline
+                    ┌─────────────┴─────────────┐
+                    │       GitHub Actions       │
+                    │  • Automated testing       │
+                    │  • Coverage enforcement    │
+                    │  • Secure build pipeline   │
+                    └───────────────────────────┘
