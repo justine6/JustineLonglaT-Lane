@@ -19,10 +19,15 @@ export const LINKS = {
   videos: "/videos",
 
   // ---------------------------
+  // Engineering Mesh
+  // ---------------------------
+  engineeringMesh: "/engineering-mesh", // ✅ canonical route
+
+  // ---------------------------
   // Résumé & Brochure
   // ---------------------------
-  resume: "/resume",                   // ⭐ Internal résumé page
-  resumePdf: "/files/resume.pdf",      // ⭐ Public PDF in /public/files/
+  resume: "/resume",
+  resumePdf: "/files/resume.pdf",
   brochure: "/files/JLT-Consulting-Brochure.pdf",
 
   // ---------------------------

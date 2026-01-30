@@ -129,10 +129,14 @@ const nextConfig = withMDX({
       },
       {
         source: "/mesh",
-        destination: "/contact",
-        permanent: false,
+        destination: "/engineering-mesh",
+        permanent: true,
       },
-
+      {
+        source: "/mesh/:path*",
+        destination: "/engineering-mesh/:path*",
+        permanent: true,
+      },
       {
         source: "/docs/brochure.pdf",
         destination: "/files/brochure.pdf",
