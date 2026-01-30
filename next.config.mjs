@@ -8,7 +8,10 @@ const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: "wrap" }]],
+    rehypePlugins: [
+      rehypeSlug,
+      [rehypeAutolinkHeadings, { behavior: "wrap" }],
+    ],
     providerImportSource: "@mdx-js/react",
   },
 });
@@ -46,6 +49,11 @@ const csp = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withMDX({
+  /**
+   * ✅ REQUIRED for Docker / standalone container builds
+   */
+  output: "standalone",
+
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   eslint: { ignoreDuringBuilds: true },
 
@@ -84,19 +92,16 @@ const nextConfig = withMDX({
 
   async redirects() {
     return [
-      // Booking aliases
       { source: "/schedule", destination: "/booking", permanent: true },
       { source: "/intro", destination: "/booking", permanent: true },
       { source: "/intro-call", destination: "/booking", permanent: true },
 
-      // 🔁 Any old /docs/... PDF → /files/...
       {
         source: "/docs/:path*",
         destination: "/files/:path*",
         permanent: true,
       },
 
-      // 🧭 Canonical résumé routes → single versioned file
       {
         source: "/resume",
         destination: "/files/justine-longla-resume-2025.pdf",
@@ -107,8 +112,6 @@ const nextConfig = withMDX({
         destination: "/files/justine-longla-resume-2025.pdf",
         permanent: true,
       },
-
-      // 🧹 Legacy résumé URLs → new canonical file
       {
         source: "/files/resume.pdf",
         destination: "/files/justine-longla-resume-2025.pdf",
@@ -125,7 +128,6 @@ const nextConfig = withMDX({
         permanent: true,
       },
 
-      // 🧹 Legacy brochure URLs → canonical brochure
       {
         source: "/docs/brochure.pdf",
         destination: "/files/brochure.pdf",
@@ -137,7 +139,6 @@ const nextConfig = withMDX({
         permanent: true,
       },
 
-      // ✅ /hire-me still points to booking
       { source: "/hire-me", destination: "/booking", permanent: false },
     ];
   },
