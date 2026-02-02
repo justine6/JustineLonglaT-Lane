@@ -63,7 +63,7 @@ export default function Topbar() {
         <Link
           href="/"
           className="flex items-center gap-3 sm:gap-4 text-white"
-          aria-label="Justine Longla T. home"
+          aria-label="Justine Longla T-Lane. home"
         >
           {/* Logo (PNG) — NOT the favicon.ico */}
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
@@ -77,30 +77,19 @@ export default function Topbar() {
             />
           </div>
 
-          {/* Name + Consulting pill + signature */}
-          <div className="flex flex-col items-start leading-tight">
-            {/* Name + Consulting pill */}
-            <div className="flex items-center gap-2 text-sm sm:text-base font-semibold tracking-wide">
-              <span>Justine Longla T.</span>
-              <span className="rounded-full border border-blue-200/70 bg-blue-500/70 px-2 py-[2px] text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-white/95 shadow-sm">
-                Consulting
-              </span>
-            </div>
+          {/* Name + Engineering MeshHub pill */}
+          <div className="flex flex-col items-start justify-center leading-tight">
+            <div className="flex items-center gap-3 text-sm sm:text-base font-semibold tracking-wide">
+              <span>Justine Longla T-Lane.</span>
+              <Link
 
-            {/* Signature with glowing underline */}
-            <span className="mt-1 text-[10px] sm:text-[11px] text-white/90 font-medium tracking-tight">
-              by{" "}
-              <span className="relative inline-block font-semibold">
-                Justine Longla T.
-                <span
-                  className="pointer-events-none absolute left-0 right-0 -bottom-[1px] h-[2px] rounded-full
-                             bg-gradient-to-r from-green-300 via-teal-300 to-blue-400
-                             blur-[2px] opacity-80"
-                />
-              </span>
-            </span>
+              className="rounded-full bg-white px-4 py-[4px] text-[0.75rem] font-semibold tracking-wide text-slate-900 shadow-sm transition hover:bg-slate-100 ring-1 ring-sky-300/40 hover:ring-sky-400/60"
+>
+                Engineering Mesh Hub
+              </Link>
+
+            </div>
           </div>
-        </Link>
 
         {/* Desktop Nav + ecosystem + profile + CTA */}
         <div className="hidden items-center space-x-4 md:flex">

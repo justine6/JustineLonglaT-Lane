@@ -108,7 +108,7 @@ export default async function EngineeringMeshPage() {
           </h2>
           <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-black/40 p-3">
             <Image
-              src="/engineering-mesh-diagram.png"
+              src="/assets/img/engineering-mesh-diagram.png"
               alt="Diagram of the Justine Longla Engineering Mesh"
               width={1600}
               height={1000}

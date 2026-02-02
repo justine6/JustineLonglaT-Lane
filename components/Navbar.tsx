@@ -78,13 +78,13 @@ export default function Navbar() {
           className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4"
           aria-label="Primary navigation"
         >
-          {/* Brand + “by Justine Longla T.” signature */}
+          {/* Brand */}
           <Link
             href="/"
             className="flex items-center gap-3 text-white sm:gap-4"
             aria-label="Justine Longla T. home"
           >
-            {/* Logo / favicon pill */}
+            {/* Logo */}
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
               <Image
                 src="/brand/justine-logo.png"
@@ -95,28 +95,30 @@ export default function Navbar() {
               />
             </div>
 
-            {/* Name + Consulting pill + signature */}
-            <div className="flex flex-col items-start leading-tight">
-              {/* Name + “Consulting” badge */}
-              <div className="flex items-center gap-2 text-sm font-semibold tracking-wide sm:text-base">
-                <span>Justine Longla T.</span>
-                <span className="rounded-full border border-blue-200/70 bg-blue-500/70 px-2 py-[2px] text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-white/95 shadow-sm">
-                  Consulting
-                </span>
-              </div>
+            {/* Name + Engineering MeshHub pill */}
+            <div className="flex flex-col items-start justify-center leading-tight">
+              <div className="flex items-center gap-3 text-sm font-semibold tracking-wide sm:text-base">
+                <span>Justine Longla T-Lane.</span>
 
-              {/* Sub-signature with glowing underline */}
-              <span className="mt-1 text-[10px] font-medium tracking-tight text-white/90 sm:text-[11px]">
-                by{" "}
-                <span className="relative inline-block font-semibold">
-                  Justine Longla T.
+                <Link
+                  href="/engineering-mesh"
+                  className="
+                    relative rounded-full px-[2px] py-[2px]
+                    bg-gradient-to-r from-sky-400/60 via-teal-300/60 to-blue-500/60
+                    shadow-sm transition hover:shadow-md
+                  "
+                >
                   <span
-                    className="pointer-events-none absolute inset-x-0 -bottom-[1px] h-[2px] rounded-full
-                               bg-gradient-to-r from-green-300 via-teal-300 to-blue-400
-                               blur-[2px] opacity-80"
-                  />
-                </span>
-              </span>
+                    className="
+                      flex items-center rounded-full bg-white px-3 py-[3px]
+                      text-[0.7rem] font-semibold tracking-[0.12em] text-slate-900
+                      transition group-hover:bg-slate-50
+                    "
+                  >
+                    Engineering <span className="text-sky-600 ml-1">Mesh</span> Hub
+                  </span>
+                </Link>
+              </div>
             </div>
           </Link>
 

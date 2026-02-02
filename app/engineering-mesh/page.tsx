@@ -2,9 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const OVERVIEW_VIDEO_ID = "YOUR_OVERVIEW_VIDEO_ID"; // e.g. "dQw4w9WgXcQ"
-const LAMBDA_VIDEO_ID = "YOUR_LAMBDA_VIDEO_ID";     // optional, can reuse above
-const PLAYLIST_ID = "YOUR_PLAYLIST_ID";             // optional
+// ✅ Set these to real IDs when ready. Leave empty to show the placeholder UI.
+const OVERVIEW_VIDEO_ID = ""; // e.g. "dQw4w9WgXcQ"
+const LAMBDA_VIDEO_ID = ""; // optional, can reuse above
+const PLAYLIST_ID = ""; // optional
 
 const TIMELINE = [
   {
@@ -41,27 +42,47 @@ const CASE_STUDIES = [
       "How the consulting site, docs, blogs, and projects were wired into one predictable platform.",
     href: "/projects/engineering-mesh",
     pill: "Mesh",
+    metrics: [
+      { label: "Sites unified", value: "4+" },
+      { label: "Pipelines", value: "CI/CD-ready" },
+      { label: "Docs parity", value: "guardrails" },
+    ],
   },
   {
     title: "Teams Proactive Messaging Bot",
     summary:
       "ChatOps bot that keeps stakeholders ahead of deployments, status, and release events.",
-    href: "/projects/teams-proactive-messaging-bot",
+    href: "/projects/teams-proactive-bot",
     pill: "ChatOps",
+    metrics: [
+      { label: "Notification latency", value: "<1m" },
+      { label: "Channels covered", value: "multi" },
+      { label: "Release visibility", value: "↑" },
+    ],
   },
   {
     title: "Automation Rescue: Fixing Flaky Lambdas",
     summary:
       "From noisy, failing Lambdas to calm, observable, and cost-aware serverless functions.",
-    href: "/projects/automation-rescue-fixing-flaky-lambdas",
+    href: "/projects/fixing-flaky-lambdas",
     pill: "Serverless",
+    metrics: [
+      { label: "Error rate", value: "↓" },
+      { label: "Cold starts", value: "↓" },
+      { label: "Observability", value: "added" },
+    ],
   },
   {
     title: "Guardrails & Optimize Engine",
     summary:
       "Guardrails, policies, and cost-optimization pipelines wrapped around cloud workloads.",
-    href: "/projects/guardrails-optimize-engine",
+    href: "/projects/operate-and-optimize",
     pill: "Guardrails",
+    metrics: [
+      { label: "Drift control", value: "policy" },
+      { label: "Cost posture", value: "tuned" },
+      { label: "Risk", value: "↓" },
+    ],
   },
   {
     title: "Secure & Scale",
@@ -69,17 +90,124 @@ const CASE_STUDIES = [
       "Security-first platform improvements layered on top of existing infrastructure.",
     href: "/projects/secure-and-scale",
     pill: "Security",
+    metrics: [
+      { label: "Controls", value: "layered" },
+      { label: "Audit readiness", value: "↑" },
+      { label: "Blast radius", value: "↓" },
+    ],
   },
 ];
 
+const PORTALS = [
+  {
+    label: "Projects",
+    sub: "All case studies",
+    href: "/projects",
+    accent: "from-blue-500/30 via-sky-400/10 to-transparent",
+    dot: "bg-blue-400",
+  },
+  {
+    label: "Docs",
+    sub: "Tooling + playbooks",
+    href: "https://docs.justinelonglat-lane.com",
+    accent: "from-emerald-500/25 via-teal-400/10 to-transparent",
+    dot: "bg-emerald-400",
+  },
+  {
+    label: "Blog",
+    sub: "Deep dives",
+    href: "https://blogs.justinelonglat-lane.com",
+    accent: "from-indigo-500/25 via-violet-400/10 to-transparent",
+    dot: "bg-indigo-400",
+  },
+  {
+    label: "Toolkit",
+    sub: "Automation API model",
+    href: "https://docs.justinelonglat-lane.com/toolkit.html",
+    accent: "from-cyan-500/25 via-sky-300/10 to-transparent",
+    dot: "bg-cyan-300",
+  },
+];
+function getMetricIcon(value: string) {
+  const v = value.toLowerCase();
+
+  if (v.includes("↓") || v.includes("-")) return "▼";
+  if (v.includes("↑") || v.includes("+")) return "▲";
+  if (
+    v.includes("added") ||
+    v.includes("tuned") ||
+    v.includes("fast") ||
+    v.includes("improved")
+  )
+    return "⚡";
+
+  return "•";
+}
+
 export default function EngineeringMeshPage() {
+
   return (
     <main className="min-h-screen bg-slate-950 text-slate-50">
-      {/* Top hero / header */}
-      <section className="border-b border-slate-800 bg-gradient-to-b from-slate-950 via-slate-950 to-slate-900/80">
-        <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 pb-10 pt-16 md:px-6 md:pb-14 md:pt-20">
-          <div className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-300/80">
-            Case Study Hub
+      {/* Top hero / header (Hub World) */}
+      <section className="relative flex min-h-[72vh] items-center overflow-hidden border-b border-slate-800">
+        {/* Ambient background layers */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(1200px_circle_at_20%_20%,rgba(59,130,246,0.35),transparent_55%),radial-gradient(900px_circle_at_80%_30%,rgba(16,185,129,0.22),transparent_55%),radial-gradient(700px_circle_at_50%_90%,rgba(14,165,233,0.18),transparent_55%)]" />
+          <div className="absolute inset-0 opacity-[0.10] [background-image:linear-gradient(rgba(255,255,255,.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.12)_1px,transparent_1px)] [background-size:64px_64px]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/60" />
+        </div>
+
+        {/* Mesh lines (subtle network) — Tailwind-native so it always renders */}
+        <div className="pointer-events-none absolute inset-0 opacity-40">
+          <svg
+            className="h-full w-full"
+            viewBox="0 0 1200 700"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M220 470 C 360 380, 430 380, 520 460"
+              className="stroke-sky-300/50 [stroke-width:2] [stroke-linecap:round]"
+            />
+            <path
+              d="M520 460 C 650 420, 740 420, 860 460"
+              className="stroke-emerald-300/40 [stroke-width:2] [stroke-linecap:round]"
+            />
+            <path
+              d="M860 460 C 960 500, 1020 520, 1080 560"
+              className="stroke-blue-300/35 [stroke-width:2] [stroke-linecap:round]"
+            />
+
+            {[
+              { cx: 220, cy: 470 },
+              { cx: 520, cy: 460 },
+              { cx: 860, cy: 460 },
+              { cx: 1080, cy: 560 },
+            ].map((n, idx) => (
+              <circle
+                key={idx}
+                cx={n.cx}
+                cy={n.cy}
+                r="4"
+                className="fill-white/70"
+              />
+            ))}
+          </svg>
+        </div>
+
+        {/* Content wrapper */}
+        <div className="relative mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 pb-10 pt-16 md:px-6 md:pb-14 md:pt-20">
+          {/* Badge row */}
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-[0.18em] text-white/80">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(16,185,129,0.8)]" />
+              CASE STUDY HUB
+            </span>
+
+            <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70">
+              System map • CI/CD • Observability • Guardrails
+            </span>
           </div>
 
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
@@ -87,51 +215,142 @@ export default function EngineeringMeshPage() {
           </h1>
 
           <p className="max-w-3xl text-sm leading-relaxed text-slate-200/90 md:text-base">
-            What started as “just one website” became a multi-site engineering
-            ecosystem: consulting, documentation, blogs, and projects — all
-            wired together with CI/CD, PowerShell, DNS, Resend, and cloud-native
-            best practices.
+            What started as “just one website” became a multi-site engineering ecosystem:
+            consulting, documentation, blogs, and projects — wired together with CI/CD,
+            PowerShell automation, DNS discipline, Resend, and cloud-native guardrails.
           </p>
+
+          {/* Micro “what you’ll get” bullets */}
+          <ul className="grid max-w-3xl gap-2 text-sm text-slate-200/85 md:grid-cols-3">
+            <li className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+              A map of the ecosystem
+            </li>
+            <li className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+              Case studies you can copy
+            </li>
+            <li className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+              Proof of delivery & trust
+            </li>
+          </ul>
 
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="#overview-video"
-              className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700"
+              className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
               <span className="text-base">▶</span>
               <span>Watch the overview</span>
             </Link>
 
             <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-600 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-800/70"
+              href="#case-studies"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
-              View all projects
+              View case studies
             </Link>
 
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-slate-100"
+              className="inline-flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-white"
             >
               ← Back to Home
             </Link>
           </div>
+
+          {/* Mini “hub tiles” */}
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {[
+              { k: "Multi-site", v: "Consulting • Docs • Blog" },
+              { k: "Delivery", v: "CI/CD + verification" },
+              { k: "Trust", v: "Security + audit-ready" },
+            ].map((x) => (
+              <div key={x.k} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="text-xs font-semibold tracking-wide text-white/70">
+                  {x.k}
+                </div>
+                <div className="mt-2 text-sm text-white/90">{x.v}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Portal grid — destinations */}
+          <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {PORTALS.map((p) => {
+              const isExternal = p.href.startsWith("http");
+
+              const PortalInner = (
+                <>
+                  <div
+                    className={`pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br ${p.accent} opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100`}
+                  />
+                  <div className="relative flex items-start justify-between gap-3">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`h-2.5 w-2.5 rounded-full ${p.dot} shadow-[0_0_18px_rgba(255,255,255,0.35)]`}
+                        />
+                        <div className="text-sm font-semibold text-white/90">
+                          {p.label}
+                        </div>
+                      </div>
+                      <div className="mt-1 text-xs text-white/70">{p.sub}</div>
+                    </div>
+
+                    <span className="text-xs font-semibold text-white/60 transition group-hover:text-white/85">
+                      {isExternal ? "↗" : "→"}
+                    </span>
+                  </div>
+
+                  <div className="relative mt-4 h-[1px] w-full overflow-hidden rounded-full bg-white/10">
+                    <div className="h-full w-0 bg-white/35 transition-all duration-300 group-hover:w-full" />
+                  </div>
+                </>
+              );
+
+              const baseClass =
+                "group relative rounded-2xl border border-white/10 bg-white/5 p-4 transition " +
+                "hover:border-white/20 hover:bg-white/10 focus-visible:outline-none " +
+                "focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950";
+
+              return isExternal ? (
+                <a
+                  key={p.label}
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={baseClass}
+                >
+                  {PortalInner}
+                </a>
+              ) : (
+                <Link key={p.label} href={p.href} className={baseClass}>
+                  {PortalInner}
+                </Link>
+              );
+            })}
+          </div>
         </div>
+
+        {/* Floating specks */}
+        <div className="pointer-events-none absolute inset-0 opacity-40">
+          <div className="absolute left-[12%] top-[22%] h-1.5 w-1.5 rounded-full bg-white/70 blur-[0.5px]" />
+          <div className="absolute left-[68%] top-[28%] h-1 w-1 rounded-full bg-emerald-300/70 blur-[0.5px]" />
+          <div className="absolute left-[44%] top-[58%] h-1 w-1 rounded-full bg-sky-300/70 blur-[0.5px]" />
+          <div className="absolute left-[82%] top-[62%] h-1.5 w-1.5 rounded-full bg-blue-300/70 blur-[0.5px]" />
+        </div>
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-slate-950" />
       </section>
 
       {/* Featured video */}
-      <section
-        id="overview-video"
-        className="border-b border-slate-900 bg-slate-950"
-      >
+      <section id="overview-video" className="border-b border-slate-900 bg-slate-950">
         <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
           <h2 className="text-lg font-semibold tracking-tight md:text-xl">
             Featured Video — Overview of the Mesh
           </h2>
           <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-            This video walks through the full mesh: how the sites are wired,
-            where CI/CD comes in, and how the Lambda chaos was tamed into a
-            stable, predictable system.
+            A walk-through of the mesh: how the sites connect, where CI/CD enforces trust,
+            and how “Lambda chaos” was stabilized into something calm and predictable.
           </p>
 
           <div className="mt-5 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/70">
@@ -139,6 +358,8 @@ export default function EngineeringMeshPage() {
               <div className="aspect-video w-full">
                 <iframe
                   className="h-full w-full"
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
                   src={`https://www.youtube.com/embed/${OVERVIEW_VIDEO_ID}?rel=0`}
                   title="Engineering Mesh overview"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -147,7 +368,7 @@ export default function EngineeringMeshPage() {
               </div>
             ) : (
               <div className="flex aspect-video w-full items-center justify-center text-sm text-slate-400">
-                Add your YouTube video ID in{" "}
+                JLT YouTube ID in{" "}
                 <code className="ml-1 rounded bg-slate-900 px-1.5 py-0.5 text-xs">
                   OVERVIEW_VIDEO_ID
                 </code>{" "}
@@ -165,8 +386,8 @@ export default function EngineeringMeshPage() {
             How the Mesh Came Together
           </h2>
           <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-            Each layer built on top of the previous one — turning scattered
-            projects into a deliberate engineering mesh.
+            Each layer built on the previous one — turning scattered work into a deliberate,
+            repeatable system.
           </p>
 
           <ol className="mt-6 space-y-4 border-l border-slate-800 pl-4 md:mt-8 md:space-y-5 md:pl-6">
@@ -195,13 +416,11 @@ export default function EngineeringMeshPage() {
             Architecture at a Glance
           </h2>
           <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-            The mesh connects consulting, docs, blogs, and projects with shared
-            CI/CD, DNS, and platform services. These visuals tell the story in a
-            single frame.
+            The mesh connects consulting, docs, blogs, and projects with shared CI/CD, DNS,
+            and platform services — in one frame.
           </p>
 
           <div className="mt-6 grid gap-6 md:grid-cols-2">
-            {/* Mesh diagram card */}
             <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80">
               <div className="border-b border-slate-800 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">
                 Engineering Mesh Architecture Diagram
@@ -212,16 +431,15 @@ export default function EngineeringMeshPage() {
                   alt="Diagram of the Justine Longla Engineering Mesh architecture"
                   width={900}
                   height={600}
+                  sizes="(min-width: 768px) 50vw, 100vw"
                   className="h-auto w-full object-contain"
                 />
               </div>
               <p className="px-4 pb-4 pt-3 text-xs text-slate-300">
-                Visual overview of how IONOS DNS, Vercel, static sites, and
-                shared services come together into a single mesh.
+                How IONOS DNS, Vercel, static sites, and shared services connect into one mesh.
               </p>
             </div>
 
-            {/* Lambda swarm card */}
             <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80">
               <div className="border-b border-slate-800 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">
                 “I Tamed the Chaos” — Lambda Swarm Collapse
@@ -233,20 +451,24 @@ export default function EngineeringMeshPage() {
                   alt="AWS Lambda swarm collapse illustration"
                   width={900}
                   height={600}
+                  sizes="(min-width: 768px) 50vw, 100vw"
                   className="h-auto w-full object-cover"
                 />
               </div>
 
-              <div className="px-4 pb-4 pt-3 text-xs text-slate-300 space-y-2">
+              <div className="space-y-2 px-4 pb-4 pt-3 text-xs text-slate-300">
                 <p>
-                  This visual represents the Lambda chaos before observability,
-                  retries, and guardrails were added.
+                  A snapshot of the “before” state — the kind of chaos that observability,
+                  retries, budgets, and guardrails are meant to calm down.
                 </p>
+
                 {LAMBDA_VIDEO_ID && (
                   <div className="mt-2 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80">
                     <div className="aspect-video w-full">
                       <iframe
                         className="h-full w-full"
+                        loading="lazy"
+                        referrerPolicy="strict-origin-when-cross-origin"
                         src={`https://www.youtube.com/embed/${LAMBDA_VIDEO_ID}?rel=0`}
                         title="I Tamed the Chaos — Lambda swarm story"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -262,22 +484,23 @@ export default function EngineeringMeshPage() {
       </section>
 
       {/* Case-study grid */}
-      <section className="border-b border-slate-900 bg-slate-950">
+      <section id="case-studies" className="border-b border-slate-900 bg-slate-950">
         <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
           <h2 className="text-lg font-semibold tracking-tight md:text-xl">
             Mesh-Aware Case Studies
           </h2>
           <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-            Stories that live inside the mesh — from proactive messaging to
-            Lambda stabilization and guardrails.
+            Stories that live inside the mesh — proactive messaging, Lambda stabilization,
+            and guardrails that keep systems predictable.
           </p>
 
+          {/* ✅ Cards grid (this is the layout wrapper) */}
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {CASE_STUDIES.map((cs) => (
               <Link
                 key={cs.title}
                 href={cs.href}
-                className="group flex flex-col rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-4 transition hover:border-blue-500/80 hover:bg-slate-900"
+                className="group flex flex-col rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-4 transition hover:border-blue-500/80 hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300/50"
               >
                 <div className="flex items-center justify-between gap-3">
                   <h3 className="text-sm font-semibold text-slate-50 md:text-base">
@@ -287,9 +510,47 @@ export default function EngineeringMeshPage() {
                     {cs.pill}
                   </span>
                 </div>
-                <p className="mt-2 text-xs text-slate-300 md:text-sm">
-                  {cs.summary}
-                </p>
+
+                <p className="mt-2 text-xs text-slate-300 md:text-sm">{cs.summary}</p>
+
+                {/* ✅ Results label */}
+                <div className="mt-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                  Results
+                </div>
+
+                {/* ✅ Metrics grid */}
+                {cs.metrics?.length ? (
+                  <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                    {cs.metrics.slice(0, 3).map((m) => (
+                      <div
+                        key={`${m.label}-${m.value}`}
+                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px]"
+                      >
+                        {/* Label */}
+                        <span className="text-slate-400">{m.label}</span>
+
+                        {/* Icon (colored) */}
+                        <span
+                          className={
+                            m.value.includes("↓")
+                              ? "text-rose-300"
+                              : m.value.includes("↑") || m.value.includes("+")
+                              ? "text-emerald-300"
+                              : "text-sky-300"
+                          }
+                        >
+                          {getMetricIcon(m.value)}
+                        </span>
+
+                        {/* Value (brighter) */}
+                        <span className="font-semibold text-white transition group-hover:text-blue-200">
+                          {m.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+
                 <span className="mt-3 text-xs font-medium text-blue-300 group-hover:text-blue-200">
                   Read case study →
                 </span>
@@ -306,11 +567,12 @@ export default function EngineeringMeshPage() {
             Mesh-Aware Resources
           </h2>
           <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-            Think of this as the “directory” for everything that touches the
-            Engineering Mesh — across websites, videos, and platforms.
+            The directory for everything that touches the Engineering Mesh — across websites,
+            docs, and your long-form technical narrative.
           </p>
 
-          <div className="mt-6 space-y-2 rounded-2xl border border-slate-800 bg-slate-900/80">
+          <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+
             <ResourceRow
               title="Consulting Platform"
               description="Main Next.js site for services, intro calls, and client engagement."
@@ -323,12 +585,12 @@ export default function EngineeringMeshPage() {
             />
             <ResourceRow
               title="Docs Site"
-              description="Static documentation site powered by HTML, PowerShell tooling, and GitHub Pages."
+              description="Documentation + playbooks powered by HTML, PowerShell tooling, and CI."
               href="https://docs.justinelonglat-lane.com"
             />
             <ResourceRow
               title="Blog Site"
-              description="Deep-dive technical articles, from CI/CD to DevSecOps and platform reliability."
+              description="Deep-dive articles on CI/CD, DevSecOps, and platform reliability."
               href="https://blogs.justinelonglat-lane.com"
             />
             {PLAYLIST_ID && (
@@ -353,6 +615,7 @@ interface ResourceRowProps {
 
 function ResourceRow({ title, description, href }: ResourceRowProps) {
   const isExternal = href.startsWith("http");
+
   const Shared = (
     <>
       <div>
@@ -365,24 +628,16 @@ function ResourceRow({ title, description, href }: ResourceRowProps) {
     </>
   );
 
-  if (isExternal) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center justify-between gap-4 border-b border-slate-800 px-4 py-3 last:border-b-0 hover:bg-slate-900"
-      >
-        {Shared}
-      </a>
-    );
-  }
+  const base =
+    "flex items-center justify-between gap-4 border-b border-slate-800 px-4 py-3 last:border-b-0 " +
+    "hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300/50";
 
-  return (
-    <Link
-      href={href}
-      className="flex items-center justify-between gap-4 border-b border-slate-800 px-4 py-3 last:border-b-0 hover:bg-slate-900"
-    >
+  return isExternal ? (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={base}>
+      {Shared}
+    </a>
+  ) : (
+    <Link href={href} className={base}>
       {Shared}
     </Link>
   );

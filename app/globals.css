@@ -70,8 +70,7 @@ main {
    --------------------------- */
 
 a {
-  @apply underline text-blue-600 hover:text-blue-800
-    dark:text-blue-400 dark:hover:text-blue-200;
+  @apply underline text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200;
 }
 
 :focus-visible {
@@ -470,6 +469,49 @@ a {
 }
 
 /* ---------------------------
+   Engineering Mesh animated lines
+   --------------------------- */
+
+.mesh-path {
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-dasharray: 6 10;
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.2));
+  animation: meshDash 14s linear infinite;
+}
+
+.mesh-path--b {
+  animation-duration: 18s;
+  opacity: 0.75;
+}
+.mesh-path--c {
+  animation-duration: 22s;
+  opacity: 0.6;
+}
+
+.mesh-node {
+  fill: rgba(255, 255, 255, 0.45);
+  filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.35));
+}
+
+@keyframes meshDash {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mesh-path {
+    animation: none;
+  }
+}
+
+/* ---------------------------
    Profile pill (topbar “Consulting by Justine…”)
    --------------------------- */
 
@@ -517,16 +559,14 @@ a {
   font-weight: 600;
   color: #020617;
 }
-@layer components {
-  .nav-pill {
-    @apply inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium transition-colors duration-150;
-  }
 
-  .nav-pill-idle {
-    @apply text-blue-50/80 hover:text-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 dark:focus-visible:ring-offset-blue-950;
-  }
+/*
+  NOTE:
+  You had a second ".nav-pill" definition inside an "@layer components" block
+  at the bottom of the file. That re-defined .nav-pill and was very likely the
+  “grumbling” / underline you saw around ~195-203 (duplicate class definitions,
+  and Tailwind layer parsing confusion in some editors).
 
-  .nav-pill-active {
-    @apply bg-white text-blue-700 shadow-sm hover:bg-white;
-  }
-}
+  If you still want a small Tailwind-only nav pill variant, create a NEW class
+  (e.g., .nav-pill-lite) rather than redefining .nav-pill.
+*/

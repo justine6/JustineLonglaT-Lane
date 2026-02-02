@@ -1,27 +1,29 @@
 import { notFound } from "next/navigation";
 
-export default function VideoPage({ params }: any) {
-  const slug = params?.slug as string | undefined;
+type Params = { slug: string };
 
-  if (!slug) {
-    notFound();
-  }
+export default async function VideoPage({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  const { slug } = await params;
 
-  return (
-    <main className="px-6 py-10">
-      <h1 className="text-3xl font-bold">Video: {slug}</h1>
-      <p className="mt-4 text-lg text-gray-600">
-        Video details will appear here soon.
-      </p>
-    </main>
-  );
+  if (!slug) notFound();
+
+  // ...rest of your page
+  return <div>{slug}</div>;
 }
 
-// Simple metadata so Next is happy
-export async function generateMetadata({ params }: any) {
-  const slug = params?.slug as string | undefined;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  const { slug } = await params;
 
   return {
     title: slug ? `Video — ${slug}` : "Video",
   };
 }
+// End of file: app/videos/%5Bslug%5D/page.tsx
