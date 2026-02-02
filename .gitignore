@@ -70,3 +70,4 @@ test-results/
 components/Footer.backup.tsx
 
 .vercel
+*.bak.*
