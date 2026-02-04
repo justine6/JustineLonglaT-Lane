@@ -59,35 +59,46 @@ export default function Topbar() {
     }`}
   >
     <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
-      {/* Brand */}
-      <Link
-        href="/"
-        className="flex items-center gap-3 sm:gap-4 text-white"
-        aria-label="Justine Longla T-Lane. home"
-      >
-        {/* Logo */}
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
-          <Image
-            src="/brand/justine-logo.png"
-            alt="Justine Longla T-Lane logo"
-            width={32}
-            height={32}
-            className="rounded-full"
-            priority
-          />
-        </div>
+      {/* Brand + MeshHub (NO nested Link) */}
+        <div className="flex items-center gap-3 shrink-0 whitespace-nowrap">
+          <Link
+            href="/"
+            className="flex items-center gap-3 sm:gap-4 text-white"
+            aria-label="Justine Longla T-Lane. home"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+              <Image
+                src="/brand/justine-logo.png"
+                alt="Justine Longla T-Lane logo"
+                width={32}
+                height={32}
+                className="rounded-full"
+                priority
+              />
+            </div>
 
-        {/* Name + MeshHub pill */}
-        <div className="flex flex-col items-start leading-tight">
-          <div className="flex items-center gap-2 text-sm font-semibold tracking-wide sm:text-base">
-            <span>Justine Longla T-Lane.</span>
+            <div className="flex flex-col items-start leading-tight">
+              <div className="text-sm font-semibold tracking-wide sm:text-base">
+                Justine Longla T-Lane.
+              </div>
+            </div>
+          </Link>
 
-            <span className="rounded-full bg-white px-3 py-[3px] text-[0.7rem] font-semibold tracking-wide text-slate-900 ring-1 ring-sky-300/40">
-              Engineering <span className="text-sky-600">Mesh</span>Hub
+          <Link
+            href="/engineering-mesh"
+            className="
+              ml-3 inline-flex rounded-full p-[2px]
+              bg-gradient-to-r from-sky-400/50 via-emerald-300/40 to-blue-500/50
+              shadow-sm transition hover:shadow-md hover:scale-[1.02] will-change-transform
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
+            "
+            aria-label="Engineering Mesh Hub"
+          >
+            <span className="rounded-full bg-white px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-slate-900 transition hover:bg-slate-50">
+              Engineering <span className="ml-1 text-sky-600">Mesh</span>Hub
             </span>
-          </div>
+          </Link>
         </div>
-      </Link>
 
       {/* Right side nav content continues... */}
     </nav>
