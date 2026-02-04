@@ -139,7 +139,12 @@ function getMetricIcon(value: string) {
 
   return "•";
 }
-
+const RESULTS_METRICS = [
+  { label: "Deploy consistency", value: "↑", detail: "Standardized CI/CD" },
+  { label: "Prod surprises", value: "↓", detail: "Observability added" },
+  { label: "Manual ops", value: "↓", detail: "Automation + guardrails" },
+  { label: "Delivery speed", value: "↑", detail: "Predictable environments" },
+];
 export default function EngineeringMeshPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-50">
@@ -453,6 +458,33 @@ export default function EngineeringMeshPage() {
             predictable. Stability improved because failures were observable and repeatable.
             Operational overhead dropped as automation replaced manual fixes.
           </p>
+          {/* Metric badges */}
+            <div className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {RESULTS_METRICS.map((m) => (
+                <div
+                  key={`${m.label}-${m.value}`}
+                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs font-semibold text-slate-100">{m.label}</div>
+
+                    <span
+                      className={
+                        m.value.includes("↓")
+                          ? "text-rose-300"
+                          : m.value.includes("↑") || m.value.includes("+")
+                          ? "text-emerald-300"
+                          : "text-sky-300"
+                      }
+                    >
+                      {getMetricIcon(m.value)}
+                    </span>
+                  </div>
+
+                  <div className="mt-1 text-[11px] text-slate-300">{m.detail}</div>
+                </div>
+              ))}
+            </div>
 
           {/* 🔥 ADD THIS ROW RIGHT HERE */}
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
