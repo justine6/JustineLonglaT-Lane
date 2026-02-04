@@ -95,30 +95,45 @@ export default function Navbar() {
               />
             </div>
 
-            {/* Name + Engineering MeshHub pill */}
-            <div className="flex flex-col items-start justify-center leading-tight">
-              <div className="flex items-center gap-3 text-sm font-semibold tracking-wide sm:text-base">
-                <span>Justine Longla T-Lane.</span>
+            {/* Brand + MeshHub pill (NO nested Link, ONE logo) */}
+            <div className="flex items-center">
+              {/* Brand (HOME link only) */}
+              <Link
+                href="/"
+                className="flex items-center gap-3 text-white sm:gap-4"
+                aria-label="Justine Longla T. home"
+              >
 
-                <Link
-                  href="/engineering-mesh"
+
+                {/* Name */}
+                <div className="flex flex-col items-start justify-center leading-tight">
+                  <div className="flex items-center gap-2 text-sm font-semibold tracking-wide sm:text-base">
+                    <span>Justine Longla T-Lane.</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Engineering MeshHub Pill — SEPARATE LINK */}
+              <Link
+                href="/engineering-mesh"
+                className="
+                  ml-3 inline-flex rounded-full p-[2px]
+                  bg-gradient-to-r from-sky-400/60 via-teal-300/55 to-blue-500/60
+                  shadow-sm transition hover:shadow-md
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
+                "
+                aria-label="Engineering Mesh Hub"
+              >
+                <span
                   className="
-                    relative rounded-full px-[2px] py-[2px]
-                    bg-gradient-to-r from-sky-400/60 via-teal-300/60 to-blue-500/60
-                    shadow-sm transition hover:shadow-md
+                    flex items-center rounded-full bg-white px-3 py-[3px]
+                    text-[0.7rem] font-semibold tracking-[0.12em] text-slate-900
+                    transition hover:bg-slate-50
                   "
                 >
-                  <span
-                    className="
-                      flex items-center rounded-full bg-white px-3 py-[3px]
-                      text-[0.7rem] font-semibold tracking-[0.12em] text-slate-900
-                      transition group-hover:bg-slate-50
-                    "
-                  >
-                    Engineering <span className="text-sky-600 ml-1">Mesh</span> Hub
-                  </span>
-                </Link>
-              </div>
+                  Engineering <span className="ml-1 text-sky-600">Mesh</span> Hub
+                </span>
+              </Link>
             </div>
           </Link>
 

@@ -128,24 +128,19 @@ const PORTALS = [
     dot: "bg-cyan-300",
   },
 ];
+
 function getMetricIcon(value: string) {
   const v = value.toLowerCase();
 
   if (v.includes("↓") || v.includes("-")) return "▼";
   if (v.includes("↑") || v.includes("+")) return "▲";
-  if (
-    v.includes("added") ||
-    v.includes("tuned") ||
-    v.includes("fast") ||
-    v.includes("improved")
-  )
+  if (v.includes("added") || v.includes("tuned") || v.includes("fast") || v.includes("improved"))
     return "⚡";
 
   return "•";
 }
 
 export default function EngineeringMeshPage() {
-
   return (
     <main className="min-h-screen bg-slate-950 text-slate-50">
       {/* Top hero / header (Hub World) */}
@@ -157,7 +152,7 @@ export default function EngineeringMeshPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/60" />
         </div>
 
-        {/* Mesh lines (subtle network) — Tailwind-native so it always renders */}
+        {/* Mesh lines */}
         <div className="pointer-events-none absolute inset-0 opacity-40">
           <svg
             className="h-full w-full"
@@ -185,13 +180,7 @@ export default function EngineeringMeshPage() {
               { cx: 860, cy: 460 },
               { cx: 1080, cy: 560 },
             ].map((n, idx) => (
-              <circle
-                key={idx}
-                cx={n.cx}
-                cy={n.cy}
-                r="4"
-                className="fill-white/70"
-              />
+              <circle key={idx} cx={n.cx} cy={n.cy} r="4" className="fill-white/70" />
             ))}
           </svg>
         </div>
@@ -222,15 +211,9 @@ export default function EngineeringMeshPage() {
 
           {/* Micro “what you’ll get” bullets */}
           <ul className="grid max-w-3xl gap-2 text-sm text-slate-200/85 md:grid-cols-3">
-            <li className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-              A map of the ecosystem
-            </li>
-            <li className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-              Case studies you can copy
-            </li>
-            <li className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-              Proof of delivery & trust
-            </li>
+            <li className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">A map of the ecosystem</li>
+            <li className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">Case studies you can copy</li>
+            <li className="rounded-xl border border-white/10 bg-white/5 px-3 py-2">Proof of delivery & trust</li>
           </ul>
 
           <div className="flex flex-wrap items-center gap-3">
@@ -249,10 +232,7 @@ export default function EngineeringMeshPage() {
               View case studies
             </Link>
 
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-white"
-            >
+            <Link href="/" className="inline-flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-white">
               ← Back to Home
             </Link>
           </div>
@@ -265,9 +245,7 @@ export default function EngineeringMeshPage() {
               { k: "Trust", v: "Security + audit-ready" },
             ].map((x) => (
               <div key={x.k} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div className="text-xs font-semibold tracking-wide text-white/70">
-                  {x.k}
-                </div>
+                <div className="text-xs font-semibold tracking-wide text-white/70">{x.k}</div>
                 <div className="mt-2 text-sm text-white/90">{x.v}</div>
               </div>
             ))}
@@ -289,9 +267,7 @@ export default function EngineeringMeshPage() {
                         <span
                           className={`h-2.5 w-2.5 rounded-full ${p.dot} shadow-[0_0_18px_rgba(255,255,255,0.35)]`}
                         />
-                        <div className="text-sm font-semibold text-white/90">
-                          {p.label}
-                        </div>
+                        <div className="text-sm font-semibold text-white/90">{p.label}</div>
                       </div>
                       <div className="mt-1 text-xs text-white/70">{p.sub}</div>
                     </div>
@@ -313,13 +289,7 @@ export default function EngineeringMeshPage() {
                 "focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950";
 
               return isExternal ? (
-                <a
-                  key={p.label}
-                  href={p.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={baseClass}
-                >
+                <a key={p.label} href={p.href} target="_blank" rel="noopener noreferrer" className={baseClass}>
                   {PortalInner}
                 </a>
               ) : (
@@ -342,12 +312,26 @@ export default function EngineeringMeshPage() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-slate-950" />
       </section>
 
+      {/* In-page nav chips */}
+      <div className="border-b border-slate-900 bg-slate-950">
+        <div className="mx-auto max-w-5xl px-4 py-4 md:px-6">
+          <div className="flex flex-wrap gap-2">
+            <Link className="chip" href="#problem">Problem</Link>
+            <Link className="chip" href="#role">My role</Link>
+            <Link className="chip" href="#solution">Solution</Link>
+            <Link className="chip" href="#results">Results</Link>
+            <Link className="chip" href="#timeline">Timeline</Link>
+            <Link className="chip" href="#architecture">Architecture</Link>
+            <Link className="chip" href="#case-studies">Case studies</Link>
+            <Link className="chip" href="#resources">Resources</Link>
+          </div>
+        </div>
+      </div>
+
       {/* Featured video */}
-      <section id="overview-video" className="border-b border-slate-900 bg-slate-950">
+      <section id="overview-video" className="scroll-mt-24 border-b border-slate-900 bg-slate-950">
         <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
-          <h2 className="text-lg font-semibold tracking-tight md:text-xl">
-            Featured Video — Overview of the Mesh
-          </h2>
+          <h2 className="text-lg font-semibold tracking-tight md:text-xl">Featured Video — Overview of the Mesh</h2>
           <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
             A walk-through of the mesh: how the sites connect, where CI/CD enforces trust,
             and how “Lambda chaos” was stabilized into something calm and predictable.
@@ -369,9 +353,7 @@ export default function EngineeringMeshPage() {
             ) : (
               <div className="flex aspect-video w-full items-center justify-center text-sm text-slate-400">
                 JLT YouTube ID in{" "}
-                <code className="ml-1 rounded bg-slate-900 px-1.5 py-0.5 text-xs">
-                  OVERVIEW_VIDEO_ID
-                </code>{" "}
+                <code className="ml-1 rounded bg-slate-900 px-1.5 py-0.5 text-xs">OVERVIEW_VIDEO_ID</code>{" "}
                 to embed the overview.
               </div>
             )}
@@ -379,45 +361,210 @@ export default function EngineeringMeshPage() {
         </div>
       </section>
 
-      {/* Mesh timeline */}
-      <section className="border-b border-slate-900 bg-slate-950">
+      {/* Problem */}
+      <section id="problem" className="scroll-mt-24 border-b border-slate-900 bg-slate-950">
+        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
+          <h2 className="text-lg font-semibold tracking-tight md:text-xl">The Problem: Platform Sprawl Without Guardrails</h2>
+          <p className="mt-4 text-sm text-slate-300 md:text-base">
+            As my consulting work, documentation, blogs, and engineering experiments grew,
+            the platform behind them started to sprawl. Each new site or tool solved an
+            immediate need — but together they introduced duplication, inconsistent
+            deployments, and invisible risk.
+          </p>
+
+          <p className="mt-4 text-sm text-slate-300 md:text-base">
+            Static sites lived next to dynamic ones. Some used CI pipelines, others were
+            deployed manually. DNS, environment variables, and build behaviors weren’t
+            always aligned. The system worked — but it wasn’t *designed*.
+          </p>
+
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-300 md:text-base">
+            <li>Multiple sites with different deployment methods</li>
+            <li>Inconsistent environment configuration</li>
+            <li>No shared observability or operational guardrails</li>
+            <li>Manual fixes instead of systemic solutions</li>
+          </ul>
+          {/* TODO: break into 2–3 paragraphs + a short bullet list of symptoms */}
+        </div>
+      </section>
+
+      {/* Role */}
+      <section id="role" className="scroll-mt-24 border-b border-slate-900 bg-slate-950">
+        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
+          <h2 className="text-lg font-semibold tracking-tight md:text-xl">My Role: Acting as Platform Engineer</h2>
+          <p className="mt-4 text-sm text-slate-300 md:text-base">
+            I stepped into the role of a platform engineer — not just shipping features,
+            but shaping the environment in which every site and service operated.
+          </p>
+
+          <p className="mt-4 text-sm text-slate-300 md:text-base">
+            My focus shifted from “build the next thing” to “make everything predictable.”
+            That meant aligning CI/CD, standardizing environments, reducing operational
+            noise, and introducing guardrails that made safe delivery the default.
+          </p>
+
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-300 md:text-base">
+            <li>Designed and unified CI/CD pipelines across sites</li>
+            <li>Standardized DNS, environment variables, and hosting behavior</li>
+            <li>Introduced observability and stability patterns for cloud workloads</li>
+            <li>Built reusable automation to replace manual operations</li>
+          </ul>
+          {/* TODO: paragraphs + bullets (ownership, decisions, tools, tradeoffs) */}
+        </div>
+      </section>
+
+      {/* Solution */}
+      <section id="solution" className="scroll-mt-24 border-b border-slate-900 bg-slate-950">
+        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
+          <h2 className="text-lg font-semibold tracking-tight md:text-xl">The Solution: The Engineering Mesh Architecture</h2>
+          <p className="mt-4 text-sm text-slate-300 md:text-base">
+            The result was the <strong>Engineering Mesh</strong> — a shared platform layer
+            connecting consulting, documentation, blogs, and projects through common
+            deployment, hosting, and operational practices.
+          </p>
+
+          <p className="mt-4 text-sm text-slate-300 md:text-base">
+            Instead of isolated sites, the system became a coordinated ecosystem. CI/CD
+            pipelines enforced consistency. DNS and hosting rules were standardized.
+            Automation handled repetitive tasks. Guardrails made reliability and security
+            part of the architecture — not afterthoughts.
+          </p>
+
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-300 md:text-base">
+            <li>Shared CI/CD patterns across all web properties</li>
+            <li>Consistent DNS and environment routing</li>
+            <li>Automated deployment and verification steps</li>
+            <li>Cloud guardrails for stability, cost, and security</li>
+          </ul>
+          {/* TODO: narrative content + key principles */}
+        </div>
+      </section>
+
+      {/* Results */}
+      <section id="results" className="scroll-mt-24 border-b border-slate-900 bg-slate-950">
+        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
+          <h2 className="text-lg font-semibold tracking-tight md:text-xl">
+            Results: What the Engineering Mesh Made Possible
+          </h2>
+
+          <p className="mt-4 max-w-3xl text-sm text-slate-300 md:text-base">
+            The Engineering Mesh transformed a collection of independent projects into a
+            coherent, reliable platform. Delivery accelerated because environments became
+            predictable. Stability improved because failures were observable and repeatable.
+            Operational overhead dropped as automation replaced manual fixes.
+          </p>
+
+          {/* 🔥 ADD THIS ROW RIGHT HERE */}
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-slate-200">
+              Predictable environments → faster delivery
+            </div>
+            <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-slate-200">
+              Observability → fewer production surprises
+            </div>
+          </div>
+          {/* Before vs After comparison */}
+          <div className="mt-8 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+          Operational Transformation
+        </div>
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-rose-400/20 bg-rose-500/5 p-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-300">
+                Before the Mesh
+              </div>
+              <ul className="mt-3 space-y-2 text-sm text-slate-300">
+                <li>Manual fixes and environment drift</li>
+                <li>Inconsistent deployment processes</li>
+                <li>Limited visibility into failures</li>
+                <li>Reactive operations and firefighting</li>
+              </ul>
+            </div>
+
+            <div className="rounded-2xl border border-emerald-400/20 bg-emerald-500/5 p-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
+                After the Mesh
+              </div>
+              <ul className="mt-3 space-y-2 text-sm text-slate-300">
+                <li>Standardized CI/CD and environments</li>
+                <li>Predictable, repeatable delivery</li>
+                <li>Observability built into workflows</li>
+                <li>Proactive, automation-driven operations</li>
+              </ul>
+            </div>
+          </div>
+          <ul className="mt-6 list-disc space-y-2 pl-5 text-sm text-slate-300 md:text-base">
+            <li>Faster, more consistent deployments</li>
+            <li>Reduced production surprises through standardized pipelines</li>
+            <li>Improved visibility into system behavior and failures</li>
+            <li>Lower operational effort thanks to automation and guardrails</li>
+          </ul>
+        </div>
+      </section>
+      {/* What this demonstrates */}
+      <section
+        id="demonstrates"
+        className="scroll-mt-24 border-b border-slate-900 bg-slate-950"
+      >
+        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
+          <h2 className="text-lg font-semibold tracking-tight md:text-xl">
+            What This Case Study Demonstrates
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
+            This isn’t just a collection of sites — it’s a platform story: predictable delivery,
+            operational maturity, and security-first engineering across an evolving ecosystem.
+          </p>
+          <ul className="mt-6 space-y-4 text-sm text-slate-300 md:text-base">
+            <li>
+              <span className="font-semibold text-slate-100">Platform thinking:</span>{" "}
+              Delivery systems, environments, and automation are treated as first-class engineering products.
+            </li>
+            <li>
+              <span className="font-semibold text-slate-100">Operational maturity:</span>{" "}
+              Repeatable, observable workflows replace ad-hoc fixes and reactive firefighting.
+            </li>
+            <li>
+              <span className="font-semibold text-slate-100">Security + trust:</span>{" "}
+              Guardrails reduce risk, enforce consistency, and improve audit readiness by default.
+            </li>
+            <li>
+              <span className="font-semibold text-slate-100">Scalable foundations:</span>{" "}
+              The ecosystem grows in capability without multiplying operational chaos.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section id="timeline" className="scroll-mt-24 border-b border-slate-900 bg-slate-950">
         <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
           <h2 className="text-lg font-semibold tracking-tight md:text-xl">
             How the Mesh Came Together
           </h2>
-          <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-            Each layer built on the previous one — turning scattered work into a deliberate,
-            repeatable system.
+          <p className="mt-3 max-w-3xl text-sm text-slate-300 md:text-base">
+            Each layer built on the previous one — turning scattered work into a deliberate, repeatable system.
           </p>
 
           <ol className="mt-6 space-y-4 border-l border-slate-800 pl-4 md:mt-8 md:space-y-5 md:pl-6">
             {TIMELINE.map((item) => (
               <li key={item.year} className="relative">
                 <div className="absolute -left-2 top-1.5 h-3 w-3 rounded-full border border-blue-300 bg-slate-950 md:-left-2.5" />
-                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-300/90">
-                  {item.year}
-                </div>
-                <div className="mt-1 text-sm font-semibold text-slate-50 md:text-base">
-                  {item.title}
-                </div>
-                <p className="mt-1 max-w-3xl text-xs text-slate-300 md:text-sm">
-                  {item.body}
-                </p>
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-300/90">{item.year}</div>
+                <div className="mt-1 text-sm font-semibold text-slate-50 md:text-base">{item.title}</div>
+                <p className="mt-1 max-w-3xl text-xs text-slate-300 md:text-sm">{item.body}</p>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      {/* Architecture section */}
-      <section className="border-b border-slate-900 bg-slate-950">
+      {/* Architecture */}
+      <section id="architecture" className="scroll-mt-24 border-b border-slate-900 bg-slate-950">
         <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
           <h2 className="text-lg font-semibold tracking-tight md:text-xl">
             Architecture at a Glance
           </h2>
-          <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-            The mesh connects consulting, docs, blogs, and projects with shared CI/CD, DNS,
-            and platform services — in one frame.
+          <p className="mt-3 max-w-3xl text-sm text-slate-300 md:text-base">
+            The mesh connects consulting, docs, blogs, and projects with shared CI/CD, DNS, and platform services — in one frame.
           </p>
 
           <div className="mt-6 grid gap-6 md:grid-cols-2">
@@ -458,8 +605,7 @@ export default function EngineeringMeshPage() {
 
               <div className="space-y-2 px-4 pb-4 pt-3 text-xs text-slate-300">
                 <p>
-                  A snapshot of the “before” state — the kind of chaos that observability,
-                  retries, budgets, and guardrails are meant to calm down.
+                  A snapshot of the “before” state — the kind of chaos that observability, retries, budgets, and guardrails are meant to calm down.
                 </p>
 
                 {LAMBDA_VIDEO_ID && (
@@ -484,17 +630,13 @@ export default function EngineeringMeshPage() {
       </section>
 
       {/* Case-study grid */}
-      <section id="case-studies" className="border-b border-slate-900 bg-slate-950">
+      <section id="case-studies" className="scroll-mt-24 border-b border-slate-900 bg-slate-950">
         <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
-          <h2 className="text-lg font-semibold tracking-tight md:text-xl">
-            Mesh-Aware Case Studies
-          </h2>
+          <h2 className="text-lg font-semibold tracking-tight md:text-xl">Mesh-Aware Case Studies</h2>
           <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-            Stories that live inside the mesh — proactive messaging, Lambda stabilization,
-            and guardrails that keep systems predictable.
+            Stories that live inside the mesh — proactive messaging, Lambda stabilization, and guardrails that keep systems predictable.
           </p>
 
-          {/* ✅ Cards grid (this is the layout wrapper) */}
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {CASE_STUDIES.map((cs) => (
               <Link
@@ -503,9 +645,7 @@ export default function EngineeringMeshPage() {
                 className="group flex flex-col rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-4 transition hover:border-blue-500/80 hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300/50"
               >
                 <div className="flex items-center justify-between gap-3">
-                  <h3 className="text-sm font-semibold text-slate-50 md:text-base">
-                    {cs.title}
-                  </h3>
+                  <h3 className="text-sm font-semibold text-slate-50 md:text-base">{cs.title}</h3>
                   <span className="rounded-full bg-slate-800 px-3 py-1 text-xs font-medium text-slate-200">
                     {cs.pill}
                   </span>
@@ -513,12 +653,8 @@ export default function EngineeringMeshPage() {
 
                 <p className="mt-2 text-xs text-slate-300 md:text-sm">{cs.summary}</p>
 
-                {/* ✅ Results label */}
-                <div className="mt-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-                  Results
-                </div>
+                <div className="mt-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Results</div>
 
-                {/* ✅ Metrics grid */}
                 {cs.metrics?.length ? (
                   <div className="mt-2 grid gap-2 sm:grid-cols-2">
                     {cs.metrics.slice(0, 3).map((m) => (
@@ -526,10 +662,8 @@ export default function EngineeringMeshPage() {
                         key={`${m.label}-${m.value}`}
                         className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px]"
                       >
-                        {/* Label */}
                         <span className="text-slate-400">{m.label}</span>
 
-                        {/* Icon (colored) */}
                         <span
                           className={
                             m.value.includes("↓")
@@ -542,37 +676,110 @@ export default function EngineeringMeshPage() {
                           {getMetricIcon(m.value)}
                         </span>
 
-                        {/* Value (brighter) */}
-                        <span className="font-semibold text-white transition group-hover:text-blue-200">
-                          {m.value}
-                        </span>
+                        <span className="font-semibold text-white transition group-hover:text-blue-200">{m.value}</span>
                       </div>
                     ))}
                   </div>
                 ) : null}
 
-                <span className="mt-3 text-xs font-medium text-blue-300 group-hover:text-blue-200">
-                  Read case study →
-                </span>
+                <span className="mt-3 text-xs font-medium text-blue-300 group-hover:text-blue-200">Read case study →</span>
               </Link>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Mesh-aware resources */}
-      <section className="bg-slate-950 pb-16 pt-10 md:pb-20 md:pt-14">
-        <div className="mx-auto max-w-5xl px-4 md:px-6">
+      {/* Tech Stack & Tooling */}
+      <section id="stack" className="scroll-mt-24 border-b border-slate-900 bg-slate-950">
+        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
           <h2 className="text-lg font-semibold tracking-tight md:text-xl">
-            Mesh-Aware Resources
+            Tech Stack & Tooling Used
           </h2>
+
           <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-            The directory for everything that touches the Engineering Mesh — across websites,
-            docs, and your long-form technical narrative.
+            The Engineering Mesh runs on a modern, automation-first toolchain designed
+            for reliability, repeatability, and secure delivery.
+          </p>
+
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+
+            {/* Frontend / Platform */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">
+                Platform & Frontend
+              </div>
+              <ul className="mt-3 space-y-2 text-sm text-slate-300">
+                <li>Next.js (App Router)</li>
+                <li>React + TypeScript</li>
+                <li>Tailwind CSS</li>
+                <li>Vercel hosting</li>
+              </ul>
+            </div>
+
+            {/* DevOps / CI/CD */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
+                DevOps & Delivery
+              </div>
+              <ul className="mt-3 space-y-2 text-sm text-slate-300">
+                <li>GitHub Actions CI/CD</li>
+                <li>PowerShell automation</li>
+                <li>DNS via IONOS</li>
+                <li>Environment-based deployments</li>
+              </ul>
+            </div>
+
+            {/* Cloud / Reliability */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
+                Cloud & Reliability
+              </div>
+              <ul className="mt-3 space-y-2 text-sm text-slate-300">
+                <li>AWS Lambda (serverless)</li>
+                <li>Logging & observability patterns</li>
+                <li>Cost-aware guardrails</li>
+                <li>Failure-tolerant workflows</li>
+              </ul>
+            </div>
+
+            {/* Communication / Integrations */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-300">
+                Integrations
+              </div>
+              <ul className="mt-3 space-y-2 text-sm text-slate-300">
+                <li>Resend (transactional email)</li>
+                <li>Cal.com scheduling</li>
+                <li>Static content toolchain</li>
+                <li>Cross-site shared services</li>
+              </ul>
+            </div>
+
+            {/* Security / Governance */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-300">
+                Security & Governance
+              </div>
+              <ul className="mt-3 space-y-2 text-sm text-slate-300">
+                <li>Policy-driven guardrails</li>
+                <li>Config consistency checks</li>
+                <li>Environment isolation</li>
+                <li>Secure defaults by design</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Resources */}
+      <section id="resources" className="scroll-mt-24 bg-slate-950 pb-16 pt-10 md:pb-20 md:pt-14">
+        <div className="mx-auto max-w-5xl px-4 md:px-6">
+          <h2 className="text-lg font-semibold tracking-tight md:text-xl">Mesh-Aware Resources</h2>
+          <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
+            The directory for everything that touches the Engineering Mesh — across websites, docs, and your long-form technical narrative.
           </p>
 
           <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-
             <ResourceRow
               title="Consulting Platform"
               description="Main Next.js site for services, intro calls, and client engagement."
@@ -622,9 +829,7 @@ function ResourceRow({ title, description, href }: ResourceRowProps) {
         <div className="text-sm font-semibold text-slate-50">{title}</div>
         <p className="mt-1 text-xs text-slate-300 md:text-sm">{description}</p>
       </div>
-      <div className="text-xs font-medium text-blue-300 md:text-sm">
-        Visit {isExternal ? "site" : "page"} →
-      </div>
+      <div className="text-xs font-medium text-blue-300 md:text-sm">Visit {isExternal ? "site" : "page"} →</div>
     </>
   );
 

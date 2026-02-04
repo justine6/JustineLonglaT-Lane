@@ -9,7 +9,7 @@
 
 /* Prevent sticky navbar from covering anchor targets */
 :root {
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 7rem; /* better for your sticky header height */
 
   /* Brand colors / tokens */
   --jut-primary: #2563eb;        /* blue-600 */
@@ -38,6 +38,10 @@
 html {
   color-scheme: light dark;
   scroll-behavior: smooth;
+}
+/* Any anchor target will land below the sticky navbar */
+[id] {
+  scroll-margin-top: 7rem;
 }
 
 /* Smooth theme swap */
@@ -69,7 +73,14 @@ main {
    Global link + focus styles
    --------------------------- */
 
+/* Global links: DON'T force underline everywhere (it breaks UI components) */
 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Use this class for content links that should look like links */
+.text-link {
   @apply underline text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200;
 }
 
@@ -558,6 +569,27 @@ a {
   font-size: 0.8rem;
   font-weight: 600;
   color: #020617;
+}
+/* ---------------------------
+   In-page anchor chips (Mesh nav)
+   --------------------------- */
+@layer components {
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full
+      border border-white/15 bg-white/5
+      px-3 py-1.5 text-xs font-semibold tracking-wide
+      text-slate-100
+      transition-all duration-200
+      hover:bg-white/10 hover:border-white/25 hover:text-white
+      focus-visible:outline-none focus-visible:ring-2
+      focus-visible:ring-white/50 focus-visible:ring-offset-2
+      focus-visible:ring-offset-slate-950;
+  }
+
+  .chip::before {
+    content: "#";
+    @apply text-slate-400 font-bold;
+  }
 }
 
 /*
