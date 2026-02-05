@@ -34,10 +34,11 @@ const testimonials: Testimonial[] = [
 
 export default function TestimonialSlider() {
   return (
-    <div className="max-w-3xl mx-auto py-12 px-4 sm:px-6">
-      <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
+    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+      <h2 className="mb-8 text-center text-2xl font-semibold sm:text-3xl text-slate-900 dark:text-slate-100">
         What Clients Are Saying
       </h2>
+
       <Swiper
         modules={[Pagination, Autoplay]}
         spaceBetween={20}
@@ -49,10 +50,21 @@ export default function TestimonialSlider() {
       >
         {testimonials.map((testimonial, index) => (
           <SwiperSlide key={index}>
-            <div className="p-6 bg-white rounded-xl shadow text-center border">
-              <p className="text-lg italic text-gray-700 mb-4">“{testimonial.quote}”</p>
-              <h4 className="text-base font-semibold text-gray-900">{testimonial.name}</h4>
-              <p className="text-sm text-gray-500">{testimonial.role}</p>
+            <div className="rounded-xl border border-slate-200 bg-white p-6 text-center shadow-sm
+                            dark:border-slate-800 dark:bg-slate-900/60">
+              
+              <p className="mb-4 text-lg italic text-slate-700 dark:text-slate-300">
+                “{testimonial.quote}”
+              </p>
+
+              <h4 className="text-base font-semibold text-slate-900 dark:text-slate-100">
+                {testimonial.name}
+              </h4>
+
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                {testimonial.role}
+              </p>
+
             </div>
           </SwiperSlide>
         ))}
