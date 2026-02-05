@@ -302,9 +302,11 @@ export default function Navbar() {
                 href={LINKS.introCall}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-white hover:bg-white/20"
                 onClick={closeMenu}
+                className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/15"
               >
+                <Calendar className="h-4 w-4" />
+
                 📅 Intro call
               </a>
             </div>

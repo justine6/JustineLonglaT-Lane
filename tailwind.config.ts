@@ -1,8 +1,7 @@
-// tailwind.config.ts
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -18,7 +17,6 @@ const config: Config = {
         },
       },
       animation: {
-        // use on hover to keep it elegant
         shine: "shine 900ms ease-out",
       },
     },
