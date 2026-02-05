@@ -214,14 +214,18 @@ export default function Topbar() {
               <div className="mt-2 flex items-center justify-between gap-3">
                 <ProfilePill />
                 <ThemeToggle />
-                <Link
-                  href={LINKS.contact}
-                  onClick={closeMenu}
+              
+                import Link from "next/link";
+                // ...other imports
+
+                <a
+                  href={LINKS.introCall}   // ✅ NOT LINKS.calIntro
                   className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/15"
                 >
                   <Calendar className="h-4 w-4" />
                   Intro call
-                </Link>
+                </a>
+
               </div>
             </div>
           </div>

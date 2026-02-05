@@ -352,7 +352,7 @@ export default function EngineeringMeshPage() {
 
       {/* Featured video */}
       <section id="overview-video" className={`scroll-mt-24 ${PAGE_SECTION}`}>
-        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
+        <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
             Featured Video — Overview of the Mesh
           </h2>
@@ -389,7 +389,7 @@ export default function EngineeringMeshPage() {
 
       {/* Problem */}
       <section id="problem" className={`scroll-mt-24 ${PAGE_SECTION}`}>
-        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
+        <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
             The Problem: Platform Sprawl Without Guardrails
           </h2>
@@ -415,7 +415,7 @@ export default function EngineeringMeshPage() {
 
       {/* Role */}
       <section id="role" className={`scroll-mt-24 ${PAGE_SECTION}`}>
-        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
+        <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
             My Role: Acting as Platform Engineer
           </h2>
@@ -440,7 +440,7 @@ export default function EngineeringMeshPage() {
 
       {/* Solution */}
       <section id="solution" className={`scroll-mt-24 ${PAGE_SECTION}`}>
-        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
+        <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
             The Solution: The Engineering Mesh Architecture
           </h2>
@@ -465,7 +465,7 @@ export default function EngineeringMeshPage() {
 
       {/* Results */}
       <section id="results" className={`scroll-mt-24 ${PAGE_SECTION}`}>
-        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
+        <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
             Results: What the Engineering Mesh Made Possible
           </h2>
@@ -541,7 +541,7 @@ export default function EngineeringMeshPage() {
 
       {/* Timeline */}
       <section id="timeline" className={`scroll-mt-24 ${PAGE_SECTION}`}>
-        <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">
+        <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
             How the Mesh Came Together
           </h2>
@@ -575,18 +575,23 @@ export default function EngineeringMeshPage() {
           </p>
 
           <div className="mt-6 grid gap-6 md:grid-cols-2">
+
+            {/* LEFT — Mesh Diagram */}
             <div className={`overflow-hidden ${CARD}`}>
               <div className="border-b border-slate-200 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 dark:border-slate-800 dark:text-slate-300">
                 Engineering Mesh Architecture Diagram
               </div>
 
-              <div className="px-4 pt-4">
-                <div className="relative aspect-[16/10] max-h-[360px] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50">
+              <div className="px-6 pt-6">
+                <div
+                  className="relative w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50
+                            h-[260px] sm:h-[320px] md:h-[380px] lg:h-[440px] xl:h-[480px]"
+                >
                   <Image
                     src="/assets/img/engineering-mesh-diagram.png"
                     alt="Diagram of the Justine Longla Engineering Mesh architecture"
                     fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 1280px) 480px, (min-width: 768px) 50vw, 100vw"
                     className="object-contain"
                   />
                 </div>
@@ -597,18 +602,22 @@ export default function EngineeringMeshPage() {
               </p>
             </div>
 
+            {/* RIGHT — Lambda Chaos Card */}
             <div className={`overflow-hidden ${CARD}`}>
               <div className="border-b border-slate-200 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 dark:border-slate-800 dark:text-slate-300">
                 “I Tamed the Chaos” — Lambda Swarm Collapse
               </div>
 
-              <div className="px-4 pt-4">
-                <div className="relative aspect-[16/10] max-h-[360px] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50">
+              <div className="px-6 pt-6">
+                <div
+                  className="relative w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50
+                            h-[260px] sm:h-[320px] md:h-[380px] lg:h-[440px] xl:h-[480px]"
+                >
                   <Image
                     src="/assets/img/lambda-swarm-collapse.png"
                     alt="AWS Lambda swarm collapse illustration"
                     fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 1280px) 480px, (min-width: 768px) 50vw, 100vw"
                     className="object-cover"
                   />
                 </div>
@@ -636,6 +645,7 @@ export default function EngineeringMeshPage() {
                 ) : null}
               </div>
             </div>
+
           </div>
         </div>
       </section>

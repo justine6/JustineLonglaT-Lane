@@ -24,7 +24,7 @@ export default async function EngineeringMeshPage() {
   const project = await loadMeshProject();
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-50">
+    <main className="min-h-screen bg-white text-slate-900">
       <section className="mx-auto max-w-5xl px-4 pb-20 pt-16 md:px-6 md:pt-20">
         {/* Breadcrumb */}
         <nav className="mb-6 text-xs text-slate-400">

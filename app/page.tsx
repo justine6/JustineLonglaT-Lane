@@ -102,7 +102,7 @@ export default function HomePage() {
               </p>
 
               <ul className="list-inside list-disc space-y-1 text-sm leading-relaxed text-gray-700 dark:text-gray-300 sm:text-base">
-                <li>7+ years in Cloud Architecture, DevOps, and automation</li>
+                <li>Expert at Cloud Architecture, DevOps, and automation</li>
                 <li>AWS &amp; Microsoft certified</li>
                 <li>Multilingual — English, French, Dutch</li>
                 <li>Proven results in healthcare, fintech, and e-commerce</li>
@@ -216,10 +216,10 @@ export default function HomePage() {
             <p>
               Email:{" "}
               <a
-                href="mailto:info@justinelonglat-lane.com"
+                href="mailto:justine@justinelonglat-lane.com"
                 className="text-blue-600 hover:underline dark:text-blue-400"
               >
-                info@justinelonglat-lane.com
+                justine@justinelonglat-lane.com
               </a>
             </p>
             <p>Phone: +1 405.934.5864</p>

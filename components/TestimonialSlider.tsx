@@ -35,7 +35,7 @@ const testimonials: Testimonial[] = [
 export default function TestimonialSlider() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-      <h2 className="mb-8 text-center text-2xl font-semibold sm:text-3xl text-slate-900 dark:text-slate-100">
+      <h2 className="mb-8 text-center text-2xl font-semibold text-slate-900 dark:text-slate-100 sm:text-3xl">
         What Clients Are Saying
       </h2>
 
@@ -50,10 +50,8 @@ export default function TestimonialSlider() {
       >
         {testimonials.map((testimonial, index) => (
           <SwiperSlide key={index}>
-            <div className="rounded-xl border border-slate-200 bg-white p-6 text-center shadow-sm
-                            dark:border-slate-800 dark:bg-slate-900/60">
-              
-              <p className="mb-4 text-lg italic text-slate-700 dark:text-slate-300">
+            <div className="rounded-2xl border border-slate-200 bg-white/90 p-6 text-center shadow-sm backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/60">
+              <p className="mb-4 text-lg italic text-slate-700 dark:text-slate-200">
                 “{testimonial.quote}”
               </p>
 
@@ -64,7 +62,6 @@ export default function TestimonialSlider() {
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 {testimonial.role}
               </p>
-
             </div>
           </SwiperSlide>
         ))}

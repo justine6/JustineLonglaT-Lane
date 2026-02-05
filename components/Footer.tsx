@@ -121,9 +121,9 @@ export default function Footer() {
             <li>
               <a
                 className="hover:underline"
-                href="mailto:info@justinelonglat-lane.com"
+                href="mailto:justine@justinelonglat-lane.com"
               >
-                info@justinelonglat-lane.com
+                justine@justinelonglat-lane.com
               </a>
             </li>
             <li>
@@ -155,7 +155,7 @@ export default function Footer() {
         <div className="mx-auto max-w-7xl flex flex-col items-center gap-2 text-center">
           <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
             © {year}{" "}
-            <span className="font-semibold">Justine Longla T.</span> · DevSecOps
+            <span className="font-semibold">Justine Longla T-Lane.</span> · DevSecOps
             • Cloud • Sustainability
           </p>
           <p className="text-xs text-gray-400 dark:text-gray-500">
