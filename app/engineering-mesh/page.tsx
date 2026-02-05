@@ -575,7 +575,6 @@ export default function EngineeringMeshPage() {
           </p>
 
           <div className="mt-6 grid gap-6 md:grid-cols-2">
-
             {/* LEFT — Mesh Diagram */}
             <div className={`overflow-hidden ${CARD}`}>
               <div className="border-b border-slate-200 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 dark:border-slate-800 dark:text-slate-300">
@@ -584,20 +583,22 @@ export default function EngineeringMeshPage() {
 
               <div className="px-6 pt-6">
                 <div
-                  className="relative w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50
-                            h-[260px] sm:h-[320px] md:h-[380px] lg:h-[440px] xl:h-[480px]"
+                  className="relative h-[260px] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50
+                            sm:h-[320px] md:h-[380px] lg:h-[440px] xl:h-[480px]
+                            dark:border-slate-800 dark:bg-slate-900/50"
                 >
                   <Image
                     src="/assets/img/engineering-mesh-diagram.png"
                     alt="Diagram of the Justine Longla Engineering Mesh architecture"
                     fill
-                    sizes="(min-width: 1280px) 480px, (min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 768px) 50vw, 100vw"
                     className="object-contain"
+                    priority={false}
                   />
                 </div>
               </div>
 
-              <p className={`px-4 pb-4 pt-3 text-xs ${MUTED}`}>
+              <p className={`px-6 pb-4 pt-3 text-xs ${MUTED}`}>
                 How IONOS DNS, Vercel, static sites, and shared services connect into one mesh.
               </p>
             </div>
@@ -610,20 +611,21 @@ export default function EngineeringMeshPage() {
 
               <div className="px-6 pt-6">
                 <div
-                  className="relative w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50
-                            h-[260px] sm:h-[320px] md:h-[380px] lg:h-[440px] xl:h-[480px]"
+                  className="relative h-[260px] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50
+                            sm:h-[320px] md:h-[380px] lg:h-[440px] xl:h-[480px]
+                            dark:border-slate-800 dark:bg-slate-900/50"
                 >
                   <Image
                     src="/assets/img/lambda-swarm-collapse.png"
                     alt="AWS Lambda swarm collapse illustration"
                     fill
-                    sizes="(min-width: 1280px) 480px, (min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 768px) 50vw, 100vw"
                     className="object-cover"
                   />
                 </div>
               </div>
 
-              <div className={`space-y-2 px-4 pb-4 pt-3 text-xs ${MUTED}`}>
+              <div className={`space-y-2 px-6 pb-4 pt-3 text-xs ${MUTED}`}>
                 <p>
                   A snapshot of the “before” state — the kind of chaos that observability, retries, budgets, and guardrails are meant to calm down.
                 </p>
@@ -645,7 +647,6 @@ export default function EngineeringMeshPage() {
                 ) : null}
               </div>
             </div>
-
           </div>
         </div>
       </section>
