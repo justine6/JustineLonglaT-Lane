@@ -1,13 +1,12 @@
 // components/ResumeViewer.client.tsx
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import { LINKS } from '@/config/links';
+import React, { useMemo, useState } from "react";
 
 type Props = {
-  fullSrc?: string;    // e.g. /docs/Justine_Tekang_Justine Longla T._Solutions_Resume.pdf
-  summarySrc?: string; // e.g. /docs/Justine_Tekang_Justine Longla T._Solutions_Resume_Summary.pdf
-  height?: number;     // iframe/object height in px
+  fullSrc?: string;    // e.g. /docs/resume.pdf
+  summarySrc?: string; // e.g. /docs/resume_summary.pdf
+  height?: number;     // object height in px
 };
 
 type TabKey = "full" | "summary";
@@ -49,11 +48,11 @@ const Viewer = ({
   </object>
 );
 
-const ResumeViewer: React.FC<Props> = ({
+export default function ResumeViewer({
   fullSrc = "/docs/resume.pdf",
   summarySrc = "/docs/resume_summary.pdf",
   height = 900,
-}) => {
+}: Props) {
   const [tab, setTab] = useState<TabKey>("full");
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
@@ -66,10 +65,12 @@ const ResumeViewer: React.FC<Props> = ({
     [tab, fullSrc, summarySrc]
   );
 
-  useEffect(() => {
+  const switchTab = (next: TabKey) => {
+    if (next === tab) return;
+    setTab(next);
     setLoading(true);
     setFailed(false);
-  }, [current.src]);
+  };
 
   const handlePrint = () => {
     if (typeof window === "undefined") return;
@@ -79,7 +80,9 @@ const ResumeViewer: React.FC<Props> = ({
         try {
           w.focus();
           w.print();
-        } catch {}
+        } catch {
+          // best-effort: some browsers block printing until the PDF fully loads
+        }
       };
       tryPrint();
       setTimeout(tryPrint, 600);
@@ -91,24 +94,27 @@ const ResumeViewer: React.FC<Props> = ({
       {/* Tabs */}
       <div className="mb-4 flex items-center gap-2">
         <button
-          onClick={() => setTab("full")}
+          onClick={() => switchTab("full")}
           className={`rounded-lg px-3 py-2 text-sm transition ${
             tab === "full"
               ? "bg-blue-600 text-white dark:bg-blue-500"
               : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
           }`}
           aria-pressed={tab === "full"}
+          type="button"
         >
           Full
         </button>
+
         <button
-          onClick={() => setTab("summary")}
+          onClick={() => switchTab("summary")}
           className={`rounded-lg px-3 py-2 text-sm transition ${
             tab === "summary"
               ? "bg-blue-600 text-white dark:bg-blue-500"
               : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
           }`}
           aria-pressed={tab === "summary"}
+          type="button"
         >
           One-Page
         </button>
@@ -124,6 +130,7 @@ const ResumeViewer: React.FC<Props> = ({
           <button
             onClick={handlePrint}
             className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-900 dark:hover:bg-slate-800"
+            type="button"
           >
             Print
           </button>
@@ -162,7 +169,4 @@ const ResumeViewer: React.FC<Props> = ({
       </div>
     </section>
   );
-};
-
-export default ResumeViewer;
-
+}

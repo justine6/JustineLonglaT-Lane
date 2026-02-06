@@ -2,24 +2,37 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-/** Allow Cal.com embeds */
-const CAL = [
-  "https://cal.com",
-  "https://*.cal.com",
-  "https://embed.cal.com",
-  "https://assets.cal.com",
-  "https://app.cal.com",
-].join(" ");
+const isProd = process.env.NODE_ENV === "production";
 
-/** Content Security Policy */
+/**
+ * Cal.com sources
+ * - Keep both base + wildcard.
+ * - The embed may touch multiple subdomains (app, embed, assets, api, etc.)
+ */
+const CAL = ["https://cal.com", "https://*.cal.com"].join(" ");
+
+/** Content Security Policy (scoped via matcher) */
 const csp = [
   `default-src 'self'`,
+
+  // Cal embed runs in an iframe
   `frame-src 'self' ${CAL}`,
-  `script-src 'self' 'unsafe-inline' 'unsafe-eval' ${CAL}`,
+
+  // Cal injects scripts; unsafe-eval only in dev to avoid Next/webpack dev tooling issues
+  `script-src 'self' 'unsafe-inline' ${isProd ? "" : "'unsafe-eval'"} ${CAL}`.trim(),
+
+  // Cal may inject inline styles; keep inline allowed
   `style-src 'self' 'unsafe-inline' ${CAL}`,
-  `img-src 'self' data: blob: ${CAL}`,
+
+  // Cal + your app may load https images and data/blob URLs
+  `img-src 'self' data: blob: https:`,
+
+  // The embed uses fetch/XHR/websocket-ish calls to Cal subdomains/APIs
   `connect-src 'self' ${CAL}`,
-  `font-src 'self'`,
+
+  // Allow fonts from https (Cal can serve fonts/assets)
+  `font-src 'self' data: https:`,
+
   `object-src 'none'`,
   `base-uri 'self'`,
   `frame-ancestors 'self'`,
@@ -33,18 +46,13 @@ const securityHeaders: Array<{ key: string; value: string }> = [
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
 ];
 
-export function middleware(req: NextRequest) {
+export function middleware(_req: NextRequest) {
   const res = NextResponse.next();
   for (const h of securityHeaders) res.headers.set(h.key, h.value);
   return res;
 }
 
-/**
- * Exclude Next.js internals & static assets so we don’t add headers to them.
- * Adjust the regex if you serve other file types.
- */
 export const config = {
-  matcher: [
-    "/((?!_next/|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|map|txt|pdf)).*)",
-  ],
+  matcher: ["/booking/:path*"],
 };
+

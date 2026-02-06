@@ -29,21 +29,62 @@ const securityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=()",
   },
-  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+
+  // Safer for embeds/popups than strict same-origin
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
+
+  // Keep if you want: it controls who can load YOUR resources
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
 ];
+
+const isProd = process.env.NODE_ENV === "production";
 
 /** CSP (Cal.com friendly) */
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cal.com https://*.cal.com",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "img-src 'self' data: https:",
-  "font-src 'self' https://fonts.gstatic.com",
-  "frame-src https://cal.com https://*.cal.com",
-  "connect-src 'self' https://api.resend.com https://v0.blob.vercel-storage.com https://cal.com https://*.cal.com",
+  [
+    "script-src 'self' 'unsafe-inline'",
+    isProd ? "" : "'unsafe-eval'",
+    "cal.com",
+    "*.cal.com",
+    "embed.cal.com",
+    "assets.cal.com",
+    "app.cal.com",
+  ]
+    .filter(Boolean)
+    .join(" "),
+  [
+    "style-src 'self' 'unsafe-inline'",
+    "fonts.googleapis.com",
+  ].join(" "),
+  [
+    "img-src 'self' data: blob:",
+    "https:",
+    "cal.com",
+    "*.cal.com",
+  ].join(" "),
+  [
+    "font-src 'self'",
+    "fonts.gstatic.com",
+  ].join(" "),
+  [
+    "frame-src 'self'",
+    "cal.com",
+    "*.cal.com",
+    "embed.cal.com",
+  ].join(" "),
+  [
+    "connect-src 'self'",
+    "api.resend.com",
+    "v0.blob.vercel-storage.com",
+    "cal.com",
+    "*.cal.com",
+    "embed.cal.com",
+    "assets.cal.com",
+    "app.cal.com",
+  ].join(" "),
   "object-src 'none'",
-  "media-src 'self'",
+  "base-uri 'self'",
   "frame-ancestors 'self'",
 ].join("; ");
 
@@ -60,7 +101,7 @@ const nextConfig = withMDX({
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "cal.com" },
-      { protocol: "https", hostname: "**.cal.com" },
+      { protocol: "https", hostname: "*.cal.com" },
     ],
   },
 
@@ -89,9 +130,14 @@ const nextConfig = withMDX({
       },
     ];
   },
-
   async redirects() {
-    return [
+  return [
+    {
+      source: "/projects/engineering-mesh",
+      destination: "/engineering-mesh",
+      permanent: true,
+    },
+
       { source: "/schedule", destination: "/booking", permanent: true },
       { source: "/intro", destination: "/booking", permanent: true },
       { source: "/intro-call", destination: "/booking", permanent: true },
@@ -137,6 +183,7 @@ const nextConfig = withMDX({
         destination: "/engineering-mesh/:path*",
         permanent: true,
       },
+      
       {
         source: "/docs/brochure.pdf",
         destination: "/files/brochure.pdf",
