@@ -51,6 +51,19 @@
 | **generator.jutellane.com** | Markdown → HTML static generator | GitHub Pages | md-to-html-static repo | ✅ |
 
 ---
+## 🔒 Stable Baseline (v1.3.0)
+
+Version **v1.3.0** marks a stable platform checkpoint:
+
+- Engineering Mesh page architecture finalized
+- Mesh case studies and markdown project system operational
+- Cal.com booking integration secured and working
+- Middleware CSP scoped to booking routes only
+- All primary navigation and CTAs validated
+
+Future enhancements (design polish, animations, storytelling layers) build on this baseline.
+
+---
 
 ## 🧩 Tech Stack Summary
 
@@ -172,3 +185,24 @@ git checkout restore/2025-11-09-brochure-fix
   <!-- sanity auto-deploy test - Justine, 11/19 -->
   <!-- auto deploy test -->
   
+## Stability Milestone (v1.3.0)
+
+This release freezes a known-good baseline for:
+
+- Engineering Mesh “Queen page” stabilized (links + layout)
+- Projects case studies routing via `/projects/[slug]` (markdown-driven)
+- Cal.com booking embed hardened:
+  - CSP scoped via `middleware.ts` matcher to Cal pages only
+  - `NEXT_PUBLIC_CAL_INTRO_URL` standardized (Cal path form)
+- Build verified locally (`next build`) and runtime validated (`next dev`)
+
+### Key files touched
+- `app/engineering-mesh/page.tsx`
+- `components/EngineeringMesh/*`
+- `lib/project-content.ts`
+- `middleware.ts`
+- `next.config.mjs`
+
+### Environment variables
+- `NEXT_PUBLIC_CAL_INTRO_URL` = `justine-longla-ptq4no/intro-call`
+- `NEXT_PUBLIC_SITE_URL` (recommended for correct success_url in prod/preview)

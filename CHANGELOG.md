@@ -43,3 +43,30 @@ feat: v2.0.0 — JustineLonglaT Consulting milestone
 - Prepared the ground for future case studies, offers, and empire-building content
 
 This release marks the official consulting-era baseline for JustineLonglaT-Lane.
+## [v1.3.0] - 2026-02-06
+
+### 🎯 Mesh Platform Stabilization Release
+
+This release locks in the stable architecture of the **Engineering Mesh** and booking flow.  
+It serves as a freeze point before future UI and feature enhancements.
+
+### Added
+- Mesh case studies component (`MeshImpactStories`)
+- Markdown-driven project case study routes
+- Cal.com booking embed integration
+- Scoped security headers via middleware for booking routes
+
+### Changed
+- Standardized internal vs external link handling across mesh cards and resources
+- Refactored Engineering Mesh hero and upper layout for stability and consistency
+- Updated route usage to use `LINKS.introCall` (not `LINKS.calIntro`)
+
+### Fixed
+- Build/runtime issues caused by mismatched link wrappers
+- Intro Call navigation not triggering correctly from topbar
+- Overly broad CSP scope affecting unrelated pages
+
+### Verified
+- `next build` successful
+- `next dev` navigation and CTAs validated
+- Booking + Intro Call flows working end-to-end
