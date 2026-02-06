@@ -91,14 +91,18 @@ export default function ProjectsCard({ project }: Props) {
       >
         {/* image area */}
         <div className="relative h-48 w-full bg-slate-950">
-          <Image
-            src={project.image || "/brand/justine-logo.png"}
-            alt={project.title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority={false}
-          />
+            {project.image ? (
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority={false}
+              />
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-900 to-black" />
+            )}
 
           {/* dark overlay */}
           <div
