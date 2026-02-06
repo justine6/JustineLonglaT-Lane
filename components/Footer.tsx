@@ -160,7 +160,7 @@ export default function Footer() {
           </p>
           <p className="text-xs text-gray-400 dark:text-gray-500">
             Operating under{" "}
-            <span className="font-medium">JustineLonglaT-Lane Consulting.</span>
+            <span className="font-medium">JustineLonglaT-Lane LLC.</span>
           </p>
 
           <nav
