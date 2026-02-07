@@ -53,6 +53,54 @@ export default function FilesPage() {
           </Link>
         </article>
       </section>
+      
+      <section className="files-toolkits">
+        <h2>Explore the Engineering Toolkits</h2>
+        <h2 className="files-subtitle">Explore the Engineering Toolkits</h2>
+
+        <p className="files-intro">
+          These resources power the automation, delivery pipelines, and DevSecOps practices
+          used across Justine Longla T.’s projects and consulting engagements.
+        </p>
+
+        <p className="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+          🧩 Part of the JLT Engineering Platform
+        </p>
+
+        <div className="files-grid">
+          <div className="file-card">
+            <h3>Automation Toolkit (Docs Site)</h3>
+            <p>
+              Technical documentation of the automation framework used to manage blogs, docs,
+              and platform delivery workflows.
+            </p>
+            <a
+              href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-blue-700"
+            >
+              Open the JLT Automation API Model →
+            </a>
+          </div>
+
+          <div className="file-card">
+            <h3>Engineering Toolkit (Blogs Site)</h3>
+            <p>
+              Deep-dive documentation of the scripts, guardrails, and reproducible environment
+              patterns used in real engineering workflows.
+            </p>
+            <a
+              href="https://blogs.justinelonglat-lane.com/docs/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-700"
+            >
+              Open Engineering Toolkit →
+            </a>
+          </div>
+        </div>
+      </section>
 
       <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">
         Looking for something specific? Use the{" "}

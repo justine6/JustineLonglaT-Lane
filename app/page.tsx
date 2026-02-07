@@ -115,13 +115,24 @@ export default function HomePage() {
                 >
                   Contact
                 </Link>
+
                 <Link
                   href="/resume"
                   className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
                 >
                   View Résumé
                 </Link>
+
+                <Link
+                  href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-xl border border-emerald-600 px-5 py-2.5 text-emerald-600 transition hover:bg-emerald-600 hover:text-white"
+                >
+                  🧩 View Automation Platform
+                </Link>
               </div>
+
             </div>
           </div>
         </section>
