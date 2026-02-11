@@ -14,60 +14,80 @@ import ContactSection from "@/components/ContactSection";
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white px-4 py-8 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10">
-      {/* 🔷 Logo card under global hero + brochure CTA row */}
-      <section className="bg-slate-50 py-10 dark:bg-slate-950/40">
-        <div className="mx-auto max-w-2xl px-2 sm:px-0">
-          <div className="rounded-3xl bg-white/95 p-6 shadow-md ring-1 ring-slate-200 dark:bg-slate-900/80 dark:ring-slate-700">
-            {/* Smaller logo */}
-            <div className="mx-auto max-w-xs">
-              <Image
-                src="/brand/justine-logo.png"
-                alt="Justine Longla T. logo"
-                width={360}
-                height={360}
-                className="mx-auto h-auto w-44 sm:w-52 md:w-56"
-                priority
-              />
-            </div>
+      
+    <section className="bg-slate-50 py-10 dark:bg-slate-950/40">
+      <div className="mx-auto max-w-3xl px-2 sm:px-0">
+        <div className="rounded-3xl bg-white/95 p-6 shadow-md ring-1 ring-slate-200 dark:bg-slate-900/80 dark:ring-slate-700">
+          {/* Smaller logo */}
+          <div className="mx-auto max-w-xs">
+            <Image
+              src="/brand/justine-logo.png"
+              alt="Justine Longla T. logo"
+              width={360}
+              height={360}
+              className="mx-auto h-auto w-44 sm:w-52 md:w-56"
+              priority
+            />
+          </div>
 
-            {/* CTA row directly under logo */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              {/* Intro call – primary button */}
-              <Link
-                href="/intro-call"
-                className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              >
-                Book Intro Call
-              </Link>
+          {/* CTA grid directly under logo */}
+          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Intro call – primary */}
+            <Link
+              href="/intro-call"
+              className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            >
+              Book Intro Call
+            </Link>
 
-              {/* Consulting brochure – outline button */}
-              <a
-                href="/files/JLT-Consulting-Brochure.pdf"
-                className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-4 py-2 text-sm font-semibold text-blue-600 bg-white hover:bg-blue-50 dark:border-blue-400 dark:text-blue-100 dark:bg-slate-900 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              >
-                Download Brochure
-              </a>
+            {/* Consulting brochure */}
+            <a
+              href="/files/JLT-Consulting-Brochure.pdf"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            >
+              Download Brochure
+            </a>
 
-              {/* Résumé – outline button */}
-              <a
-                href="/files/resume.pdf"
-                className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-4 py-2 text-sm font-semibold text-blue-600 bg-white hover:bg-blue-50 dark:border-blue-400 dark:text-blue-100 dark:bg-slate-900 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              >
-                View Résumé
-              </a>
+            {/* Résumé */}
+            <a
+              href="/files/resume.pdf"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            >
+              View Résumé
+            </a>
 
-              {/* Engineering Mesh Hub – fourth button */}
-              <Link
-                href="/engineering-mesh"
-                className="inline-flex items-center justify-center rounded-xl border border-slate-400 px-4 py-2 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-100 dark:border-slate-600 dark:text-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
-              >
-                <span className="mr-2">🧩</span>
-                Engineering Mesh Hub
-              </Link>
-            </div>
+            {/* Engineering Mesh Hub */}
+            <Link
+              href="/engineering-mesh"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+            >
+              <span className="mr-2">🧩</span>
+              Engineering Mesh Hub
+            </Link>
+
+            {/* Publishing Platform */}
+            <Link
+              href="/case-studies/engineering-grade-publishing"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+            >
+              <span className="mr-2">🧩</span>
+              Publishing Platform
+            </Link>
+
+            {/* Automation Platform (external) */}
+            <a
+              href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+            >
+              <span className="mr-2">🛠️</span>
+              Automation Platform↗
+            </a>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* 🔷 Services band (Launch / Secure / Operate) */}
       <AnimatedSection>

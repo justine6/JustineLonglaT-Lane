@@ -6,6 +6,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroBanner from "@/components/HeroBanner";
+import HeroGate from "@/components/HeroGate";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
@@ -45,7 +46,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </a>
 
           <Navbar />
-          <HeroBanner />
+
+          <HeroGate>
+            <HeroBanner />
+          </HeroGate>
 
           <div className="flex min-h-dvh flex-col">
             <main id="content" className="flex-1">

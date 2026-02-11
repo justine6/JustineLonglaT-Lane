@@ -152,7 +152,7 @@ export default function Footer() {
 
       {/* 🧾 Footer bottom bar — unified with Docs/Blog/Projects */}
       <div className="mt-6 border-t border-blue-100/70 dark:border-gray-800/80 px-4 py-4">
-        <div className="mx-auto max-w-7xl flex flex-col items-center gap-2 text-center">
+        <div className="mx-auto max-w-6xl flex flex-col items-center gap-2 text-center">
           <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
             © {year}{" "}
             <span className="font-semibold">Justine Longla T-Lane.</span> · DevSecOps

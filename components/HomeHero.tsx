@@ -1,4 +1,3 @@
-// components/HomeHero.tsx
 "use client";
 
 import Image from "next/image";
@@ -19,8 +18,9 @@ export default function HomeHero() {
       </div>
 
       {/* Foreground content */}
-      <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-8 px-4 py-20 text-center sm:py-24 lg:py-28">
-        {/* Logo + tagline */}
+      <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 py-20 text-center sm:py-24 lg:py-28">
+      <div className="w-full max-w-4xl rounded-3xl bg-white/85 px-8 py-8 shadow-xl ring-1 ring-slate-200/70 backdrop-blur dark:bg-slate-900/80 dark:ring-slate-700/70">
+
         <div className="rounded-3xl bg-white/85 px-8 py-8 shadow-xl ring-1 ring-slate-200/70 backdrop-blur dark:bg-slate-900/80 dark:ring-slate-700/70">
           <Image
             src="/brand/justine-logo.png"
@@ -29,17 +29,17 @@ export default function HomeHero() {
             height={140}
             className="mx-auto h-28 w-28"
           />
-          <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white">
+
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl md:text-5xl">
             Cloud Confidence. Delivered.
           </h1>
 
-          <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600 dark:text-slate-300 sm:text-base">
             Secure, Scalable AWS Services with Justine Tekang — Certified DevSecOps & Cloud Automation Expert.
           </p>
 
-          {/* Unified hero buttons */}
           <HeroCTA />
-
+        </div>
       </div>
       </div>
     </section>

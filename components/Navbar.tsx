@@ -14,18 +14,26 @@ import { ProfilePill } from "@/components/ProfilePill";
 type NavItem = { name: string; href: string };
 type EcoItem = { label: string; href: string };
 
+// Strict external detection (http/https + protocol-relative)
 function isExternalHref(href: string) {
-  return /^https?:\/\//i.test(href);
+  return /^(https?:)?\/\//i.test(href);
+}
+
+// Add ↗ only when truly external (presentation, not data)
+function withExternalMark(text: string, href: string) {
+  return isExternalHref(href) ? `${text} ↗` : text;
 }
 
 // Cross-site navigation (external ecosystem)
+// Keep labels clean; arrow is applied automatically.
 const ECOSYSTEM: EcoItem[] = [
-  { label: "Main ↗", href: LINKS.mainSite },
-  { label: "Docs ↗", href: LINKS.docsSite },
-  { label: "Blog ↗", href: LINKS.blogSite },
+  { label: "Main", href: LINKS.mainSite },
+  { label: "Docs", href: LINKS.docsSite },
+  { label: "Blog", href: LINKS.blogSite },
 ];
 
 // Main nav for this site
+// Keep names clean; arrow is applied automatically.
 const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
   { name: "README", href: LINKS.readme },
@@ -36,7 +44,6 @@ const NAV_LINKS: NavItem[] = [
   { name: "Blog", href: LINKS.blog }, // external
   { name: "Contact", href: LINKS.contact },
 ];
-
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -64,12 +71,21 @@ export default function Navbar() {
   const navWithActive = useMemo(() => {
     return NAV_LINKS.map((link) => {
       const external = isExternalHref(link.href);
+
       const active =
         !external &&
         (pathname === link.href ||
           (link.href !== "/" && pathname?.startsWith(link.href)));
 
-      return { ...link, external, active };
+      return {
+        ...link,
+        external,
+        active,
+        // ✅ Desktop + mobile will both get Blog ↗ automatically
+        displayName: withExternalMark(link.name, link.href),
+        // ✅ If you render ecosystem items with the same pattern, this is handy:
+        // displayLabel: withExternalMark(link.label, link.href), // (for EcoItem usage elsewhere)
+      };
     });
   }, [pathname]);
 
