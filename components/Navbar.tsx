@@ -1,17 +1,18 @@
-// components/Navbar.tsx
+// components/Topbar.tsx
 "use client";
 
+type NavItem = { name: string; href: string };
+
 import { Calendar, Menu, X } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import Image from "next/image";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { usePathname } from "next/navigation";
 
 import { LINKS } from "@/config/links";
 import ThemeToggle from "@/components/ThemeToggle";
 import { ProfilePill } from "@/components/ProfilePill";
 
-type NavItem = { name: string; href: string };
 type EcoItem = { label: string; href: string };
 
 // Strict external detection (http/https + protocol-relative)
@@ -24,16 +25,14 @@ function withExternalMark(text: string, href: string) {
   return isExternalHref(href) ? `${text} ↗` : text;
 }
 
-// Cross-site navigation (external ecosystem)
-// Keep labels clean; arrow is applied automatically.
+// Ecosystem dropdown = cross-site navigation (external)
 const ECOSYSTEM: EcoItem[] = [
-  { label: "Main", href: LINKS.mainSite },
-  { label: "Docs", href: LINKS.docsSite },
-  { label: "Blog", href: LINKS.blogSite },
+  { label: "Consulting site", href: "https://consulting.justinelonglat-lane.com" },
+  { label: "Docs", href: LINKS.docs },
+  { label: "Blog", href: LINKS.blog },
 ];
 
 // Main nav for this site
-// Keep names clean; arrow is applied automatically.
 const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
   { name: "README", href: LINKS.readme },
@@ -44,6 +43,7 @@ const NAV_LINKS: NavItem[] = [
   { name: "Blog", href: LINKS.blog }, // external
   { name: "Contact", href: LINKS.contact },
 ];
+
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);

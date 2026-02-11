@@ -1,7 +1,5 @@
 // components/Topbar.tsx
 "use client";
-export { default } from "./Navbar";
-
 
 import { Calendar, Menu, X } from "lucide-react";
 import Link from "next/link";
@@ -13,8 +11,16 @@ import { LINKS } from "@/config/links";
 import ThemeToggle from "@/components/ThemeToggle";
 import { ProfilePill } from "@/components/ProfilePill";
 
+type NavItem = { name: string; href: string };
+type EcoItem = { label: string; href: string };
+
+// Detect true external links
+function isExternalHref(href: string) {
+  return /^(https?:)?\/\//i.test(href);
+}
+
 // Ecosystem dropdown = cross-site navigation (external)
-const ECOSYSTEM = [
+const ECOSYSTEM: EcoItem[] = [
   { label: "Consulting site", href: "https://consulting.justinelonglat-lane.com" },
   { label: "Docs", href: LINKS.docs },
   { label: "Blog", href: LINKS.blog },
@@ -24,17 +30,13 @@ const ECOSYSTEM = [
 const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
   { name: "README", href: LINKS.readme },
-  { name: "Docs", href: LINKS.docs }, // external
+  { name: "Docs", href: LINKS.docs },
   { name: "Files", href: "/files" },
   { name: "About", href: "/about" },
   { name: "Projects", href: LINKS.projects },
   { name: "Blog", href: LINKS.blog },
   { name: "Contact", href: LINKS.contact },
 ];
-
-function isExternalHref(href: string) {
-  return /^https?:\/\//i.test(href);
-}
 
 export default function Topbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -45,6 +47,7 @@ export default function Topbar() {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -121,7 +124,7 @@ export default function Topbar() {
             [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
           "
         >
-          {navLinks.map((l) => {
+          {NAV_LINKS.map((l) => {
             const external = isExternalHref(l.href);
             const active =
               !external &&
@@ -203,7 +206,7 @@ export default function Topbar() {
         <div className="md:hidden border-t border-white/10 bg-blue-950/70 backdrop-blur-lg">
           <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
             <div className="grid gap-2">
-              {navLinks.map((l) => {
+              {NAV_LINKS.map((l) => {
                 const external = isExternalHref(l.href);
                 const active =
                   !external &&
@@ -274,3 +277,4 @@ export default function Topbar() {
     </header>
   );
 }
+
