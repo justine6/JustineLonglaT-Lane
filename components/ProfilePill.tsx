@@ -26,10 +26,6 @@ export function ProfilePill() {
         </span>
       </div>
 
-      {/* Theme toggle inside the pill */}
-      <div className="ml-1 flex items-center">
-        <ThemeToggle />
-      </div>
     </div>
   );
 }

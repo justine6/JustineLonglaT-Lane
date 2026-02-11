@@ -5,7 +5,7 @@ import { ProfilePill } from "@/components/ProfilePill";
 export function Header() {
   return (
     <header className="border-b border-blue-100/80 bg-white/80 dark:bg-slate-950/80 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
+      <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 sm:px-6">
         {/* Brand: profile + “Projects” chip */}
         <Link
           href="/"
