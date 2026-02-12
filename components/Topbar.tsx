@@ -30,11 +30,11 @@ const ECOSYSTEM: EcoItem[] = [
 const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
   { name: "README", href: LINKS.readme },
-  { name: "Docs", href: LINKS.docs },
+  { name: "Docs", href: LINKS.docs }, // external
   { name: "Files", href: "/files" },
   { name: "About", href: "/about" },
   { name: "Projects", href: LINKS.projects },
-  { name: "Blog", href: LINKS.blog },
+  { name: "Blog", href: LINKS.blog }, // external
   { name: "Contact", href: LINKS.contact },
 ];
 
@@ -63,25 +63,32 @@ export default function Topbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 backdrop-blur-lg ${
+      className={[
+        "sticky top-0 z-50 w-full backdrop-blur-xl transition-all duration-300",
+        // Premium ecosystem blue gradient (light + dark)
         scrolled
-          ? "bg-blue-600/95 dark:bg-blue-950/95 shadow-lg"
-          : "bg-blue-500/60 dark:bg-blue-950/60 shadow-md"
-      }`}
+          ? "bg-gradient-to-b from-[#0B1F3B]/95 via-[#0A1A33]/92 to-[#08172E]/90 shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
+          : "bg-gradient-to-b from-[#123463]/85 via-[#0F2B52]/78 to-[#0B2344]/70 shadow-[0_6px_18px_rgba(0,0,0,0.22)]",
+        // subtle top highlight line
+        "border-b border-white/10",
+      ].join(" ")}
     >
+      {/* thin glow line */}
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-60" />
+
       <nav
         className="relative mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4"
         aria-label="Primary navigation"
       >
         {/* LEFT */}
-        <div className="flex min-w-0 items-center gap-3 shrink-0 whitespace-nowrap">
+        <div className="flex min-w-0 shrink-0 items-center gap-3 whitespace-nowrap">
           <Link
             href="/"
-            className="flex items-center gap-3 sm:gap-4 text-white"
+            className="flex items-center gap-3 text-white sm:gap-4"
             aria-label="Justine Longla T-Lane home"
             onClick={closeMenu}
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 shadow-sm">
               <Image
                 src="/brand/justine-logo.png"
                 alt="Justine Longla T-Lane logo"
@@ -96,16 +103,20 @@ export default function Topbar() {
               <div className="text-sm font-semibold tracking-wide sm:text-base">
                 Justine Longla T-Lane.
               </div>
+              <div className="text-[11px] text-white/70 hidden sm:block">
+                Cloud Confidence. Delivered.
+              </div>
             </div>
           </Link>
 
+          {/* Mesh Hub badge */}
           <Link
             href="/engineering-mesh"
             className="
               hidden sm:inline-flex ml-1 rounded-full p-[2px]
-              bg-gradient-to-r from-sky-400/50 via-emerald-300/40 to-blue-500/50
+              bg-gradient-to-r from-sky-400/60 via-emerald-300/45 to-blue-500/60
               shadow-sm transition hover:shadow-md hover:scale-[1.02] will-change-transform
-              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70
             "
             aria-label="Engineering Mesh Hub"
             onClick={closeMenu}
@@ -130,12 +141,15 @@ export default function Topbar() {
               !external &&
               (pathname === l.href || (l.href !== "/" && pathname?.startsWith(l.href)));
 
-            // tighter pills (less “fat”)
-            const cls = `rounded-full px-3 py-1.5 text-[13px] font-semibold transition ${
+            const cls = [
+              "rounded-full px-4 py-2 text-[13px] font-semibold transition",
+              "border border-white/10 bg-white/8 text-white/90",
+              "hover:bg-white/12 hover:border-white/20 hover:-translate-y-[1px]",
+              "shadow-[0_1px_0_rgba(255,255,255,0.08)]",
               active
-                ? "bg-emerald-400/20 text-white ring-1 ring-emerald-300/40"
-                : "bg-white/10 text-white/90 hover:bg-white/15"
-            }`;
+                ? "bg-white/14 border-emerald-300/35 ring-1 ring-emerald-300/35 shadow-[0_0_0_1px_rgba(52,211,153,0.15),0_10px_25px_rgba(0,0,0,0.25)]"
+                : "",
+            ].join(" ");
 
             return external ? (
               <a
@@ -145,29 +159,40 @@ export default function Topbar() {
                 rel="noopener noreferrer"
                 className={cls}
               >
-                {l.name} <span aria-hidden="true">↗</span>
+                {l.name} <span aria-hidden="true" className="text-[0.7rem] opacity-90">↗</span>
               </a>
             ) : (
-              <Link key={l.name} href={l.href} className={cls}>
+              <Link key={l.name} href={l.href} className={cls} onClick={closeMenu}>
                 {l.name}
               </Link>
             );
           })}
 
+          {/* Ecosystem dropdown */}
           <details className="relative">
-            <summary className="list-none cursor-pointer rounded-full px-3 py-1.5 text-[13px] font-semibold text-white/90 bg-white/10 hover:bg-white/15 transition">
+            <summary
+              className="
+                list-none cursor-pointer rounded-full px-4 py-2 text-[13px] font-semibold
+                border border-white/10 bg-white/8 text-white/90
+                hover:bg-white/12 hover:border-white/20 transition
+              "
+            >
               Ecosystem
             </summary>
-            <div className="absolute right-0 mt-2 w-56 overflow-hidden rounded-2xl border border-white/10 bg-blue-950/95 shadow-xl">
+            <div className="absolute right-0 mt-2 w-64 overflow-hidden rounded-2xl border border-white/10 bg-[#071427]/95 shadow-[0_18px_55px_rgba(0,0,0,0.45)]">
+              <div className="px-4 py-2 text-[11px] tracking-[0.18em] font-semibold text-white/60">
+                CROSS-SITE
+              </div>
               {ECOSYSTEM.map((x) => (
                 <a
                   key={x.label}
                   href={x.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block px-4 py-3 text-sm text-white/90 hover:bg-white/10"
+                  className="flex items-center justify-between px-4 py-3 text-sm text-white/90 hover:bg-white/8"
                 >
-                  {x.label} ↗
+                  <span>{x.label}</span>
+                  <span aria-hidden="true" className="text-[0.7rem] opacity-80">↗</span>
                 </a>
               ))}
             </div>
@@ -179,11 +204,18 @@ export default function Topbar() {
           <div className="hidden md:flex items-center gap-3">
             <ProfilePill />
             <ThemeToggle />
+
             <a
-              href={LINKS.introCall}
+              href={LINKS.calIntro ?? LINKS.introCall}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/15"
+              className="
+                inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
+                bg-gradient-to-r from-sky-500/70 to-indigo-500/70
+                border border-white/15 shadow-[0_10px_30px_rgba(0,0,0,0.25)]
+                hover:from-sky-500/80 hover:to-indigo-500/80 hover:-translate-y-[1px]
+                transition
+              "
             >
               <Calendar className="h-4 w-4" />
               Intro call
@@ -192,7 +224,7 @@ export default function Topbar() {
 
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-xl bg-white/10 p-2 text-white hover:bg-white/15"
+            className="md:hidden inline-flex items-center justify-center rounded-xl bg-white/10 p-2 text-white hover:bg-white/15 border border-white/10"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
@@ -203,7 +235,7 @@ export default function Topbar() {
 
       {/* Mobile panel */}
       {menuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-blue-950/70 backdrop-blur-lg">
+        <div className="md:hidden border-t border-white/10 bg-[#071427]/80 backdrop-blur-xl">
           <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
             <div className="grid gap-2">
               {NAV_LINKS.map((l) => {
@@ -212,11 +244,12 @@ export default function Topbar() {
                   !external &&
                   (pathname === l.href || (l.href !== "/" && pathname?.startsWith(l.href)));
 
-                const cls = `rounded-xl px-4 py-3 text-sm font-semibold transition ${
+                const cls = [
+                  "rounded-xl px-4 py-3 text-sm font-semibold transition border",
                   active
-                    ? "bg-emerald-400/25 text-white ring-1 ring-emerald-300/40"
-                    : "bg-white/10 text-white hover:bg-white/15"
-                }`;
+                    ? "bg-white/12 text-white border-emerald-300/30 ring-1 ring-emerald-300/30"
+                    : "bg-white/8 text-white border-white/10 hover:bg-white/12 hover:border-white/20",
+                ].join(" ");
 
                 return external ? (
                   <a
@@ -257,14 +290,19 @@ export default function Topbar() {
               </div>
 
               <div className="mt-2 flex items-center justify-between gap-3">
-                <ProfilePill />
                 <ThemeToggle />
                 <a
-                  href={LINKS.introCall}
+                  href={LINKS.calIntro ?? LINKS.introCall}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={closeMenu}
-                  className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/15"
+                  className="
+                    inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
+                    bg-gradient-to-r from-sky-500/70 to-indigo-500/70
+                    border border-white/15
+                    hover:from-sky-500/80 hover:to-indigo-500/80
+                    transition
+                  "
                 >
                   <Calendar className="h-4 w-4" />
                   Intro call
@@ -277,4 +315,3 @@ export default function Topbar() {
     </header>
   );
 }
-

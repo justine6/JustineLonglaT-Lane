@@ -36,14 +36,13 @@ const ECOSYSTEM: EcoItem[] = [
 const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
   { name: "README", href: LINKS.readme },
-  { name: "Docs", href: LINKS.docs }, // external
+  { name: "Docs", href: LINKS.docs },
   { name: "Files", href: "/files" },
   { name: "About", href: "/about" },
   { name: "Projects", href: LINKS.projects },
-  { name: "Blog", href: LINKS.blog }, // external
+  { name: "Blog", href: LINKS.blog },
   { name: "Contact", href: LINKS.contact },
 ];
-
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -52,7 +51,7 @@ export default function Navbar() {
 
   // Scroll styling
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
@@ -71,7 +70,6 @@ export default function Navbar() {
   const navWithActive = useMemo(() => {
     return NAV_LINKS.map((link) => {
       const external = isExternalHref(link.href);
-
       const active =
         !external &&
         (pathname === link.href ||
@@ -81,13 +79,32 @@ export default function Navbar() {
         ...link,
         external,
         active,
-        // ✅ Desktop + mobile will both get Blog ↗ automatically
         displayName: withExternalMark(link.name, link.href),
-        // ✅ If you render ecosystem items with the same pattern, this is handy:
-        // displayLabel: withExternalMark(link.label, link.href), // (for EcoItem usage elsewhere)
       };
     });
   }, [pathname]);
+
+  // Shared styles (keeps things consistent)
+  const shellBg = [
+    // “ecosystem dark blue” with depth
+    "bg-gradient-to-r from-[#061a3a]/95 via-[#0a2f66]/90 to-[#061a3a]/95",
+    "dark:from-[#040f24]/95 dark:via-[#071a3a]/92 dark:to-[#040f24]/95",
+  ].join(" ");
+
+  const shellBorder = "border-b border-white/10";
+  const shellShadow = scrolled
+    ? "shadow-[0_18px_40px_-26px_rgba(0,0,0,0.75)]"
+    : "shadow-sm";
+
+  const pillBase =
+    "rounded-full px-4 py-2 text-sm font-semibold transition " +
+    "ring-1 ring-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60";
+
+  const pillIdle =
+    "bg-white/10 text-white/90 hover:bg-white/16 hover:ring-white/15 hover:-translate-y-[1px] hover:shadow-[0_14px_26px_-22px_rgba(0,0,0,0.8)]";
+
+  const pillActive =
+    "bg-white/16 text-white ring-white/25 shadow-[0_14px_26px_-24px_rgba(0,0,0,0.85)]";
 
   return (
     <>
@@ -100,11 +117,12 @@ export default function Navbar() {
       </a>
 
       <header
-        className={`sticky top-0 z-50 w-full transition-all duration-300 backdrop-blur-lg ${
-          scrolled
-            ? "bg-blue-600/95 dark:bg-blue-950/95 shadow-lg"
-            : "bg-blue-500/70 dark:bg-blue-950/70 shadow-md"
-        }`}
+        className={[
+          "sticky top-0 z-50 w-full backdrop-blur-lg transition-all duration-300",
+          shellBg,
+          shellBorder,
+          shellShadow,
+        ].join(" ")}
       >
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
           {/* =========================
@@ -120,7 +138,7 @@ export default function Navbar() {
                 aria-label="Justine Longla T-Lane. home"
                 onClick={closeMenu}
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 shadow-sm">
                   <Image
                     src="/brand/justine-logo.png"
                     alt="Justine Longla T-Lane logo"
@@ -135,6 +153,9 @@ export default function Navbar() {
                   <div className="text-sm font-semibold tracking-wide sm:text-base">
                     Justine Longla T-Lane.
                   </div>
+                  <div className="hidden sm:block text-[11px] text-white/70">
+                    Cloud Confidence. Delivered.
+                  </div>
                 </div>
               </Link>
 
@@ -145,23 +166,25 @@ export default function Navbar() {
                   href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-emerald-300/50 via-white/15 to-sky-300/50 shadow-sm transition hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-emerald-300/50 via-white/15 to-sky-300/50 shadow-sm transition hover:shadow-md hover:-translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                   aria-label="Automation Platform"
                 >
-                  <span className="flex items-center gap-2 rounded-full bg-white/15 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/25">
+                  <span className="flex items-center gap-2 rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
                     Automation <span className="hidden lg:inline">Platform</span>
-                    <span aria-hidden="true" className="text-[0.7rem]">↗</span>
+                    <span aria-hidden="true" className="text-[0.7rem]">
+                      ↗
+                    </span>
                   </span>
                 </a>
 
                 {/* Publishing Platform */}
                 <Link
                   href="/case-studies/engineering-grade-publishing"
-                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-white/35 via-white/20 to-white/35 shadow-sm transition hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-white/28 via-white/14 to-white/28 shadow-sm transition hover:shadow-md hover:-translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                   aria-label="Publishing Platform"
                   onClick={closeMenu}
                 >
-                  <span className="flex items-center rounded-full bg-white/15 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/25">
+                  <span className="flex items-center rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
                     Publishing <span className="hidden lg:inline">Platform</span>
                   </span>
                 </Link>
@@ -169,7 +192,7 @@ export default function Navbar() {
                 {/* Engineering Mesh Hub */}
                 <Link
                   href="/engineering-mesh"
-                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-sky-400/60 via-teal-300/55 to-blue-500/60 shadow-sm transition hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-sky-400/55 via-teal-300/45 to-blue-500/55 shadow-sm transition hover:shadow-md hover:-translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                   aria-label="Engineering Mesh Hub"
                   onClick={closeMenu}
                 >
@@ -194,7 +217,14 @@ export default function Navbar() {
                   href={LINKS.calIntro ?? LINKS.introCall}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/40 bg-white/10 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-white/20"
+                  className="
+                    inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
+                    bg-gradient-to-r from-sky-500/70 via-blue-500/70 to-indigo-500/70
+                    hover:from-sky-500/85 hover:via-blue-500/85 hover:to-indigo-500/85
+                    ring-1 ring-white/20 hover:ring-white/35
+                    shadow-[0_14px_28px_-22px_rgba(0,0,0,0.8)]
+                    transition hover:-translate-y-[1px]
+                  "
                 >
                   <Calendar className="h-4 w-4" aria-hidden="true" />
                   <span>Intro call</span>
@@ -204,7 +234,7 @@ export default function Navbar() {
               {/* Mobile menu button */}
               <button
                 type="button"
-                className="md:hidden inline-flex items-center justify-center rounded-xl bg-white/10 p-2 text-white hover:bg-white/15"
+                className="md:hidden inline-flex items-center justify-center rounded-xl bg-white/10 p-2 text-white hover:bg-white/16 ring-1 ring-white/15"
                 onClick={() => setMenuOpen((v) => !v)}
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
               >
@@ -219,11 +249,10 @@ export default function Navbar() {
           <div className="hidden md:flex items-center justify-center gap-2 pb-3">
             <div className="flex flex-wrap items-center justify-center gap-2">
               {navWithActive.map((link) => {
-                const className = `rounded-full px-4 py-2 text-sm font-semibold transition ${
-                  link.active
-                    ? "bg-emerald-400/25 text-white ring-1 ring-emerald-300/40"
-                    : "bg-white/10 text-white hover:bg-white/15"
-                }`;
+                const className = [
+                  pillBase,
+                  link.active ? pillActive : pillIdle,
+                ].join(" ");
 
                 return link.external ? (
                   <a
@@ -234,7 +263,9 @@ export default function Navbar() {
                     className={className}
                   >
                     <span>{link.name}</span>
-                    <span aria-hidden="true" className="pl-1 text-[0.7rem]">↗</span>
+                    <span aria-hidden="true" className="pl-1 text-[0.7rem] text-white/85">
+                      ↗
+                    </span>
                   </a>
                 ) : (
                   <Link
@@ -250,10 +281,18 @@ export default function Navbar() {
 
               {/* Ecosystem dropdown */}
               <details className="relative">
-                <summary className="list-none cursor-pointer rounded-full px-4 py-2 text-sm font-semibold text-white bg-white/10 hover:bg-white/15 transition">
+                <summary
+                  className={[
+                    pillBase,
+                    "list-none cursor-pointer bg-white/10 text-white hover:bg-white/16 hover:ring-white/15 hover:-translate-y-[1px]",
+                  ].join(" ")}
+                >
                   Ecosystem
                 </summary>
-                <div className="absolute right-0 mt-2 w-56 overflow-hidden rounded-2xl border border-white/10 bg-blue-950/95 shadow-xl">
+                <div className="absolute right-0 mt-2 w-64 overflow-hidden rounded-2xl border border-white/10 bg-[#061a3a]/95 shadow-2xl">
+                  <div className="px-4 py-2 text-[11px] font-semibold tracking-[0.22em] text-white/60">
+                    CROSS-SITE
+                  </div>
                   {ECOSYSTEM.map((x) => (
                     <a
                       key={x.label}
@@ -262,7 +301,7 @@ export default function Navbar() {
                       rel="noopener noreferrer"
                       className="block px-4 py-3 text-sm text-white/90 hover:bg-white/10"
                     >
-                      {x.label} ↗
+                      {x.label} <span aria-hidden="true" className="ml-1 text-white/70">↗</span>
                     </a>
                   ))}
                 </div>
@@ -275,7 +314,7 @@ export default function Navbar() {
             MOBILE PANEL
            ========================= */}
         {menuOpen && (
-          <div className="md:hidden border-t border-white/10 bg-blue-950/70 backdrop-blur-lg">
+          <div className="md:hidden border-t border-white/10 bg-[#061a3a]/92 backdrop-blur-lg">
             <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
               <div className="grid gap-2">
                 {/* Prime links (mobile) */}
@@ -312,11 +351,10 @@ export default function Navbar() {
 
                 {/* Primary links */}
                 {navWithActive.map((l) => {
-                  const cls = `rounded-xl px-4 py-3 text-sm font-semibold transition ${
-                    l.active
-                      ? "bg-emerald-400/25 text-white ring-1 ring-emerald-300/40"
-                      : "bg-white/10 text-white hover:bg-white/15"
-                  }`;
+                  const cls = [
+                    "rounded-xl px-4 py-3 text-sm font-semibold transition ring-1 ring-transparent",
+                    l.active ? "bg-white/16 text-white ring-white/25" : "bg-white/8 text-white hover:bg-white/14 hover:ring-white/15",
+                  ].join(" ");
 
                   return l.external ? (
                     <a
@@ -365,7 +403,12 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={closeMenu}
-                    className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/15"
+                    className="
+                      inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
+                      bg-gradient-to-r from-sky-500/70 via-blue-500/70 to-indigo-500/70
+                      hover:from-sky-500/85 hover:via-blue-500/85 hover:to-indigo-500/85
+                      ring-1 ring-white/20 hover:ring-white/35 transition
+                    "
                   >
                     <Calendar className="h-4 w-4" />
                     Intro call
