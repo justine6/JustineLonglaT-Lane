@@ -76,3 +76,5 @@ vitest/
 # If any Nuxt leftovers exist (safe ignore)
 # =============================
 .nuxt/
+# local tooling scratch (avoid shadowing vitest package)
+vitest
