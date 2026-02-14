@@ -41,3 +41,4 @@ describe("buildCalUrl()", () => {
     expect(url).toContain("primary_color=1d4ed8");
   });
 });
+

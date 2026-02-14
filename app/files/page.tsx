@@ -27,7 +27,7 @@ export default function FilesPage() {
             Overview of services, focus areas, and engagement models.
           </p>
           <Link
-            href="/files/JustineLonglaT-Consulting-Brochure.pdf"
+            href="https://consulting.justinelonglat-lane.com/files/JLT-Consulting-Brochure.pdf"
             target="_blank"
             className="mt-3 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
           >
@@ -41,16 +41,17 @@ export default function FilesPage() {
             Résumé (PDF)
           </h2>
           <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-            Detailed experience in DevSecOps, cloud automation, and platform
-            engineering.
+            Detailed experience in DevSecOps, cloud automation, and platform engineering.
           </p>
-          <Link
-            href="/files/JustineLonglaT-Resume.pdf"
+
+          <a
+            href="https://consulting.justinelonglat-lane.com/files/justine-longla-resume-2025.pdf"
             target="_blank"
+            rel="noopener noreferrer"
             className="mt-3 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
           >
             View résumé
-          </Link>
+          </a>
         </article>
       </section>
       
