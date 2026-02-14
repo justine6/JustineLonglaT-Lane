@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LINKS } from "@/config/links";
+import { formatPlatformVersion } from "@/lib/platformVersion";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -198,6 +199,29 @@ export default function Footer() {
               Automation Toolkit
             </a>
           </nav>
+          
+          {/* 🧬 Platform Version Line — GLOBAL */}
+          <div className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
+            {formatPlatformVersion()}
+          </div>
+
+          {/* Optional quick links (Docs parity) */}
+          <div className="flex gap-4 text-[11px] text-gray-400 dark:text-gray-500">
+            <a
+              href="/automation-toolkit/"
+              className="hover:underline"
+            >
+              Automation toolkit
+            </a>
+
+            <a
+              href="/sitemap.html"
+              className="hover:underline"
+            >
+              Sitemap
+            </a>
+          </div>
+
         </div>
       </div>
     </footer>
