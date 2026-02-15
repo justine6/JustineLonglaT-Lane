@@ -60,10 +60,9 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="hover:underline"
               >
-                Blog
+                Blog ↗
               </a>
             </li>
-
             <li>
               <Link href={LINKS.contact} className="hover:underline">
                 Contact
@@ -200,6 +199,9 @@ export default function Footer() {
             </a>
           </nav>
           
+          {/* Divider */}
+          <div className="mt-4 w-full max-w-xl border-t border-blue-100/70 dark:border-gray-800/80" />
+
           {/* 🧬 Platform Version Line — GLOBAL */}
           <div className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
             {formatPlatformVersion()}

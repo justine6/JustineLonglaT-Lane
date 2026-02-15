@@ -1,38 +1,60 @@
 name: CI
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
-  test:
+  guardrails:
+    name: Guardrails (audit + checks)
     runs-on: ubuntu-latest
+    timeout-minutes: 25
 
     steps:
-      # 1) Checkout repo
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2) Install pnpm BEFORE setting up Node cache
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      # 3) Setup Node (with pnpm cache support)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
-          check-latest: true
+          node-version: 20
+          cache: npm
 
-      # 4) Install dependencies
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install (deterministic)
+        run: npm ci
 
-      # 5) Run CI checks
-      - name: Run tests with coverage
-        run: pnpm run coverage:strict
+      - name: Security audit (high+)
+        run: npm audit --audit-level=high
 
+      - name: Platform checks (repair + lint + coverage strict)
+        run: npm run ci-check
+
+  build:
+    name: Build (Next.js)
+    runs-on: ubuntu-latest
+    needs: guardrails
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install (deterministic)
+        run: npm ci
+
+      - name: Build
+        run: npm run build

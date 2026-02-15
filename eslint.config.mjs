@@ -2,15 +2,82 @@
 import js from "@eslint/js";
 import nextPlugin from "@next/eslint-plugin-next";
 import tseslint from "typescript-eslint";
+import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
+import jsxA11y from "eslint-plugin-jsx-a11y";
+import importPlugin from "eslint-plugin-import";
+import unusedImports from "eslint-plugin-unused-imports";
 import globals from "globals";
 
 export default [
-  // Base recommendations
+  // ============================================================
+  // 0) Global ignores (keep lint fast + deterministic)
+  // ============================================================
+  {
+    ignores: [
+      ".next/**",
+      "node_modules/**",
+      "out/**",
+      "dist/**",
+      "coverage/**",
+
+      // Your intentional archives / templates
+      "app/posts-backup-*/**",
+      "app/projects/__template-case-study/**",
+      "app/projects/__slug-archive/**",
+
+      // Optional: generated content
+      "**/*.d.ts",
+    ],
+  },
+
+  // ============================================================
+  // 1) Base JS + TS recommended (fast, non-type-aware)
+  // ============================================================
   js.configs.recommended,
   ...tseslint.configs.recommended,
 
-  // Next.js rules
+  // ============================================================
+  // 2) Common language options
+  // ============================================================
+  {
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        ...globals.browser,
+        ...globals.es2021,
+      },
+    },
+  },
+
+  // ============================================================
+  // 3) React + Hooks (App Router safe defaults)
+  // ============================================================
+  {
+    plugins: {
+      react,
+      "react-hooks": reactHooks,
+    },
+    settings: {
+      react: { version: "detect" },
+    },
+    rules: {
+      ...react.configs.recommended.rules,
+      ...reactHooks.configs.recommended.rules,
+
+      // Next.js + React 17+ JSX transform
+      "react/react-in-jsx-scope": "off",
+
+      // Optional niceties
+      "react/jsx-uses-react": "off",
+      "react/prop-types": "off",
+    },
+  },
+
+  // ============================================================
+  // 4) Next.js (recommended + core web vitals)
+  // ============================================================
   {
     plugins: { "@next/next": nextPlugin },
     rules: {
@@ -19,70 +86,104 @@ export default [
     },
   },
 
-  // React hooks rules (fixes: "Definition for rule ... not found")
+  // ============================================================
+  // 5) Accessibility (public-facing site hygiene)
+  // ============================================================
   {
-    plugins: { "react-hooks": reactHooks },
+    plugins: { "jsx-a11y": jsxA11y },
     rules: {
-      ...reactHooks.configs.recommended.rules,
+      ...jsxA11y.configs.recommended.rules,
     },
   },
 
-  // Global ignores
+  // ============================================================
+  // 6) Imports hygiene + unused imports cleanup
+  // ============================================================
   {
-    ignores: [
-      ".next/**",
-      "node_modules/**",
-      "out/**",
-      "dist/**",
-      "coverage/**",
-      // If these are intentionally archived:
-      "app/posts-backup-*/**",
-      "app/projects/__template-case-study/**",
-      "app/projects/__slug-archive/**",
-    ],
-  },
-
-  // Pragmatic repo-wide tuning (so lint doesn't block you today)
-  {
+    plugins: {
+      import: importPlugin,
+      "unused-imports": unusedImports,
+    },
     rules: {
-      "@typescript-eslint/no-unused-vars": [
+      // Let TS handle unresolved paths/aliases best; keep this soft.
+      "import/no-unresolved": "off",
+
+      // Prefer consistent import ordering (simple + stable)
+      "import/order": [
         "warn",
-        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+            "object",
+            "type",
+          ],
+          "newlines-between": "always",
+          alphabetize: { order: "asc", caseInsensitive: true },
+        },
       ],
-      "@typescript-eslint/no-explicit-any": "warn",
+
+      // Kill unused imports (best dev-experience)
+      "unused-imports/no-unused-imports": "warn",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        {
+          vars: "all",
+          varsIgnorePattern: "^_",
+          args: "after-used",
+          argsIgnorePattern: "^_",
+        },
+      ],
     },
   },
 
-  // Node / tooling files should use Node globals
+  // ============================================================
+  // 7) Pragmatic repo-wide tuning (don’t block shipping)
+  // ============================================================
+  {
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off", // handled by unused-imports
+      "@typescript-eslint/no-explicit-any": "warn",
+
+      // Keep logs clean in prod, but don’t ruin local dev
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+
+      // Helpful correctness nits
+      "no-debugger": "warn",
+      "no-constant-binary-expression": "error",
+    },
+  },
+
+  // ============================================================
+  // 8) TypeScript file targeting (optional extra guardrails)
+  // ============================================================
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      // Common TS ergonomics
+      "@typescript-eslint/consistent-type-imports": [
+        "warn",
+        { prefer: "type-imports", fixStyle: "inline-type-imports" },
+      ],
+    },
+  },
+
+  // ============================================================
+  // 9) Node / tooling files (Node globals + allow require)
+  // ============================================================
   {
     files: [
       "tools/**/*",
+      "scripts/**/*",
       "**/*.config.*",
-      "jest.config.js",
-      "tools/**/*.cjs",
-      "tools/**/*.mjs",
+      "jest.config.*",
+      "*.cjs",
+      "*.mjs",
     ],
-    languageOptions: {
-      globals: {
-        ...globals.node,
-      },
-    },
-    rules: {
-      // Allow require in Node scripts if you want (optional)
-      "@typescript-eslint/no-require-imports": "off",
-    },
-  },
-  {
-  files: ["next-env.d.ts"],
-  rules: {
-    "@typescript-eslint/triple-slash-reference": "off",
-  },
-},
-
-  // If you have scripts that use fetch in Node 18+,
-  // treat fetch/URL as globals for tooling scripts too.
-  {
-    files: ["tools/**/*", "tools/**/*.mjs"],
     languageOptions: {
       globals: {
         ...globals.node,
@@ -90,6 +191,20 @@ export default [
         URL: "readonly",
         console: "readonly",
       },
+    },
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "no-console": "off",
+    },
+  },
+
+  // ============================================================
+  // 10) next-env.d.ts (quiet the triple-slash noise)
+  // ============================================================
+  {
+    files: ["next-env.d.ts"],
+    rules: {
+      "@typescript-eslint/triple-slash-reference": "off",
     },
   },
 ];

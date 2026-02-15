@@ -10,3 +10,5 @@ export function formatPlatformVersion() {
   const v = PLATFORM_VERSION;
   return `${v.system} ${v.version} — Release: ${v.release} — ${v.status}`;
 }
+
+export const PLATFORM_VERSION_LINE = formatPlatformVersion();

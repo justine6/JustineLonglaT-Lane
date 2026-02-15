@@ -1,0 +1,36 @@
+name: Nightly Hygiene
+
+on:
+  schedule:
+    - cron: "20 3 * * *" # daily 03:20 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install (deterministic)
+        run: npm ci
+
+      - name: Audit (full)
+        run: npm audit
+
+      - name: Outdated report
+        run: npm run deps:check
+
+      - name: Build (regression detection)
+        run: npm run build

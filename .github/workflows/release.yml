@@ -1,6 +1,7 @@
 name: Cut Release
 
 on:
+  # ✅ Manual release control
   workflow_dispatch:
     inputs:
       stage:
@@ -18,16 +19,10 @@ on:
         type: boolean
         default: false
 
+  # ✅ Automatic release only when a version tag is pushed
   push:
-    branches: [ main ]
-    # ✅ DO NOT re-run for bot/version bump commits
-    paths-ignore:
-      - "CHANGELOG.md"
-      - "package.json"
-      - "**/*.md"
-      - ".version"          # if you write one
-      - "dist/**"           # any generated output
-      - ".github/**"        # (optional)
+    tags:
+      - "v*"
 
 permissions:
   contents: write
@@ -39,8 +34,48 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  verify:
+    name: Verify (security + checks + build)
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install (deterministic)
+        run: npm ci
+
+      # 🔐 Safety gates (skip if force=true)
+      - name: Security audit (high+)
+        if: ${{ inputs.force != true }}
+        run: npm audit --audit-level=high
+
+      - name: Platform checks
+        if: ${{ inputs.force != true }}
+        run: npm run ci-check
+
+      - name: Build (release sanity)
+        if: ${{ inputs.force != true }}
+        run: npm run build
+
   cut-release:
-    # ✅ Skip if the actor is the bot pushing version bumps
+    name: Cut Release
+    needs: verify
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     defaults:
@@ -48,6 +83,7 @@ jobs:
         shell: pwsh
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -58,4 +94,9 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      # (rest of your steps unchanged)
+      # 👉 KEEP YOUR EXISTING RELEASE STEPS BELOW
+      # (prepare stage, changelog, version bump, tagging, etc.)
+
+      - name: Release stage placeholder
+        run: |
+          Write-Host "Release gated by verify job. Insert your existing release logic here."

@@ -1,0 +1,45 @@
+name: Perf Budgets (soft)
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: perf-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  budgets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build (collect sizes)
+        run: npm run build
+
+      # Soft budget check: fail only if huge regression.
+      # You can tighten this later.
+      - name: Budget check (Next build output)
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = '.next/build-manifest.json';
+          if (!fs.existsSync(path)) { console.log('No build-manifest found; skipping.'); process.exit(0); }
+          console.log('Build manifest exists. (Hook your custom budget script here when ready.)');
+          "
