@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
+import { getStripe } from "@/lib/stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-06-20",
-});
+export const runtime = "nodejs";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export async function POST(req: Request) {
   try {
+    const stripe = getStripe();
+
     const { customerId } = (await req.json()) as { customerId?: string };
 
     if (!customerId) {
@@ -21,8 +21,11 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ url: portalSession.url });
-  } catch (e) {
+  } catch (e: any) {
     console.error("stripe portal error:", e);
-    return NextResponse.json({ error: "Portal failed" }, { status: 500 });
+    return NextResponse.json(
+      { error: e?.message || "Portal failed" },
+      { status: 500 }
+    );
   }
 }

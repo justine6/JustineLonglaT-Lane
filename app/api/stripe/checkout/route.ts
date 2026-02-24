@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-06-20",
-});
+import { getStripe } from "@/lib/stripe";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -17,6 +13,8 @@ const PRICE_ALLOWLIST = new Set(
 
 export async function POST(req: Request) {
   try {
+    const stripe = getStripe();
+
     const { priceId, mode } = (await req.json()) as {
       priceId?: string;
       mode?: "payment" | "subscription";
@@ -38,8 +36,11 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (e) {
+  } catch (e: any) {
     console.error("stripe checkout error:", e);
-    return NextResponse.json({ error: "Checkout failed" }, { status: 500 });
+    return NextResponse.json(
+      { error: e?.message || "Checkout failed" },
+      { status: 500 }
+    );
   }
 }

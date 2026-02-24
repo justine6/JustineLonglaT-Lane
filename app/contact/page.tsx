@@ -1,25 +1,29 @@
 import ContactSection from "@/components/ContactSection";
 
+type SearchParams = Record<string, string | string[] | undefined>;
+
 type Props = {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams?: Promise<SearchParams>;
 };
 
-function getSP(sp: Props["searchParams"], key: string) {
+function getSP(sp: SearchParams | undefined, key: string) {
   const v = sp?.[key];
   return Array.isArray(v) ? v[0] : v;
 }
 
-export default function ContactPage({ searchParams }: Props) {
-  const intent = getSP(searchParams, "intent") || "";
-  const service = getSP(searchParams, "service") || "";
+export default async function ContactPage({ searchParams }: Props) {
+  const sp = (await searchParams) ?? {};
+
+  const intent = getSP(sp, "intent") || "";
+  const service = getSP(sp, "service") || "";
 
   const prefill = {
     intent,
     service,
-    name: getSP(searchParams, "name") || "",
-    email: getSP(searchParams, "email") || "",
-    phone: getSP(searchParams, "phone") || "",
-    message: getSP(searchParams, "message") || "",
+    name: getSP(sp, "name") || "",
+    email: getSP(sp, "email") || "",
+    phone: getSP(sp, "phone") || "",
+    message: getSP(sp, "message") || "",
   };
 
   return (
@@ -30,7 +34,8 @@ export default function ContactPage({ searchParams }: Props) {
             Consultation request
           </p>
           <h2 className="mt-1 text-lg font-semibold">
-            Request received{intent ? ` for: ${intent}` : ""}{service ? ` (${service})` : ""}
+            Request received{intent ? ` for: ${intent}` : ""}
+            {service ? ` (${service})` : ""}
           </h2>
           <p className="mt-1 text-sm opacity-80">
             Share goals, timeline, and environment — I’ll respond with next steps.

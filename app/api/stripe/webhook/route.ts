@@ -1,38 +1,66 @@
+import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { getStripe } from "@/lib/stripe";
+import { markProposalPaid } from "@/lib/proposal-store";
 
-export const runtime = "nodejs"; // keep Node runtime for Stripe signature verify
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-06-20",
-});
+export const runtime = "nodejs";
 
 export async function POST(req: Request) {
-  const sig = req.headers.get("stripe-signature");
-  if (!sig) return new Response("Missing signature", { status: 400 });
+  const stripe = getStripe();
 
-  const body = await req.text();
+  const sig = req.headers.get("stripe-signature");
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  if (!sig || !webhookSecret) {
+    return NextResponse.json(
+      { error: "Missing stripe-signature or STRIPE_WEBHOOK_SECRET" },
+      { status: 400 }
+    );
+  }
 
   let event: Stripe.Event;
+
   try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET!
-    );
-  } catch (err) {
+    const rawBody = await req.text();
+    event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
+  } catch (err: any) {
     console.error("Webhook signature verification failed:", err);
-    return new Response("Bad signature", { status: 400 });
+    return NextResponse.json(
+      { error: `Webhook Error: ${err?.message || "Invalid signature"}` },
+      { status: 400 }
+    );
   }
 
-  if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
+  try {
+    // Handle only what you need
+    if (event.type === "checkout.session.completed") {
+      const session = event.data.object as Stripe.Checkout.Session;
 
-    // TODO: Your platform fulfillment:
-    // - record paid order
-    // - email client + notify admin
-    // - store customer/subscription ids for portal
-    console.log("✅ Payment completed:", session.id, session.customer);
+      const sessionId = session.id;
+      const paid =
+        session.payment_status === "paid" ||
+        session.status === "complete" ||
+        session.payment_intent != null;
+
+      if (paid && sessionId) {
+        try {
+          markProposalPaid(
+            sessionId,
+            session.amount_total ?? undefined,
+            session.currency ?? undefined
+          );
+        } catch (e) {
+          console.error("Failed to mark proposal paid:", e);
+        }
+      }
+    }
+
+    return NextResponse.json({ received: true });
+  } catch (e: any) {
+    console.error("stripe webhook handler error:", e);
+    return NextResponse.json(
+      { error: e?.message || "Webhook handler failed" },
+      { status: 500 }
+    );
   }
-
-  return new Response("ok", { status: 200 });
 }

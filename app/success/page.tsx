@@ -3,10 +3,15 @@ import Stripe from "stripe";
 import { markProposalPaid } from "@/lib/proposal-store";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-06-20",
-});
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) {
+    throw new Error("Missing STRIPE_SECRET_KEY (set it in .env.local / Vercel).");
+  }
+  return new Stripe(key, { apiVersion: "2026-01-28.clover" });
+}
 
 function fmtMoney(amountCents?: number | null, currency?: string | null) {
   if (!amountCents || !currency) return null;
@@ -23,14 +28,15 @@ function fmtMoney(amountCents?: number | null, currency?: string | null) {
 export default async function SuccessPage({
   searchParams,
 }: {
-  searchParams?: { session_id?: string };
+  searchParams?: Promise<{ session_id?: string }>;
 }) {
-  const sessionId = searchParams?.session_id;
+  const sp = (await searchParams) ?? {};
+  const sessionId = sp.session_id;
 
   // If user lands here without a session_id, show a friendly message.
   if (!sessionId) {
     return (
-      <main className="mx-auto max-w-4xl px-6 py-16 text-center space-y-6">
+      <main className="mx-auto max-w-4xl space-y-6 px-6 py-16 text-center">
         <h1 className="text-4xl font-bold">Success 🎉</h1>
         <p className="text-slate-600 dark:text-slate-300">
           If you just completed payment, please return using the Stripe success link.
@@ -53,45 +59,46 @@ export default async function SuccessPage({
     );
   }
 
-    // Verify the session with Stripe (server-side)
-    let session: Stripe.Checkout.Session | null = null;
-    let error: string | null = null;
+  // Verify the session with Stripe (server-side)
+  let session: Stripe.Checkout.Session | null = null;
+  let error: string | null = null;
 
-    try {
+  try {
+    const stripe = getStripe();
     session = await stripe.checkout.sessions.retrieve(sessionId);
-    } catch (e: any) {
+  } catch (e: any) {
     error = e?.message || "Unable to verify payment.";
-    }
+  }
 
-    const paid =
+  const paid =
     session?.payment_status === "paid" ||
     session?.status === "complete" ||
     session?.payment_intent != null;
 
-    // ⭐ Record payment for accountability (idempotent)
-    if (paid && session?.id) {
+  // Record payment (idempotent)
+  if (paid && session?.id) {
     try {
-        markProposalPaid(
+      markProposalPaid(
         session.id,
         session.amount_total ?? undefined,
         session.currency ?? undefined
-        );
+      );
     } catch (e) {
-        console.error("Failed to mark proposal paid:", e);
+      console.error("Failed to mark proposal paid:", e);
     }
-    }
+  }
 
-    const intent = session?.metadata?.intent || "Consulting engagement";
-    const service = session?.metadata?.service || "";
-    const tier = session?.metadata?.tier || "";
-    const amount = fmtMoney(session?.amount_total, session?.currency);
+  const intent = session?.metadata?.intent || "Consulting engagement";
+  const service = session?.metadata?.service || "";
+  const tier = session?.metadata?.tier || "";
+  const amount = fmtMoney(session?.amount_total, session?.currency);
 
-    const kickoffHref = `/contact?intent=${encodeURIComponent(
+  const kickoffHref = `/contact?intent=${encodeURIComponent(
     "Kickoff scheduling"
-    )}&service=${encodeURIComponent(service || "review")}`;
+  )}&service=${encodeURIComponent(service || "review")}`;
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-16 text-center space-y-6">
+    <main className="mx-auto max-w-4xl space-y-6 px-6 py-16 text-center">
       <h1 className="text-4xl font-bold">
         {paid ? "Payment Successful 🎉" : "Payment Received (Pending) ⏳"}
       </h1>

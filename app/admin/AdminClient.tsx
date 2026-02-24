@@ -59,7 +59,7 @@ export default function AdminClient({ rows }: { rows: Proposal[] }) {
               {rows.map((r) => (
                 <tr
                   key={r.id}
-                  onClick={() => setSelected(r)}
+                  onClick={() => setSelected({ ...r, paid: !!r.paid })}
                   className="cursor-pointer align-top transition hover:bg-slate-50 dark:hover:bg-slate-900"
                 >
                   <td className="px-6 py-4 whitespace-nowrap text-slate-700 dark:text-slate-200">
@@ -127,7 +127,10 @@ export default function AdminClient({ rows }: { rows: Proposal[] }) {
         </div>
       </section>
 
-      <AdminDetailsDrawer record={selected} onClose={() => setSelected(null)} />
+      <AdminDetailsDrawer
+        record={selected ? { ...selected, paid: !!selected.paid } : null}
+        onClose={() => setSelected(null)}
+      />
     </>
   );
 }
