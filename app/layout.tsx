@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import HeroBanner from "@/components/HeroBanner";
 import HeroGate from "@/components/HeroGate";
 import { Providers } from "./providers";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -38,6 +39,31 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-dvh antialiased bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
         <Providers>
+          <Script
+            id="org-schema"
+            type="application/ld+json"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "JLT-Lane",
+                legalName: "Justine Longla T-Lane LLC",
+                alternateName: [
+                  "JLT Lane",
+                  "JLT-Lane Engineering Mesh",
+                  "Justine Longla T-Lane"
+                ],
+                url: "https://justinelonglat-lane.com",
+                logo: "https://justinelonglat-lane.com/logo.png",
+                founder: {
+                  "@type": "Person",
+                  name: "Justine Longla T."
+                },
+                slogan: "Cloud Confidence. Delivered."
+              })
+            }}
+          />
           <a
             href="#content"
             className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
@@ -52,7 +78,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </HeroGate>
 
           <div className="flex min-h-dvh flex-col">
-            <main id="content" className="flex-1">
+            <main id="main-content" className="flex-1">
               {children}
             </main>
             <Footer />

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function HeroBanner() {
   return (
-    <section className="relative isolate overflow-hidden rounded-none bg-slate-900 text-white">
+    <section className="relative isolate overflow-hidden rounded-none bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-white">  
       {/* Background banner image */}
       <div className="absolute inset-0 -z-10">
         <Image
@@ -13,7 +13,7 @@ export default function HeroBanner() {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-slate-900/55" />
+        <div className="absolute inset-0 bg-white/60 dark:bg-slate-900/55" />
       </div>
 
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-20 md:py-24">
@@ -42,7 +42,7 @@ export default function HeroBanner() {
 
           <Link
             href="#contact"
-            className="inline-flex items-center justify-center rounded-full border border-white/80 px-5 py-2 text-sm font-medium text-white hover:bg-white/10"
+            className="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100/70 dark:border-white/80 dark:text-white dark:hover:bg-white/10"
           >
             Contact
           </Link>

@@ -25,10 +25,10 @@ export default function HomeLogoBanner() {
         {/* Headline copy */}
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="px-4 text-center">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white drop-shadow">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 dark:text-white drop-shadow">
               Cloud Confidence. Delivered.
             </h1>
-            <p className="mt-4 text-base sm:text-lg md:text-xl text-white/90 drop-shadow">
+            <p className="mt-4 text-base sm:text-lg md:text-xl text-slate-600 dark:text-white/90 drop-shadow">
               Secure / scalable AWS services with certified DevSecOps expertise —
               helping startups and growing teams automate with confidence.
             </p>

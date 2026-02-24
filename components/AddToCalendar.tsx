@@ -3,6 +3,8 @@
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 
+import { Button, ButtonLink } from "@/components/ui/Button";
+
 function fmtICS(dt: Date) {
   // UTC in YYYYMMDDTHHMMSSZ
   const pad = (n: number) => String(n).padStart(2, "0");
@@ -51,7 +53,8 @@ export default function AddToCalendar({
   }, [times, title, details, location]);
 
   const outlookHref = useMemo(() => {
-    const base = "https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent";
+    const base =
+      "https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent";
     const subject = `&subject=${encodeURIComponent(title)}`;
     const body = `&body=${encodeURIComponent(details)}`;
     const loc = `&location=${encodeURIComponent(location)}`;
@@ -63,7 +66,12 @@ export default function AddToCalendar({
 
   const downloadICS = () => {
     if (!times) return;
-    const uid = crypto.randomUUID();
+
+    const uid =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
     const ics = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
@@ -79,57 +87,69 @@ export default function AddToCalendar({
       `DESCRIPTION:${details.replace(/\n/g, "\\n")}`,
       `LOCATION:${location}`,
       "END:VEVENT",
-      "END:VCALENDAR"
-    ].join("\\r\\n");
+      "END:VCALENDAR",
+    ].join("\r\n");
 
     const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
     const url = URL.createObjectURL(blob);
+
     const a = document.createElement("a");
     a.href = url;
     a.download = "intro-call.ics";
     document.body.appendChild(a);
     a.click();
     a.remove();
+
     URL.revokeObjectURL(url);
   };
 
   const disabled = !times;
 
+  // For <a> elements: disabled isn't supported, so we emulate it.
+  // We also cancel hover/active scaling when "disabled" to avoid bouncy UX.
+  const linkDisabledClass =
+    "cursor-not-allowed bg-slate-200 text-slate-500 dark:bg-slate-800 dark:text-slate-400 hover:scale-100 active:scale-100";
+
   return (
     <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
-      <a
+      <ButtonLink
         href={googleHref}
         target="_blank"
         rel="noreferrer"
-        className={"rounded-xl px-4 py-2 text-sm font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98] " +
-          (disabled ? "cursor-not-allowed bg-slate-200 text-slate-500 dark:bg-slate-800 dark:text-slate-400" : "bg-emerald-600 text-white hover:bg-emerald-700")}
+        variant="success"
         aria-disabled={disabled}
         onClick={(e) => disabled && e.preventDefault()}
+        className={disabled ? linkDisabledClass : ""}
       >
         Add to Google
-      </a>
-      <a
+      </ButtonLink>
+
+      <ButtonLink
         href={outlookHref}
         target="_blank"
         rel="noreferrer"
-        className={"rounded-xl px-4 py-2 text-sm font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98] " +
-          (disabled ? "cursor-not-allowed bg-slate-200 text-slate-500 dark:bg-slate-800 dark:text-slate-400" : "bg-blue-600 text-white hover:bg-blue-700")}
+        variant="primary"
         aria-disabled={disabled}
         onClick={(e) => disabled && e.preventDefault()}
+        className={disabled ? linkDisabledClass : ""}
       >
         Add to Outlook
-      </a>
-      <button
+      </ButtonLink>
+
+      <Button
         type="button"
         onClick={downloadICS}
-        className={"rounded-xl px-4 py-2 text-sm font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98] " +
-          (disabled ? "cursor-not-allowed bg-slate-200 text-slate-500 dark:bg-slate-800 dark:text-slate-400" : "border border-slate-300/70 hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-900")}
-        aria-disabled={disabled}
+        variant="outline"
         disabled={disabled}
-        title={disabled ? "Calendar file available once start/end are provided by the booking redirect." : "Download .ics (Apple / others)"}
+        title={
+          disabled
+            ? "Calendar file available once start/end are provided by the booking redirect."
+            : "Download .ics (Apple / others)"
+        }
+        className={disabled ? "hover:scale-100 active:scale-100" : ""}
       >
         Add to Apple (.ics)
-      </button>
+      </Button>
     </div>
   );
 }

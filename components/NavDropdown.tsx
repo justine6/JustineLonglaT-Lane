@@ -44,7 +44,7 @@ export default function NavDropdown({ label, items, align = 'right', className }
     >
       <button
         type="button"
-        className={`px-2 py-2 font-medium text-white/90 hover:text-white focus:outline-none ${className ?? ''}`}
+        className={`px-2 py-2 font-medium text-slate-700 hover:text-slate-900 dark:text-white/90 dark:hover:text-white focus:outline-none ${className ?? ''}`}
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)} // also toggles on click (keyboard / touch)

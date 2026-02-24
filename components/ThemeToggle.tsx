@@ -1,27 +1,17 @@
-// components/ThemeToggle.tsx
 "use client";
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useSyncExternalStore } from "react";
-
-function useIsClient() {
-  return useSyncExternalStore(
-    () => () => {}, // subscribe (no-op)
-    () => true,     // client snapshot
-    () => false     // server snapshot
-  );
-}
+import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
-  const isClient = useIsClient();
+  const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  // Prevent hydration mismatch UI
-  if (!isClient) return null;
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
 
-  const isDark =
-    theme === "dark" || (theme === "system" && resolvedTheme === "dark");
+  const isDark = resolvedTheme === "dark";
 
   return (
     <button
