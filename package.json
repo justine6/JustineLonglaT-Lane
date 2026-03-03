@@ -1,5 +1,5 @@
 {
-  "name": "@suite/shared",
+  "name": "justine-longla-t-lane",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -12,9 +12,9 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "clean": "rimraf dist",
-    "start": "next start",
+  "build": "next build",
+  "dev": "next dev",
+  "start": "next start",
     "typecheck": "tsc --noEmit",
     "validate:links": "node tools/validate-links.mjs",
     "lint": "eslint .",
