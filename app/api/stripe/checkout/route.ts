@@ -32,7 +32,8 @@ export async function POST(req: Request) {
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${SITE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${SITE_URL}/pricing`,
-      automatic_tax: { enabled: true },
+      // remove this line for now
+      // automatic_tax: { enabled: true },
     });
 
     return NextResponse.json({ url: session.url });
