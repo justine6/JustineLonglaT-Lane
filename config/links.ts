@@ -10,30 +10,19 @@ const BASE =
 
 function normalizeCalInput(input: string) {
   const raw = (input ?? "").trim();
-
-  // Full URL already
   if (raw.startsWith("http://") || raw.startsWith("https://")) return raw;
-
-  // Remove leading slash if present
   const path = raw.startsWith("/") ? raw.slice(1) : raw;
-
-  // Treat as cal.com path
   return `https://cal.com/${path}`;
 }
 
-/**
- * Build a Cal.com URL with common query params + success_url.
- * Uses URL/searchParams to avoid broken strings.
- */
 export function buildCalUrl(opts: {
   env?: string;
   fallback: string;
-  successPath?: string; // e.g. "/booking/success"
+  successPath?: string;
 }) {
   const raw = opts.env ?? opts.fallback;
   const url = new URL(normalizeCalInput(raw));
 
-  // Common params
   url.searchParams.set(
     "hide_event_type_details",
     url.searchParams.get("hide_event_type_details") ?? "1"
@@ -43,7 +32,6 @@ export function buildCalUrl(opts: {
     url.searchParams.get("primary_color") ?? "2563eb"
   );
 
-  // success_url (absolute URL required)
   if (opts.successPath) {
     const successUrl = new URL(
       opts.successPath.startsWith("/") ? opts.successPath : `/${opts.successPath}`,
@@ -69,19 +57,19 @@ export const LINKS = {
   // ---------------------------
   // Engineering Mesh
   // ---------------------------
-  engineeringMesh: "/engineering-mesh", // ✅ canonical route
+  engineeringMesh: "/engineering-mesh",
 
   // ---------------------------
-  // Résumé & Brochure
+  // Résumé & Brochure (must match /public/files exactly)
   // ---------------------------
   resume: "/resume",
-  resumePdf: "/files/resume.pdf",
   brochure: "/files/JLT-Consulting-Brochure.pdf",
+  resumePdf: "/files/justine-longla-resume-2025.pdf",
 
   // ---------------------------
   // Scheduling pages (your site routes)
   // ---------------------------
-  introCall: "/intro-call",
+  introCall: "/availability",
   hireMe: "/hire-me",
 
   // ---------------------------
@@ -101,7 +89,7 @@ export const LINKS = {
 
   calHire: buildCalUrl({
     env: process.env.NEXT_PUBLIC_CAL_HIRE_URL,
-    fallback: "https://cal.com/justine-longla-ptq4no", // change later if you create a separate Hire event
+    fallback: "https://cal.com/justine-longla-ptq4no",
     successPath: "/hire-me?booked=1",
   }),
 
@@ -120,4 +108,15 @@ export const LINKS = {
   docsSite: "https://docs.justinelonglat-lane.com",
   docs: "https://docs.justinelonglat-lane.com",
   toolkit: "https://docs.justinelonglat-lane.com/toolkit.html",
+
+  // ---------------------------
+  // Stripe (external checkout links)
+  // ---------------------------
+  stripeBookSession: process.env.NEXT_PUBLIC_STRIPE_BOOK_SESSION_URL ?? "",
+  stripeCompletePayment: process.env.NEXT_PUBLIC_STRIPE_COMPLETE_PAYMENT_URL ?? "",
+
+  // Optional: per-service checkout links (for your BookingSection cards)
+  stripeServiceIntro: process.env.NEXT_PUBLIC_STRIPE_SERVICE_INTRO_URL ?? "",
+  stripeServiceReview: process.env.NEXT_PUBLIC_STRIPE_SERVICE_REVIEW_URL ?? "",
+  stripeServiceRetainer: process.env.NEXT_PUBLIC_STRIPE_SERVICE_RETAINER_URL ?? "",
 } as const;

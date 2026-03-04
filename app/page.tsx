@@ -1,8 +1,9 @@
 // app/page.tsx
 import Image from "next/image";
 import Link from "next/link";
-import { PlayCircle, Network } from "lucide-react"; 
 import VideosTeaser from "@/components/VideosTeaser";
+import BookingSection from "@/components/BookingSection";
+import HeroCTA from "@/components/HeroCTA";
 
 import AnimatedSection from "@/components/AnimatedSection";
 import TestimonialSlider from "@/components/TestimonialSlider";
@@ -14,84 +15,111 @@ import ContactSection from "@/components/ContactSection";
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white px-4 py-8 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10">
-      
-    <section className="bg-slate-50 py-10 dark:bg-slate-950/40">
-      <div className="mx-auto max-w-3xl px-2 sm:px-0">
-        <div className="rounded-3xl bg-white/95 p-6 shadow-md ring-1 ring-slate-200 dark:bg-slate-900/80 dark:ring-slate-700">
-          {/* Smaller logo */}
-          <div className="mx-auto max-w-xs">
-            <Image
-              src="/brand/justine-logo.png"
-              alt="Justine Longla T. logo"
-              width={360}
-              height={360}
-              className="mx-auto h-auto w-44 sm:w-52 md:w-56"
-              priority
-            />
-          </div>
+      {/* ✅ Top Hero CTA (Stripe links / platform links) */}
+      <HeroCTA />
 
-          {/* CTA grid directly under logo */}
-          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Intro call – primary */}
-            <Link
-              href="/intro-call"
-              className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            >
-              Book Intro Call
-            </Link>
+      {/* ✅ Home hero (logo + navigation CTAs only) */}
+      <section className="bg-slate-50 py-10 dark:bg-slate-950/40">
+        <div className="mx-auto max-w-3xl px-2 sm:px-0">
+          <div className="rounded-3xl bg-white/95 p-6 shadow-md ring-1 ring-slate-200 dark:bg-slate-900/80 dark:ring-slate-700">
+            {/* Smaller logo */}
+            <div className="mx-auto max-w-xs">
+              <Image
+                src="/brand/justine-logo.png"
+                alt="Justine Longla T. logo"
+                width={360}
+                height={360}
+                className="mx-auto h-auto w-44 sm:w-52 md:w-56"
+                priority
+              />
+            </div>
 
-            {/* Consulting brochure */}
-            <a
-              href="/files/JLT-Consulting-Brochure.pdf"
-              className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            >
-              Download Brochure
-            </a>
+            {/* CTA grid directly under logo */}
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {/* Intro call (route on your site) */}
+              <Link
+                href="/availability"
+                className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              >
+                Book Intro Call
+              </Link>
 
-            {/* Résumé */}
-            <a
-              href="/files/resume.pdf"
-              className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            >
-              View Résumé
-            </a>
+              {/* Jump links (anchors) */}
+              <Link
+                href="#services"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+              >
+                Explore Services
+              </Link>
 
-            {/* Engineering Mesh Hub */}
-            <Link
-              href="/engineering-mesh"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
-            >
-              <span className="mr-2">🧩</span>
-              Engineering Mesh Hub
-            </Link>
+              <Link
+                href="#booking"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+              >
+                Book a Service
+              </Link>
 
-            {/* Publishing Platform */}
-            <Link
-              href="/case-studies/engineering-grade-publishing"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
-            >
-              <span className="mr-2">🧩</span>
-              Publishing Platform
-            </Link>
+              {/* Consulting brochure */}
+              <a
+                href="/files/JLT-Consulting-Brochure.pdf"
+                className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              >
+                Download Brochure
+              </a>
 
-            {/* Automation Platform (external) */}
-            <a
-              href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
-            >
-              <span className="mr-2">🛠️</span>
-              Automation Platform↗
-            </a>
+              {/* Résumé */}
+              <a
+                href="/files/resume.pdf"
+                className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              >
+                View Résumé
+              </a>
+
+              {/* Engineering Mesh Hub */}
+              <Link
+                href="/engineering-mesh"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+              >
+                <span className="mr-2">🧩</span>
+                Engineering Mesh Hub
+              </Link>
+
+              {/* Publishing Platform */}
+              <Link
+                href="/case-studies/engineering-grade-publishing"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+              >
+                <span className="mr-2">🧩</span>
+                Publishing Platform
+              </Link>
+
+              {/* Automation Platform (external) */}
+              <a
+                href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+              >
+                <span className="mr-2">🛠️</span>
+                Automation Platform↗
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       {/* 🔷 Services band (Launch / Secure / Operate) */}
       <AnimatedSection>
-        <ServicesBand />
+        <section id="services" className="scroll-mt-28">
+          <ServicesBand />
+        </section>
+      </AnimatedSection>
+
+      {/* ✅ Booking section (choose service + pay) */}
+      <AnimatedSection>
+        <section id="booking" className="scroll-mt-28">
+          <BookingSection />
+        </section>
       </AnimatedSection>
 
       {/* 💡 Why Work With Me */}
@@ -117,8 +145,8 @@ export default function HomePage() {
             {/* Copy */}
             <div>
               <p className="mb-2 text-sm italic text-gray-600 dark:text-gray-400">
-                “Secure, scalable, and sustainable cloud solutions that move
-                your business forward.”
+                “Secure, scalable, and sustainable cloud solutions that move your
+                business forward.”
               </p>
 
               <ul className="list-inside list-disc space-y-1 text-sm leading-relaxed text-gray-700 dark:text-gray-300 sm:text-base">
@@ -152,7 +180,6 @@ export default function HomePage() {
                   🧩 View Automation Platform
                 </Link>
               </div>
-
             </div>
           </div>
         </section>
@@ -170,8 +197,7 @@ export default function HomePage() {
                 Latest Publications
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Practical guides, patterns, and field notes from real
-                engagements.
+                Practical guides, patterns, and field notes from real engagements.
               </p>
             </div>
             <div className="hidden sm:block">
@@ -184,10 +210,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* 🔹 Hero cards row */}
           <PostHeroCards />
 
-          {/* Mobile CTA */}
           <div className="mt-6 sm:hidden">
             <Link
               href="/blog"
@@ -199,7 +223,7 @@ export default function HomePage() {
         </section>
       </AnimatedSection>
 
-            {/* 🎥 Featured videos teaser */}
+      {/* 🎥 Featured videos teaser */}
       <AnimatedSection>
         <VideosTeaser />
       </AnimatedSection>
@@ -224,76 +248,10 @@ export default function HomePage() {
             Certifications &amp; Expertise
           </h2>
           <p className="mb-10 text-base text-gray-700 dark:text-gray-300 sm:text-lg">
-            AWS and Microsoft certifications that back every architecture
-            decision and automation pipeline I deliver.
+            AWS and Microsoft certifications that back every architecture decision
+            and automation pipeline I deliver.
           </p>
           <CertificationsGrid />
-        </section>
-      </AnimatedSection>
-
-      {/* 🔷 Get In Touch summary band */}
-      <AnimatedSection>
-        <section className="mx-auto mb-16 max-w-3xl px-4 text-center">
-          <h2 className="mb-4 text-2xl font-semibold sm:text-3xl">
-            Get In Touch
-          </h2>
-          <p className="mb-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            Ready to discuss your cloud roadmap, automation strategy, or a
-            specific project? Reach out and let&apos;s design something durable
-            together.
-          </p>
-
-          <div className="space-y-1 text-sm sm:text-base">
-            <p>
-              Email:{" "}
-              <a
-                href="mailto:justine@justinelonglat-lane.com"
-                className="text-blue-600 hover:underline dark:text-blue-400"
-              >
-                justine@justinelonglat-lane.com
-              </a>
-            </p>
-            <p>Phone: +1 405.934.5864</p>
-            <p>
-              LinkedIn:{" "}
-              <a
-                href="https://www.linkedin.com/in/longlatjustine"
-                className="text-blue-600 hover:underline dark:text-blue-400"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                longlatjustine
-              </a>
-            </p>
-          </div>
-
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:justify-center">
-            {/* Intro call page */}
-            <Link
-              href="/intro-call"
-              className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-blue-700"
-            >
-              Schedule an Intro Call
-            </Link>
-
-            {/* Résumé page */}
-            <Link
-              href="/resume"
-              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
-            >
-              View Resumé
-            </Link>
-
-            {/* Brochure PDF – open in new tab */}
-            <a
-              href="/files/JLT-Consulting-Brochure.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-5 py-2.5 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/20"
-            >
-              Download Brochure
-            </a>
-          </div>
         </section>
       </AnimatedSection>
 
