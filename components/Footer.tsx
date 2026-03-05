@@ -14,29 +14,28 @@ export default function Footer() {
             Justine Longla T.
           </h3>
           <p className="mt-2 text-sm leading-relaxed">
-            Cloud Confidence. Delivered. Secure, performance-tuned solutions —
-            built the right way.
+            Cloud Confidence. Delivered. Secure, performance-tuned solutions — built the right way.
           </p>
 
           {/* 📞 / 💼 CTAs */}
           <div className="mt-4 flex flex-wrap gap-3">
-            {/* Cross-site safe: always go to consulting site */}
-            <a
-              href={`${LINKS.consultingSite}${LINKS.introCall}`}
+            <Link
+              href={LINKS.introCall}
               aria-label="Schedule your intro call"
               className="inline-block px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Schedule Your Intro Call
-            </a>
+            </Link>
 
-            <a
-              href={`${LINKS.consultingSite}${LINKS.hireMe}`}
+            <Link
+              href={LINKS.hireMe}
               aria-label="Hire me"
               className="inline-block px-5 py-2 rounded-lg border border-blue-600 text-blue-700 dark:text-blue-300 font-medium hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:scale-[1.03] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Hire Me
-            </a>
+            </Link>
           </div>
+        </div>
 
         {/* 🧭 Quick Links */}
         <nav aria-label="Quick links">
@@ -51,8 +50,6 @@ export default function Footer() {
                 Projects
               </Link>
             </li>
-
-            {/* Blog is external */}
             <li>
               <a
                 href={LINKS.blogSite}
@@ -63,24 +60,16 @@ export default function Footer() {
                 Blog ↗
               </a>
             </li>
-
             <li>
               <Link href={LINKS.contact} className="hover:underline">
                 Contact
               </Link>
             </li>
-
-            {/* Cross-site safe: always go to consulting site */}
             <li>
-              <a
-                href={`${LINKS.consultingSite}${LINKS.hireMe}`}
-                className="hover:underline"
-              >
+              <Link href={LINKS.hireMe} className="hover:underline">
                 Hire Me
-              </a>
+              </Link>
             </li>
-
-            {/* Internal résumé page */}
             <li>
               <Link
                 href={LINKS.resume}
@@ -91,8 +80,6 @@ export default function Footer() {
                 Résumé
               </Link>
             </li>
-
-            {/* PDF links */}
             <li>
               <a
                 href={LINKS.resumePdf}
@@ -125,18 +112,15 @@ export default function Footer() {
           </h4>
           <ul className="space-y-2">
             <li>
-              <a
-                className="hover:underline"
-                href="mailto:justine@justinelonglat-lane.com"
-              >
+              <a className="hover:underline" href="mailto:justine@justinelonglat-lane.com">
                 justine@justinelonglat-lane.com
               </a>
             </li>
             <li>
-            <Link href={LINKS.videos} className="hover:underline">
-              Videos
-            </Link>
-          </li>
+              <Link href={LINKS.videos} className="hover:underline">
+                Videos
+              </Link>
+            </li>
             <li>
               <a className="hover:underline" href="tel:+14059345864">
                 +1 405.934.5864
@@ -160,76 +144,44 @@ export default function Footer() {
       <div className="mt-6 border-t border-blue-100/70 dark:border-gray-800/80 px-4 py-4">
         <div className="mx-auto max-w-6xl flex flex-col items-center gap-2 text-center">
           <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-            © {year}{" "}
-            <span className="font-semibold">Justine Longla T-Lane.</span> · DevSecOps
-            • Cloud • Sustainability
+            © {year} <span className="font-semibold">Justine Longla T-Lane.</span> · DevSecOps • Cloud • Sustainability
           </p>
           <p className="text-xs text-gray-400 dark:text-gray-500">
-            Operating under{" "}
-            <span className="font-medium">JustineLonglaT-Lane LLC.</span>
+            Operating under <span className="font-medium">JustineLonglaT-Lane LLC.</span>
           </p>
 
           <nav
             aria-label="Justine Longla T. network"
             className="mt-2 flex flex-wrap justify-center gap-4 text-xs sm:text-sm text-blue-700 dark:text-blue-300"
           >
-            {/* Blog external */}
-            <a
-              href={LINKS.blog}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline"
-            >
+            <a href={LINKS.blogSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
               Blog
             </a>
-
             <Link href={LINKS.projects} className="hover:underline">
               Projects
             </Link>
-            <a
-              href={LINKS.docs}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline"
-            >
+            <a href={LINKS.docs} target="_blank" rel="noopener noreferrer" className="hover:underline">
               Docs
             </a>
-            
-            <a
-              href={LINKS.toolkit}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline"
-            >
+            <a href={LINKS.toolkit} target="_blank" rel="noopener noreferrer" className="hover:underline">
               Automation Toolkit
             </a>
           </nav>
-          
-          {/* Divider */}
+
           <div className="mt-4 w-full max-w-xl border-t border-blue-100/70 dark:border-gray-800/80" />
 
-          {/* 🧬 Platform Version Line — GLOBAL */}
           <div className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
             {formatPlatformVersion()}
           </div>
 
-          {/* Optional quick links (Docs parity) */}
           <div className="flex gap-4 text-[11px] text-gray-400 dark:text-gray-500">
-            <a
-              href="/automation-toolkit/"
-              className="hover:underline"
-            >
+            <a href="/automation-toolkit/" className="hover:underline">
               Automation toolkit
             </a>
-
-            <a
-              href="/sitemap.html"
-              className="hover:underline"
-            >
+            <a href="/sitemap.html" className="hover:underline">
               Sitemap
             </a>
           </div>
-
         </div>
       </div>
     </footer>
