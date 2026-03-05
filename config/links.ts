@@ -1,12 +1,29 @@
-// src/config/links.ts
+// config/links.ts
 
 // ---------------------------
-// Base site URL (for Cal.com success redirects)
+// Canonical origins (single source of truth)
 // ---------------------------
-const BASE =
+export const ORIGINS = {
+  consulting: "https://consulting.justinelonglat-lane.com",
+  main: "https://justinelonglat-lane.com",
+  blog: "https://blogs.justinelonglat-lane.com",
+  docs: "https://docs.justinelonglat-lane.com",
+} as const;
+
+// ---------------------------
+// Runtime base (useful for internal absolute URLs if needed)
+// ---------------------------
+const RUNTIME_BASE =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ??
-  "https://consulting.justinelonglat-lane.com";
+  ORIGINS.consulting;
+
+// ---------------------------
+// IMPORTANT:
+// Force Cal success redirects to the *consulting* canonical domain,
+// so it never bounces users to main/docs/blog by accident.
+// ---------------------------
+const SUCCESS_BASE = ORIGINS.consulting;
 
 function normalizeCalInput(input: string) {
   const raw = (input ?? "").trim();
@@ -15,10 +32,17 @@ function normalizeCalInput(input: string) {
   return `https://cal.com/${path}`;
 }
 
+function joinUrl(origin: string, path: string) {
+  const cleanOrigin = origin.replace(/\/+$/, "");
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  return `${cleanOrigin}${cleanPath}`;
+}
+
 export function buildCalUrl(opts: {
   env?: string;
   fallback: string;
-  successPath?: string;
+  successPath?: string; // "/availability?booked=1"
+  successBase?: string; // optional override
 }) {
   const raw = opts.env ?? opts.fallback;
   const url = new URL(normalizeCalInput(raw));
@@ -33,9 +57,10 @@ export function buildCalUrl(opts: {
   );
 
   if (opts.successPath) {
+    const base = opts.successBase ?? SUCCESS_BASE;
     const successUrl = new URL(
       opts.successPath.startsWith("/") ? opts.successPath : `/${opts.successPath}`,
-      BASE
+      base
     );
     url.searchParams.set("success_url", successUrl.toString());
   }
@@ -45,13 +70,13 @@ export function buildCalUrl(opts: {
 
 export const LINKS = {
   // ---------------------------
-  // Internal Navigation
+  // Internal Navigation (this app)
   // ---------------------------
   home: "/",
   projects: "/projects",
   contact: "/contact",
   readme: "/readme",
-  blog: "/blog",
+  blog: "/blog", // keep if you have an internal /blog page
   videos: "/videos",
 
   // ---------------------------
@@ -60,23 +85,30 @@ export const LINKS = {
   engineeringMesh: "/engineering-mesh",
 
   // ---------------------------
-  // Résumé & Brochure (must match /public/files exactly)
+  // Résumé & Brochure (served from /public/files)
   // ---------------------------
   resume: "/resume",
   brochure: "/files/JLT-Consulting-Brochure.pdf",
   resumePdf: "/files/justine-longla-resume-2025.pdf",
 
   // ---------------------------
-  // Scheduling pages (your site routes)
+  // Scheduling pages (this app routes)
   // ---------------------------
   introCall: "/availability",
   hireMe: "/hire-me",
 
   // ---------------------------
-  // Success redirects (your site URLs)
+  // Absolute CTA links (cross-site safe)
+  // Use these for Footer CTA buttons when Footer is shared across domains
   // ---------------------------
-  successIntro: `${BASE}/intro-call?booked=1`,
-  successHire: `${BASE}/hire-me?booked=1`,
+  consultingIntroAbsolute: joinUrl(ORIGINS.consulting, "/availability"),
+  consultingHireAbsolute: joinUrl(ORIGINS.consulting, "/hire-me"),
+
+  // ---------------------------
+  // Success redirects (absolute)
+  // ---------------------------
+  successIntro: joinUrl(SUCCESS_BASE, "/availability?booked=1"),
+  successHire: joinUrl(SUCCESS_BASE, "/hire-me?booked=1"),
 
   // ---------------------------
   // Cal.com embeds
@@ -84,13 +116,15 @@ export const LINKS = {
   calIntro: buildCalUrl({
     env: process.env.NEXT_PUBLIC_CAL_INTRO_URL,
     fallback: "https://cal.com/justine-longla-ptq4no",
-    successPath: "/intro-call?booked=1",
+    successPath: "/availability?booked=1",
+    successBase: SUCCESS_BASE,
   }),
 
   calHire: buildCalUrl({
     env: process.env.NEXT_PUBLIC_CAL_HIRE_URL,
     fallback: "https://cal.com/justine-longla-ptq4no",
     successPath: "/hire-me?booked=1",
+    successBase: SUCCESS_BASE,
   }),
 
   // Backward compatibility
@@ -102,12 +136,12 @@ export const LINKS = {
   // ---------------------------
   // External ecosystem links
   // ---------------------------
-  consultingSite: "https://consulting.justinelonglat-lane.com",
-  mainSite: "https://justinelonglat-lane.com",
-  blogSite: "https://blogs.justinelonglat-lane.com",
-  docsSite: "https://docs.justinelonglat-lane.com",
-  docs: "https://docs.justinelonglat-lane.com",
-  toolkit: "https://docs.justinelonglat-lane.com/toolkit.html",
+  consultingSite: ORIGINS.consulting,
+  mainSite: ORIGINS.main,
+  blogSite: ORIGINS.blog,
+  docsSite: ORIGINS.docs,
+  docs: ORIGINS.docs,
+  toolkit: joinUrl(ORIGINS.docs, "/toolkit.html"),
 
   // ---------------------------
   // Stripe (external checkout links)
@@ -115,8 +149,11 @@ export const LINKS = {
   stripeBookSession: process.env.NEXT_PUBLIC_STRIPE_BOOK_SESSION_URL ?? "",
   stripeCompletePayment: process.env.NEXT_PUBLIC_STRIPE_COMPLETE_PAYMENT_URL ?? "",
 
-  // Optional: per-service checkout links (for your BookingSection cards)
+  // Optional: per-service checkout links
   stripeServiceIntro: process.env.NEXT_PUBLIC_STRIPE_SERVICE_INTRO_URL ?? "",
   stripeServiceReview: process.env.NEXT_PUBLIC_STRIPE_SERVICE_REVIEW_URL ?? "",
   stripeServiceRetainer: process.env.NEXT_PUBLIC_STRIPE_SERVICE_RETAINER_URL ?? "",
+
+  // Expose runtime base if you ever need it
+  runtimeBase: RUNTIME_BASE,
 } as const;
