@@ -3,11 +3,6 @@ import createMDX from "@next/mdx";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ✅ Force webpack; avoids Turbopack MDX "serializable options" error on Vercel
-  experimental: {
-    turbo: false,
-  },
-
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   reactStrictMode: true,
 };
@@ -22,9 +17,7 @@ const withMDX = createMDX({
         "rehype-autolink-headings",
         {
           behavior: "wrap",
-          properties: {
-            className: ["heading-anchor"],
-          },
+          properties: { className: ["heading-anchor"] },
         },
       ],
     ],
