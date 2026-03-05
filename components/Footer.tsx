@@ -20,23 +20,23 @@ export default function Footer() {
 
           {/* 📞 / 💼 CTAs */}
           <div className="mt-4 flex flex-wrap gap-3">
-            <Link
-              href={LINKS.introCall}
+            {/* Cross-site safe: always go to consulting site */}
+            <a
+              href={`${LINKS.consultingSite}${LINKS.introCall}`}
               aria-label="Schedule your intro call"
               className="inline-block px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Schedule Your Intro Call
-            </Link>
+            </a>
 
-            <Link
-              href={LINKS.hireMe}
+            <a
+              href={`${LINKS.consultingSite}${LINKS.hireMe}`}
               aria-label="Hire me"
               className="inline-block px-5 py-2 rounded-lg border border-blue-600 text-blue-700 dark:text-blue-300 font-medium hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:scale-[1.03] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Hire Me
-            </Link>
+            </a>
           </div>
-        </div>
 
         {/* 🧭 Quick Links */}
         <nav aria-label="Quick links">
@@ -55,7 +55,7 @@ export default function Footer() {
             {/* Blog is external */}
             <li>
               <a
-                href={LINKS.blog}
+                href={LINKS.blogSite}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline"
@@ -63,15 +63,21 @@ export default function Footer() {
                 Blog ↗
               </a>
             </li>
+
             <li>
               <Link href={LINKS.contact} className="hover:underline">
                 Contact
               </Link>
             </li>
+
+            {/* Cross-site safe: always go to consulting site */}
             <li>
-              <Link href={LINKS.hireMe} className="hover:underline">
+              <a
+                href={`${LINKS.consultingSite}${LINKS.hireMe}`}
+                className="hover:underline"
+              >
                 Hire Me
-              </Link>
+              </a>
             </li>
 
             {/* Internal résumé page */}
