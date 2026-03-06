@@ -1,6 +1,7 @@
 // app/page.tsx
 import Image from "next/image";
 import Link from "next/link";
+
 import VideosTeaser from "@/components/VideosTeaser";
 import BookingSection from "@/components/BookingSection";
 import HeroCTA from "@/components/HeroCTA";
@@ -12,17 +13,30 @@ import PostHeroCards from "@/components/PostHeroCards";
 import ServicesBand from "@/components/ServicesBand";
 import ContactSection from "@/components/ContactSection";
 
+import HeroBanner from "@/components/HeroBanner";
+import HeroExplainer from "@/components/HeroExplainer";
+import { heroExplainerData } from "@/data/home";
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white px-4 py-8 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10">
-      {/* ✅ Top Hero CTA (Stripe links / platform links) */}
-      <HeroCTA />
+      {/* ✅ Top CTA band */}
+      <div className="mx-auto max-w-7xl">
+        <HeroCTA />
+      </div>
+
+      {/* ✅ Hero banner background (ONLY ONCE) */}
+      <HeroBanner />
+
+      {/* ✅ Hero explanation directly under banner */}
+      <div className="mx-auto max-w-7xl">
+        <HeroExplainer data={heroExplainerData} />
+      </div>
 
       {/* ✅ Home hero (logo + navigation CTAs only) */}
       <section className="bg-slate-50 py-10 dark:bg-slate-950/40">
         <div className="mx-auto max-w-3xl px-2 sm:px-0">
           <div className="rounded-3xl bg-white/95 p-6 shadow-md ring-1 ring-slate-200 dark:bg-slate-900/80 dark:ring-slate-700">
-            {/* Smaller logo */}
             <div className="mx-auto max-w-xs">
               <Image
                 src="/brand/justine-logo.png"
@@ -34,9 +48,7 @@ export default function HomePage() {
               />
             </div>
 
-            {/* CTA grid directly under logo */}
             <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Intro call (route on your site) */}
               <Link
                 href="/availability"
                 className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -44,7 +56,6 @@ export default function HomePage() {
                 Book Intro Call
               </Link>
 
-              {/* Jump links (anchors) */}
               <Link
                 href="#services"
                 className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
@@ -59,7 +70,6 @@ export default function HomePage() {
                 Book a Service
               </Link>
 
-              {/* Consulting brochure */}
               <a
                 href="/files/JLT-Consulting-Brochure.pdf"
                 className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -67,7 +77,6 @@ export default function HomePage() {
                 Download Brochure
               </a>
 
-              {/* Résumé */}
               <a
                 href="/files/resume.pdf"
                 className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -75,7 +84,6 @@ export default function HomePage() {
                 View Résumé
               </a>
 
-              {/* Engineering Mesh Hub */}
               <Link
                 href="/engineering-mesh"
                 className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
@@ -84,7 +92,6 @@ export default function HomePage() {
                 Engineering Mesh Hub
               </Link>
 
-              {/* Publishing Platform */}
               <Link
                 href="/case-studies/engineering-grade-publishing"
                 className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
@@ -93,7 +100,6 @@ export default function HomePage() {
                 Publishing Platform
               </Link>
 
-              {/* Automation Platform (external) */}
               <a
                 href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
                 target="_blank"
@@ -130,7 +136,6 @@ export default function HomePage() {
           </h2>
 
           <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[220px,1fr] md:gap-10">
-            {/* Photo */}
             <div className="justify-self-center md:justify-self-start">
               <Image
                 src="/images/justine-profile.png"
@@ -142,7 +147,6 @@ export default function HomePage() {
               />
             </div>
 
-            {/* Copy */}
             <div>
               <p className="mb-2 text-sm italic text-gray-600 dark:text-gray-400">
                 “Secure, scalable, and sustainable cloud solutions that move your
@@ -255,7 +259,7 @@ export default function HomePage() {
         </section>
       </AnimatedSection>
 
-      {/* 🔷 Full contact section with form (Resend + mailto fallback) */}
+      {/* 🔷 Full contact section */}
       <AnimatedSection>
         <ContactSection />
       </AnimatedSection>

@@ -11,8 +11,9 @@ export default function HireMePage() {
           Pick a 15-minute slot that works for you.
         </p>
 
-        <CalPopupButton link="https://cal.com/justine/intro-call" />
+        <CalPopupButton link="https://cal.com/justine-longla-ptq4no" />
       </section>
     </main>
   );
 }
+

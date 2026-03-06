@@ -155,8 +155,6 @@ export default function Topbar() {
               <a
                 key={l.name}
                 href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 className={cls}
               >
                 {l.name} <span aria-hidden="true" className="text-[0.7rem] opacity-90">↗</span>
@@ -187,8 +185,6 @@ export default function Topbar() {
                 <a
                   key={x.label}
                   href={x.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="flex items-center justify-between px-4 py-3 text-sm text-white/90 hover:bg-white/8"
                 >
                   <span>{x.label}</span>
@@ -206,9 +202,7 @@ export default function Topbar() {
             <ThemeToggle />
 
             <a
-              href={LINKS.calIntro ?? LINKS.introCall}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={LINKS.consultingIntroAbsolute}
               className="
                 inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
                 bg-gradient-to-r from-sky-500/70 to-indigo-500/70
@@ -255,8 +249,6 @@ export default function Topbar() {
                   <a
                     key={l.name}
                     href={l.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     onClick={closeMenu}
                     className={cls}
                   >
@@ -278,8 +270,6 @@ export default function Topbar() {
                     <a
                       key={x.label}
                       href={x.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
                       onClick={closeMenu}
                     >
@@ -292,9 +282,7 @@ export default function Topbar() {
               <div className="mt-2 flex items-center justify-between gap-3">
                 <ThemeToggle />
                 <a
-                  href={LINKS.calIntro ?? LINKS.introCall}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={LINKS.consultingIntroAbsolute}
                   onClick={closeMenu}
                   className="
                     inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
@@ -315,3 +303,4 @@ export default function Topbar() {
     </header>
   );
 }
+

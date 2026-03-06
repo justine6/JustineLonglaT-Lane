@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { LINKS } from "@/config/links";
 
-// NOTE: HeroBanner is rendered in app/layout.tsx via HeroGate.
+// NOTE: HeroBanner is rendered only on the homepage via app/page.tsx.
 // This client shell should not render it, to avoid duplication or leakage.
 
 export default function LayoutShellClient({ children }: { children: ReactNode }) {

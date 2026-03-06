@@ -164,8 +164,6 @@ export default function Navbar() {
                 {/* Automation Platform */}
                 <a
                   href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-emerald-300/50 via-white/15 to-sky-300/50 shadow-sm transition hover:shadow-md hover:-translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                   aria-label="Automation Platform"
                 >
@@ -214,9 +212,7 @@ export default function Navbar() {
                 <ThemeToggle />
 
                 <a
-                  href={LINKS.calIntro ?? LINKS.introCall}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={LINKS.consultingIntroAbsolute}
                   className="
                     inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
                     bg-gradient-to-r from-sky-500/70 via-blue-500/70 to-indigo-500/70
@@ -258,8 +254,6 @@ export default function Navbar() {
                   <a
                     key={link.name}
                     href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className={className}
                   >
                     <span>{link.name}</span>
@@ -297,8 +291,6 @@ export default function Navbar() {
                     <a
                       key={x.label}
                       href={x.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="block px-4 py-3 text-sm text-white/90 hover:bg-white/10"
                     >
                       {x.label} <span aria-hidden="true" className="ml-1 text-white/70">↗</span>
@@ -339,8 +331,6 @@ export default function Navbar() {
                     </Link>
                     <a
                       href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
-                      target="_blank"
-                      rel="noopener noreferrer"
                       onClick={closeMenu}
                       className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
                     >
@@ -360,8 +350,6 @@ export default function Navbar() {
                     <a
                       key={l.name}
                       href={l.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       onClick={closeMenu}
                       className={cls}
                     >
@@ -384,8 +372,6 @@ export default function Navbar() {
                       <a
                         key={x.label}
                         href={x.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
                         onClick={closeMenu}
                       >
@@ -399,9 +385,7 @@ export default function Navbar() {
                 <div className="mt-2 flex items-center justify-between gap-3">
                   <ThemeToggle />
                   <a
-                    href={LINKS.calIntro ?? LINKS.introCall}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={LINKS.consultingIntroAbsolute}
                     onClick={closeMenu}
                     className="
                       inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
@@ -422,3 +406,4 @@ export default function Navbar() {
     </>
   );
 }
+

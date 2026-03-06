@@ -78,3 +78,5 @@ vitest/
 .nuxt/
 # local tooling scratch (avoid shadowing vitest package)
 vitest
+*.bak-*
+packages/shared/dist/

@@ -1,139 +1,16 @@
 // app/projects/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PROJECTS } from "./data";
 import ProjectsCard from "@/components/ProjectsCard";
-
-type BasicProject = {
-  slug: string;
-  title: string;
-  description: string;
-  category?: string;
-  featured?: boolean; // shows up in the Featured blocks
-  pinned?: boolean; // for metrics
-  tags?: string[];
-  image?: string;
-  updated?: string; // optional, for future use
-};
-
-const PROJECTS: BasicProject[] = [
-  {
-    slug: "system-design-ecosystem-a",
-    title: "System Design: Justine Longla T. Ecosystem",
-    description:
-      "How I unified the Justine Longla T. main hub, blog engine, and documentation sites into a consistent, reliable multi-site ecosystem with shared branding and predictable routing.",
-    category: "Platform",
-    featured: true,
-    pinned: true,
-    tags: ["platform engineering", "system design", "multi-site"],
-    updated: "2025-01-24",
-  },
-  {
-    slug: "automation-rescue-fixing-flaky-lambdas-a",
-    title: "Automation Rescue: Fixing Flaky Lambdas",
-    description:
-      "Deep-dive reliability engagement where flaky Lambda workloads were stabilized using better observability, retries, and deployment hygiene.",
-    category: "AWS",
-    tags: ["aws", "serverless", "reliability"],
-    updated: "2025-01-20",
-  },
-  {
-    slug: "automation-rescue-fixing-flaky-lambdas-b",
-    title: "Automation Rescue: Fixing Flaky Lambdas (Patterns Library)",
-    description:
-      "A companion project that extracts reusable patterns from the Lambda rescue engagement for future teams and workloads.",
-    category: "AWS",
-    tags: ["aws", "serverless"],
-    updated: "2025-01-20",
-  },
-  {
-    slug: "cicd-automation-bot",
-    title: "CI/CD Automation Bot",
-    description:
-      "A pipeline-aware bot that posts rich deployment notifications into Microsoft Teams so every release is visible, auditable, and easy to follow.",
-    category: "DevSecOps",
-    tags: ["ci/cd", "chatops", "automation"],
-    updated: "2025-01-18",
-  },
-  {
-    slug: "launch-migrate",
-    title: "Launch & Migrate",
-    description:
-      "A starter migration offering that moves teams into AWS with landing zones, observability, and guardrails instead of a risky ‘lift and hope’ approach.",
-    category: "AWS",
-    tags: ["aws", "migration", "foundations"],
-    updated: "2025-01-17",
-  },
-  {
-    slug: "operate-and-optimize",
-    title: "Operate & Optimize",
-    description:
-      "Operational automation toolkit to reduce cost, highlight inefficiencies, and help teams get more value from their existing cloud workloads.",
-    category: "Cloud",
-    tags: ["operations", "cost optimization", "observability"],
-    updated: "2025-01-15",
-  },
-  {
-    slug: "platform-architecture-multi-site-deployment",
-    title:
-      "Platform Architecture & Multi-Site Deployment: JustineLonglaT-Lane Ecosystem",
-    description:
-      "Case study covering the architecture behind the JustineLonglaT-Lane sites: predictable routing, versioned assets, and independent CI/CD pipelines.",
-    category: "Platform",
-    tags: ["platform engineering", "architecture"],
-    updated: "2025-01-14",
-  },
-  {
-    slug: "project-b",
-    title: "Project B",
-    description:
-      "A full technical exploration of Project B including design decisions, reliability improvements, and lessons learned from production traffic.",
-    category: "Automation",
-    tags: ["automation"],
-    updated: "2025-01-10",
-  },
-  {
-    slug: "secure-and-scale",
-    title: "Secure & Scale",
-    description:
-      "DevSecOps transformation project implementing cloud security automation, scalable pipelines, and guardrails for production workloads.",
-    category: "DevSecOps",
-    tags: ["security", "devsecops", "compliance"],
-    updated: "2025-01-09",
-  },
-  {
-    slug: "system-design-ecosystem-b",
-    title: "System Design: JustineLonglaT-Lane Ecosystem (Execution)",
-    description:
-      "End-to-end implementation story of the JustineLonglaT-Lane ecosystem as a resilient, observable, multi-site platform.",
-    category: "Platform",
-    tags: ["system design", "execution"],
-    updated: "2025-01-08",
-  },
-  {
-    slug: "teams-proactive-bot",
-    title: "Teams Proactive Messaging Bot",
-    description:
-      "Real-world automation bot that triggers proactive notifications into Microsoft Teams directly from the command line using Teams Toolkit and Azure.",
-    category: "Automation",
-    tags: ["chatops", "teams", "automation"],
-    updated: "2025-01-05",
-  },
-  {
-    slug: "nouvo-ayiti-2075",
-    title: "Nouvo Ayiti 2075",
-    description:
-      "Multilingual initiative platform that combines global reach, local presence, and strong branding to tell the story of Haiti’s long-term vision.",
-    category: "Mission-Driven",
-    tags: ["mission-driven", "branding", "multilingual"],
-    updated: "2025-01-02",
-  },
-];
 
 // Derived collections
 const FEATURED_MAIN = PROJECTS.find((p) => p.featured) ?? PROJECTS[0];
+
 const FEATURED_SECONDARY = PROJECTS.filter(
   (p) => p.featured && p.slug !== FEATURED_MAIN.slug
 );
+
 const PINNED_COUNT = PROJECTS.filter((p) => p.pinned).length;
 
 // Topics from tags (deduped)
@@ -182,7 +59,6 @@ export default function ProjectsPage() {
   return (
     <main className="min-h-screen bg-white px-4 py-10 text-slate-900 dark:bg-slate-950 dark:text-slate-50 sm:px-8 lg:px-16">
       <section className="mx-auto flex max-w-6xl flex-col gap-8">
-        {/* Page header + metrics */}
         <header className="space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">
             Projects &amp; Case Studies
@@ -203,7 +79,6 @@ export default function ProjectsPage() {
           </div>
         </header>
 
-        {/* Main featured banner */}
         {FEATURED_MAIN && (
           <section className="rounded-2xl border border-slate-200 bg-gradient-to-r from-white via-slate-50 to-slate-100 p-6 shadow-xl shadow-slate-200/50 dark:border-slate-800 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 dark:shadow-slate-900/70">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300">
@@ -239,7 +114,6 @@ export default function ProjectsPage() {
           </section>
         )}
 
-        {/* Secondary featured (if any) */}
         {FEATURED_SECONDARY.length > 0 && (
           <section className="space-y-3">
             <h3 className="text-sm uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
@@ -253,9 +127,7 @@ export default function ProjectsPage() {
 
         <hr className="border-slate-200 dark:border-slate-800" />
 
-        {/* Controls: topics + view toggle */}
         <section className="space-y-4">
-          {/* Topics / tags row */}
           <div className="flex flex-wrap items-center gap-2">
             <span className="mr-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
               Topics
@@ -271,7 +143,6 @@ export default function ProjectsPage() {
             ))}
           </div>
 
-          {/* View + sort row (UI only, no state yet) */}
           <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
             <div className="flex items-center gap-2">
               <span className="text-[0.7rem] uppercase tracking-[0.18em]">
@@ -300,7 +171,6 @@ export default function ProjectsPage() {
           </div>
         </section>
 
-        {/* All projects grid */}
         <section className="space-y-3">
           <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <span className="font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">

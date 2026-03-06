@@ -11,9 +11,6 @@ importers:
       '@calcom/embed-react':
         specifier: ^1.5.3
         version: 1.5.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@suite/shared':
-        specifier: workspace:*
-        version: 'link:'
       '@upstash/ratelimit':
         specifier: ^2.0.6
         version: 2.0.7(@upstash/redis@1.35.6)
@@ -192,6 +189,8 @@ importers:
       vitest:
         specifier: ^4.0.4
         version: 4.0.8(@types/debug@4.1.12)(@types/node@20.19.24)(jiti@1.21.7)(jsdom@27.1.0)
+
+  packages/shared: {}
 
 packages:
 

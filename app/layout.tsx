@@ -5,8 +5,6 @@ import "./globals.css";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import HeroBanner from "@/components/HeroBanner";
-import HeroGate from "@/components/HeroGate";
 import { Providers } from "./providers";
 import Script from "next/script";
 
@@ -37,7 +35,7 @@ export const viewport: Viewport = { themeColor: "#1e40af" };
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-dvh antialiased bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
+      <body className="min-h-dvh bg-white text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-50">
         <Providers>
           <Script
             id="org-schema"
@@ -52,30 +50,27 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 alternateName: [
                   "JLT Lane",
                   "JLT-Lane Engineering Mesh",
-                  "Justine Longla T-Lane"
+                  "Justine Longla T-Lane",
                 ],
                 url: "https://justinelonglat-lane.com",
                 logo: "https://justinelonglat-lane.com/logo.png",
                 founder: {
                   "@type": "Person",
-                  name: "Justine Longla T."
+                  name: "Justine Longla T.",
                 },
-                slogan: "Cloud Confidence. Delivered."
-              })
+                slogan: "Cloud Confidence. Delivered.",
+              }),
             }}
           />
+
           <a
-            href="#content"
+            href="#main-content"
             className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
           >
             Skip to content
           </a>
 
           <Navbar />
-
-          <HeroGate>
-            <HeroBanner />
-          </HeroGate>
 
           <div className="flex min-h-dvh flex-col">
             <main id="main-content" className="flex-1">
