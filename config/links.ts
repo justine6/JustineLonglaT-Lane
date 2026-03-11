@@ -41,8 +41,8 @@ function joinUrl(origin: string, path: string) {
 export function buildCalUrl(opts: {
   env?: string;
   fallback: string;
-  successPath?: string; // "/availability?booked=1"
-  successBase?: string; // optional override
+  successPath?: string;
+  successBase?: string;
 }) {
   const raw = opts.env ?? opts.fallback;
   const url = new URL(normalizeCalInput(raw));
@@ -70,22 +70,26 @@ export function buildCalUrl(opts: {
 
 export const LINKS = {
   // ---------------------------
-  // Internal Navigation (this app)
+  // Internal navigation (this app)
   // ---------------------------
   home: "/",
+  about: "/about",
   projects: "/projects",
   contact: "/contact",
   readme: "/readme",
-  blog: "/blog", // keep if you have an internal /blog page
   videos: "/videos",
+  files: "/files",
+
+  // Keep internal /blog route if you still use it elsewhere
+  blog: "/blog",
 
   // ---------------------------
-  // Engineering Mesh
+  // Engineering Mesh (internal on main site)
   // ---------------------------
   engineeringMesh: "/engineering-mesh",
 
   // ---------------------------
-  // Résumé & Brochure (served from /public/files)
+  // Résumé & brochure (served from /public/files)
   // ---------------------------
   resume: "/resume",
   brochure: "/files/JLT-Consulting-Brochure.pdf",
@@ -99,7 +103,6 @@ export const LINKS = {
 
   // ---------------------------
   // Absolute CTA links (cross-site safe)
-  // Use these for Footer CTA buttons when Footer is shared across domains
   // ---------------------------
   consultingIntroAbsolute: joinUrl(ORIGINS.consulting, "/availability"),
   consultingHireAbsolute: joinUrl(ORIGINS.consulting, "/hire-me"),
@@ -140,8 +143,15 @@ export const LINKS = {
   mainSite: ORIGINS.main,
   blogSite: ORIGINS.blog,
   docsSite: ORIGINS.docs,
+
+  // Canonical cross-site destinations
   docs: ORIGINS.docs,
+  blogCanonical: ORIGINS.blog,
+
+  // Specific platform entry points
   toolkit: joinUrl(ORIGINS.docs, "/toolkit.html"),
+  automationPlatform: joinUrl(ORIGINS.docs, "/automation-toolkit.html"),
+  publishingPlatform: ORIGINS.blog,
 
   // ---------------------------
   // Stripe (external checkout links)
@@ -154,6 +164,6 @@ export const LINKS = {
   stripeServiceReview: process.env.NEXT_PUBLIC_STRIPE_SERVICE_REVIEW_URL ?? "",
   stripeServiceRetainer: process.env.NEXT_PUBLIC_STRIPE_SERVICE_RETAINER_URL ?? "",
 
-  // Expose runtime base if you ever need it
+  // Runtime base if ever needed
   runtimeBase: RUNTIME_BASE,
 } as const;

@@ -1,46 +1,67 @@
-import { NextResponse } from "next/server";
-import { getStripe } from "@/lib/stripe";
+import { NextRequest, NextResponse } from "next/server";
+import Stripe from "stripe";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
-const PRICE_ALLOWLIST = new Set(
-  [
-    process.env.STRIPE_PRICE_INTRO_CALL,
-    process.env.STRIPE_PRICE_ARCH_REVIEW,
-    process.env.STRIPE_PRICE_RETAINER,
-  ].filter(Boolean)
-);
+const PLAN_MAP = {
+  "consulting-session": {
+    priceId: process.env.STRIPE_CONSULTING_SESSION_PRICE_ID,
+    mode: "payment" as const,
+  },
+  "platform-access": {
+    priceId: process.env.STRIPE_PLATFORM_ACCESS_PRICE_ID,
+    mode: "subscription" as const,
+  },
+  "platform-architect": {
+    priceId: process.env.STRIPE_PLATFORM_ARCHITECT_PRICE_ID,
+    mode: "subscription" as const,
+  },
+} as const;
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const stripe = getStripe();
-
-    const { priceId, mode } = (await req.json()) as {
-      priceId?: string;
-      mode?: "payment" | "subscription";
+    const body = await req.json();
+    const { planKey } = body as {
+      planKey?: keyof typeof PLAN_MAP | "enterprise";
     };
 
-    if (!priceId || !PRICE_ALLOWLIST.has(priceId)) {
-      return NextResponse.json({ error: "Invalid priceId" }, { status: 400 });
+    if (!planKey || planKey === "enterprise" || !(planKey in PLAN_MAP)) {
+      return NextResponse.json(
+        { error: "Invalid or unsupported plan." },
+        { status: 400 }
+      );
     }
 
-    const checkoutMode: "payment" | "subscription" =
-      mode === "subscription" ? "subscription" : "payment";
+    const plan = PLAN_MAP[planKey];
+
+    if (!plan.priceId) {
+      return NextResponse.json(
+        { error: "Stripe price is not configured for this plan." },
+        { status: 500 }
+      );
+    }
 
     const session = await stripe.checkout.sessions.create({
-      mode: checkoutMode,
-      line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${SITE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${SITE_URL}/pricing`,
-      // remove this line for now
-      // automatic_tax: { enabled: true },
+      mode: plan.mode,
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price: plan.priceId,
+          quantity: 1,
+        },
+      ],
+      metadata: {
+        planKey,
+      },
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/#booking`,
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (e: any) {
-    console.error("stripe checkout error:", e);
+  } catch (error) {
+    console.error("Stripe checkout error:", error);
     return NextResponse.json(
-      { error: e?.message || "Checkout failed" },
+      { error: "Stripe checkout failed." },
       { status: 500 }
     );
   }

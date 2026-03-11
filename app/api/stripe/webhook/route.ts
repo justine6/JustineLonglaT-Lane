@@ -1,66 +1,141 @@
-import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { getStripe } from "@/lib/stripe";
-import { markProposalPaid } from "@/lib/proposal-store";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import {
+  deactivateMembershipBySubscriptionId,
+  upsertMembership,
+} from "@/lib/membership";
 
-export const runtime = "nodejs";
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
+type SupportedPlanKey =
+  | "consulting-session"
+  | "platform-access"
+  | "platform-architect";
 
 export async function POST(req: Request) {
-  const stripe = getStripe();
+  const body = await req.text();
+  const headerStore = await headers();
+  const signature = headerStore.get("stripe-signature");
 
-  const sig = req.headers.get("stripe-signature");
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-  if (!sig || !webhookSecret) {
-    return NextResponse.json(
-      { error: "Missing stripe-signature or STRIPE_WEBHOOK_SECRET" },
-      { status: 400 }
-    );
+  if (!signature) {
+    return new NextResponse("Missing stripe-signature header", { status: 400 });
   }
 
   let event: Stripe.Event;
 
   try {
-    const rawBody = await req.text();
-    event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
-  } catch (err: any) {
-    console.error("Webhook signature verification failed:", err);
-    return NextResponse.json(
-      { error: `Webhook Error: ${err?.message || "Invalid signature"}` },
-      { status: 400 }
+    event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET as string
     );
+  } catch (error: any) {
+    console.error("Webhook signature verification failed:", error.message);
+    return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
   }
 
   try {
-    // Handle only what you need
-    if (event.type === "checkout.session.completed") {
-      const session = event.data.object as Stripe.Checkout.Session;
+    console.log("Webhook route hit");
+    console.log("Webhook event type:", event.type);
 
-      const sessionId = session.id;
-      const paid =
-        session.payment_status === "paid" ||
-        session.status === "complete" ||
-        session.payment_intent != null;
+    switch (event.type) {
+      case "checkout.session.completed": {
+        const session = event.data.object as Stripe.Checkout.Session;
 
-      if (paid && sessionId) {
-        try {
-          markProposalPaid(
-            sessionId,
-            session.amount_total ?? undefined,
-            session.currency ?? undefined
-          );
-        } catch (e) {
-          console.error("Failed to mark proposal paid:", e);
+        const email =
+          session.customer_details?.email ||
+          session.customer_email ||
+          undefined;
+
+        const planKey = (session.metadata?.planKey || "") as SupportedPlanKey;
+
+        console.log("Session metadata:", session.metadata);
+
+        if (!email || !planKey) {
+          console.warn("Missing email or planKey on checkout.session.completed", {
+            sessionId: session.id,
+            email,
+            planKey,
+          });
+          break;
         }
+
+        const mode = session.mode === "subscription" ? "subscription" : "payment";
+
+        upsertMembership({
+          email,
+          stripeCustomerId:
+            typeof session.customer === "string" ? session.customer : undefined,
+          stripeSubscriptionId:
+            typeof session.subscription === "string"
+              ? session.subscription
+              : undefined,
+          stripeCheckoutSessionId: session.id,
+          planKey,
+          mode,
+          status: "active",
+          grantedAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        });
+
+        console.log("Access granted", {
+          email,
+          planKey,
+          mode,
+          sessionId: session.id,
+        });
+
+        break;
       }
+
+      case "customer.subscription.deleted": {
+        const subscription = event.data.object as Stripe.Subscription;
+
+        deactivateMembershipBySubscriptionId(subscription.id);
+
+        console.log("Access revoked", {
+          subscriptionId: subscription.id,
+          status: subscription.status,
+        });
+
+        break;
+      }
+
+      case "customer.subscription.updated": {
+        const subscription = event.data.object as Stripe.Subscription;
+        console.log("Subscription updated", {
+          subscriptionId: subscription.id,
+          status: subscription.status,
+        });
+        break;
+      }
+
+      case "invoice.paid": {
+        const invoice = event.data.object as Stripe.Invoice;
+        console.log("invoice.paid", {
+          id: invoice.id,
+          customer: invoice.customer,
+        });
+        break;
+      }
+
+      case "invoice.payment_failed": {
+        const invoice = event.data.object as Stripe.Invoice;
+        console.log("invoice.payment_failed", {
+          id: invoice.id,
+          customer: invoice.customer,
+        });
+        break;
+      }
+
+      default:
+        console.log(`Unhandled event type: ${event.type}`);
     }
 
     return NextResponse.json({ received: true });
-  } catch (e: any) {
-    console.error("stripe webhook handler error:", e);
-    return NextResponse.json(
-      { error: e?.message || "Webhook handler failed" },
-      { status: 500 }
-    );
+  } catch (error) {
+    console.error("Webhook handler error:", error);
+    return new NextResponse("Webhook handler failed", { status: 500 });
   }
 }

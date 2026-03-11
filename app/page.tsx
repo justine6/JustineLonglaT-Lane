@@ -12,7 +12,7 @@ import CertificationsGrid from "@/components/CertificationsGrid";
 import PostHeroCards from "@/components/PostHeroCards";
 import ServicesBand from "@/components/ServicesBand";
 import ContactSection from "@/components/ContactSection";
-
+import Footer from "@/components/Footer";
 import HeroBanner from "@/components/HeroBanner";
 import HeroExplainer from "@/components/HeroExplainer";
 import { heroExplainerData } from "@/data/home";

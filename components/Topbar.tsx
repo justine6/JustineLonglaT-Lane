@@ -4,7 +4,7 @@
 import { Calendar, Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { usePathname } from "next/navigation";
 
 import { LINKS } from "@/config/links";
@@ -14,27 +14,27 @@ import { ProfilePill } from "@/components/ProfilePill";
 type NavItem = { name: string; href: string };
 type EcoItem = { label: string; href: string };
 
-// Detect true external links
+// Strict external detection (http/https + protocol-relative)
 function isExternalHref(href: string) {
   return /^(https?:)?\/\//i.test(href);
 }
 
-// Ecosystem dropdown = cross-site navigation (external)
+// Ecosystem dropdown = cross-site navigation
 const ECOSYSTEM: EcoItem[] = [
-  { label: "Consulting site", href: "https://consulting.justinelonglat-lane.com" },
-  { label: "Docs", href: LINKS.docs },
-  { label: "Blog", href: LINKS.blog },
+  { label: "Consulting site", href: LINKS.consultingSite },
+  { label: "Docs", href: LINKS.docsSite },
+  { label: "Blog", href: LINKS.blogSite },
 ];
 
 // Main nav for this site
 const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
   { name: "README", href: LINKS.readme },
-  { name: "Docs", href: LINKS.docs }, // external
-  { name: "Files", href: "/files" },
-  { name: "About", href: "/about" },
+  { name: "Docs", href: LINKS.docsSite },
+  { name: "Files", href: LINKS.files },
+  { name: "About", href: LINKS.about },
   { name: "Projects", href: LINKS.projects },
-  { name: "Blog", href: LINKS.blog }, // external
+  { name: "Blog", href: LINKS.blogSite },
   { name: "Contact", href: LINKS.contact },
 ];
 
@@ -43,15 +43,15 @@ export default function Topbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Add shadow / stronger bg after scroll
+  // Scroll styling
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Escape closes mobile menu
+  // Close mobile menu w/ Escape
   const closeMenu = useCallback(() => setMenuOpen(false), []);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -61,246 +61,363 @@ export default function Topbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [closeMenu]);
 
+  const navWithActive = useMemo(() => {
+    return NAV_LINKS.map((link) => {
+      const external = isExternalHref(link.href);
+      const active =
+        !external &&
+        (pathname === link.href ||
+          (link.href !== "/" && pathname?.startsWith(link.href)));
+
+      return {
+        ...link,
+        external,
+        active,
+      };
+    });
+  }, [pathname]);
+
+  const shellBg = [
+    "bg-gradient-to-r from-[#061a3a]/95 via-[#0a2f66]/90 to-[#061a3a]/95",
+    "dark:from-[#040f24]/95 dark:via-[#071a3a]/92 dark:to-[#040f24]/95",
+  ].join(" ");
+
+  const shellBorder = "border-b border-white/10";
+  const shellShadow = scrolled
+    ? "shadow-[0_18px_40px_-26px_rgba(0,0,0,0.75)]"
+    : "shadow-sm";
+
+  const pillBase =
+    "rounded-full px-4 py-2 text-sm font-semibold transition " +
+    "ring-1 ring-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60";
+
+  const pillIdle =
+    "bg-white/10 text-white/90 hover:bg-white/16 hover:ring-white/15 hover:-translate-y-[1px] hover:shadow-[0_14px_26px_-22px_rgba(0,0,0,0.8)]";
+
+  const pillActive =
+    "bg-white/16 text-white ring-white/25 shadow-[0_14px_26px_-24px_rgba(0,0,0,0.85)]";
+
   return (
-    <header
-      className={[
-        "sticky top-0 z-50 w-full backdrop-blur-xl transition-all duration-300",
-        // Premium ecosystem blue gradient (light + dark)
-        scrolled
-          ? "bg-gradient-to-b from-[#0B1F3B]/95 via-[#0A1A33]/92 to-[#08172E]/90 shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
-          : "bg-gradient-to-b from-[#123463]/85 via-[#0F2B52]/78 to-[#0B2344]/70 shadow-[0_6px_18px_rgba(0,0,0,0.22)]",
-        // subtle top highlight line
-        "border-b border-white/10",
-      ].join(" ")}
-    >
-      {/* thin glow line */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-60" />
-
-      <nav
-        className="relative mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4"
-        aria-label="Primary navigation"
+    <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-[100] focus:rounded-lg focus:bg-slate-900 focus:px-3 focus:py-2 focus:text-sm focus:text-slate-50 focus:shadow-lg"
       >
-        {/* LEFT */}
-        <div className="flex min-w-0 shrink-0 items-center gap-3 whitespace-nowrap">
-          <Link
-            href="/"
-            className="flex items-center gap-3 text-white sm:gap-4"
-            aria-label="Justine Longla T-Lane home"
-            onClick={closeMenu}
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 shadow-sm">
-              <Image
-                src="/brand/justine-logo.png"
-                alt="Justine Longla T-Lane logo"
-                width={32}
-                height={32}
-                className="rounded-full"
-                priority
-              />
-            </div>
+        Skip to main content
+      </a>
 
-            <div className="flex flex-col items-start leading-tight">
-              <div className="text-sm font-semibold tracking-wide sm:text-base">
-                Justine Longla T-Lane.
-              </div>
-              <div className="text-[11px] text-white/70 hidden sm:block">
-                Cloud Confidence. Delivered.
-              </div>
-            </div>
-          </Link>
-
-          {/* Mesh Hub badge */}
-          <Link
-            href="/engineering-mesh"
-            className="
-              hidden sm:inline-flex ml-1 rounded-full p-[2px]
-              bg-gradient-to-r from-sky-400/60 via-emerald-300/45 to-blue-500/60
-              shadow-sm transition hover:shadow-md hover:scale-[1.02] will-change-transform
-              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70
-            "
-            aria-label="Engineering Mesh Hub"
-            onClick={closeMenu}
-          >
-            <span className="rounded-full bg-white px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-slate-900 transition hover:bg-slate-50">
-              Engineering <span className="ml-1 text-sky-600">Mesh</span>Hub
-            </span>
-          </Link>
-        </div>
-
-        {/* CENTER (true center pinned + width-capped + scrollable) */}
-        <div
-          className="
-            absolute left-1/2 hidden -translate-x-1/2 md:flex items-center justify-center gap-2
-            max-w-[56vw] overflow-x-auto whitespace-nowrap
-            [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
-          "
-        >
-          {NAV_LINKS.map((l) => {
-            const external = isExternalHref(l.href);
-            const active =
-              !external &&
-              (pathname === l.href || (l.href !== "/" && pathname?.startsWith(l.href)));
-
-            const cls = [
-              "rounded-full px-4 py-2 text-[13px] font-semibold transition",
-              "border border-white/10 bg-white/8 text-white/90",
-              "hover:bg-white/12 hover:border-white/20 hover:-translate-y-[1px]",
-              "shadow-[0_1px_0_rgba(255,255,255,0.08)]",
-              active
-                ? "bg-white/14 border-emerald-300/35 ring-1 ring-emerald-300/35 shadow-[0_0_0_1px_rgba(52,211,153,0.15),0_10px_25px_rgba(0,0,0,0.25)]"
-                : "",
-            ].join(" ");
-
-            return external ? (
-              <a
-                key={l.name}
-                href={l.href}
-                className={cls}
+      <header
+        className={[
+          "sticky top-0 z-50 w-full backdrop-blur-lg transition-all duration-300",
+          shellBg,
+          shellBorder,
+          shellShadow,
+        ].join(" ")}
+      >
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+          {/* ROW 1 */}
+          <div className="flex items-center justify-between gap-3 py-3 sm:py-4">
+            {/* LEFT */}
+            <div className="flex min-w-0 items-center gap-2 text-white sm:gap-3">
+              <Link
+                href={LINKS.home}
+                className="flex items-center gap-3 sm:gap-4"
+                aria-label="Justine Longla T-Lane home"
+                onClick={closeMenu}
               >
-                {l.name} <span aria-hidden="true" className="text-[0.7rem] opacity-90">↗</span>
-              </a>
-            ) : (
-              <Link key={l.name} href={l.href} className={cls} onClick={closeMenu}>
-                {l.name}
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 shadow-sm">
+                  <Image
+                    src="/brand/justine-logo.png"
+                    alt="Justine Longla T-Lane logo"
+                    width={32}
+                    height={32}
+                    className="rounded-full"
+                    priority
+                  />
+                </div>
+
+                <div className="flex flex-col items-start justify-center leading-tight">
+                  <div className="text-sm font-semibold tracking-wide sm:text-base">
+                    Justine Longla T-Lane.
+                  </div>
+                  <div className="hidden text-[11px] text-white/70 sm:block">
+                    Cloud Confidence. Delivered.
+                  </div>
+                </div>
               </Link>
-            );
-          })}
 
-          {/* Ecosystem dropdown */}
-          <details className="relative">
-            <summary
-              className="
-                list-none cursor-pointer rounded-full px-4 py-2 text-[13px] font-semibold
-                border border-white/10 bg-white/8 text-white/90
-                hover:bg-white/12 hover:border-white/20 transition
-              "
-            >
-              Ecosystem
-            </summary>
-            <div className="absolute right-0 mt-2 w-64 overflow-hidden rounded-2xl border border-white/10 bg-[#071427]/95 shadow-[0_18px_55px_rgba(0,0,0,0.45)]">
-              <div className="px-4 py-2 text-[11px] tracking-[0.18em] font-semibold text-white/60">
-                CROSS-SITE
-              </div>
-              {ECOSYSTEM.map((x) => (
+              {/* Prime pills (desktop) */}
+              <div className="hidden flex-wrap items-center gap-2 md:flex">
+                {/* Automation Platform */}
                 <a
-                  key={x.label}
-                  href={x.href}
-                  className="flex items-center justify-between px-4 py-3 text-sm text-white/90 hover:bg-white/8"
+                  href={LINKS.automationPlatform}
+                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-emerald-300/50 via-white/15 to-sky-300/50 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  aria-label="Automation Platform"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span>{x.label}</span>
-                  <span aria-hidden="true" className="text-[0.7rem] opacity-80">↗</span>
+                  <span className="flex items-center gap-2 rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
+                    Automation <span className="hidden lg:inline">Platform</span>
+                    <span aria-hidden="true" className="text-[0.7rem]">
+                      ↗
+                    </span>
+                  </span>
                 </a>
-              ))}
+
+                {/* Publishing Platform */}
+                <a
+                  href={LINKS.publishingPlatform}
+                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-white/28 via-white/14 to-white/28 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  aria-label="Publishing Platform"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="flex items-center gap-2 rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
+                    Publishing <span className="hidden lg:inline">Platform</span>
+                    <span aria-hidden="true" className="text-[0.7rem]">
+                      ↗
+                    </span>
+                  </span>
+                </a>
+
+                {/* Engineering Mesh Hub */}
+                <Link
+                  href={LINKS.engineeringMesh}
+                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-sky-400/55 via-teal-300/45 to-blue-500/55 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  aria-label="Engineering Mesh Hub"
+                  onClick={closeMenu}
+                >
+                  <span className="flex items-center rounded-full bg-white px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-slate-900 transition hover:bg-slate-50">
+                    Engineering <span className="ml-1 text-sky-600">Mesh</span>{" "}
+                    Hub
+                  </span>
+                </Link>
+              </div>
             </div>
-          </details>
-        </div>
 
-        {/* RIGHT */}
-        <div className="flex items-center justify-end gap-3 justify-self-end">
-          <div className="hidden md:flex items-center gap-3">
-            <ProfilePill />
-            <ThemeToggle />
+            {/* RIGHT */}
+            <div className="flex items-center justify-end gap-3">
+              <div className="hidden items-center gap-3 md:flex">
+                <div className="hidden lg:flex">
+                  <ProfilePill />
+                </div>
 
-            <a
-              href={LINKS.consultingIntroAbsolute}
-              className="
-                inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
-                bg-gradient-to-r from-sky-500/70 to-indigo-500/70
-                border border-white/15 shadow-[0_10px_30px_rgba(0,0,0,0.25)]
-                hover:from-sky-500/80 hover:to-indigo-500/80 hover:-translate-y-[1px]
-                transition
-              "
-            >
-              <Calendar className="h-4 w-4" />
-              Intro call
-            </a>
+                <ThemeToggle />
+
+                <a
+                  href={LINKS.consultingIntroAbsolute}
+                  className="
+                    inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
+                    bg-gradient-to-r from-sky-500/70 via-blue-500/70 to-indigo-500/70
+                    hover:from-sky-500/85 hover:via-blue-500/85 hover:to-indigo-500/85
+                    ring-1 ring-white/20 hover:ring-white/35
+                    shadow-[0_14px_28px_-22px_rgba(0,0,0,0.8)]
+                    transition hover:-translate-y-[1px]
+                  "
+                >
+                  <Calendar className="h-4 w-4" aria-hidden="true" />
+                  <span>Intro call</span>
+                </a>
+              </div>
+
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-xl bg-white/10 p-2 text-white ring-1 ring-white/15 hover:bg-white/16 md:hidden"
+                onClick={() => setMenuOpen((v) => !v)}
+                aria-label={menuOpen ? "Close menu" : "Open menu"}
+              >
+                {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            </div>
           </div>
 
-          <button
-            type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-xl bg-white/10 p-2 text-white hover:bg-white/15 border border-white/10"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-          >
-            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile panel */}
-      {menuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-[#071427]/80 backdrop-blur-xl">
-          <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
-            <div className="grid gap-2">
-              {NAV_LINKS.map((l) => {
-                const external = isExternalHref(l.href);
-                const active =
-                  !external &&
-                  (pathname === l.href || (l.href !== "/" && pathname?.startsWith(l.href)));
-
-                const cls = [
-                  "rounded-xl px-4 py-3 text-sm font-semibold transition border",
-                  active
-                    ? "bg-white/12 text-white border-emerald-300/30 ring-1 ring-emerald-300/30"
-                    : "bg-white/8 text-white border-white/10 hover:bg-white/12 hover:border-white/20",
+          {/* ROW 2 */}
+          <div className="hidden items-center justify-center gap-2 pb-3 md:flex">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {navWithActive.map((link) => {
+                const className = [
+                  pillBase,
+                  link.active ? pillActive : pillIdle,
                 ].join(" ");
 
-                return external ? (
+                return link.external ? (
                   <a
-                    key={l.name}
-                    href={l.href}
-                    onClick={closeMenu}
-                    className={cls}
+                    key={link.name}
+                    href={link.href}
+                    className={className}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    {l.name} <span aria-hidden="true">↗</span>
+                    <span>{link.name}</span>
+                    <span
+                      aria-hidden="true"
+                      className="pl-1 text-[0.7rem] text-white/85"
+                    >
+                      ↗
+                    </span>
                   </a>
                 ) : (
-                  <Link key={l.name} href={l.href} onClick={closeMenu} className={cls}>
-                    {l.name}
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className={className}
+                    onClick={closeMenu}
+                  >
+                    {link.name}
                   </Link>
                 );
               })}
 
-              <div className="mt-2 rounded-2xl border border-white/10 bg-white/5 p-3">
-                <div className="text-xs font-semibold tracking-[0.18em] text-white/70">
-                  ECOSYSTEM
-                </div>
-                <div className="mt-2 grid gap-1">
+              {/* Ecosystem dropdown */}
+              <details className="relative">
+                <summary
+                  className={[
+                    pillBase,
+                    "list-none cursor-pointer bg-white/10 text-white hover:bg-white/16 hover:ring-white/15 hover:-translate-y-[1px]",
+                  ].join(" ")}
+                >
+                  Ecosystem
+                </summary>
+                <div className="absolute right-0 mt-2 w-64 overflow-hidden rounded-2xl border border-white/10 bg-[#061a3a]/95 shadow-2xl">
+                  <div className="px-4 py-2 text-[11px] font-semibold tracking-[0.22em] text-white/60">
+                    CROSS-SITE
+                  </div>
                   {ECOSYSTEM.map((x) => (
                     <a
                       key={x.label}
                       href={x.href}
-                      className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
-                      onClick={closeMenu}
+                      className="block px-4 py-3 text-sm text-white/90 hover:bg-white/10"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      {x.label} ↗
+                      {x.label}{" "}
+                      <span aria-hidden="true" className="ml-1 text-white/70">
+                        ↗
+                      </span>
                     </a>
                   ))}
                 </div>
-              </div>
-
-              <div className="mt-2 flex items-center justify-between gap-3">
-                <ThemeToggle />
-                <a
-                  href={LINKS.consultingIntroAbsolute}
-                  onClick={closeMenu}
-                  className="
-                    inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
-                    bg-gradient-to-r from-sky-500/70 to-indigo-500/70
-                    border border-white/15
-                    hover:from-sky-500/80 hover:to-indigo-500/80
-                    transition
-                  "
-                >
-                  <Calendar className="h-4 w-4" />
-                  Intro call
-                </a>
-              </div>
+              </details>
             </div>
           </div>
         </div>
-      )}
-    </header>
+
+        {/* MOBILE PANEL */}
+        {menuOpen && (
+          <div className="border-t border-white/10 bg-[#061a3a]/92 backdrop-blur-lg md:hidden">
+            <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
+              <div className="grid gap-2">
+                {/* Prime links (mobile) */}
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
+                  <div className="text-xs font-semibold tracking-[0.18em] text-white/70">
+                    PRIME
+                  </div>
+                  <div className="mt-2 grid gap-1">
+                    <Link
+                      href={LINKS.engineeringMesh}
+                      onClick={closeMenu}
+                      className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                    >
+                      Engineering Mesh Hub
+                    </Link>
+
+                    <a
+                      href={LINKS.publishingPlatform}
+                      onClick={closeMenu}
+                      className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Publishing Platform <span aria-hidden="true">↗</span>
+                    </a>
+
+                    <a
+                      href={LINKS.automationPlatform}
+                      onClick={closeMenu}
+                      className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Automation Platform <span aria-hidden="true">↗</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Primary links */}
+                {navWithActive.map((l) => {
+                  const cls = [
+                    "rounded-xl px-4 py-3 text-sm font-semibold transition ring-1 ring-transparent",
+                    l.active
+                      ? "bg-white/16 text-white ring-white/25"
+                      : "bg-white/8 text-white hover:bg-white/14 hover:ring-white/15",
+                  ].join(" ");
+
+                  return l.external ? (
+                    <a
+                      key={l.name}
+                      href={l.href}
+                      onClick={closeMenu}
+                      className={cls}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {l.name} <span aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    <Link
+                      key={l.name}
+                      href={l.href}
+                      onClick={closeMenu}
+                      className={cls}
+                    >
+                      {l.name}
+                    </Link>
+                  );
+                })}
+
+                {/* Ecosystem (mobile) */}
+                <div className="mt-2 rounded-2xl border border-white/10 bg-white/5 p-3">
+                  <div className="text-xs font-semibold tracking-[0.18em] text-white/70">
+                    ECOSYSTEM
+                  </div>
+                  <div className="mt-2 grid gap-1">
+                    {ECOSYSTEM.map((x) => (
+                      <a
+                        key={x.label}
+                        href={x.href}
+                        className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                        onClick={closeMenu}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {x.label} ↗
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Theme + CTA */}
+                <div className="mt-2 flex items-center justify-between gap-3">
+                  <ThemeToggle />
+                  <a
+                    href={LINKS.consultingIntroAbsolute}
+                    onClick={closeMenu}
+                    className="
+                      inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
+                      bg-gradient-to-r from-sky-500/70 via-blue-500/70 to-indigo-500/70
+                      hover:from-sky-500/85 hover:via-blue-500/85 hover:to-indigo-500/85
+                      ring-1 ring-white/20 hover:ring-white/35 transition
+                    "
+                  >
+                    <Calendar className="h-4 w-4" />
+                    Intro call
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   );
 }
-
