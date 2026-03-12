@@ -1,6 +1,4 @@
-// app/engineering-mesh/page.tsx
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 import SystemMeshOverview from "@/components/EngineeringMesh/SystemMeshOverview";
 import MeshHeroClient from "@/components/EngineeringMesh/MeshHeroClient";
@@ -10,23 +8,35 @@ import MeshImpactStories, {
 import MeshContextSection from "@/components/EngineeringMesh/MeshContextSection";
 import MeshResultsSection from "@/components/EngineeringMesh/MeshResultsSection";
 
-/** ✅ Set these to real IDs when ready. Leave empty to show the placeholder UI. */
-const OVERVIEW_VIDEO_ID = ""; // e.g. "dQw4w9WgXcQ"
-const LAMBDA_VIDEO_ID = ""; // optional, can reuse above
-const PLAYLIST_ID = ""; // optional
+/** Set these to real IDs when ready. Leave empty to show the placeholder UI. */
+const OVERVIEW_VIDEO_ID = "";
+const LAMBDA_VIDEO_ID = "";
+const PLAYLIST_ID = "";
 
 const MESH_STORIES: MeshImpactStory[] = [
   {
     title: "Engineering Mesh — Multi-Site Ecosystem",
     summary:
-      "How the consulting site, docs, blog, and projects were wired into one predictable platform.",
+      "How the consulting site, docs, blog, and projects were wired into one predictable platform with shared deployment patterns and cross-site consistency.",
     tags: ["Mesh", "CI/CD", "DNS", "Guardrails"],
     metrics: [
       { label: "Sites unified", value: "4+" },
       { label: "Pipelines", value: "CI/CD-ready" },
       { label: "Docs parity", value: "guardrails" },
     ],
-    href: "/projects/system-design-ecosystem", // ✅ now points to markdown-driven page
+    href: "/projects/system-design-ecosystem-a",
+  },
+  {
+    title: "JLT-Lane Secure Billing Gateway",
+    summary:
+      "How Stripe Checkout was integrated into the platform to support consulting payments, subscriptions, and a production-ready monetization layer.",
+    tags: ["Stripe", "Billing", "Next.js", "Vercel"],
+    metrics: [
+      { label: "Plans validated", value: "3" },
+      { label: "Checkout flow", value: "live" },
+      { label: "Env parity", value: "verified" },
+    ],
+    href: "/projects/jlt-lane-secure-billing-gateway",
   },
   {
     title: "Teams Proactive Messaging Bot",
@@ -38,19 +48,16 @@ const MESH_STORIES: MeshImpactStory[] = [
       { label: "Channels covered", value: "multi" },
       { label: "Release visibility", value: "↑" },
     ],
-    href: "/projects/teams-proactive-bot", // ✅ matches your folder
+    href: "/projects/teams-proactive-bot",
   },
 ];
 
-// Theme-aware style tokens (keep the page consistent)
 const PAGE_SECTION =
   "border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950";
 const CARD =
-  "rounded-2xl border border-slate-200 bg-white shadow-sm " +
-  "dark:border-slate-800 dark:bg-slate-900/60";
+  "rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900/60";
 const PILL =
-  "rounded-full border border-slate-200 bg-white text-slate-700 " +
-  "dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200";
+  "rounded-full border border-slate-200 bg-white text-slate-700 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200";
 const MUTED = "text-slate-600 dark:text-slate-300";
 const HEADING = "text-slate-900 dark:text-slate-50";
 
@@ -58,35 +65,33 @@ const TIMELINE = [
   {
     year: "2024 Q1",
     title: "Consulting Platform Goes Live",
-    body: "Launched the main Next.js consulting site with CI/CD, Tailwind, and Cal.com scheduling wired in.",
+    body: "Launched the main Next.js consulting site with CI/CD, Tailwind, and scheduling workflows wired in.",
   },
   {
     year: "2024 Q2",
-    title: "Blogs & Docs Join the Party",
-    body: "Static HTML blogs and documentation sites are added, each with their own CI pipeline and hosting.",
+    title: "Blogs & Docs Join the Platform",
+    body: "Documentation and blog surfaces were added as distinct but connected sites, each with their own publishing and delivery flow.",
   },
   {
     year: "2024 Q3",
     title: "DNS + CI/CD Unification",
-    body: "IONOS DNS, GitHub Actions, Vercel builds, and environment routing are standardized across all sites.",
+    body: "IONOS DNS, GitHub Actions, Vercel builds, and environment routing were standardized across the ecosystem.",
   },
   {
     year: "2024 Q4",
     title: "Lambda Chaos Tamed",
-    body: "Flaky AWS Lambda functions are debugged, cleaned up, and wrapped in observability and guardrails.",
+    body: "Flaky AWS Lambda workloads were stabilized with observability, cleaner deployment hygiene, and reusable reliability guardrails.",
   },
   {
     year: "2025",
-    title: "The Justine Longla Engineering Mesh",
-    body: "All sites, pipelines, and shared services are treated as one mesh — tuned for speed, stability, and storytelling.",
+    title: "The Engineering Mesh Takes Shape",
+    body: "Sites, pipelines, docs, and shared delivery practices started behaving like one coordinated platform instead of isolated properties.",
   },
-] as const;
-
-const RESULTS_METRICS = [
-  { label: "Deploy consistency", value: "↑", detail: "Standardized CI/CD" },
-  { label: "Prod surprises", value: "↓", detail: "Observability added" },
-  { label: "Manual ops", value: "↓", detail: "Automation + guardrails" },
-  { label: "Delivery speed", value: "↑", detail: "Predictable environments" },
+  {
+    year: "2026",
+    title: "Billing Gateway Added to the Mesh",
+    body: "Stripe Checkout was integrated into the platform, adding a live monetization layer for consulting offers, subscriptions, and future access control flows.",
+  },
 ] as const;
 
 const CASE_STUDIES = [
@@ -94,12 +99,24 @@ const CASE_STUDIES = [
     title: "Engineering Mesh — Multi-Site Ecosystem",
     summary:
       "How the consulting site, docs, blogs, and projects were wired into one predictable platform.",
-    href: "/projects/engineering-mesh",
+    href: "/projects/system-design-ecosystem-a",
     pill: "Mesh",
     metrics: [
       { label: "Sites unified", value: "4+" },
       { label: "Pipelines", value: "CI/CD-ready" },
       { label: "Docs parity", value: "guardrails" },
+    ],
+  },
+  {
+    title: "JLT-Lane Secure Billing Gateway",
+    summary:
+      "Stripe-powered billing architecture for one-time consulting payments and recurring platform subscriptions.",
+    href: "/projects/jlt-lane-secure-billing-gateway",
+    pill: "Billing",
+    metrics: [
+      { label: "Payment modes", value: "one-time + recurring" },
+      { label: "Checkout", value: "Stripe-hosted" },
+      { label: "Production", value: "verified" },
     ],
   },
   {
@@ -118,7 +135,7 @@ const CASE_STUDIES = [
     title: "Automation Rescue: Fixing Flaky Lambdas",
     summary:
       "From noisy, failing Lambdas to calm, observable, and cost-aware serverless functions.",
-    href: "/projects/fixing-flaky-lambdas",
+    href: "/projects/automation-rescue-fixing-flaky-lambdas-a",
     pill: "Serverless",
     metrics: [
       { label: "Error rate", value: "↓" },
@@ -161,11 +178,18 @@ const PORTALS = [
     dot: "bg-blue-500",
   },
   {
+    label: "Pricing",
+    sub: "Live billing surface",
+    href: "/pricing",
+    accent: "from-emerald-500/25 via-lime-400/10 to-transparent",
+    dot: "bg-emerald-500",
+  },
+  {
     label: "Docs",
     sub: "Tooling + playbooks",
     href: "https://docs.justinelonglat-lane.com",
     accent: "from-emerald-500/25 via-teal-400/10 to-transparent",
-    dot: "bg-emerald-500",
+    dot: "bg-teal-500",
   },
   {
     label: "Blog",
@@ -182,21 +206,6 @@ const PORTALS = [
     dot: "bg-cyan-500",
   },
 ] as const;
-
-// (kept, even if unused today — you can delete later if lint nags)
-function getMetricIcon(value: string) {
-  const v = value.toLowerCase();
-  if (v.includes("↓") || v.includes("-")) return "▼";
-  if (v.includes("↑") || v.includes("+")) return "▲";
-  if (
-    v.includes("added") ||
-    v.includes("tuned") ||
-    v.includes("fast") ||
-    v.includes("improved")
-  )
-    return "⚡";
-  return "•";
-}
 
 type ResourceRowProps = {
   title: string;
@@ -239,7 +248,6 @@ function ResourceRow({ title, description, href }: ResourceRowProps) {
     </div>
   );
 
-  // External: real <a>
   if (external) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={base}>
@@ -248,7 +256,6 @@ function ResourceRow({ title, description, href }: ResourceRowProps) {
     );
   }
 
-  // Hash links: <a> avoids any Next quirks with nested/scroll targets
   if (href.startsWith("#")) {
     return (
       <a href={href} className={base}>
@@ -257,7 +264,6 @@ function ResourceRow({ title, description, href }: ResourceRowProps) {
     );
   }
 
-  // Internal: Next <Link>
   return (
     <Link href={href} className={base}>
       {content}
@@ -265,9 +271,56 @@ function ResourceRow({ title, description, href }: ResourceRowProps) {
   );
 }
 
+function CaseStudyCard({
+  title,
+  summary,
+  href,
+  pill,
+  metrics,
+}: {
+  title: string;
+  summary: string;
+  href: string;
+  pill: string;
+  metrics: { label: string; value: string }[];
+}) {
+  return (
+    <Link
+      href={href}
+      className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/60 dark:hover:border-blue-400"
+    >
+      <div className="flex items-center justify-between gap-3">
+        <span className={`px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] ${PILL}`}>
+          {pill}
+        </span>
+        <span className="text-sm text-slate-400 transition group-hover:text-slate-700 dark:group-hover:text-slate-200">
+          →
+        </span>
+      </div>
+
+      <h3 className={`mt-4 text-base font-semibold ${HEADING}`}>{title}</h3>
+      <p className={`mt-2 text-sm leading-7 ${MUTED}`}>{summary}</p>
+
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        {metrics.map((metric) => (
+          <div
+            key={metric.label}
+            className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-center dark:border-slate-800 dark:bg-slate-950/60"
+          >
+            <div className={`text-sm font-semibold ${HEADING}`}>{metric.value}</div>
+            <div className="mt-1 text-[0.65rem] uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+              {metric.label}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Link>
+  );
+}
+
 export default function EngineeringMeshPage() {
   return (
-      <main className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
+    <main className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
       <MeshHeroClient
         PAGE_SECTION={PAGE_SECTION}
         PILL={PILL}
@@ -277,7 +330,6 @@ export default function EngineeringMeshPage() {
         PORTALS={PORTALS}
       />
 
-      {/* In-page nav chips */}
       <div className={`border-b ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-5xl px-4 py-4 md:px-6">
           <div className="flex flex-wrap gap-2">
@@ -285,6 +337,7 @@ export default function EngineeringMeshPage() {
               ["#problem", "Problem"],
               ["#role", "My role"],
               ["#solution", "Solution"],
+              ["#enables", "What it enables"],
               ["#results", "Results"],
               ["#timeline", "Timeline"],
               ["#architecture", "Architecture"],
@@ -303,7 +356,6 @@ export default function EngineeringMeshPage() {
         </div>
       </div>
 
-      {/* Featured video */}
       <section id="overview-video" className={`scroll-mt-24 ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
@@ -311,8 +363,7 @@ export default function EngineeringMeshPage() {
           </h2>
 
           <p className={`mt-2 max-w-3xl text-sm md:text-base ${MUTED}`}>
-            A walk-through of the mesh: how the sites connect, where CI/CD enforces trust, and how “Lambda chaos” was
-            stabilized into something calm and predictable.
+            A walk-through of the mesh: how the sites connect, where CI/CD enforces trust, and how platform layers like documentation, projects, and billing now work together.
           </p>
 
           <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50">
@@ -341,93 +392,118 @@ export default function EngineeringMeshPage() {
         </div>
       </section>
 
-      {/* Problem */}
       <section id="problem" className={`scroll-mt-24 ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
-            The Problem: Platform Sprawl Without Guardrails
+            The Problem: Growth Without a Shared Operating Model
           </h2>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            As my consulting work, documentation, blogs, and engineering experiments grew, the platform behind them
-            started to sprawl. Each new site or tool solved an immediate need — but together they introduced
-            duplication, inconsistent deployments, and invisible risk.
+            As the consulting platform expanded, it stopped being just a website. It became a growing ecosystem of services, documentation, blogs, project case studies, automation assets, and now billing infrastructure.
           </p>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            Static sites lived next to dynamic ones. Some used CI pipelines, others were deployed manually. DNS,
-            environment variables, and build behaviors weren’t always aligned. The system worked — but it wasn’t
-            designed.
+            Without a shared operating model, each new layer risked becoming another isolated surface. Deployments could drift, environment variables could diverge, documentation could lag reality, and platform capabilities could remain disconnected from the story being told publicly.
           </p>
 
           <ul className={`mt-4 list-disc space-y-2 pl-5 text-sm md:text-base ${MUTED}`}>
-            <li>Multiple sites with different deployment methods</li>
-            <li>Inconsistent environment configuration</li>
-            <li>No shared observability or operational guardrails</li>
-            <li>Manual fixes instead of systemic solutions</li>
+            <li>Multiple surfaces with different responsibilities</li>
+            <li>Growing need for environment parity and deployment trust</li>
+            <li>Operational complexity across sites, docs, and integrations</li>
+            <li>Need to turn engineering work into reusable platform capabilities</li>
           </ul>
         </div>
       </section>
 
-      {/* Role */}
       <section id="role" className={`scroll-mt-24 ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
-            My Role: Acting as Platform Engineer
+            My Role: Platform Engineer, Systems Integrator, and Builder
           </h2>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            I stepped into the role of a platform engineer — not just shipping features, but shaping the environment
-            in which every site and service operated.
+            I wasn’t just shipping features. I was shaping the environment in which every property, workflow, and service could operate predictably together.
           </p>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            My focus shifted from “build the next thing” to “make everything predictable.” That meant aligning CI/CD,
-            standardizing environments, reducing operational noise, and introducing guardrails that made safe delivery
-            the default.
+            That meant designing the connective tissue: CI/CD patterns, DNS behavior, environment parity, cross-site architecture, documentation pathways, project storytelling, and monetization entry points.
           </p>
 
           <ul className={`mt-4 list-disc space-y-2 pl-5 text-sm md:text-base ${MUTED}`}>
-            <li>Designed and unified CI/CD pipelines across sites</li>
-            <li>Standardized DNS, environment variables, and hosting behavior</li>
-            <li>Introduced observability and stability patterns for cloud workloads</li>
-            <li>Built reusable automation to replace manual operations</li>
+            <li>Unified delivery patterns across sites and services</li>
+            <li>Standardized environment and deployment behavior</li>
+            <li>Introduced observability and stability thinking into the platform narrative</li>
+            <li>Connected public-facing assets to real engineering implementation</li>
+            <li>Added billing architecture as a platform capability, not a bolt-on feature</li>
           </ul>
         </div>
       </section>
 
-      {/* Solution */}
       <section id="solution" className={`scroll-mt-24 ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
-            The Solution: The Engineering Mesh Architecture
+            The Solution: The Engineering Mesh as a Platform Story
           </h2>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            The result was the <strong>Engineering Mesh</strong> — a shared platform layer connecting consulting,
-            documentation, blogs, and projects through common deployment, hosting, and operational practices.
+            The Engineering Mesh became the shared architecture behind everything: consulting, projects, documentation, blogs, automation, and now billing.
           </p>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            Instead of isolated sites, the system became a coordinated ecosystem. CI/CD pipelines enforced consistency.
-            DNS and hosting rules were standardized. Automation handled repetitive tasks. Guardrails made reliability and
-            security part of the architecture — not afterthoughts.
+            Instead of isolated surfaces, the system now behaves like a coordinated platform. CI/CD enforces consistency. Environment management supports trust between local and production. Documentation and projects reinforce each other. Billing creates a live entry point into the platform itself.
           </p>
 
           <ul className={`mt-4 list-disc space-y-2 pl-5 text-sm md:text-base ${MUTED}`}>
-            <li>Shared CI/CD patterns across all web properties</li>
-            <li>Consistent DNS and environment routing</li>
-            <li>Automated deployment and verification steps</li>
-            <li>Cloud guardrails for stability, cost, and security</li>
+            <li>Shared CI/CD patterns across web properties</li>
+            <li>Consistent routing, deployment, and environment practices</li>
+            <li>Cross-linked storytelling between projects, docs, and platform surfaces</li>
+            <li>Operational guardrails for stability, cost, and security</li>
+            <li>Live monetization architecture integrated into the platform</li>
           </ul>
+        </div>
+      </section>
+
+      <section id="enables" className={`scroll-mt-24 ${PAGE_SECTION}`}>
+        <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
+          <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
+            What the Mesh Enables
+          </h2>
+
+          <p className={`mt-2 max-w-3xl text-sm md:text-base ${MUTED}`}>
+            The value of the mesh is not just architectural neatness. It creates a foundation for real platform capabilities.
+          </p>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              {
+                title: "Cross-Site Consistency",
+                body: "Shared navigation, routing logic, environment handling, and release discipline across your public platform surfaces.",
+              },
+              {
+                title: "Operational Trust",
+                body: "Cleaner deployment flows, fewer surprises in production, and more confidence that what works locally behaves the same in cloud environments.",
+              },
+              {
+                title: "Reusable Storytelling",
+                body: "Projects, docs, blog posts, and architecture pages now reinforce one another instead of existing as disconnected artifacts.",
+              },
+              {
+                title: "Platform Monetization",
+                body: "Billing is now part of the mesh, opening the door for subscriptions, service access, customer flows, and future membership activation.",
+              },
+            ].map((item) => (
+              <div key={item.title} className={CARD + " p-5"}>
+                <h3 className={`text-sm font-semibold ${HEADING}`}>{item.title}</h3>
+                <p className={`mt-2 text-sm leading-7 ${MUTED}`}>{item.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       <MeshContextSection PAGE_SECTION={PAGE_SECTION} HEADING={HEADING} MUTED={MUTED} />
-
       <MeshResultsSection PAGE_SECTION={PAGE_SECTION} HEADING={HEADING} MUTED={MUTED} CARD={CARD} />
 
-      {/* Timeline */}
       <section id="timeline" className={`scroll-mt-24 ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
@@ -435,27 +511,25 @@ export default function EngineeringMeshPage() {
           </h2>
 
           <p className={`mt-2 max-w-3xl text-sm md:text-base ${MUTED}`}>
-            A quick timeline of how separate sites and tooling evolved into one mesh.
+            A quick timeline of how separate sites, tooling, and platform capabilities evolved into one mesh.
           </p>
 
           <ol className="mt-6 space-y-4 border-l border-slate-200 pl-4 md:mt-8 md:space-y-5 md:pl-6 dark:border-slate-800">
             {TIMELINE.map((item) => (
               <li key={item.year} className="relative">
                 <div className="absolute -left-2 top-1.5 h-3 w-3 rounded-full border border-blue-300 bg-white md:-left-2.5 dark:border-blue-500/60 dark:bg-slate-950" />
-
                 <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                   {item.year}
                 </div>
-
-                <div className={`mt-1 text-sm font-semibold md:text-base ${HEADING}`}>{item.title}</div>
-
+                <div className={`mt-1 text-sm font-semibold md:text-base ${HEADING}`}>
+                  {item.title}
+                </div>
                 <p className={`mt-2 text-sm ${MUTED}`}>{item.body}</p>
               </li>
             ))}
           </ol>
         </div>
       </section>
-
 
       <SystemMeshOverview
         PAGE_SECTION={PAGE_SECTION}
@@ -464,6 +538,34 @@ export default function EngineeringMeshPage() {
         CARD={CARD}
         LAMBDA_VIDEO_ID={LAMBDA_VIDEO_ID}
       />
+
+      <section id="case-studies" className={`scroll-mt-24 ${PAGE_SECTION}`}>
+        <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
+                Case Studies Built on the Mesh
+              </h2>
+              <p className={`mt-2 max-w-3xl text-sm md:text-base ${MUTED}`}>
+                These projects show how the Engineering Mesh turns platform thinking into visible, working systems.
+              </p>
+            </div>
+
+            <Link
+              href="/projects"
+              className="inline-flex items-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white"
+            >
+              View all projects →
+            </Link>
+          </div>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {CASE_STUDIES.map((study) => (
+              <CaseStudyCard key={study.href} {...study} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       <MeshImpactStories
         PAGE_SECTION={PAGE_SECTION}
@@ -479,23 +581,36 @@ export default function EngineeringMeshPage() {
         className="scroll-mt-24 bg-white pb-16 pt-10 dark:bg-slate-950 md:pb-20 md:pt-14"
       >
         <div className="mx-auto max-w-5xl px-4 md:px-6">
-          <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>Mesh-Aware Resources</h2>
+          <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
+            Mesh-Aware Resources
+          </h2>
 
           <p className={`mt-2 max-w-3xl text-sm md:text-base ${MUTED}`}>
-            The directory for everything that touches the Engineering Mesh — across websites, docs, and your long-form
-            technical narrative.
+            The directory for everything that touches the Engineering Mesh — across
+            websites, docs, projects, billing, and long-form technical narrative.
           </p>
 
+          {/* Core platform surfaces */}
           <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
             <ResourceRow
               title="Consulting Platform"
-              description="Main Next.js site for services, intro calls, and client engagement."
-              href="https://consulting.justinelonglat-lane.com"
+              description="Main Next.js site for services, intro calls, pricing, and client engagement."
+              href="https://www.justinelonglat-lane.com"
+            />
+            <ResourceRow
+              title="Pricing Surface"
+              description="Live billing surface connected to Stripe Checkout for consulting sessions and recurring subscriptions."
+              href="/pricing"
             />
             <ResourceRow
               title="Projects & Case Studies"
-              description="All mesh-related projects, including the Engineering Mesh case study."
+              description="All mesh-related projects, including the Engineering Mesh and billing gateway case studies."
               href="/projects"
+            />
+            <ResourceRow
+              title="Stripe Billing Gateway"
+              description="Public case study for the secure billing architecture and monetization layer."
+              href="/projects/jlt-lane-secure-billing-gateway"
             />
             <ResourceRow
               title="Docs Site"
@@ -504,7 +619,7 @@ export default function EngineeringMeshPage() {
             />
             <ResourceRow
               title="Blog Site"
-              description="Deep-dive articles on CI/CD, DevSecOps, and platform reliability."
+              description="Deep-dive articles on CI/CD, DevSecOps, observability, and platform reliability."
               href="https://blogs.justinelonglat-lane.com"
             />
             {PLAYLIST_ID && (
@@ -514,7 +629,31 @@ export default function EngineeringMeshPage() {
                 href={`https://www.youtube.com/playlist?list=${PLAYLIST_ID}`}
               />
             )}
+          </div>
 
+          {/* Operations */}
+          <div className="mt-8">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+              Operations
+            </div>
+
+            <p className={`mt-2 max-w-3xl text-sm ${MUTED}`}>
+              The operational layer of the mesh: reusable tooling, execution guides,
+              and playbooks that help turn platform knowledge into repeatable delivery.
+            </p>
+
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <ResourceRow
+                title="Toolkit"
+                description="Automation API model and platform tooling references."
+                href="https://docs.justinelonglat-lane.com/toolkit.html"
+              />
+              <ResourceRow
+                title="Runbooks"
+                description="Operational playbooks for debugging, recovery, and platform procedures."
+                href="https://docs.justinelonglat-lane.com/runbooks.html"
+              />
+            </div>
           </div>
         </div>
       </section>

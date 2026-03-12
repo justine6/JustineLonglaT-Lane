@@ -24,6 +24,18 @@ export const PROJECTS: BasicProject[] = [
     updated: "2025-01-24",
   },
   {
+  slug: "jlt-lane-secure-billing-gateway",
+  title: "JLT-Lane Secure Billing Gateway",
+  description:
+    "Stripe Checkout integration powering subscription billing and consulting payments for the JLT-Lane engineering platform.",
+  category: "Platform",
+  featured: true,
+  pinned: true,
+  tags: ["stripe", "payments", "next.js", "platform engineering", "vercel", "saas architecture"],
+  image: "/images/projects/stripe-billing-architecture.png",
+  updated: "2026-03-12",
+ },  
+  {
     slug: "automation-rescue-fixing-flaky-lambdas-a",
     title: "Automation Rescue: Fixing Flaky Lambdas",
     description:
