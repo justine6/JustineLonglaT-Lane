@@ -16,7 +16,7 @@ const PRICE_IDS: Record<SupportedPlanKey, string | undefined> = {
 
 const PLAN_MODES: Record<SupportedPlanKey, "payment" | "subscription"> = {
   "intro-call": "payment",
-  "arch-review": "payment",
+  "arch-review": "subscription",
   "retainer": "subscription",
 };
 
@@ -36,6 +36,10 @@ export async function POST(req: Request) {
     const baseUrl =
       process.env.NEXT_PUBLIC_SITE_URL ||
       new URL(req.url).origin;
+
+    console.log("checkout plan:", plan);
+    console.log("price id:", PRICE_IDS[plan]);
+    console.log("mode:", PLAN_MODES[plan]);
 
     const session = await stripe.checkout.sessions.create({
       mode: PLAN_MODES[plan],

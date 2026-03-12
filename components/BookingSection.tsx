@@ -13,9 +13,9 @@ import {
 } from "lucide-react";
 
 type PlanKey =
-  | "consulting-session"
-  | "platform-access"
-  | "platform-architect"
+  | "intro-call"
+  | "retainer"
+  | "arch-review"
   | "enterprise";
 
 type Plan = {
@@ -37,7 +37,7 @@ export default function BookingSection() {
   const plans = useMemo<Plan[]>(
     () => [
       {
-        key: "consulting-session",
+        key: "intro-call",
         name: "Consulting Session",
         priceLabel: "$250",
         subtitle:
@@ -56,7 +56,7 @@ export default function BookingSection() {
         ],
       },
       {
-        key: "platform-access",
+        key: "retainer",
         name: "JLT-Lane Platform Access",
         priceLabel: "$29/month",
         subtitle: "Core platform membership for premium engineering resources",
@@ -75,7 +75,7 @@ export default function BookingSection() {
         ],
       },
       {
-        key: "platform-architect",
+        key: "arch-review",
         name: "JLT-Lane Platform Architect",
         priceLabel: "$79/month",
         subtitle: "Advanced tier for deeper architecture and system design assets",
@@ -122,7 +122,7 @@ export default function BookingSection() {
       const res = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planKey }),
+        body: JSON.stringify({ plan: planKey }),
       });
 
       const data = (await res.json()) as { url?: string; error?: string };
