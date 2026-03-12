@@ -9,133 +9,126 @@ import {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 type SupportedPlanKey =
-  | "consulting-session"
-  | "platform-access"
-  | "platform-architect";
+  | "intro-call"
+  | "arch-review"
+  | "retainer";
 
-export async function POST(req: Request) {
-  const body = await req.text();
-  const headerStore = await headers();
-  const signature = headerStore.get("stripe-signature");
-
-  if (!signature) {
-    return new NextResponse("Missing stripe-signature header", { status: 400 });
+function normalizePlan(value: string | undefined | null): SupportedPlanKey {
+  if (value === "intro-call" || value === "arch-review" || value === "retainer") {
+    return value;
   }
 
-  let event: Stripe.Event;
+  return "arch-review";
+}
 
+function mapSubscriptionStatus(status: Stripe.Subscription.Status) {
+  switch (status) {
+    case "active":
+      return "active";
+    case "trialing":
+      return "trialing";
+    case "past_due":
+      return "past_due";
+    case "canceled":
+      return "canceled";
+    case "incomplete":
+      return "incomplete";
+    case "unpaid":
+      return "unpaid";
+    default:
+      return "incomplete";
+  }
+}
+
+export async function POST(req: Request) {
   try {
-    event = stripe.webhooks.constructEvent(
+    const body = await req.text();
+    const signature = (await headers()).get("stripe-signature");
+
+    if (!signature) {
+      return new NextResponse("Missing stripe-signature header", { status: 400 });
+    }
+
+    const event = stripe.webhooks.constructEvent(
       body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET as string
     );
-  } catch (error: any) {
-    console.error("Webhook signature verification failed:", error.message);
-    return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
-  }
-
-  try {
-    console.log("Webhook route hit");
-    console.log("Webhook event type:", event.type);
 
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
 
+        const plan = normalizePlan(session.metadata?.plan);
         const email =
           session.customer_details?.email ||
-          session.customer_email ||
-          undefined;
+          session.customer_email;
 
-        const planKey = (session.metadata?.planKey || "") as SupportedPlanKey;
+        const customerId =
+          typeof session.customer === "string"
+            ? session.customer
+            : null;
 
-        console.log("Session metadata:", session.metadata);
+        const subscriptionId =
+          typeof session.subscription === "string"
+            ? session.subscription
+            : null;
 
-        if (!email || !planKey) {
-          console.warn("Missing email or planKey on checkout.session.completed", {
-            sessionId: session.id,
+        if (email) {
+          await upsertMembership({
             email,
-            planKey,
+            stripeCustomerId: customerId,
+            subscriptionId,
+            checkoutSessionId: session.id,
+            plan,
+            status: "active",
           });
-          break;
         }
 
-        const mode = session.mode === "subscription" ? "subscription" : "payment";
+        break;
+      }
 
-        upsertMembership({
-          email,
-          stripeCustomerId:
-            typeof session.customer === "string" ? session.customer : undefined,
-          stripeSubscriptionId:
-            typeof session.subscription === "string"
-              ? session.subscription
-              : undefined,
-          stripeCheckoutSessionId: session.id,
-          planKey,
-          mode,
-          status: "active",
-          grantedAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        });
+      case "customer.subscription.created":
+      case "customer.subscription.updated": {
+        const subscription = event.data.object as Stripe.Subscription;
 
-        console.log("Access granted", {
-          email,
-          planKey,
-          mode,
-          sessionId: session.id,
-        });
+        const customerId =
+          typeof subscription.customer === "string"
+            ? subscription.customer
+            : subscription.customer.id;
+
+        const customer = await stripe.customers.retrieve(customerId);
+
+        const email =
+          !("deleted" in customer)
+            ? customer.email
+            : null;
+
+        const plan = normalizePlan(subscription.metadata?.plan);
+
+        if (email) {
+          await upsertMembership({
+            email,
+            stripeCustomerId: customerId,
+            subscriptionId: subscription.id,
+            plan,
+            status: mapSubscriptionStatus(subscription.status),
+          });
+        }
 
         break;
       }
 
       case "customer.subscription.deleted": {
         const subscription = event.data.object as Stripe.Subscription;
-
-        deactivateMembershipBySubscriptionId(subscription.id);
-
-        console.log("Access revoked", {
-          subscriptionId: subscription.id,
-          status: subscription.status,
-        });
-
+        await deactivateMembershipBySubscriptionId(subscription.id);
         break;
       }
-
-      case "customer.subscription.updated": {
-        const subscription = event.data.object as Stripe.Subscription;
-        console.log("Subscription updated", {
-          subscriptionId: subscription.id,
-          status: subscription.status,
-        });
-        break;
-      }
-
-      case "invoice.paid": {
-        const invoice = event.data.object as Stripe.Invoice;
-        console.log("invoice.paid", {
-          id: invoice.id,
-          customer: invoice.customer,
-        });
-        break;
-      }
-
-      case "invoice.payment_failed": {
-        const invoice = event.data.object as Stripe.Invoice;
-        console.log("invoice.payment_failed", {
-          id: invoice.id,
-          customer: invoice.customer,
-        });
-        break;
-      }
-
-      default:
-        console.log(`Unhandled event type: ${event.type}`);
     }
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    console.error("Webhook handler error:", error);
-    return new NextResponse("Webhook handler failed", { status: 500 });
+    console.error("stripe webhook error", error);
+    return new NextResponse("Webhook Error", { status: 400 });
   }
 }

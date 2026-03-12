@@ -80,3 +80,4 @@ vitest/
 vitest
 *.bak-*
 packages/shared/dist/
+.env*.local

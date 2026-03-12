@@ -2,31 +2,49 @@
 "use client";
 
 import { Calendar, Menu, X } from "lucide-react";
-import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState, useCallback, useMemo } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { LINKS } from "@/config/links";
-import ThemeToggle from "@/components/ThemeToggle";
 import { ProfilePill } from "@/components/ProfilePill";
+import ThemeToggle from "@/components/ThemeToggle";
+import { LINKS } from "@/config/links";
 
 type NavItem = { name: string; href: string };
-type EcoItem = { label: string; href: string };
+
+type EcoLink = { label: string; href: string };
+type EcoGroup = {
+  title: string;
+  items: EcoLink[];
+};
 
 // Strict external detection (http/https + protocol-relative)
 function isExternalHref(href: string) {
   return /^(https?:)?\/\//i.test(href);
 }
 
-// Ecosystem dropdown = cross-site navigation
-const ECOSYSTEM: EcoItem[] = [
-  { label: "Consulting site", href: LINKS.consultingSite },
-  { label: "Docs", href: LINKS.docsSite },
-  { label: "Blog", href: LINKS.blogSite },
+const ECOSYSTEM: EcoGroup[] = [
+  {
+    title: "BUSINESS",
+    items: [{ label: "Consulting Site", href: LINKS.consultingSite }],
+  },
+  {
+    title: "PLATFORMS",
+    items: [
+      { label: "Engineering Mesh Hub", href: LINKS.engineeringMesh },
+      { label: "Automation Toolkit", href: LINKS.toolkit },
+    ],
+  },
+  {
+    title: "KNOWLEDGE",
+    items: [
+      { label: "Docs Platform", href: LINKS.docsSite },
+      { label: "Blog Platform", href: LINKS.blogSite },
+    ],
+  },
 ];
 
-// Main nav for this site
 const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
   { name: "README", href: LINKS.readme },
@@ -43,7 +61,6 @@ export default function Topbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Scroll styling
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -51,8 +68,8 @@ export default function Topbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu w/ Escape
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeMenu();
@@ -115,9 +132,7 @@ export default function Topbar() {
         ].join(" ")}
       >
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
-          {/* ROW 1 */}
           <div className="flex items-center justify-between gap-3 py-3 sm:py-4">
-            {/* LEFT */}
             <div className="flex min-w-0 items-center gap-2 text-white sm:gap-3">
               <Link
                 href={LINKS.home}
@@ -146,9 +161,7 @@ export default function Topbar() {
                 </div>
               </Link>
 
-              {/* Prime pills (desktop) */}
               <div className="hidden flex-wrap items-center gap-2 md:flex">
-                {/* Automation Platform */}
                 <a
                   href={LINKS.automationPlatform}
                   className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-emerald-300/50 via-white/15 to-sky-300/50 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
@@ -164,7 +177,6 @@ export default function Topbar() {
                   </span>
                 </a>
 
-                {/* Publishing Platform */}
                 <a
                   href={LINKS.publishingPlatform}
                   className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-white/28 via-white/14 to-white/28 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
@@ -172,15 +184,14 @@ export default function Topbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="flex items-center gap-2 rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
+                  <span className="flex items-center rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
                     Publishing <span className="hidden lg:inline">Platform</span>
-                    <span aria-hidden="true" className="text-[0.7rem]">
+                    <span aria-hidden="true" className="ml-1 text-[0.7rem]">
                       ↗
                     </span>
                   </span>
                 </a>
 
-                {/* Engineering Mesh Hub */}
                 <Link
                   href={LINKS.engineeringMesh}
                   className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-sky-400/55 via-teal-300/45 to-blue-500/55 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
@@ -195,7 +206,6 @@ export default function Topbar() {
               </div>
             </div>
 
-            {/* RIGHT */}
             <div className="flex items-center justify-end gap-3">
               <div className="hidden items-center gap-3 md:flex">
                 <div className="hidden lg:flex">
@@ -231,7 +241,6 @@ export default function Topbar() {
             </div>
           </div>
 
-          {/* ROW 2 */}
           <div className="hidden items-center justify-center gap-2 pb-3 md:flex">
             <div className="flex flex-wrap items-center justify-center gap-2">
               {navWithActive.map((link) => {
@@ -268,7 +277,6 @@ export default function Topbar() {
                 );
               })}
 
-              {/* Ecosystem dropdown */}
               <details className="relative">
                 <summary
                   className={[
@@ -278,36 +286,64 @@ export default function Topbar() {
                 >
                   Ecosystem
                 </summary>
-                <div className="absolute right-0 mt-2 w-64 overflow-hidden rounded-2xl border border-white/10 bg-[#061a3a]/95 shadow-2xl">
-                  <div className="px-4 py-2 text-[11px] font-semibold tracking-[0.22em] text-white/60">
-                    CROSS-SITE
+
+                <div className="absolute right-0 mt-2 w-80 overflow-hidden rounded-2xl border border-white/10 bg-[#061a3a]/95 shadow-2xl backdrop-blur-xl">
+                  <div className="border-b border-white/10 px-4 py-3 text-[11px] font-semibold tracking-[0.22em] text-white/60">
+                    ECOSYSTEM
                   </div>
-                  {ECOSYSTEM.map((x) => (
-                    <a
-                      key={x.label}
-                      href={x.href}
-                      className="block px-4 py-3 text-sm text-white/90 hover:bg-white/10"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {x.label}{" "}
-                      <span aria-hidden="true" className="ml-1 text-white/70">
-                        ↗
-                      </span>
-                    </a>
-                  ))}
+
+                  <div className="py-2">
+                    {ECOSYSTEM.map((group) => (
+                      <div key={group.title} className="px-2 py-1">
+                        <div className="px-3 pb-1 pt-2 text-[11px] font-semibold tracking-[0.22em] text-white/45">
+                          {group.title}
+                        </div>
+
+                        <div className="grid gap-1">
+                          {group.items.map((item) => {
+                            const external = isExternalHref(item.href);
+
+                            return external ? (
+                              <a
+                                key={item.label}
+                                href={item.href}
+                                className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-white/90 transition hover:bg-white/10"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <span>{item.label}</span>
+                                <span
+                                  aria-hidden="true"
+                                  className="text-[0.7rem] text-white/65"
+                                >
+                                  ↗
+                                </span>
+                              </a>
+                            ) : (
+                              <Link
+                                key={item.label}
+                                href={item.href}
+                                className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-white/90 transition hover:bg-white/10"
+                                onClick={closeMenu}
+                              >
+                                <span>{item.label}</span>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </details>
             </div>
           </div>
         </div>
 
-        {/* MOBILE PANEL */}
         {menuOpen && (
           <div className="border-t border-white/10 bg-[#061a3a]/92 backdrop-blur-lg md:hidden">
             <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
               <div className="grid gap-2">
-                {/* Prime links (mobile) */}
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
                   <div className="text-xs font-semibold tracking-[0.18em] text-white/70">
                     PRIME
@@ -343,60 +379,81 @@ export default function Topbar() {
                   </div>
                 </div>
 
-                {/* Primary links */}
-                {navWithActive.map((l) => {
+                {navWithActive.map((link) => {
                   const cls = [
                     "rounded-xl px-4 py-3 text-sm font-semibold transition ring-1 ring-transparent",
-                    l.active
+                    link.active
                       ? "bg-white/16 text-white ring-white/25"
                       : "bg-white/8 text-white hover:bg-white/14 hover:ring-white/15",
                   ].join(" ");
 
-                  return l.external ? (
+                  return link.external ? (
                     <a
-                      key={l.name}
-                      href={l.href}
+                      key={link.name}
+                      href={link.href}
                       onClick={closeMenu}
                       className={cls}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {l.name} <span aria-hidden="true">↗</span>
+                      {link.name} <span aria-hidden="true">↗</span>
                     </a>
                   ) : (
                     <Link
-                      key={l.name}
-                      href={l.href}
+                      key={link.name}
+                      href={link.href}
                       onClick={closeMenu}
                       className={cls}
                     >
-                      {l.name}
+                      {link.name}
                     </Link>
                   );
                 })}
 
-                {/* Ecosystem (mobile) */}
                 <div className="mt-2 rounded-2xl border border-white/10 bg-white/5 p-3">
                   <div className="text-xs font-semibold tracking-[0.18em] text-white/70">
                     ECOSYSTEM
                   </div>
-                  <div className="mt-2 grid gap-1">
-                    {ECOSYSTEM.map((x) => (
-                      <a
-                        key={x.label}
-                        href={x.href}
-                        className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
-                        onClick={closeMenu}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {x.label} ↗
-                      </a>
+
+                  <div className="mt-2 grid gap-3">
+                    {ECOSYSTEM.map((group) => (
+                      <div key={group.title}>
+                        <div className="px-1 pb-1 text-[11px] font-semibold tracking-[0.18em] text-white/45">
+                          {group.title}
+                        </div>
+
+                        <div className="grid gap-1">
+                          {group.items.map((item) => {
+                            const external = isExternalHref(item.href);
+
+                            return external ? (
+                              <a
+                                key={item.label}
+                                href={item.href}
+                                className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                                onClick={closeMenu}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {item.label} <span aria-hidden="true">↗</span>
+                              </a>
+                            ) : (
+                              <Link
+                                key={item.label}
+                                href={item.href}
+                                className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                                onClick={closeMenu}
+                              >
+                                {item.label}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Theme + CTA */}
                 <div className="mt-2 flex items-center justify-between gap-3">
                   <ThemeToggle />
                   <a

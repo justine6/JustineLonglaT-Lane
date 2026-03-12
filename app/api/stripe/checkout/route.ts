@@ -1,67 +1,72 @@
-import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { NextResponse } from "next/server";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
-const PLAN_MAP = {
-  "consulting-session": {
-    priceId: process.env.STRIPE_CONSULTING_SESSION_PRICE_ID,
-    mode: "payment" as const,
-  },
-  "platform-access": {
-    priceId: process.env.STRIPE_PLATFORM_ACCESS_PRICE_ID,
-    mode: "subscription" as const,
-  },
-  "platform-architect": {
-    priceId: process.env.STRIPE_PLATFORM_ARCHITECT_PRICE_ID,
-    mode: "subscription" as const,
-  },
-} as const;
+type SupportedPlanKey =
+  | "intro-call"
+  | "arch-review"
+  | "retainer";
 
-export async function POST(req: NextRequest) {
+const PRICE_IDS: Record<SupportedPlanKey, string | undefined> = {
+  "intro-call": process.env.STRIPE_PRICE_INTRO_CALL,
+  "arch-review": process.env.STRIPE_PRICE_ARCH_REVIEW,
+  "retainer": process.env.STRIPE_PRICE_RETAINER,
+};
+
+const PLAN_MODES: Record<SupportedPlanKey, "payment" | "subscription"> = {
+  "intro-call": "payment",
+  "arch-review": "payment",
+  "retainer": "subscription",
+};
+
+export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { planKey } = body as {
-      planKey?: keyof typeof PLAN_MAP | "enterprise";
-    };
+    const plan = body?.plan as SupportedPlanKey;
+    const email = body?.email as string | undefined;
 
-    if (!planKey || planKey === "enterprise" || !(planKey in PLAN_MAP)) {
+    if (!plan || !PRICE_IDS[plan]) {
       return NextResponse.json(
-        { error: "Invalid or unsupported plan." },
+        { error: "Invalid or unconfigured plan." },
         { status: 400 }
       );
     }
 
-    const plan = PLAN_MAP[planKey];
-
-    if (!plan.priceId) {
-      return NextResponse.json(
-        { error: "Stripe price is not configured for this plan." },
-        { status: 500 }
-      );
-    }
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      new URL(req.url).origin;
 
     const session = await stripe.checkout.sessions.create({
-      mode: plan.mode,
-      payment_method_types: ["card"],
+      mode: PLAN_MODES[plan],
+      customer_email: email,
       line_items: [
         {
-          price: plan.priceId,
+          price: PRICE_IDS[plan],
           quantity: 1,
         },
       ],
       metadata: {
-        planKey,
+        plan,
       },
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/#booking`,
+      subscription_data:
+        PLAN_MODES[plan] === "subscription"
+          ? {
+              metadata: {
+                plan,
+              },
+            }
+          : undefined,
+      success_url: `${baseUrl}/membership/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/membership/cancel`,
     });
 
     return NextResponse.json({ url: session.url });
   } catch (error) {
-    console.error("Stripe checkout error:", error);
+    console.error("checkout route error", error);
+
     return NextResponse.json(
-      { error: "Stripe checkout failed." },
+      { error: "Unable to create checkout session." },
       { status: 500 }
     );
   }
