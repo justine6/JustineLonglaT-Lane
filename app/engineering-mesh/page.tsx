@@ -271,6 +271,11 @@ function ResourceRow({ title, description, href }: ResourceRowProps) {
   );
 }
 
+type CaseStudyMetric = {
+  label: string;
+  value: string;
+};
+
 function CaseStudyCard({
   title,
   summary,
@@ -282,7 +287,7 @@ function CaseStudyCard({
   summary: string;
   href: string;
   pill: string;
-  metrics: { label: string; value: string }[];
+  metrics: readonly CaseStudyMetric[];
 }) {
   return (
     <Link
