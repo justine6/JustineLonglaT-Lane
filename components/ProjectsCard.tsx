@@ -124,19 +124,26 @@ export default function ProjectsCard({ project }: Props) {
               <span>Featured</span>
             </div>
           )}
-
           {/* title & description */}
-          <div className="absolute bottom-4 left-4 right-4 text-white">
-            <h3 className="text-lg font-semibold leading-snug line-clamp-2 drop-shadow">
+          <div className="absolute bottom-3 left-4 right-4">
+            <h3 className="text-lg font-semibold leading-snug text-white line-clamp-2">
               {project.title}
             </h3>
-            <p className="mt-1 text-xs sm:text-sm text-slate-100/90 line-clamp-2">
+
+            <p className="mt-1 text-xs text-slate-200 line-clamp-2 sm:text-sm">
               {project.description}
             </p>
+            <div className="absolute bottom-3 left-4 right-4">
+              <h3 className="text-lg font-semibold leading-snug line-clamp-2 drop-shadow">
+                {project.title}
+              </h3>
+              <p className="mt-1 text-xs text-slate-600 line-clamp-2 sm:text-sm dark:text-slate-300">
+                {project.description}
+              </p>
+            </div>
           </div>
         </div>
       </article>
     </Link>
-  );
-}
-
+      );
+    }

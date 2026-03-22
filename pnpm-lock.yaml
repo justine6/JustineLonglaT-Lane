@@ -11,9 +11,6 @@ importers:
       '@calcom/embed-react':
         specifier: ^1.5.3
         version: 1.5.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@suite/shared':
-        specifier: workspace:*
-        version: 'link:'
       '@upstash/ratelimit':
         specifier: ^2.0.6
         version: 2.0.7(@upstash/redis@1.35.6)
@@ -66,8 +63,8 @@ importers:
         specifier: ^6.4.2
         version: 6.4.2
       stripe:
-        specifier: ^20.3.1
-        version: 20.3.1(@types/node@20.19.24)
+        specifier: ^20.4.1
+        version: 20.4.1(@types/node@20.19.24)
       swiper:
         specifier: ^12.0.2
         version: 12.0.3
@@ -192,6 +189,12 @@ importers:
       vitest:
         specifier: ^4.0.4
         version: 4.0.8(@types/debug@4.1.12)(@types/node@20.19.24)(jiti@1.21.7)(jsdom@27.1.0)
+
+  packages/shared:
+    devDependencies:
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
 
 packages:
 
@@ -1268,6 +1271,7 @@ packages:
   '@smithy/core@3.18.0':
     resolution: {integrity: sha512-vGSDXOJFZgOPTatSI1ly7Gwyy/d/R9zh2TO3y0JZ0uut5qQ88p9IaWaZYIWSSqtdekNM4CGok/JppxbAff4KcQ==}
     engines: {node: '>=18.0.0'}
+    deprecated: Please upgrade your lockfile to use the latest 3.x version of @smithy/core for various fixes, see https://github.com/smithy-lang/smithy-typescript/blob/main/packages/core/CHANGELOG.md
 
   '@smithy/credential-provider-imds@4.2.5':
     resolution: {integrity: sha512-BZwotjoZWn9+36nimwm/OLIcVe+KYRwzMjfhd4QT7QxPm9WY0HiOV8t/Wlh+HVUif0SBVV7ksq8//hPaBC/okQ==}
@@ -4144,8 +4148,8 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
-  stripe@20.3.1:
-    resolution: {integrity: sha512-k990yOT5G5rhX3XluRPw5Y8RLdJDW4dzQ29wWT66piHrbnM2KyamJ1dKgPsw4HzGHRWjDiSSdcI2WdxQUPV3aQ==}
+  stripe@20.4.1:
+    resolution: {integrity: sha512-axCguHItc8Sxt0HC6aSkdVRPffjYPV7EQqZRb2GkIa8FzWDycE7nHJM19C6xAIynH1Qp1/BHiopSi96jGBxT0w==}
     engines: {node: '>=16'}
     peerDependencies:
       '@types/node': '>=16'
@@ -4535,6 +4539,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -9804,7 +9809,7 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  stripe@20.3.1(@types/node@20.19.24):
+  stripe@20.4.1(@types/node@20.19.24):
     optionalDependencies:
       '@types/node': 20.19.24
 

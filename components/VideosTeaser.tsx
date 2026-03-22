@@ -11,27 +11,34 @@ export default function VideosTeaser() {
   if (!teaserVideos.length) return null;
 
   return (
-    <section className="mt-16">
-      <div className="flex items-baseline justify-between gap-4">
-        <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
-          Featured videos
-        </h2>
+    <section className="mx-auto mb-16 max-w-6xl px-4 md:px-6">
+      <div className="mb-6 flex items-end justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
+            Featured Videos
+          </h2>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 sm:text-base">
+            Short walkthroughs and platform engineering explainers.
+          </p>
+        </div>
 
-        <Link
-          href="/videos"
-          className="text-sm font-medium text-blue-600 hover:text-blue-500"
-        >
-          View all videos →
-        </Link>
+        <div className="hidden sm:block">
+          <Link
+            href="/videos"
+            className="inline-flex items-center rounded-xl border border-blue-600 px-4 py-2 text-sm font-medium text-blue-600 transition hover:bg-blue-50 dark:hover:bg-blue-950/20"
+          >
+            View all videos
+          </Link>
+        </div>
       </div>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2">
         {teaserVideos.map((video) => (
           <article
             key={video.slug}
-            className="rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/70"
+            className="rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md dark:border-slate-700/60 dark:bg-slate-900/70"
           >
-            <h3 className="mt-2 text-lg font-semibold text-slate-900 dark:text-slate-50">
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">
               {video.title}
             </h3>
 
@@ -45,6 +52,15 @@ export default function VideosTeaser() {
             </div>
           </article>
         ))}
+      </div>
+
+      <div className="mt-6 sm:hidden">
+        <Link
+          href="/videos"
+          className="block w-full rounded-xl border border-blue-600 px-4 py-2 text-center text-sm font-medium text-blue-600 transition hover:bg-blue-50 dark:hover:bg-blue-950/20"
+        >
+          View all videos
+        </Link>
       </div>
     </section>
   );

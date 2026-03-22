@@ -25,8 +25,8 @@ export default function HomeHero() {
           <Image
             src="/brand/justine-logo.png"
             alt="Justine Longla T. logo"
-            width={140}
-            height={140}
+            width={200}
+            height={200}
             className="mx-auto h-28 w-28"
           />
 

@@ -85,7 +85,7 @@ export default function VideosPage() {
 
                 <div className="mt-3 flex flex-wrap gap-3 text-sm">
                   <Link
-                    href="/intro-call"
+                    href="/booking"
                     className="inline-flex items-center rounded-xl bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-700"
                   >
                     Discuss this topic
@@ -104,3 +104,4 @@ export default function VideosPage() {
     </main>
   );
 }
+

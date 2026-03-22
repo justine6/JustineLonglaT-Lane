@@ -41,8 +41,8 @@ function joinUrl(origin: string, path: string) {
 export function buildCalUrl(opts: {
   env?: string;
   fallback: string;
-  successPath?: string; // "/availability?booked=1"
-  successBase?: string; // optional override
+  successPath?: string;
+  successBase?: string;
 }) {
   const raw = opts.env ?? opts.fallback;
   const url = new URL(normalizeCalInput(raw));
@@ -70,22 +70,25 @@ export function buildCalUrl(opts: {
 
 export const LINKS = {
   // ---------------------------
-  // Internal Navigation (this app)
+  // Internal navigation (this app)
   // ---------------------------
-  home: "/",
-  projects: "/projects",
-  contact: "/contact",
-  readme: "/readme",
-  blog: "/blog", // keep if you have an internal /blog page
-  videos: "/videos",
+home: "/",
+about: "/about",
+projects: "/projects",
+contact: "/contact",
+readme: "/readme",
+blog: "/blog",
+videos: "/videos",
+files: "/files",
+services: "/services-solutions",
 
   // ---------------------------
-  // Engineering Mesh
+  // Engineering Mesh (internal on main site)
   // ---------------------------
   engineeringMesh: "/engineering-mesh",
 
   // ---------------------------
-  // Résumé & Brochure (served from /public/files)
+  // Résumé & brochure (served from /public/files)
   // ---------------------------
   resume: "/resume",
   brochure: "/files/JLT-Consulting-Brochure.pdf",
@@ -140,8 +143,15 @@ export const LINKS = {
   mainSite: ORIGINS.main,
   blogSite: ORIGINS.blog,
   docsSite: ORIGINS.docs,
+
+  // Canonical cross-site destinations
   docs: ORIGINS.docs,
+  blogCanonical: ORIGINS.blog,
+
+  // Specific platform entry points
   toolkit: joinUrl(ORIGINS.docs, "/toolkit.html"),
+  automationPlatform: joinUrl(ORIGINS.docs, "/automation-toolkit.html"),
+  publishingPlatform: ORIGINS.blog,
 
   // ---------------------------
   // Stripe (external checkout links)
@@ -154,6 +164,6 @@ export const LINKS = {
   stripeServiceReview: process.env.NEXT_PUBLIC_STRIPE_SERVICE_REVIEW_URL ?? "",
   stripeServiceRetainer: process.env.NEXT_PUBLIC_STRIPE_SERVICE_RETAINER_URL ?? "",
 
-  // Expose runtime base if you ever need it
+  // Runtime base if ever needed
   runtimeBase: RUNTIME_BASE,
 } as const;

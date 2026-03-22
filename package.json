@@ -12,9 +12,9 @@
     }
   },
   "scripts": {
-  "build": "next build",
-  "dev": "next dev",
-  "start": "next start",
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start",
     "typecheck": "tsc --noEmit",
     "validate:links": "node tools/validate-links.mjs",
     "lint": "eslint .",
@@ -100,9 +100,8 @@
     "react-dom": "^19.2.0",
     "react-markdown": "^10.1.0",
     "react-scrollspy": "^3.4.3",
-    "@suite/shared": "workspace:*",
     "resend": "^6.4.2",
-    "stripe": "^20.3.1",
+    "stripe": "^20.4.1",
     "swiper": "^12.0.2",
     "zod": "^4.1.12"
   }

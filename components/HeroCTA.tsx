@@ -7,16 +7,16 @@ import { LINKS } from "@/config/links";
 export default function HeroCTA() {
   const meshHref = LINKS.engineeringMesh ?? "/engineering-mesh";
   const publishingHref = "/case-studies/engineering-grade-publishing";
-  const toolkitHref = LINKS.toolkit ?? "https://docs.justinelonglat-lane.com/toolkit.html";
+  const toolkitHref =
+    LINKS.toolkit ?? "https://docs.justinelonglat-lane.com/toolkit.html";
 
-  const bookHref = LINKS.stripeBookSession;        // ✅ now exists in links.ts
-  const payHref = LINKS.stripeCompletePayment;     // ✅ now exists in links.ts
+  const bookHref = LINKS.stripeBookSession;
+  const payHref = LINKS.stripeCompletePayment;
 
   return (
-    <div className="mt-6 flex flex-col items-center gap-3">
+    <div className="mt-4 flex flex-col items-center gap-3 pb-2">
       {/* Row 1 — Payments + assets */}
       <div className="flex flex-wrap items-center justify-center gap-3">
-        {/* Book a Session */}
         {bookHref ? (
           <a
             href={bookHref}
@@ -29,7 +29,6 @@ export default function HeroCTA() {
           </a>
         ) : null}
 
-        {/* Complete Payment */}
         {payHref ? (
           <a
             href={payHref}
@@ -42,7 +41,6 @@ export default function HeroCTA() {
           </a>
         ) : null}
 
-        {/* Brochure (PDF) */}
         <a
           href={LINKS.brochure}
           target="_blank"
@@ -52,7 +50,6 @@ export default function HeroCTA() {
           Download Brochure
         </a>
 
-        {/* Résumé (PDF) */}
         <a
           href={LINKS.resumePdf}
           target="_blank"
@@ -63,9 +60,8 @@ export default function HeroCTA() {
         </a>
       </div>
 
-      {/* Microcopy only if Complete Payment exists */}
       {payHref ? (
-        <p className="text-xs text-slate-600 dark:text-slate-300">
+        <p className="text-center text-xs text-slate-600 dark:text-slate-300">
           Already discussed a service with me (phone/Zoom/in-person)? Use{" "}
           <span className="font-semibold">Complete Payment</span>.
         </p>
@@ -94,7 +90,7 @@ export default function HeroCTA() {
 
         <Link
           href={publishingHref}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700 dark:hover:bg-slate-800"
+          className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
         >
           <Puzzle className="h-4 w-4" aria-hidden="true" />
           Publishing Platform
@@ -104,7 +100,7 @@ export default function HeroCTA() {
           href={toolkitHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700 dark:hover:bg-slate-800"
+          className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
         >
           <Wrench className="h-4 w-4" aria-hidden="true" />
           Automation Platform ↗
