@@ -6,13 +6,14 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-blue-200 bg-blue-50/90 text-slate-700 dark:bg-gray-900 dark:text-gray-200 backdrop-blur mt-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <footer className="mt-16 border-t border-blue-200 bg-blue-50/90 text-slate-700 backdrop-blur dark:bg-gray-900 dark:text-gray-200">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:grid-cols-2 sm:px-6 lg:grid-cols-3">
         {/* 🌐 Brand Section */}
         <div>
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
             Justine Longla T.
           </h3>
+
           <p className="mt-2 text-sm leading-relaxed">
             Cloud Confidence. Delivered. Secure, performance-tuned solutions — built the
             right way.
@@ -23,7 +24,7 @@ export default function Footer() {
             <a
               href={LINKS.consultingIntroAbsolute}
               aria-label="Schedule your intro call"
-              className="inline-block px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-block rounded-lg bg-blue-600 px-5 py-2 font-medium text-white shadow-sm transition-all duration-300 hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Schedule Your Intro Call
             </a>
@@ -31,7 +32,7 @@ export default function Footer() {
             <a
               href={LINKS.consultingHireAbsolute}
               aria-label="Hire me"
-              className="inline-block px-5 py-2 rounded-lg border border-blue-600 text-blue-700 dark:text-blue-300 font-medium hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:scale-[1.03] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-block rounded-lg border border-blue-600 px-5 py-2 font-medium text-blue-700 transition-all duration-300 hover:scale-[1.03] hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:text-blue-300 dark:hover:bg-blue-950/30"
             >
               Hire Me
             </a>
@@ -108,9 +109,7 @@ export default function Footer() {
 
         {/* 📬 Contact Info */}
         <div className="text-sm">
-          <h4 className="font-semibold mb-2 text-slate-900 dark:text-white">
-            CONTACT
-          </h4>
+          <h4 className="mb-2 font-semibold text-slate-900 dark:text-white">CONTACT</h4>
           <ul className="space-y-2">
             <li>
               <a className="hover:underline" href="mailto:justine@justinelonglat-lane.com">
@@ -141,38 +140,59 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* 🧾 Footer bottom bar — unified with Docs/Blog/Projects */}
-      <div className="mt-6 border-t border-blue-100/70 dark:border-gray-800/80 px-4 py-4">
-        <div className="mx-auto max-w-6xl flex flex-col items-center gap-2 text-center">
-          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-            © {year} <span className="font-semibold">Justine Longla T-Lane.</span> · DevSecOps • Cloud • Sustainability
+      {/* 🧾 Footer bottom bar */}
+      <div className="mt-6 border-t border-blue-100/70 px-4 py-4 dark:border-gray-800/80">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 text-center">
+          <p className="text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
+            © {year} <span className="font-semibold">Justine Longla T-Lane.</span> ·
+            DevSecOps • Cloud • Sustainability
           </p>
+
           <p className="text-xs text-gray-400 dark:text-gray-500">
             Operating under <span className="font-medium">JustineLonglaT-Lane LLC.</span>
           </p>
 
-          <nav
-            aria-label="Justine Longla T. network"
-            className="mt-2 flex flex-wrap justify-center gap-4 text-xs sm:text-sm text-blue-700 dark:text-blue-300"
-          >
-            <a href={LINKS.blogSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
-              Blog
-            </a>
-            <Link href={LINKS.projects} className="hover:underline">
-              Projects
-            </Link>
-            <a href={LINKS.docs} target="_blank" rel="noopener noreferrer" className="hover:underline">
-              Docs
-            </a>
-            <a href={LINKS.toolkit} target="_blank" rel="noopener noreferrer" className="hover:underline">
-              Automation Toolkit
-            </a>
-          </nav>
+        <nav
+          aria-label="Platform network"
+          className="mt-2 flex flex-wrap justify-center gap-4 text-xs sm:text-sm text-blue-700 dark:text-blue-300"
+        >
+          <a href={LINKS.mainSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Main
+          </a>
+
+          <a href={LINKS.consultingSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Consulting
+          </a>
+
+          <a href={LINKS.docsSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Docs
+          </a>
+
+          <a href={`${LINKS.docsSite}/runbooks/`} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Runbooks
+          </a>
+
+          <a href={`${LINKS.docsSite}/platform/`} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Platform
+          </a>
+
+          <a href={LINKS.blogSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Blog
+          </a>
+
+          <a href={LINKS.toolkit} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Toolkit
+          </a>
+        </nav>
 
           <div className="mt-4 w-full max-w-xl border-t border-blue-100/70 dark:border-gray-800/80" />
 
           <div className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
             {formatPlatformVersion()}
+          </div>
+
+          <div className="text-[11px] text-gray-400 dark:text-gray-500">
+            Platform Surfaces: Main · Docs · Blog · Sandbox · Stripe
           </div>
 
           <div className="flex gap-4 text-[11px] text-gray-400 dark:text-gray-500">

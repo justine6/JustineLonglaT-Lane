@@ -1,4 +1,3 @@
-// components/Navbar.tsx
 "use client";
 
 import { Calendar, Menu, X } from "lucide-react";
@@ -19,7 +18,6 @@ type EcoGroup = {
   items: EcoLink[];
 };
 
-// Strict external detection (http/https + protocol-relative)
 function isExternalHref(href: string) {
   return /^(https?:)?\/\//i.test(href);
 }
@@ -27,12 +25,16 @@ function isExternalHref(href: string) {
 const ECOSYSTEM: EcoGroup[] = [
   {
     title: "BUSINESS",
-    items: [{ label: "Consulting Site", href: LINKS.consultingSite }],
+    items: [
+      { label: "Main Site", href: LINKS.mainSite },
+      { label: "Consulting Site", href: LINKS.consultingSite },
+    ],
   },
   {
-    title: "PLATFORMS",
+    title: "PLATFORM",
     items: [
       { label: "Engineering Mesh Hub", href: LINKS.engineeringMesh },
+      { label: "Automation Platform", href: LINKS.automationPlatform },
       { label: "Automation Toolkit", href: LINKS.toolkit },
     ],
   },
@@ -40,11 +42,12 @@ const ECOSYSTEM: EcoGroup[] = [
     title: "KNOWLEDGE",
     items: [
       { label: "Docs Platform", href: LINKS.docsSite },
+      { label: "Runbooks", href: `${LINKS.docsSite}/runbooks/` },
+      { label: "Platform Docs", href: `${LINKS.docsSite}/platform/` },
       { label: "Blog Platform", href: LINKS.blogSite },
     ],
   },
 ];
-
 const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
   { name: "README", href: LINKS.readme },
@@ -52,7 +55,7 @@ const NAV_LINKS: NavItem[] = [
   { name: "Files", href: LINKS.files },
   { name: "About", href: LINKS.about },
   { name: "Projects", href: LINKS.projects },
-  { name: "Services", href: LINKS.services },   // ← ADD THIS
+  { name: "Services", href: LINKS.services },
   { name: "Blog", href: LINKS.blogSite },
   { name: "Contact", href: LINKS.contact },
 ];
@@ -133,7 +136,6 @@ export default function Navbar() {
         ].join(" ")}
       >
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
-          {/* ROW 1: Brand + Prime pills | Profile/Theme/CTA */}
           <div className="flex items-center justify-between gap-3 py-3 sm:py-4">
             <div className="flex min-w-0 items-center gap-2 text-white sm:gap-3">
               <Link
@@ -163,11 +165,10 @@ export default function Navbar() {
                 </div>
               </Link>
 
-              {/* Prime pills (desktop) */}
               <div className="hidden flex-wrap items-center gap-2 md:flex">
                 <a
                   href={LINKS.automationPlatform}
-                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-emerald-300/50 via-white/15 to-sky-300/50 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  className="inline-flex rounded-full bg-gradient-to-r from-emerald-300/50 via-white/15 to-sky-300/50 p-[2px] shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                   aria-label="Automation Platform"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -182,7 +183,7 @@ export default function Navbar() {
 
                 <a
                   href={LINKS.publishingPlatform}
-                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-white/28 via-white/14 to-white/28 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  className="inline-flex rounded-full bg-gradient-to-r from-white/28 via-white/14 to-white/28 p-[2px] shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                   aria-label="Publishing Platform"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -197,13 +198,12 @@ export default function Navbar() {
 
                 <Link
                   href={LINKS.engineeringMesh}
-                  className="inline-flex rounded-full p-[2px] bg-gradient-to-r from-sky-400/55 via-teal-300/45 to-blue-500/55 shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  className="inline-flex rounded-full bg-gradient-to-r from-sky-400/55 via-teal-300/45 to-blue-500/55 p-[2px] shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                   aria-label="Engineering Mesh Hub"
                   onClick={closeMenu}
                 >
                   <span className="flex items-center rounded-full bg-white px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-slate-900 transition hover:bg-slate-50">
-                    Engineering <span className="ml-1 text-sky-600">Mesh</span>{" "}
-                    Hub
+                    Engineering <span className="ml-1 text-sky-600">Mesh</span> Hub
                   </span>
                 </Link>
               </div>
@@ -235,7 +235,7 @@ export default function Navbar() {
 
               <button
                 type="button"
-                className="md:hidden inline-flex items-center justify-center rounded-xl bg-white/10 p-2 text-white hover:bg-white/16 ring-1 ring-white/15"
+                className="inline-flex items-center justify-center rounded-xl bg-white/10 p-2 text-white ring-1 ring-white/15 hover:bg-white/16 md:hidden"
                 onClick={() => setMenuOpen((v) => !v)}
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
               >
@@ -244,14 +244,10 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* ROW 2: centered nav */}
-          <div className="hidden md:flex items-center justify-center gap-2 pb-3">
+          <div className="hidden items-center justify-center gap-2 pb-3 md:flex">
             <div className="flex flex-wrap items-center justify-center gap-2">
               {navWithActive.map((link) => {
-                const className = [
-                  pillBase,
-                  link.active ? pillActive : pillIdle,
-                ].join(" ");
+                const className = [pillBase, link.active ? pillActive : pillIdle].join(" ");
 
                 return link.external ? (
                   <a
@@ -262,10 +258,7 @@ export default function Navbar() {
                     rel="noopener noreferrer"
                   >
                     <span>{link.name}</span>
-                    <span
-                      aria-hidden="true"
-                      className="pl-1 text-[0.7rem] text-white/85"
-                    >
+                    <span aria-hidden="true" className="pl-1 text-[0.7rem] text-white/85">
                       ↗
                     </span>
                   </a>
@@ -281,7 +274,6 @@ export default function Navbar() {
                 );
               })}
 
-              {/* Ecosystem dropdown */}
               <details className="relative">
                 <summary
                   className={[
@@ -317,10 +309,7 @@ export default function Navbar() {
                                 rel="noopener noreferrer"
                               >
                                 <span>{item.label}</span>
-                                <span
-                                  aria-hidden="true"
-                                  className="text-[0.7rem] text-white/65"
-                                >
+                                <span aria-hidden="true" className="text-[0.7rem] text-white/65">
                                   ↗
                                 </span>
                               </a>
@@ -345,12 +334,10 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* MOBILE PANEL */}
         {menuOpen && (
-          <div className="md:hidden border-t border-white/10 bg-[#061a3a]/92 backdrop-blur-lg">
+          <div className="border-t border-white/10 bg-[#061a3a]/92 backdrop-blur-lg md:hidden">
             <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
               <div className="grid gap-2">
-                {/* Prime links (mobile) */}
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
                   <div className="text-xs font-semibold tracking-[0.18em] text-white/70">
                     PRIME
@@ -386,7 +373,6 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                {/* Primary links */}
                 {navWithActive.map((link) => {
                   const cls = [
                     "rounded-xl px-4 py-3 text-sm font-semibold transition ring-1 ring-transparent",
@@ -418,7 +404,6 @@ export default function Navbar() {
                   );
                 })}
 
-                {/* Ecosystem (mobile) */}
                 <div className="mt-2 rounded-2xl border border-white/10 bg-white/5 p-3">
                   <div className="text-xs font-semibold tracking-[0.18em] text-white/70">
                     ECOSYSTEM
@@ -463,7 +448,6 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                {/* Theme + CTA */}
                 <div className="mt-2 flex items-center justify-between gap-3">
                   <ThemeToggle />
                   <a
