@@ -1,0 +1,28 @@
+{
+  "authorizationProfiles": {
+    "public": {
+      "subscriptionTier": "public",
+      "entitlements": [],
+      "allow": ["public"],
+      "deny": []
+    },
+    "member": {
+      "subscriptionTier": "member",
+      "entitlements": ["member:access"],
+      "allow": ["public", "member"],
+      "deny": []
+    },
+    "contributor": {
+      "subscriptionTier": "contributor",
+      "entitlements": ["member:access", "contributor:protocol"],
+      "allow": ["public", "member", "contributor"],
+      "deny": []
+    },
+    "admin": {
+      "subscriptionTier": "admin",
+      "entitlements": ["member:access", "contributor:protocol", "admin:full"],
+      "allow": ["public", "member", "contributor", "admin"],
+      "deny": []
+    }
+  }
+}
