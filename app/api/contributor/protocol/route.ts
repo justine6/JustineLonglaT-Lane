@@ -1,8 +1,9 @@
-import { getSessionAccessContext } from "@/lib/authz/session-context";
+import { NextResponse } from "next/server";
 import { requireEntitlement } from "@/lib/authz/require-entitlement";
+import { requireSessionAccessContext } from "@/lib/authz/session-context";
 
 export async function GET() {
-  const context = await getSessionAccessContext();
+  const context = await requireSessionAccessContext();
 
   const denied = requireEntitlement(
     context,
