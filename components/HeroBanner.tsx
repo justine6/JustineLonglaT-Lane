@@ -22,7 +22,7 @@ const planes: Plane[] = [
     description:
       "The authority layer where policy, orchestration, identity, and platform governance are defined and enforced.",
     hotspotClass:
-      "top-[25%] left-1/2 h-[14%] w-[26%] -translate-x-1/2 rounded-2xl",
+      "left-[34%] top-[16%] h-[20%] w-[32%] -translate-x-1/2 rounded-2xl",
   },
   {
     key: "execution",
@@ -31,7 +31,7 @@ const planes: Plane[] = [
     description:
       "The delivery layer where services, applications, platform workflows, and operational capabilities actually run.",
     hotspotClass:
-      "top-[48%] left-1/2 h-[34%] w-[94%] -translate-x-1/2 rounded-[2rem]",
+      "left-[50%] top-[43%] h-[24%] w-[40%] -translate-x-1/2 rounded-[1.75rem]",
   },
   {
     key: "visibility",
@@ -40,7 +40,7 @@ const planes: Plane[] = [
     description:
       "The outward-facing layer where trust, proof, observability, communication, portfolio evidence, and brand presence are surfaced.",
     hotspotClass:
-      "top-[84%] left-1/2 h-[11%] w-[84%] -translate-x-1/2 rounded-2xl",
+      "left-[50%] bottom-[8%] h-[16%] w-[68%] -translate-x-1/2 rounded-2xl",
   },
 ];
 
@@ -58,9 +58,9 @@ export default function HeroBanner() {
     offset: ["start start", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, -20]);
-  const imageOpacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0.94]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.04]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -18]);
+  const imageOpacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0.95]);
 
   return (
     <section
@@ -163,7 +163,7 @@ export default function HeroBanner() {
         </div>
 
         <div className="relative flex justify-center lg:justify-end lg:pt-16">
-          <div className="relative w-full max-w-xl overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white/80 shadow-[0_20px_70px_rgba(15,23,42,0.12)] backdrop-blur dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_20px_70px_rgba(2,8,23,0.55)] lg:max-w-2xl">
+          <div className="relative w-full max-w-xl overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white/90 shadow-[0_20px_70px_rgba(15,23,42,0.12)] backdrop-blur dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_20px_70px_rgba(2,8,23,0.55)] lg:max-w-2xl">
             <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_35%)] dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.16),transparent_35%)]" />
 
             <motion.div
@@ -172,12 +172,14 @@ export default function HeroBanner() {
             >
               <Image
                 src="/brand/platform-architecture.png"
-                alt="Engineering Mesh architecture diagram"
+                alt="JLT-Lane platform control, execution, and operations model"
                 width={1800}
                 height={1200}
                 priority
-                className="h-auto w-full object-cover"
+                className="h-auto w-full object-contain"
               />
+
+              <div className="pointer-events-none absolute inset-0 z-[15] bg-transparent" />
 
               <div className="absolute inset-0 z-20">
                 {planes.map((plane) => {
@@ -194,8 +196,8 @@ export default function HeroBanner() {
                         "absolute transition-all duration-300",
                         plane.hotspotClass,
                         isActive
-                          ? "bg-sky-400/12 ring-2 ring-sky-400 shadow-[0_0_45px_rgba(56,189,248,0.34)] dark:bg-sky-400/10"
-                          : "bg-transparent ring-1 ring-transparent hover:bg-white/8 hover:ring-sky-300/40",
+                          ? "bg-sky-400/10 ring-2 ring-sky-400 shadow-[0_0_45px_rgba(56,189,248,0.30)] dark:bg-sky-400/10"
+                          : "bg-transparent ring-1 ring-transparent hover:bg-sky-100/30 hover:ring-sky-300/40 dark:hover:bg-white/5",
                       ].join(" ")}
                       aria-label={`${plane.title} highlight`}
                     >
