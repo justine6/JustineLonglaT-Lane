@@ -182,7 +182,7 @@ export default function Navbar() {
                 </a>
 
                 <a
-                  href={LINKS.publishingPlatform}
+                  href="https://blogs.justinelonglat-lane.com/posts/"
                   className="inline-flex rounded-full bg-gradient-to-r from-white/28 via-white/14 to-white/28 p-[2px] shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                   aria-label="Publishing Platform"
                   target="_blank"
