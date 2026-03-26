@@ -43,11 +43,25 @@ export default function AboutSection() {
           transition={{ duration: 0.45, ease: "easeOut" }}
           className="mb-5 text-base leading-relaxed text-slate-700 sm:text-lg"
         >
-          I design, operate, and secure production cloud ecosystems — from infrastructure and CI/CD
-          pipelines to application delivery and observability. I’m{" "}
-          <strong className="font-semibold text-slate-900">Justine Longla T.</strong>, a Senior DevSecOps
-          & Platform Architect with hands-on experience building reliable, secure, and scalable systems
-          across AWS, Microsoft Azure, and modern web platforms.
+          I design, operate, and secure production cloud platforms — from infrastructure and CI/CD
+          pipelines to application delivery, observability, and platform operations.
+        </motion.p>
+
+        <motion.p
+          variants={fadeUp}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+          className="mb-5 text-base leading-relaxed text-slate-700 sm:text-lg"
+        >
+          I am{" "}
+          <strong className="font-semibold text-slate-900">
+            Justine Longla T.
+          </strong>
+          , a{" "}
+          <strong className="font-semibold text-slate-900">
+            Platform Engineer and DevSecOps specialist
+          </strong>{" "}
+          with hands-on experience building reliable, secure, and scalable systems across AWS,
+          Microsoft Azure, and modern web platforms.
         </motion.p>
 
         <motion.p
@@ -56,11 +70,12 @@ export default function AboutSection() {
           className="mb-5 text-base leading-relaxed text-slate-700 sm:text-lg"
         >
           My work sits at the intersection of{" "}
-          <strong className="font-semibold text-slate-900">security, reliability, and delivery</strong>.
-          I proactively identify platform risks, remediate vulnerabilities, automate infrastructure and
-          release workflows, and ensure systems are observable, resilient, and easy to operate in
-          production. Whether supporting enterprise environments or building my own ecosystem, I approach
-          every system with an ownership mindset.
+          <strong className="font-semibold text-slate-900">
+            security, reliability, and delivery
+          </strong>
+          . I proactively identify platform risks, remediate vulnerabilities, automate
+          infrastructure and release workflows, and ensure systems are observable, resilient,
+          and easy to operate in production.
         </motion.p>
 
         <motion.p
@@ -68,10 +83,9 @@ export default function AboutSection() {
           transition={{ duration: 0.45, ease: "easeOut" }}
           className="mb-5 text-base leading-relaxed text-slate-700 sm:text-lg"
         >
-          I maintain this platform intentionally — as both a live production environment and a teaching
-          system. Like reference architectures (for example Microsoft Contoso or AWS sample platforms), it
-          allows me to document architectural decisions, validate automation patterns, and demonstrate
-          DevSecOps best practices end-to-end.
+          I maintain the JLT-Lane platform as both a live production environment and a teaching
+          system, similar to reference architectures such as Microsoft Contoso or AWS sample
+          platforms.
         </motion.p>
 
         <motion.p
@@ -79,11 +93,10 @@ export default function AboutSection() {
           transition={{ duration: 0.45, ease: "easeOut" }}
           className="text-base leading-relaxed text-slate-700 sm:text-lg"
         >
-          Beyond engineering, I care deeply about sustainability, mentorship, and knowledge sharing. My
-          goal in every environment is simple:{" "}
+          My goal is simple:{" "}
           <strong className="font-semibold text-slate-900">
-            leave systems stronger than I found them, empower the people who operate them, and deliver
-            technology with integrity and purpose.
+            leave systems stronger than I found them, empower the people who operate them, and
+            deliver technology with integrity and purpose.
           </strong>
         </motion.p>
       </motion.div>
