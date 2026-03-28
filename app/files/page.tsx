@@ -53,6 +53,24 @@ export default function FilesPage() {
             View résumé
           </a>
         </article>
+        {/* Platform Engineering Publication */}
+        <article className="rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+            Platform Engineering Publication — Operating Models (PDF)
+          </h2>
+          <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
+            “Platforms Don’t Scale With Tools — They Scale With Operating Models.”
+            A short publication on platform engineering, operating models, and systems thinking.
+          </p>
+          <a
+            href="https://consulting.justinelonglat-lane.com/files/platforms-dont-scale-with-tools-they-scale-with-operating-models.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
+          >
+            Download PDF
+          </a>
+        </article>
       </section>
       
       <section className="files-toolkits">
