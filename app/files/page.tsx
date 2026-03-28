@@ -9,11 +9,10 @@ export default function FilesPage() {
     >
       <header className="space-y-2">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
-          Files & Downloads
+          Publications & Downloads
         </h1>
-        <p className="max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-          One place for brochures, résumé, and other reference material from
-          Justine Longla T. Consulting.
+        <p className="mt-3 max-w-3xl text-sm text-slate-600 dark:text-slate-300">
+          One place for brochures, résumé, whitepapers, and platform reference material from Justine Longla T. Consulting.
         </p>
       </header>
 
@@ -69,6 +68,24 @@ export default function FilesPage() {
             className="mt-3 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
           >
             Download PDF
+          </a>
+        </article>
+        {/* Platform Operating Model Whitepaper */}
+        <article className="rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+            Governed Multi-Plane Platform Operating Model (PDF)
+          </h2>
+          <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
+            A platform whitepaper describing the governed multi-plane model used to structure
+            identity, control, knowledge, execution, operations, proof, and narrative across the ecosystem.
+          </p>
+          <a
+            href="https://consulting.justinelonglat-lane.com/files/governed-multi-plane-platform-operating-model.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
+          >
+            Download whitepaper
           </a>
         </article>
       </section>
