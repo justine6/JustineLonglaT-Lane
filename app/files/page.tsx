@@ -71,7 +71,7 @@ export default function FilesPage() {
           </a>
         </article>
         {/* Platform Operating Model Whitepaper */}
-        <article className="rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
+        <article className="rounded-2xl bborder border-emerald-200 dark:border-emerald-800 bg-white/70 p-4 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
           
           <span className="inline-block mb-2 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
             Whitepaper
@@ -97,7 +97,7 @@ export default function FilesPage() {
 
         </article>
           <div className="mt-10 mb-2 text-center">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-00 dark:text-slate-400">
               Engineering Platform Resources
             </p>
           </div>
@@ -127,7 +127,7 @@ export default function FilesPage() {
                 href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 mb-6 inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-blue-700"
+                className="mt-4 inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-blue-700"
               >
                 Open Automation Toolkit →
               </a>
@@ -143,13 +143,88 @@ export default function FilesPage() {
                 href="https://blogs.justinelonglat-lane.com/docs/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 mb-6 inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-700"
+                className="mt-4 inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-700"
               >
                 Open Publishing Replay →
               </a>
             </div>
           </div>
         </section>
+        <section className="files-artifacts">
+        <h2 className="files-subtitle">Platform Architecture Artifacts</h2>
+
+        <p className="files-intro">
+          These architecture artifacts document the structure, control model, and operational flow
+          of the JLT-Lane platform. They are provided as reference material for platform engineering,
+          DevSecOps, and cloud architecture discussions.
+        </p>
+
+        <div className="files-grid">
+          <div className="file-card mb-6">
+            <h3>Platform Control Flow (PDF)</h3>
+            <p>
+              Diagram showing how identity, access control, resource groups, APIs, observability,
+              and runbooks connect across the platform lifecycle.
+            </p>
+            <a
+              href="/files/platform-control-flow.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center rounded-lg bg-slate-700 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-slate-800"
+            >
+              Download Diagram →
+            </a>
+          </div>
+
+          <div className="file-card mb-6">
+            <h3>Access Control Architecture (PDF)</h3>
+            <p>
+              Entitlement-based access control model showing roles, subscriptions,
+              resource groups, and authorization flow across the platform.
+            </p>
+            <a
+              href="/files/access-control-architecture.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center rounded-lg bg-slate-700 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-slate-800"
+            >
+              Download Diagram →
+            </a>
+          </div>
+
+          <div className="file-card mb-6">
+            <h3>Platform Request Lifecycle (PDF)</h3>
+            <p>
+              Request lifecycle diagram showing how requests move through identity,
+              control plane, execution plane, observability, and operations.
+            </p>
+            <a
+              href="/files/platform-request-lifecycle.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center rounded-lg bg-slate-700 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-slate-800"
+            >
+              Download Diagram →
+            </a>
+          </div>
+
+          <div className="file-card mb-6">
+            <h3>Deployment Guardrails (PDF)</h3>
+            <p>
+              Guardrails and automation flow used to keep deployments safe,
+              reproducible, and observable across environments.
+            </p>
+            <a
+              href="/files/deployment-guardrails.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center rounded-lg bg-slate-700 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-slate-800"
+            >
+              Download Diagram →
+            </a>
+          </div>
+        </div>
+      </section>
 
       <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">
         Looking for something specific? Use the{" "}
