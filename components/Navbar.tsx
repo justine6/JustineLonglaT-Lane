@@ -48,6 +48,7 @@ const ECOSYSTEM: EcoGroup[] = [
     ],
   },
 ];
+
 const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
   { name: "README", href: LINKS.readme },
@@ -180,6 +181,17 @@ export default function Navbar() {
                     </span>
                   </span>
                 </a>
+
+                <Link
+                  href={LINKS.services}
+                  className="inline-flex rounded-full bg-gradient-to-r from-amber-300/50 via-white/15 to-orange-300/50 p-[2px] shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  aria-label="Services"
+                  onClick={closeMenu}
+                >
+                  <span className="flex items-center gap-2 rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
+                    Services <span className="hidden lg:inline">Consulting</span>
+                  </span>
+                </Link>
 
                 <a
                   href="https://blogs.justinelonglat-lane.com/posts/"
@@ -342,6 +354,7 @@ export default function Navbar() {
                   <div className="text-xs font-semibold tracking-[0.18em] text-white/70">
                     PRIME
                   </div>
+
                   <div className="mt-2 grid gap-1">
                     <Link
                       href={LINKS.engineeringMesh}
@@ -349,6 +362,24 @@ export default function Navbar() {
                       className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
                     >
                       Engineering Mesh Hub
+                    </Link>
+
+                    <a
+                      href={LINKS.automationPlatform}
+                      onClick={closeMenu}
+                      className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Automation Platform <span aria-hidden="true">↗</span>
+                    </a>
+
+                    <Link
+                      href={LINKS.services}
+                      onClick={closeMenu}
+                      className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                    >
+                      Services Consulting
                     </Link>
 
                     <a
@@ -360,27 +391,6 @@ export default function Navbar() {
                     >
                       Publishing Platform <span aria-hidden="true">↗</span>
                     </a>
-
-                    <a
-                      href={LINKS.automationPlatform}
-                      onClick={closeMenu}
-                      className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Automation Platform <span aria-hidden="true">↗</span>
-                    </a>
-                    <div className="hidden flex-wrap items-center gap-2 md:flex">
-                    <Link
-                      href={LINKS.services}
-                      className="inline-flex rounded-full bg-gradient-to-r from-amber-300/50 via-white/15 to-orange-300/50 p-[2px] shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-                      aria-label="Services"
-                      onClick={closeMenu}
-                    >
-                      <span className="flex items-center gap-2 rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
-                        Services <span className="hidden lg:inline">Consulting</span>
-                      </span>
-                    </Link>
                   </div>
                 </div>
 
