@@ -1,71 +1,70 @@
-// app/success/CalAutoOpen.tsx
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 type Props = {
-  calUrl: string; // full https://cal.com/... URL (or cal.com/... link)
+  calUrl: string;
 };
 
 function normalizeCalLink(link: string) {
   const raw = (link ?? "").trim();
   if (!raw) return "";
 
-  // If full URL, turn it into the "cal-link" format Cal expects
-  // Example: https://cal.com/justine-longla-ptq4no -> justine-longla-ptq4no
   const noProto = raw.replace(/^https?:\/\//, "");
   const noTrailing = noProto.replace(/\/+$/, "");
+
   return noTrailing;
 }
 
 export default function CalAutoOpen({ calUrl }: Props) {
+  const hasOpenedRef = useRef(false);
+
   useEffect(() => {
     const calLink = normalizeCalLink(calUrl);
-    if (!calLink) return;
+    if (!calLink || hasOpenedRef.current) return;
 
-    const w = globalThis as any;
+    const w = globalThis as unknown as Window & {
+      Cal?: (action: string, options?: Record<string, unknown>) => void;
+    };
 
     const openPopup = () => {
+      if (hasOpenedRef.current) return;
+
       try {
-        // Cal embed supports: Cal("open", { calLink })
-        // Some builds also accept: Cal("ui", { theme: "system" }) etc.
         w.Cal?.("open", { calLink });
+        hasOpenedRef.current = true;
       } catch {
         // no-op
       }
     };
 
-    // If embed already loaded, open immediately
     if (typeof w.Cal === "function") {
-      openPopup();
+      window.setTimeout(openPopup, 100);
       return;
     }
 
-    // Otherwise load embed.js once, then open
     const existing = document.getElementById("cal-embed-script");
+
     if (existing) {
-      // script exists but Cal not ready yet — wait a tick
-      const t = window.setTimeout(openPopup, 300);
-      return () => window.clearTimeout(t);
+      const timer = window.setTimeout(openPopup, 400);
+      return () => window.clearTimeout(timer);
     }
 
-    const s = document.createElement("script");
-    s.id = "cal-embed-script";
-    s.src = "https://cal.com/embed.js";
-    s.async = true;
+    const script = document.createElement("script");
+    script.id = "cal-embed-script";
+    script.src = "https://cal.com/embed.js";
+    script.async = true;
 
-    s.onload = () => {
-      // give Cal a moment to initialize
-      window.setTimeout(openPopup, 50);
+    script.onload = () => {
+      window.setTimeout(openPopup, 100);
     };
 
-    document.body.appendChild(s);
+    document.body.appendChild(script);
 
     return () => {
-      // no cleanup needed
+      // keep script loaded for future page visits in this session
     };
   }, [calUrl]);
 
-  // Invisible helper component
   return null;
 }

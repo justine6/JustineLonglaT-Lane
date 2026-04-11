@@ -2,19 +2,15 @@
 
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-
 import { Button, ButtonLink } from "@/components/ui/Button";
 
 function fmtICS(dt: Date) {
-  // UTC in YYYYMMDDTHHMMSSZ
   const pad = (n: number) => String(n).padStart(2, "0");
-  const yyyy = dt.getUTCFullYear();
-  const mm = pad(dt.getUTCMonth() + 1);
-  const dd = pad(dt.getUTCDate());
-  const hh = pad(dt.getUTCHours());
-  const mi = pad(dt.getUTCMinutes());
-  const ss = pad(dt.getUTCSeconds());
-  return `${yyyy}${mm}${dd}T${hh}${mi}${ss}Z`;
+  return `${dt.getUTCFullYear()}${pad(dt.getUTCMonth() + 1)}${pad(
+    dt.getUTCDate()
+  )}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}${pad(
+    dt.getUTCSeconds()
+  )}Z`;
 }
 
 export default function AddToCalendar({
@@ -43,11 +39,14 @@ export default function AddToCalendar({
   }, [startISO, endISO]);
 
   const googleHref = useMemo(() => {
-    const base = "https://calendar.google.com/calendar/render?action=TEMPLATE";
+    const base =
+      "https://calendar.google.com/calendar/render?action=TEMPLATE";
     const text = `&text=${encodeURIComponent(title)}`;
     const det = `&details=${encodeURIComponent(details)}`;
     const loc = `&location=${encodeURIComponent(location)}`;
+
     if (!times) return `${base}${text}${det}${loc}`;
+
     const dates = `&dates=${fmtICS(times.start)}/${fmtICS(times.end)}`;
     return `${base}${text}${dates}${det}${loc}`;
   }, [times, title, details, location]);
@@ -58,9 +57,14 @@ export default function AddToCalendar({
     const subject = `&subject=${encodeURIComponent(title)}`;
     const body = `&body=${encodeURIComponent(details)}`;
     const loc = `&location=${encodeURIComponent(location)}`;
+
     if (!times) return `${base}${subject}${body}${loc}`;
-    const startdt = `&startdt=${encodeURIComponent(times.start.toISOString())}`;
+
+    const startdt = `&startdt=${encodeURIComponent(
+      times.start.toISOString()
+    )}`;
     const enddt = `&enddt=${encodeURIComponent(times.end.toISOString())}`;
+
     return `${base}${subject}${body}${loc}${startdt}${enddt}`;
   }, [times, title, details, location]);
 
@@ -75,9 +79,6 @@ export default function AddToCalendar({
     const ics = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Justine Longla T.//Booking//EN",
-      "CALSCALE:GREGORIAN",
-      "METHOD:PUBLISH",
       "BEGIN:VEVENT",
       `UID:${uid}`,
       `DTSTAMP:${fmtICS(new Date())}`,
@@ -95,7 +96,7 @@ export default function AddToCalendar({
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = "intro-call.ics";
+    a.download = "event.ics";
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -105,51 +106,52 @@ export default function AddToCalendar({
 
   const disabled = !times;
 
-  // For <a> elements: disabled isn't supported, so we emulate it.
-  // We also cancel hover/active scaling when "disabled" to avoid bouncy UX.
-  const linkDisabledClass =
-    "cursor-not-allowed bg-slate-200 text-slate-500 dark:bg-slate-800 dark:text-slate-400 hover:scale-100 active:scale-100";
-
   return (
-    <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
-      <ButtonLink
-        href={googleHref}
-        target="_blank"
-        rel="noreferrer"
-        variant="success"
-        aria-disabled={disabled}
-        onClick={(e) => disabled && e.preventDefault()}
-        className={disabled ? linkDisabledClass : ""}
-      >
-        Add to Google
-      </ButtonLink>
+    <div className="mt-6 text-center">
+      <p className="text-sm text-slate-500 dark:text-slate-400">
+        Add this session to your calendar
+      </p>
 
-      <ButtonLink
-        href={outlookHref}
-        target="_blank"
-        rel="noreferrer"
-        variant="primary"
-        aria-disabled={disabled}
-        onClick={(e) => disabled && e.preventDefault()}
-        className={disabled ? linkDisabledClass : ""}
-      >
-        Add to Outlook
-      </ButtonLink>
+      <div className="mt-4 flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
+        <ButtonLink
+          href={googleHref}
+          target="_blank"
+          rel="noreferrer"
+          variant="success"
+          aria-disabled={disabled}
+          onClick={(e) => disabled && e.preventDefault()}
+          className={disabled ? "opacity-50 cursor-not-allowed" : ""}
+        >
+          Google
+        </ButtonLink>
 
-      <Button
-        type="button"
-        onClick={downloadICS}
-        variant="outline"
-        disabled={disabled}
-        title={
-          disabled
-            ? "Calendar file available once start/end are provided by the booking redirect."
-            : "Download .ics (Apple / others)"
-        }
-        className={disabled ? "hover:scale-100 active:scale-100" : ""}
-      >
-        Add to Apple (.ics)
-      </Button>
+        <ButtonLink
+          href={outlookHref}
+          target="_blank"
+          rel="noreferrer"
+          variant="primary"
+          aria-disabled={disabled}
+          onClick={(e) => disabled && e.preventDefault()}
+          className={disabled ? "opacity-50 cursor-not-allowed" : ""}
+        >
+          Outlook
+        </ButtonLink>
+
+        <Button
+          type="button"
+          onClick={downloadICS}
+          variant="outline"
+          disabled={disabled}
+        >
+          Apple (.ics)
+        </Button>
+      </div>
+
+      {disabled && (
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+          Calendar options will be available after booking confirmation.
+        </p>
+      )}
     </div>
   );
 }

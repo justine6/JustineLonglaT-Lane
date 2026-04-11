@@ -1,4 +1,3 @@
-// app/proposal/page.tsx
 import { Suspense } from "react";
 import ProposalClient from "./ProposalClient";
 
@@ -37,7 +36,7 @@ function ProposalSkeleton() {
             <div className="h-48 rounded-2xl bg-slate-200 dark:bg-slate-800" />
           </div>
 
-          <div className="mt-8 h-12 w-48 rounded-2xl bg-slate-200 dark:bg-slate-800" />
+          <div className="mt-10 h-12 w-52 rounded-2xl bg-slate-200 dark:bg-slate-800" />
         </div>
       </div>
     </main>

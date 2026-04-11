@@ -1,7 +1,5 @@
-// app/success/page.tsx
 import Link from "next/link";
 import Stripe from "stripe";
-import { markProposalPaid } from "@/lib/proposal-store";
 import { LINKS } from "@/config/links";
 import CalAutoOpen from "./CalAutoOpen";
 
@@ -14,13 +12,12 @@ function getStripe() {
     throw new Error("Missing STRIPE_SECRET_KEY (set it in .env.local / Vercel).");
   }
 
-  // Use a real Stripe API version supported by your installed stripe package.
-  // If your project pins a different version, align it here.
   return new Stripe(key, { apiVersion: "2024-06-20" as any });
 }
 
 function fmtMoney(amountCents?: number | null, currency?: string | null) {
   if (amountCents == null || currency == null) return null;
+
   try {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -34,15 +31,11 @@ function fmtMoney(amountCents?: number | null, currency?: string | null) {
 export default async function SuccessPage({
   searchParams,
 }: {
-  // In Next.js App Router, searchParams is an object (not a Promise).
   searchParams?: { session_id?: string };
 }) {
   const sessionId = searchParams?.session_id;
+  const kickoffUrl = LINKS.calIntro;
 
-  // Choose which Cal link to open for kickoff after payment
-  const kickoffUrl = LINKS.calIntro; // or LINKS.calHire
-
-  // If user lands here without a session_id, show a friendly message.
   if (!sessionId) {
     return (
       <main className="mx-auto max-w-4xl space-y-6 px-6 py-16 text-center">
@@ -70,7 +63,6 @@ export default async function SuccessPage({
     );
   }
 
-  // Verify the session with Stripe (server-side)
   let session: Stripe.Checkout.Session | null = null;
   let error: string | null = null;
 
@@ -81,23 +73,9 @@ export default async function SuccessPage({
     error = e?.message || "Unable to verify payment.";
   }
 
-  // Stricter paid check (avoid marking paid just because payment_intent exists)
   const paid =
     session?.payment_status === "paid" ||
     (session?.status === "complete" && session?.payment_status !== "unpaid");
-
-  // Record payment (idempotent)
-  if (paid && session?.id) {
-    try {
-      markProposalPaid(
-        session.id,
-        session.amount_total ?? undefined,
-        session.currency ?? undefined
-      );
-    } catch (e) {
-      console.error("Failed to mark proposal paid:", e);
-    }
-  }
 
   const intent = session?.metadata?.intent || "Consulting engagement";
   const service = session?.metadata?.service || "";
@@ -110,7 +88,6 @@ export default async function SuccessPage({
         {paid ? "Payment Successful 🎉" : "Payment Received (Pending) ⏳"}
       </h1>
 
-      {/* Auto-open Cal popup only if payment is confirmed */}
       {paid ? <CalAutoOpen calUrl={kickoffUrl} /> : null}
 
       {error ? (
@@ -127,7 +104,7 @@ export default async function SuccessPage({
             {intent}
           </div>
 
-          <div className="mt-4 grid gap-3 sm:grid-cols-3 text-sm">
+          <div className="mt-4 grid gap-3 text-sm sm:grid-cols-3">
             <Info label="Service" value={service || "—"} />
             <Info label="Tier" value={tier || "—"} />
             <Info label="Total" value={amount || "—"} />
@@ -140,7 +117,11 @@ export default async function SuccessPage({
       )}
 
       <p className="text-slate-600 dark:text-slate-300">
-        Thank you! Next step: schedule a kickoff so we can confirm scope and start delivery.
+        Thank you! Your payment has been received. Next step: schedule a kickoff so we can confirm scope and start delivery.
+      </p>
+
+      <p className="text-sm text-slate-500 dark:text-slate-400">
+        A confirmation email and follow-up steps can be sent from your webhook-driven onboarding flow.
       </p>
 
       <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">

@@ -3,10 +3,9 @@ import HowJLTLaneHelps from "@/components/services-solutions/HowJLTLaneHelps";
 import CommonEngagementPatterns from "@/components/services-solutions/CommonEngagementPatterns";
 import OfferingsGrid from "@/components/services-solutions/OfferingsGrid";
 import Capabilities from "@/components/services-solutions/Capabilities";
-import EngagementModels from "@/components/services-solutions/EngagementModels";
+import EngagementModel from "@/components/services-solutions/EngagementModel";
 import WhyJLT from "@/components/services-solutions/WhyJLT";
 import CTASection from "@/components/services-solutions/CTASection";
-
 export default function ServicesSolutionsPage() {
   return (
     <main className="bg-slate-950 text-white">
@@ -15,7 +14,7 @@ export default function ServicesSolutionsPage() {
       <CommonEngagementPatterns />
       <OfferingsGrid />
       <Capabilities />
-      <EngagementModels />
+      <EngagementModel />
       <WhyJLT />
       <CTASection />
     </main>

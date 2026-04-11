@@ -3,17 +3,17 @@ export default function HowJLTLaneHelps() {
     {
       title: "Assess",
       description:
-        "Understand the current state of the platform, workflows, delivery constraints, and technical risks so the next steps are grounded in reality.",
+        "Understand the current state of the platform, delivery workflows, technical constraints, and operational risks so the next steps are grounded in reality.",
     },
     {
       title: "Design",
       description:
-        "Shape a practical architecture and delivery path that aligns cloud, automation, security, and scalability with business goals.",
+        "Shape a practical architecture and delivery path that aligns cloud, automation, security, and scalability with business priorities.",
     },
     {
       title: "Build",
       description:
-        "Implement solutions across infrastructure, CI/CD, platform tooling, and engineering workflows with clarity and discipline.",
+        "Implement solutions across infrastructure, CI/CD, platform tooling, and engineering workflows with clarity, structure, and discipline.",
     },
     {
       title: "Secure",
@@ -72,6 +72,15 @@ export default function HowJLTLaneHelps() {
               </p>
             </article>
           ))}
+        </div>
+
+        <div className="mt-12 rounded-3xl border border-slate-200 bg-slate-50 px-6 py-6 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+            Working Model
+          </p>
+          <p className="mt-3 text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
+            Assess → Design → Build → Secure → Operate → Improve
+          </p>
         </div>
       </div>
     </section>

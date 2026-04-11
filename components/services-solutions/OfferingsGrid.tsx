@@ -46,9 +46,14 @@ export default function OfferingsGrid() {
               key={item.title}
               className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-slate-300 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700 dark:hover:bg-slate-800"
             >
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
+              <div className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400">
+                Offering
+              </div>
+
+              <h3 className="mt-4 text-xl font-semibold text-slate-900 dark:text-white">
                 {item.title}
               </h3>
+
               <p className="mt-4 leading-7 text-slate-600 dark:text-slate-400">
                 {item.description}
               </p>

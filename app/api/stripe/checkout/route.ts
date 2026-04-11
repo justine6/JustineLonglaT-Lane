@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
@@ -22,6 +23,15 @@ const PLAN_MODES: Record<SupportedPlanKey, "payment" | "subscription"> = {
 
 export async function POST(req: Request) {
   try {
+    const { userId } = await auth();
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: "You must be signed in to start checkout." },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
     const plan = body?.plan as SupportedPlanKey;
     const email = body?.email as string | undefined;
@@ -40,6 +50,7 @@ export async function POST(req: Request) {
     console.log("checkout plan:", plan);
     console.log("price id:", PRICE_IDS[plan]);
     console.log("mode:", PLAN_MODES[plan]);
+    console.log("clerk user id:", userId);
 
     const session = await stripe.checkout.sessions.create({
       mode: PLAN_MODES[plan],
@@ -52,12 +63,14 @@ export async function POST(req: Request) {
       ],
       metadata: {
         plan,
+        clerkUserId: userId,
       },
       subscription_data:
         PLAN_MODES[plan] === "subscription"
           ? {
               metadata: {
                 plan,
+                clerkUserId: userId,
               },
             }
           : undefined,
