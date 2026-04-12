@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
@@ -7,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Providers } from "./providers";
 import Script from "next/script";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -34,55 +34,57 @@ export const viewport: Viewport = { themeColor: "#1e40af" };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        suppressHydrationWarning
-        className="min-h-dvh bg-white text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-50"
-      >
-        <Providers>
-          <Script
-            id="org-schema"
-            type="application/ld+json"
-            strategy="beforeInteractive"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                name: "JLT-Lane",
-                legalName: "Justine Longla T-Lane LLC",
-                alternateName: [
-                  "JLT Lane",
-                  "JLT-Lane Engineering Mesh",
-                  "Justine Longla T-Lane",
-                ],
-                url: "https://justinelonglat-lane.com",
-                logo: "https://justinelonglat-lane.com/logo.png",
-                founder: {
-                  "@type": "Person",
-                  name: "Justine Longla T.",
-                },
-                slogan: "Cloud Confidence. Delivered.",
-              }),
-            }}
-          />
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          suppressHydrationWarning
+          className="min-h-dvh bg-white text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-50"
+        >
+          <Providers>
+            <Script
+              id="org-schema"
+              type="application/ld+json"
+              strategy="beforeInteractive"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "Organization",
+                  name: "JLT-Lane",
+                  legalName: "Justine Longla T-Lane LLC",
+                  alternateName: [
+                    "JLT Lane",
+                    "JLT-Lane Engineering Mesh",
+                    "Justine Longla T-Lane",
+                  ],
+                  url: "https://justinelonglat-lane.com",
+                  logo: "https://justinelonglat-lane.com/logo.png",
+                  founder: {
+                    "@type": "Person",
+                    name: "Justine Longla T.",
+                  },
+                  slogan: "Cloud Confidence. Delivered.",
+                }),
+              }}
+            />
 
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
-          >
-            Skip to content
-          </a>
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
+            >
+              Skip to content
+            </a>
 
-          <Navbar />
+            <Navbar />
 
-          <div className="flex min-h-dvh flex-col">
-            <main id="main-content" className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </Providers>
-      </body>
-    </html>
+            <div className="flex min-h-dvh flex-col">
+              <main id="main-content" className="flex-1">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

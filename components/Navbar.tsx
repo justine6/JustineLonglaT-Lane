@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import { Calendar, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,6 +18,20 @@ type EcoGroup = {
   title: string;
   items: EcoLink[];
 };
+
+type AppRole = "public" | "user" | "client" | "premium" | "admin";
+
+const ROLE_RANK: Record<AppRole, number> = {
+  public: 0,
+  user: 1,
+  client: 2,
+  premium: 3,
+  admin: 4,
+};
+
+function hasMinimumRole(role: AppRole, minimum: AppRole) {
+  return ROLE_RANK[role] >= ROLE_RANK[minimum];
+}
 
 function isExternalHref(href: string) {
   return /^(https?:)?\/\//i.test(href);
@@ -65,6 +80,12 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { user, isLoaded } = useUser();
+
+  const role = (user?.publicMetadata?.role as AppRole | undefined) ?? "public";
+  const isSignedIn = !!user;
+  const canSeePremium = isLoaded && isSignedIn && hasMinimumRole(role, "premium");
+  const canSeeAdmin = isLoaded && isSignedIn && role === "admin";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -118,6 +139,9 @@ export default function Navbar() {
 
   const pillActive =
     "bg-white/16 text-white ring-white/25 shadow-[0_14px_26px_-24px_rgba(0,0,0,0.85)]";
+
+  const utilityButtonClass =
+    "inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition ring-1";
 
   return (
     <>
@@ -223,6 +247,46 @@ export default function Navbar() {
 
             <div className="flex items-center justify-end gap-3">
               <div className="hidden items-center gap-3 md:flex">
+                {!isSignedIn && (
+                  <Link
+                    href="/sign-in"
+                    className={`${utilityButtonClass} border border-white/20 bg-white/10 text-white hover:bg-white/16 hover:ring-white/35`}
+                    onClick={closeMenu}
+                  >
+                    Sign in
+                  </Link>
+                )}
+
+                {isSignedIn && isLoaded && !canSeePremium && (
+                  <Link
+                    href={LINKS.services}
+                    className={`${utilityButtonClass} border border-amber-200/30 bg-white/10 text-white hover:bg-white/16 hover:ring-white/35`}
+                    onClick={closeMenu}
+                  >
+                    Upgrade
+                  </Link>
+                )}
+
+                {canSeePremium && (
+                  <Link
+                    href="/toolkit/premium"
+                    className={`${utilityButtonClass} bg-gradient-to-r from-emerald-500/75 via-sky-500/75 to-blue-500/75 text-white ring-white/20 hover:ring-white/35`}
+                    onClick={closeMenu}
+                  >
+                    Premium Toolkit
+                  </Link>
+                )}
+
+                {canSeeAdmin && (
+                  <Link
+                    href="/admin"
+                    className={`${utilityButtonClass} border border-white/20 bg-white/10 text-white hover:bg-white/16 hover:ring-white/35`}
+                    onClick={closeMenu}
+                  >
+                    Admin
+                  </Link>
+                )}
+
                 <div className="hidden lg:flex">
                   <ProfilePill />
                 </div>
@@ -391,6 +455,46 @@ export default function Navbar() {
                     >
                       Publishing Platform <span aria-hidden="true">↗</span>
                     </a>
+
+                    {!isSignedIn && (
+                      <Link
+                        href="/sign-in"
+                        onClick={closeMenu}
+                        className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                      >
+                        Sign in
+                      </Link>
+                    )}
+
+                    {isSignedIn && isLoaded && !canSeePremium && (
+                      <Link
+                        href={LINKS.services}
+                        onClick={closeMenu}
+                        className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                      >
+                        Upgrade
+                      </Link>
+                    )}
+
+                    {canSeePremium && (
+                      <Link
+                        href="/toolkit/premium"
+                        onClick={closeMenu}
+                        className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                      >
+                        Premium Toolkit
+                      </Link>
+                    )}
+
+                    {canSeeAdmin && (
+                      <Link
+                        href="/admin"
+                        onClick={closeMenu}
+                        className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+                      >
+                        Admin
+                      </Link>
+                    )}
                   </div>
                 </div>
 
