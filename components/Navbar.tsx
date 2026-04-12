@@ -42,7 +42,7 @@ const ECOSYSTEM: EcoGroup[] = [
     title: "BUSINESS",
     items: [
       { label: "Main Site", href: LINKS.mainSite },
-      { label: "Consulting Site", href: LINKS.consultingSite },
+      { label: "Main Site", href: LINKS.mainSite }
     ],
   },
   {

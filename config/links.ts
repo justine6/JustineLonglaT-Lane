@@ -86,9 +86,22 @@ export const LINKS = {
 
   introCall: "/availability",
   hireMe: "/hire-me",
-  
+
   successIntro: joinUrl(SUCCESS_BASE, "/availability?booked=1"),
   successHire: joinUrl(SUCCESS_BASE, "/hire-me?booked=1"),
+
+  consultingSuccessIntro: joinUrl(
+    ORIGINS.main,
+    "/consulting/success?service=intro"
+  ),
+  consultingSuccessReview: joinUrl(
+    ORIGINS.main,
+    "/consulting/success?service=review"
+  ),
+  consultingSuccessRetainer: joinUrl(
+    ORIGINS.main,
+    "/consulting/success?service=retainer"
+  ),
 
   introAbsolute: joinUrl(ORIGINS.main, "/availability"),
   hireAbsolute: joinUrl(ORIGINS.main, "/hire-me"),
@@ -112,7 +125,6 @@ export const LINKS = {
     fallback: "https://cal.com/justine-longla-ptq4no",
   }),
 
-  consultingSite: ORIGINS.main,
   mainSite: ORIGINS.main,
   blogSite: ORIGINS.blog,
   docsSite: ORIGINS.docs,

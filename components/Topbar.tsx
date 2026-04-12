@@ -27,7 +27,7 @@ function isExternalHref(href: string) {
 const ECOSYSTEM: EcoGroup[] = [
   {
     title: "BUSINESS",
-    items: [{ label: "Consulting Site", href: LINKS.consultingSite }],
+    items: [{ label: "Main Site", href: LINKS.mainSite }],
   },
   {
     title: "PLATFORMS",

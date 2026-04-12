@@ -160,8 +160,8 @@ export default function Footer() {
             Main
           </a>
 
-          <a href={LINKS.consultingSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
-            Consulting
+          <a href={LINKS.mainSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Main
           </a>
 
           <a href={LINKS.docsSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
