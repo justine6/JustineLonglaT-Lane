@@ -1,7 +1,6 @@
 // config/links.ts
 
 export const ORIGINS = {
-  consulting: "https://consulting.justinelonglat-lane.com",
   main: "https://justinelonglat-lane.com",
   blog: "https://blogs.justinelonglat-lane.com",
   docs: "https://docs.justinelonglat-lane.com",
@@ -10,9 +9,9 @@ export const ORIGINS = {
 const RUNTIME_BASE =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ??
-  ORIGINS.consulting;
+  ORIGINS.main;
 
-const SUCCESS_BASE = ORIGINS.consulting;
+const SUCCESS_BASE = ORIGINS.main;
 
 function normalizeCalInput(input: string) {
   const raw = (input ?? "").trim();
@@ -113,7 +112,7 @@ export const LINKS = {
     fallback: "https://cal.com/justine-longla-ptq4no",
   }),
 
-  consultingSite: ORIGINS.consulting,
+  consultingSite: ORIGINS.main,
   mainSite: ORIGINS.main,
   blogSite: ORIGINS.blog,
   docsSite: ORIGINS.docs,
