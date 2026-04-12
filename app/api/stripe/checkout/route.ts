@@ -23,69 +23,78 @@ const PLAN_MODES: Record<SupportedPlanKey, "payment" | "subscription"> = {
 
 export async function POST(req: Request) {
   try {
-    const { userId } = await auth();
+    let userId: string | null = null;
+
+    try {
+      const authResult = await auth();
+      userId = authResult?.userId ?? null;
+    } catch {
+      console.warn("Clerk auth unavailable in checkout route, continuing as guest");
+    }
 
     const body = await req.json();
     const plan = body?.plan as SupportedPlanKey;
     const email = body?.email as string | undefined;
 
-if (!plan || !PRICE_IDS[plan]) {
-  console.error("checkout config error", {
-    receivedPlan: plan,
-    introCallPrice: process.env.STRIPE_PRICE_INTRO_CALL ? "set" : "missing",
-    archReviewPrice: process.env.STRIPE_PRICE_ARCH_REVIEW ? "set" : "missing",
-    retainerPrice: process.env.STRIPE_PRICE_RETAINER ? "set" : "missing",
-  });
+    if (!plan || !PRICE_IDS[plan]) {
+      console.error("checkout config error", {
+        receivedPlan: plan,
+        introCallPrice: process.env.STRIPE_PRICE_INTRO_CALL ? "set" : "missing",
+        archReviewPrice: process.env.STRIPE_PRICE_ARCH_REVIEW ? "set" : "missing",
+        retainerPrice: process.env.STRIPE_PRICE_RETAINER ? "set" : "missing",
+      });
 
-  return NextResponse.json(
-    { error: "Invalid or unconfigured plan." },
-    { status: 400 }
-  );
-}
+      return NextResponse.json(
+        { error: "Invalid or unconfigured plan." },
+        { status: 400 }
+      );
+    }
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin;
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      new URL(req.url).origin;
 
-console.log("checkout request", {
-  plan,
-  priceId: PRICE_IDS[plan],
-  mode: PLAN_MODES[plan],
-  clerkUserId: userId ?? "anonymous",
-  hasEmail: Boolean(email),
-  baseUrl,
-});
+    console.log("checkout request", {
+      plan,
+      priceId: PRICE_IDS[plan],
+      mode: PLAN_MODES[plan],
+      clerkUserId: userId ?? "anonymous",
+      hasEmail: Boolean(email),
+      baseUrl,
+    });
 
-const session = await stripe.checkout.sessions.create({
-  mode: PLAN_MODES[plan],
-  customer_email: email,
-  line_items: [
-    {
-      price: PRICE_IDS[plan],
-      quantity: 1,
-    },
-  ],
-  metadata: {
-    plan,
-    ...(userId ? { clerkUserId: userId } : {}),
-  },
-  subscription_data:
-    PLAN_MODES[plan] === "subscription"
-      ? {
-          metadata: {
-            plan,
-            ...(userId ? { clerkUserId: userId } : {}),
-          },
-        }
-      : undefined,
-  success_url: `${baseUrl}/membership/success?session_id={CHECKOUT_SESSION_ID}`,
-  cancel_url: `${baseUrl}/membership/cancel`,
-});
+    const session = await stripe.checkout.sessions.create({
+      mode: PLAN_MODES[plan],
+      customer_email: email,
+      line_items: [
+        {
+          price: PRICE_IDS[plan],
+          quantity: 1,
+        },
+      ],
+      metadata: {
+        plan,
+        ...(userId ? { clerkUserId: userId } : {}),
+      },
+      subscription_data:
+        PLAN_MODES[plan] === "subscription"
+          ? {
+              metadata: {
+                plan,
+                ...(userId ? { clerkUserId: userId } : {}),
+              },
+            }
+          : undefined,
+      success_url: `${baseUrl}/membership/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/membership/cancel`,
+    });
 
-console.log("checkout session created", {
-  plan,
-  sessionId: session.id,
-  hasUrl: Boolean(session.url),
-});
+    console.log("checkout session created", {
+      plan,
+      sessionId: session.id,
+      hasUrl: Boolean(session.url),
+    });
+
     return NextResponse.json({ url: session.url });
   } catch (error: any) {
     console.error("checkout route error", {
