@@ -294,7 +294,7 @@ export default function Navbar() {
                 <ThemeToggle />
 
                 <a
-                  href={LINKS.consultingIntroAbsolute}
+                  href={LINKS.introCall}
                   className="
                     inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white
                     bg-gradient-to-r from-sky-500/70 via-blue-500/70 to-indigo-500/70
@@ -576,7 +576,7 @@ export default function Navbar() {
                 <div className="mt-2 flex items-center justify-between gap-3">
                   <ThemeToggle />
                   <a
-                    href={LINKS.consultingIntroAbsolute}
+                    href={LINKS.introAbsolute}
                     onClick={closeMenu}
                     className="
                       inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white

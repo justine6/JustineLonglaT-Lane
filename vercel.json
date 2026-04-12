@@ -1,14 +1,15 @@
 {
   "redirects": [
-    { "source": "/docs/brochure.pdf", "destination": "/files/brochure.pdf", "permanent": true }
-  ],
-  "headers": [
     {
-      "source": "/files/:file(.*\\.pdf)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
-        { "key": "Content-Disposition", "value": "inline" }
-      ]
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "consulting.justinelonglat-lane.com"
+        }
+      ],
+      "destination": "https://justinelonglat-lane.com/$1",
+      "permanent": true
     }
   ]
 }

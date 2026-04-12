@@ -1,8 +1,14 @@
 import CalPopupButton from "@/components/CalPopupButton";
+import { runtimeLog } from "@/lib/runtime-log";
 
 export const metadata = { title: "Hire Me | Justine Longla T." };
 
 export default function HireMePage() {
+  runtimeLog("info", "hire_me_page_render", {
+    page: "/hire-me",
+    staticCalLink: "https://cal.com/justine-longla-ptq4no",
+  });
+
   return (
     <main className="min-h-screen px-4 sm:px-6 py-12 pt-24">
       <section className="max-w-3xl mx-auto">
@@ -16,4 +22,3 @@ export default function HireMePage() {
     </main>
   );
 }
-

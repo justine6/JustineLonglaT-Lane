@@ -22,7 +22,7 @@ export default function Footer() {
           {/* 📞 / 💼 CTAs */}
           <div className="mt-4 flex flex-wrap gap-3">
             <a
-              href={LINKS.consultingIntroAbsolute}
+             href={LINKS.introCall}
               aria-label="Schedule your intro call"
               className="inline-block rounded-lg bg-blue-600 px-5 py-2 font-medium text-white shadow-sm transition-all duration-300 hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
@@ -30,7 +30,7 @@ export default function Footer() {
             </a>
 
             <a
-              href={LINKS.consultingHireAbsolute}
+              href={LINKS.hireMe}
               aria-label="Hire me"
               className="inline-block rounded-lg border border-blue-600 px-5 py-2 font-medium text-blue-700 transition-all duration-300 hover:scale-[1.03] hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:text-blue-300 dark:hover:bg-blue-950/30"
             >
@@ -122,8 +122,8 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <a className="hover:underline" href="tel:+14059345864">
-                +1 405.934.5864
+              <a className="hover:underline" href="tel:+14054374528">
+                +1 405.437-4528
               </a>
             </li>
             <li>
