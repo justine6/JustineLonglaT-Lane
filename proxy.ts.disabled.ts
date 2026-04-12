@@ -1,9 +1,4 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-
-const isProtectedClerkRoute = createRouteMatcher([
-  "/toolkit(.*)",
-]);
 
 function unauthorized() {
   return new NextResponse("Authentication required.", {
@@ -18,7 +13,6 @@ function handleAdminBasicAuth(req: NextRequest) {
   const user = process.env.ADMIN_BASIC_USER;
   const pass = process.env.ADMIN_BASIC_PASS;
 
-  // Fail closed if not configured
   if (!user || !pass) return unauthorized();
 
   const authHeader = req.headers.get("authorization") || "";
@@ -42,23 +36,17 @@ function handleAdminBasicAuth(req: NextRequest) {
   return null;
 }
 
-export default clerkMiddleware(async (auth, req) => {
+export default function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Keep your existing Basic Auth on /admin
   if (pathname.startsWith("/admin")) {
     const adminResponse = handleAdminBasicAuth(req);
     if (adminResponse) return adminResponse;
   }
 
-  // Protect Clerk routes like /toolkit
-  if (isProtectedClerkRoute(req)) {
-    await auth.protect();
-  }
-
   return NextResponse.next();
-});
+}
 
 export const config = {
-  matcher: ["/(.*)"],
+  matcher: ["/admin(.*)", "/toolkit(.*)"],
 };
