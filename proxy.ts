@@ -60,10 +60,5 @@ export default clerkMiddleware(async (auth, req) => {
 });
 
 export const config = {
-  matcher: [
-    // Run on app routes, excluding Next internals and common static assets
-    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpg|jpeg|png|gif|svg|webp|ico|ttf|woff2?|csv|docx?|xlsx?|zip|webmanifest|xml|txt|pdf)).*)",
-    // Also run on API-style routes
-    "/(api|trpc)(.*)",
-  ],
+  matcher: ["/(.*)"],
 };
