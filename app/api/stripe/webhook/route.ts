@@ -7,8 +7,8 @@ import {
 } from "@/lib/membership";
 import { markProposalPaid } from "@/lib/proposal-store";
 import {
-  deactivateClerkRoleByEmail,
-  setClerkRoleByEmail,
+  deactivateClerkRoleById,
+  setClerkRoleById,
   type SupportedPlanKey,
 } from "@/lib/clerk-role-sync";
 
@@ -81,6 +81,7 @@ export async function POST(req: Request) {
         const session = event.data.object as Stripe.Checkout.Session;
 
         const plan = normalizePlan(session.metadata?.plan);
+        const clerkUserId = session.metadata?.clerkUserId ?? null;
 
         const email =
           session.customer_details?.email || session.customer_email || null;
@@ -120,8 +121,8 @@ export async function POST(req: Request) {
           }
         }
 
-        if (paid && email) {
-          await setClerkRoleByEmail(email, plan);
+        if (paid && clerkUserId) {
+          await setClerkRoleById(clerkUserId, plan);
         }
 
         break;
@@ -139,6 +140,7 @@ export async function POST(req: Request) {
         const email = await getCustomerEmail(customerId);
         const plan = normalizePlan(subscription.metadata?.plan);
         const status = mapSubscriptionStatus(subscription.status);
+        const clerkUserId = subscription.metadata?.clerkUserId ?? null;
 
         if (email) {
           await upsertMembership({
@@ -155,12 +157,12 @@ export async function POST(req: Request) {
           subscription.status === "trialing";
 
         if (activeLike) {
-          if (email) {
-            await setClerkRoleByEmail(email, plan);
+          if (clerkUserId) {
+            await setClerkRoleById(clerkUserId, plan);
           }
         } else {
-          if (email) {
-            await deactivateClerkRoleByEmail(email);
+          if (clerkUserId) {
+            await deactivateClerkRoleById(clerkUserId);
           }
         }
 
@@ -172,15 +174,10 @@ export async function POST(req: Request) {
 
         await deactivateMembershipBySubscriptionId(subscription.id);
 
-        const customerId =
-          typeof subscription.customer === "string"
-            ? subscription.customer
-            : subscription.customer.id;
+        const clerkUserId = subscription.metadata?.clerkUserId ?? null;
 
-        const email = await getCustomerEmail(customerId);
-
-        if (email) {
-          await deactivateClerkRoleByEmail(email);
+        if (clerkUserId) {
+          await deactivateClerkRoleById(clerkUserId);
         }
 
         break;

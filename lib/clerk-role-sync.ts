@@ -1,78 +1,43 @@
 import { clerkClient } from "@clerk/nextjs/server";
+import type { AppRole } from "@/lib/auth/roles";
 
-export type AppRole = "public" | "member" | "premium" | "admin";
-export type SupportedPlanKey = "intro-call" | "arch-review" | "retainer";
+export type SupportedPlanKey =
+  | "intro-call"
+  | "arch-review"
+  | "retainer";
 
-function roleFromPlan(plan: SupportedPlanKey): AppRole | null {
+function mapPlanToRole(plan: SupportedPlanKey): AppRole {
   switch (plan) {
+    case "intro-call":
     case "arch-review":
-      return "member";
+      return "client";
     case "retainer":
       return "premium";
-    case "intro-call":
-      return null;
-    default:
-      return null;
   }
 }
 
-async function findClerkUserByEmail(email: string) {
-  const client = await clerkClient();
-
-  const result = await client.users.getUserList({
-    emailAddress: [email],
-    limit: 1,
-  });
-
-  return result.data[0] ?? null;
-}
-
-export async function setClerkRoleByEmail(
-  email: string,
+export async function setClerkRoleById(
+  clerkUserId: string,
   plan: SupportedPlanKey
 ) {
-  const role = roleFromPlan(plan);
-  if (!role) return;
-
-  const user = await findClerkUserByEmail(email);
-  if (!user) {
-    console.warn(`[clerk-role-sync] No Clerk user found for email: ${email}`);
-    return;
-  }
-
-  const currentRole = user.publicMetadata?.role as AppRole | undefined;
-
-  // Preserve manual admin override
-  if (currentRole === "admin") return;
-
+  const role = mapPlanToRole(plan);
   const client = await clerkClient();
 
-  await client.users.updateUserMetadata(user.id, {
+  await client.users.updateUserMetadata(clerkUserId, {
     publicMetadata: {
       role,
-      billingPlan: plan,
+      plan,
     },
   });
 }
 
-export async function deactivateClerkRoleByEmail(email: string) {
-  const user = await findClerkUserByEmail(email);
-  if (!user) {
-    console.warn(`[clerk-role-sync] No Clerk user found for email: ${email}`);
-    return;
-  }
-
-  const currentRole = user.publicMetadata?.role as AppRole | undefined;
-
-  // Preserve manual admin override
-  if (currentRole === "admin") return;
-
+export async function deactivateClerkRoleById(clerkUserId: string) {
   const client = await clerkClient();
 
-  await client.users.updateUserMetadata(user.id, {
+  await client.users.updateUserMetadata(clerkUserId, {
     publicMetadata: {
-      role: "public",
-      billingPlan: null,
+      role: undefined,
+      plan: undefined,
     },
   });
 }

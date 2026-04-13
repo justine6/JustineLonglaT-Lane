@@ -21,6 +21,19 @@ const PLAN_MODES: Record<SupportedPlanKey, "payment" | "subscription"> = {
   "retainer": "subscription",
 };
 
+function getSuccessUrl(baseUrl: string, plan: SupportedPlanKey) {
+  switch (plan) {
+    case "intro-call":
+      return `${baseUrl}/consulting/success?service=intro&session_id={CHECKOUT_SESSION_ID}`;
+    case "arch-review":
+      return `${baseUrl}/consulting/success?service=review&session_id={CHECKOUT_SESSION_ID}`;
+    case "retainer":
+      return `${baseUrl}/consulting/success?service=retainer&session_id={CHECKOUT_SESSION_ID}`;
+    default:
+      return `${baseUrl}/membership/success?session_id={CHECKOUT_SESSION_ID}`;
+  }
+}
+
 export async function POST(req: Request) {
   try {
     let userId: string | null = null;
@@ -54,6 +67,8 @@ export async function POST(req: Request) {
       process.env.NEXT_PUBLIC_SITE_URL ||
       new URL(req.url).origin;
 
+    const successUrl = getSuccessUrl(baseUrl, plan);
+
     console.log("checkout request", {
       plan,
       priceId: PRICE_IDS[plan],
@@ -61,6 +76,7 @@ export async function POST(req: Request) {
       clerkUserId: userId ?? "anonymous",
       hasEmail: Boolean(email),
       baseUrl,
+      successUrl,
     });
 
     const session = await stripe.checkout.sessions.create({
@@ -85,7 +101,7 @@ export async function POST(req: Request) {
               },
             }
           : undefined,
-      success_url: `${baseUrl}/membership/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: successUrl,
       cancel_url: `${baseUrl}/membership/cancel`,
     });
 

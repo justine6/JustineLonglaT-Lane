@@ -1,15 +1,11 @@
-export {};
+import type { AppRole } from "@/lib/auth/roles";
+import type { SupportedPlanKey } from "@/lib/clerk-role-sync";
 
-type AppRole = "public" | "member" | "premium" | "admin";
-
-declare global {
-  interface CustomJwtSessionClaims {
-    metadata?: {
-      role?: AppRole;
-    };
-  }
-
+declare module "@clerk/types" {
   interface UserPublicMetadata {
     role?: AppRole;
+    plan?: SupportedPlanKey;
   }
 }
+
+export {};

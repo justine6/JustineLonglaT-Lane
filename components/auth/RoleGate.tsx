@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { getCurrentRole } from "@/lib/auth/getCurrentRole";
-import type { AppRole } from "@/lib/auth/requireRole";
+import type { AppRole } from "@/lib/auth/roles";
 
 type RoleGateProps = {
   minimumRole?: AppRole;

@@ -1,7 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-
-export type AppRole = "public" | "user" | "client" | "premium" | "admin";
+import type { AppRole } from "@/lib/auth/roles";
 
 const ROLE_RANK: Record<AppRole, number> = {
   public: 0,

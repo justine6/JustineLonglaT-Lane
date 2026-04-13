@@ -1,5 +1,5 @@
 import { currentUser } from "@clerk/nextjs/server";
-import type { AppRole } from "@/lib/auth/requireRole";
+import type { AppRole } from "@/lib/auth/roles";
 
 export async function getCurrentRole(): Promise<AppRole> {
   const user = await currentUser();
