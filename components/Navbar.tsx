@@ -68,10 +68,9 @@ const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
   { name: "README", href: LINKS.readme },
   { name: "Docs", href: LINKS.docsSite },
-  { name: "Files", href: LINKS.files },
+  { name: "Resources", href: LINKS.files }, // ← renamed
   { name: "About", href: LINKS.about },
   { name: "Projects", href: LINKS.projects },
-  { name: "Services", href: LINKS.services },
   { name: "Blog", href: LINKS.blogSite },
   { name: "Contact", href: LINKS.contact },
 ];
