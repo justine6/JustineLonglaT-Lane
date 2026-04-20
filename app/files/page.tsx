@@ -134,6 +134,8 @@ function badgeClasses(type: ResourceType) {
 }
 
 function ResourceCard({ item }: { item: DownloadItem }) {
+  const isPdf = item.href.toLowerCase().endsWith(".pdf");
+
   return (
     <article className="rounded-2xl border border-slate-200 bg-white/70 p-5 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
       <div className="mb-3 flex items-center gap-2">
@@ -160,14 +162,37 @@ function ResourceCard({ item }: { item: DownloadItem }) {
         {item.description}
       </p>
 
-      <a
-        href={item.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-4 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
-      >
-        {item.cta}
-      </a>
+      <div className="mt-4 flex flex-wrap gap-3">
+        {isPdf ? (
+          <>
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
+            >
+              Read online
+            </a>
+
+            <a
+              href={item.href}
+              download
+              className="inline-flex text-xs font-medium text-slate-600 hover:underline dark:text-slate-300"
+            >
+              Download PDF
+            </a>
+          </>
+        ) : (
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
+          >
+            {item.cta}
+          </a>
+        )}
+      </div>
     </article>
   );
 }
