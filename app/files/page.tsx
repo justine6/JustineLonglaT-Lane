@@ -1,232 +1,306 @@
 // app/files/page.tsx
 import Link from "next/link";
 
+type ResourceType = "Business" | "Whitepaper" | "Narrative" | "Architecture";
+
+type DownloadItem = {
+  title: string;
+  type: ResourceType;
+  version?: string;
+  description: string;
+  href: string;
+  cta: string;
+};
+
+const featuredDownloads: DownloadItem[] = [
+  {
+    title: "JLT Platform Operating Model — Whitepaper",
+    type: "Whitepaper",
+    version: "v1.0.0",
+    description:
+      "A concise overview of the JLT platform philosophy, governance model, control flow, and platform structure.",
+    href: "/files/jlt-platform-operating-model-whitepaper-v1.0.0.pdf",
+    cta: "Download whitepaper",
+  },
+  {
+    title: "JLT Platform Operating Model — Multi-Plane Architecture",
+    type: "Whitepaper",
+    version: "v1.0.0",
+    description:
+      "Canonical reference covering the governed multi-plane architecture, platform lifecycle, and operating responsibilities.",
+    href: "/files/jlt-platform-operating-model-multiplane-architecture-v1.0.0.pdf",
+    cta: "Download architecture paper",
+  },
+];
+
+const businessResources: DownloadItem[] = [
+  {
+    title: "JLT Consulting Brochure",
+    type: "Business",
+    description:
+      "Overview of services, focus areas, and engagement models.",
+    href: "/files/JLT-Consulting-Brochure.pdf",
+    cta: "Download brochure",
+  },
+  {
+    title: "Justine Longla Résumé",
+    type: "Business",
+    description:
+      "Professional experience in platform engineering, DevSecOps, cloud architecture, and automation.",
+    href: "/files/justine-longla-resume-2025.pdf",
+    cta: "View résumé",
+  },
+];
+
+const publications: DownloadItem[] = [
+  {
+    title: "JLT Platform Operating Model — Whitepaper",
+    type: "Whitepaper",
+    version: "v1.0.0",
+    description:
+      "Short overview of fragmentation, governance, RBAC, training strategy, and the platform operating model.",
+    href: "/files/jlt-platform-operating-model-whitepaper-v1.0.0.pdf",
+    cta: "Download PDF",
+  },
+  {
+    title: "JLT Platform Operating Model — Multi-Plane Architecture",
+    type: "Whitepaper",
+    version: "v1.0.0",
+    description:
+      "Deep architecture reference describing the control, knowledge, execution, proof, narrative, and operations planes.",
+    href: "/files/jlt-platform-operating-model-multiplane-architecture-v1.0.0.pdf",
+    cta: "Download PDF",
+  },
+  {
+    title:
+      "JLT Platform Operating Model — Narrative: Scaling Platforms Through Operating Models",
+    type: "Narrative",
+    version: "v1.0.0",
+    description:
+      "Thought leadership resource on why platforms scale through operating models, not tools alone.",
+    href: "/files/jlt-platform-operating-model-narrative-scaling-platforms-v1.0.0.pdf",
+    cta: "Download PDF",
+  },
+];
+
+const architectureArtifacts: DownloadItem[] = [
+  {
+    title: "Platform Control Flow",
+    type: "Architecture",
+    description:
+      "Identity → Request → Billing → Entitlement → Access across the platform lifecycle.",
+    href: "/files/platform-control-flow.pdf",
+    cta: "Download diagram",
+  },
+  {
+    title: "Access Control Architecture",
+    type: "Architecture",
+    description:
+      "Entitlement-based access model showing roles, subscriptions, resource groups, and authorization flow.",
+    href: "/files/access-control-architecture.pdf",
+    cta: "Download diagram",
+  },
+  {
+    title: "Platform Request Lifecycle",
+    type: "Architecture",
+    description:
+      "How requests move through identity, control plane, execution, observability, and operations.",
+    href: "/files/platform-request-lifecycle.pdf",
+    cta: "Download diagram",
+  },
+  {
+    title: "Deployment Guardrails",
+    type: "Architecture",
+    description:
+      "Automation and guardrails used to keep deployments safe, reproducible, and observable.",
+    href: "/files/deployment-guardrails.pdf",
+    cta: "Download diagram",
+  },
+];
+
+function badgeClasses(type: ResourceType) {
+  switch (type) {
+    case "Whitepaper":
+      return "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300";
+    case "Narrative":
+      return "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300";
+    case "Architecture":
+      return "bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300";
+    case "Business":
+      return "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300";
+    default:
+      return "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300";
+  }
+}
+
+function ResourceCard({ item }: { item: DownloadItem }) {
+  return (
+    <article className="rounded-2xl border border-slate-200 bg-white/70 p-5 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
+      <div className="mb-3 flex items-center gap-2">
+        <span
+          className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${badgeClasses(
+            item.type,
+          )}`}
+        >
+          {item.type}
+        </span>
+
+        {item.version ? (
+          <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
+            {item.version}
+          </span>
+        ) : null}
+      </div>
+
+      <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+        {item.title}
+      </h3>
+
+      <p className="mt-2 text-xs leading-6 text-slate-600 dark:text-slate-300">
+        {item.description}
+      </p>
+
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-4 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
+      >
+        {item.cta}
+      </a>
+    </article>
+  );
+}
+
+function ResourceSection({
+  title,
+  intro,
+  items,
+}: {
+  title: string;
+  intro?: string;
+  items: DownloadItem[];
+}) {
+  return (
+    <section className="space-y-4">
+      <div className="space-y-2">
+        <h2 className="text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
+          {title}
+        </h2>
+        {intro ? (
+          <p className="max-w-3xl text-sm text-slate-600 dark:text-slate-300">
+            {intro}
+          </p>
+        ) : null}
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        {items.map((item) => (
+          <ResourceCard key={`${item.title}-${item.href}`} item={item} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function FilesPage() {
   return (
     <main
       id="main-content"
-      className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-16 sm:px-6 lg:px-8"
+      className="mx-auto flex max-w-5xl flex-col gap-10 px-4 py-16 sm:px-6 lg:px-8"
     >
-      <header className="space-y-2">
-        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
-          Publications & Downloads
-        </h1>
-        <p className="mt-3 max-w-3xl text-sm text-slate-600 dark:text-slate-300">
-          One place for brochures, résumé, whitepapers, and platform reference material from Justine Longla T. Consulting.
-        </p>
+      <header className="space-y-4">
+        <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+          JLT Platform Resources
+        </span>
+
+        <div className="space-y-3">
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
+            Downloads & Platform Resources
+          </h1>
+
+          <p className="max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+            A structured resource center for whitepapers, narratives, brochures,
+            diagrams, and platform reference material from JLT-Lane.
+          </p>
+        </div>
       </header>
 
-      <section className="grid gap-4 sm:grid-cols-2">
-        {/* Brochure */}
-        <article className="rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
-          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
-            Consulting Brochure (PDF)
+      <ResourceSection
+        title="Featured Downloads"
+        intro="Start here with the core platform operating model and the deeper architecture reference."
+        items={featuredDownloads}
+      />
+
+      <ResourceSection
+        title="Business Resources"
+        intro="Client-facing materials and professional profile documents."
+        items={businessResources}
+      />
+
+      <ResourceSection
+        title="Whitepapers & Narratives"
+        intro="Knowledge-plane and narrative-plane resources covering the operating model, platform architecture, and systems-thinking point of view."
+        items={publications}
+      />
+
+      <section className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <div className="space-y-2">
+          <h2 className="text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
+            Platform Toolkits
           </h2>
-          <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-            Overview of services, focus areas, and engagement models.
+          <p className="max-w-3xl text-sm text-slate-600 dark:text-slate-300">
+            Explore the supporting documentation and engineering replay material
+            behind the JLT platform ecosystem.
           </p>
-          <Link
-            href="https://consulting.justinelonglat-lane.com/files/JLT-Consulting-Brochure.pdf"
-            target="_blank"
-            className="mt-3 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
-          >
-            Download brochure
-          </Link>
-        </article>
+        </div>
 
-        {/* Résumé */}
-        <article className="rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
-          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
-            Résumé (PDF)
-          </h2>
-          <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-            Detailed experience in DevSecOps, cloud automation, and platform engineering.
-          </p>
-
-          <a
-            href="https://consulting.justinelonglat-lane.com/files/justine-longla-resume-2025.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
-          >
-            View résumé
-          </a>
-        </article>
-        {/* Platform Engineering Publication */}
-        <article className="rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
-          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
-            Platform Engineering Publication — Operating Models (PDF)
-          </h2>
-          <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-            “Platforms Don’t Scale With Tools — They Scale With Operating Models.”
-            A short publication on platform engineering, operating models, and systems thinking.
-          </p>
-          <a
-            href="https://consulting.justinelonglat-lane.com/files/platforms-dont-scale-with-tools-they-scale-with-operating-models.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
-          >
-            Download PDF
-          </a>
-        </article>
-        {/* Platform Operating Model Whitepaper */}
-        <article className="rounded-2xl bborder border-emerald-200 dark:border-emerald-800 bg-white/70 p-4 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
-          
-          <span className="inline-block mb-2 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
-            Whitepaper
-          </span>
-
-          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
-            Governed Multi-Plane Platform Operating Model (PDF)
-          </h2>
-
-          <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-            A platform whitepaper describing the governed multi-plane model used to structure identity,
-            control, knowledge, execution, operations, proof, and narrative across the ecosystem.
-          </p>
-
-          <a
-            href="/files/governed-multi-plane-operating-model.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
-          >
-            Download whitepaper
-          </a>
-
-        </article>
-          <div className="mt-10 mb-2 text-center">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-00 dark:text-slate-400">
-              Engineering Platform Resources
-            </p>
-          </div>
-
-          <hr className="mb-8 border-slate-200 dark:border-slate-700" />
-        </section>
-
-        <section className="files-toolkits">
-          <h2 className="files-subtitle">Explore the Engineering Toolkits & Platform Resources</h2>
-
-          <p className="files-intro">
-            These resources document the automation systems, platform workflows, and engineering patterns used to build, operate, and maintain the JLT-Lane platform ecosystem.
-          </p>
-
-          <p className="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-            🧩 Part of the JLT Engineering Platform
-          </p>
-
-          <div className="files-grid">
-            <div className="file-card">
-              <h3>Automation Toolkit (Docs Site)</h3>
-              <p>
-                Platform documentation covering automation guardrails, deployment workflows,
-                platform artifacts, and operational procedures used across the ecosystem.
-              </p>
-              <a
-                href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-blue-700"
-              >
-                Open Automation Toolkit →
-              </a>
-            </div>
-
-            <div className="file-card">
-              <h3>Publishing & Engineering Replay (Blogs Site)</h3>
-              <p>
-                Deep-dive documentation of scripts, guardrails, and reproducible workflow patterns
-                used in real engineering, publishing, and platform operations.
-              </p>
-              <a
-                href="https://blogs.justinelonglat-lane.com/docs/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-700"
-              >
-                Open Publishing Replay →
-              </a>
-            </div>
-          </div>
-        </section>
-        <section className="files-artifacts">
-        <h2 className="files-subtitle">Platform Architecture Artifacts</h2>
-
-        <p className="files-intro">
-          These architecture artifacts document the structure, control model, and operational flow
-          of the JLT-Lane platform. They are provided as reference material for platform engineering,
-          DevSecOps, and cloud architecture discussions.
-        </p>
-
-        <div className="files-grid">
-          <div className="file-card mb-6">
-            <h3>Platform Control Flow (PDF)</h3>
-            <p>
-              Diagram showing how identity, access control, resource groups, APIs, observability,
-              and runbooks connect across the platform lifecycle.
+        <div className="grid gap-4 sm:grid-cols-2">
+          <article className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950/50">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+              Automation Toolkit
+            </h3>
+            <p className="mt-2 text-xs leading-6 text-slate-600 dark:text-slate-300">
+              Platform documentation covering automation guardrails, deployment
+              workflows, artifacts, and operational procedures.
             </p>
             <a
-              href="/files/platform-control-flow.pdf"
+              href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center rounded-lg bg-slate-700 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-slate-800"
+              className="mt-4 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
             >
-              Download Diagram →
+              Open toolkit
             </a>
-          </div>
+          </article>
 
-          <div className="file-card mb-6">
-            <h3>Access Control Architecture (PDF)</h3>
-            <p>
-              Entitlement-based access control model showing roles, subscriptions,
-              resource groups, and authorization flow across the platform.
+          <article className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950/50">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+              Publishing & Engineering Replay
+            </h3>
+            <p className="mt-2 text-xs leading-6 text-slate-600 dark:text-slate-300">
+              Deep-dive notes on scripts, guardrails, reproducible workflows,
+              and platform publishing patterns.
             </p>
             <a
-              href="/files/access-control-architecture.pdf"
+              href="https://blogs.justinelonglat-lane.com/docs/"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center rounded-lg bg-slate-700 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-slate-800"
+              className="mt-4 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
             >
-              Download Diagram →
+              Open replay
             </a>
-          </div>
-
-          <div className="file-card mb-6">
-            <h3>Platform Request Lifecycle (PDF)</h3>
-            <p>
-              Request lifecycle diagram showing how requests move through identity,
-              control plane, execution plane, observability, and operations.
-            </p>
-            <a
-              href="/files/platform-request-lifecycle.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center rounded-lg bg-slate-700 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-slate-800"
-            >
-              Download Diagram →
-            </a>
-          </div>
-
-          <div className="file-card mb-6">
-            <h3>Deployment Guardrails (PDF)</h3>
-            <p>
-              Guardrails and automation flow used to keep deployments safe,
-              reproducible, and observable across environments.
-            </p>
-            <a
-              href="/files/deployment-guardrails.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center rounded-lg bg-slate-700 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-slate-800"
-            >
-              Download Diagram →
-            </a>
-          </div>
+          </article>
         </div>
       </section>
 
-      <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">
+      <ResourceSection
+        title="Architecture Artifacts"
+        intro="Reference diagrams documenting control flow, access architecture, request lifecycle, and deployment guardrails."
+        items={architectureArtifacts}
+      />
+
+      <p className="text-xs text-slate-500 dark:text-slate-400">
         Looking for something specific? Use the{" "}
         <Link
           href="/contact"
