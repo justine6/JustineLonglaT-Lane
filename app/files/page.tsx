@@ -1,7 +1,12 @@
 // app/files/page.tsx
 import Link from "next/link";
 
-type ResourceType = "Business" | "Whitepaper" | "Narrative" | "Architecture";
+type ResourceType =
+  | "Business"
+  | "Whitepaper"
+  | "Narrative"
+  | "Architecture"
+  | "Toolkit";
 
 type DownloadItem = {
   title: string;
@@ -37,8 +42,7 @@ const businessResources: DownloadItem[] = [
   {
     title: "JLT Consulting Brochure",
     type: "Business",
-    description:
-      "Overview of services, focus areas, and engagement models.",
+    description: "Overview of services, focus areas, and engagement models.",
     href: "/files/JLT-Consulting-Brochure.pdf",
     cta: "Download brochure",
   },
@@ -128,6 +132,8 @@ function badgeClasses(type: ResourceType) {
       return "bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300";
     case "Business":
       return "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300";
+    case "Toolkit":
+      return "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300";
     default:
       return "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300";
   }
@@ -228,6 +234,45 @@ function ResourceSection({
   );
 }
 
+function LockedToolkitCard({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <article className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950/50">
+      <div className="mb-3 flex items-center gap-2">
+        <span className="inline-flex rounded-full bg-purple-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
+          Toolkit
+        </span>
+      </div>
+
+      <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+        {title}
+      </h3>
+
+      <p className="mt-2 text-xs leading-6 text-slate-600 dark:text-slate-300">
+        {description}
+      </p>
+
+      <div className="mt-4 flex flex-wrap gap-3">
+        <span className="inline-flex items-center text-xs font-semibold text-slate-500 dark:text-slate-400">
+          🔒 Available in Toolkit
+        </span>
+
+        <a
+          href="/toolkit"
+          className="inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
+        >
+          Open Toolkit
+        </a>
+      </div>
+    </article>
+  );
+}
+
 export default function FilesPage() {
   return (
     <main
@@ -252,7 +297,7 @@ export default function FilesPage() {
       </header>
 
       <ResourceSection
-        title="Featured Downloads"
+        title="Featured Resources"
         intro="Start here with the core platform operating model and the deeper architecture reference."
         items={featuredDownloads}
       />
@@ -272,50 +317,24 @@ export default function FilesPage() {
       <section className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
         <div className="space-y-2">
           <h2 className="text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
-            Platform Toolkits
+            Toolkit Resources
           </h2>
           <p className="max-w-3xl text-sm text-slate-600 dark:text-slate-300">
-            Explore the supporting documentation and engineering replay material
-            behind the JLT platform ecosystem.
+            Execution-level assets including automation workflows and operational
+            procedures are available through the toolkit.
           </p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <article className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950/50">
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
-              Automation Toolkit
-            </h3>
-            <p className="mt-2 text-xs leading-6 text-slate-600 dark:text-slate-300">
-              Platform documentation covering automation guardrails, deployment
-              workflows, artifacts, and operational procedures.
-            </p>
-            <a
-              href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
-            >
-              Open toolkit
-            </a>
-          </article>
+          <LockedToolkitCard
+            title="Automation Toolkit"
+            description="Execution-ready automation scripts, deployment workflows, and guarded platform procedures used across the JLT ecosystem."
+          />
 
-          <article className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950/50">
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
-              Publishing & Engineering Replay
-            </h3>
-            <p className="mt-2 text-xs leading-6 text-slate-600 dark:text-slate-300">
-              Deep-dive notes on scripts, guardrails, reproducible workflows,
-              and platform publishing patterns.
-            </p>
-            <a
-              href="https://blogs.justinelonglat-lane.com/docs/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex text-xs font-medium text-blue-600 hover:underline dark:text-blue-300"
-            >
-              Open replay
-            </a>
-          </article>
+          <LockedToolkitCard
+            title="Runbooks"
+            description="Operational procedures for recovery, incident handling, service continuity, and controlled platform operations."
+          />
         </div>
       </section>
 
