@@ -9,10 +9,13 @@ export type SupportedPlanKey =
 function mapPlanToRole(plan: SupportedPlanKey): AppRole {
   switch (plan) {
     case "intro-call":
+      return "client";
     case "arch-review":
       return "client";
     case "retainer":
       return "premium";
+    default:
+      return "user"; // fallback safety
   }
 }
 

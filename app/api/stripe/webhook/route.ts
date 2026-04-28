@@ -14,7 +14,7 @@ import {
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
-function normalizePlan(value: string | undefined | null): SupportedPlanKey {
+function normalizePlan(value: string | undefined | null): SupportedPlanKey | null {
   if (
     value === "intro-call" ||
     value === "arch-review" ||
@@ -23,7 +23,7 @@ function normalizePlan(value: string | undefined | null): SupportedPlanKey {
     return value;
   }
 
-  return "arch-review";
+  return null;
 }
 
 function mapSubscriptionStatus(status: Stripe.Subscription.Status) {
@@ -80,7 +80,15 @@ export async function POST(req: Request) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
 
-        const plan = normalizePlan(session.metadata?.plan);
+       const plan = normalizePlan(session.metadata?.plan);
+
+        if (!plan) {
+          console.error("Missing or invalid plan in checkout session metadata", {
+            sessionId: session.id,
+            metadata: session.metadata,
+          });
+          break;
+        }
         const clerkUserId = session.metadata?.clerkUserId ?? null;
 
         const email =
@@ -139,6 +147,14 @@ export async function POST(req: Request) {
 
         const email = await getCustomerEmail(customerId);
         const plan = normalizePlan(subscription.metadata?.plan);
+
+          if (!plan) {
+            console.error("Missing or invalid plan in subscription metadata", {
+              subscriptionId: subscription.id,
+              metadata: subscription.metadata,
+            });
+            break;
+          }
         const status = mapSubscriptionStatus(subscription.status);
         const clerkUserId = subscription.metadata?.clerkUserId ?? null;
 

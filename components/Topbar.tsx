@@ -142,7 +142,7 @@ export default function Topbar() {
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 shadow-sm">
                   <Image
-                    src="/brand/justine-logo.png"
+                    src="/brand/logo-shield.png"
                     alt="Justine Longla T-Lane logo"
                     width={32}
                     height={32}
@@ -155,7 +155,7 @@ export default function Topbar() {
                   <div className="text-sm font-semibold tracking-wide sm:text-base">
                     Justine Longla T-Lane.
                   </div>
-                  <div className="hidden text-[11px] text-white/70 sm:block">
+                  <div className="hidden text-[11px] text-white/60 sm:block">
                     Cloud Confidence. Delivered.
                   </div>
                 </div>

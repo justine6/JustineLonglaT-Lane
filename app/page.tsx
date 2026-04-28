@@ -13,119 +13,124 @@ import ServicesBand from "@/components/ServicesBand";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import VideosTeaser from "@/components/VideosTeaser";
 import CommonEngagementPatterns from "@/components/services-solutions/CommonEngagementPatterns";
+import PlatformProblemSection from "@/components/PlatformProblemSection";
 
 import { heroExplainerData } from "@/data/home";
 
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white px-4 py-8 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10">
-      {/* ✅ Top CTA band */}
+      {/* ✅ 1. Entry: Business + positioning */}
       <div className="mx-auto max-w-7xl">
         <HeroCTA />
       </div>
+            {/* ✅ Logo + navigation CTAs */}
+      <section className="bg-slate-50 py-14 dark:bg-slate-950/40">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="rounded-3xl bg-white/95 p-8 shadow-lg ring-1 ring-slate-200 dark:bg-slate-900/80 dark:ring-slate-700">
 
-      {/* ✅ Hero banner background (ONLY ONCE) */}
-      <HeroBanner />
-
-      {/* 🔷 Services band (Launch / Secure / Operate) */}
-      <AnimatedSection>
-        <section id="services" className="scroll-mt-28">
-          <ServicesBand />
-        </section>
-      </AnimatedSection>
-
-      {/* ✅ Booking section (choose service + pay) */}
-      <AnimatedSection>
-        <section id="booking" className="scroll-mt-28">
-          <BookingSection />
-        </section>
-      </AnimatedSection>
-
-      {/* ✅ Hero explanation / architecture directly after business entry */}
-      <div className="mx-auto max-w-7xl">
-        <HeroExplainer data={heroExplainerData} />
-      </div>
-
-      {/* ✅ Home hero (logo + navigation CTAs only) */}
-      <section className="bg-slate-50 py-10 dark:bg-slate-950/40">
-        <div className="mx-auto max-w-3xl px-2 sm:px-0">
-          <div className="rounded-3xl bg-white/95 p-6 shadow-md ring-1 ring-slate-200 dark:bg-slate-900/80 dark:ring-slate-700">
-            <div className="mx-auto max-w-xs">
+            {/* Logo */}
+            <div className="mx-auto max-w-sm">
               <Image
                 src="/brand/justine-logo.png"
                 alt="Justine Longla T. logo"
-                width={360}
-                height={360}
-                className="mx-auto h-auto w-44 sm:w-52 md:w-56"
+                width={420}
+                height={420}
+                className="mx-auto h-auto w-52 sm:w-60 md:w-64"
                 priority
               />
             </div>
 
-            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {/* CTA Grid */}
+            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
               <Link
                 href="/availability"
-                className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow hover:bg-blue-700"
               >
                 Book Intro Call
               </Link>
 
               <Link
                 href="/services-solutions"
-                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
               >
                 Explore Services
               </Link>
 
               <Link
                 href="#booking"
-                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
               >
                 Book a Service
               </Link>
 
               <a
                 href="/files/JLT-Consulting-Brochure.pdf"
-                className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-5 py-3 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800"
               >
                 Download Brochure
               </a>
 
               <a
                 href="/files/resume.pdf"
-                className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center rounded-xl border border-blue-600 bg-white px-5 py-3 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-100 dark:hover:bg-slate-800"
               >
                 View Résumé
               </a>
 
               <Link
                 href="/engineering-mesh"
-                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
               >
-                <span className="mr-2">🧩</span>
-                Engineering Mesh Hub
+                🧩 Engineering Mesh Hub
               </Link>
 
               <Link
                 href="/case-studies/engineering-grade-publishing"
-                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
               >
-                <span className="mr-2">🧩</span>
-                Publishing Platform
+                🧩 Publishing Platform
               </Link>
 
               <a
                 href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
               >
-                <span className="mr-2">🛠️</span>
-                Automation Platform↗
+                🛠️ Automation Platform ↗
               </a>
+
             </div>
           </div>
         </div>
       </section>
+
+      {/* ✅ 3. Supporting architecture visual */}
+      <HeroBanner />
+
+            {/* ✅ 2. Architecture explanation / main platform idea */}
+      <div className="mx-auto max-w-7xl">
+        <HeroExplainer data={heroExplainerData} />
+      </div>
+
+      {/* ✅ 4. Problem section supporting the architecture */}
+      <PlatformProblemSection />
+
+      {/* 🔷 5. Services band */}
+      <AnimatedSection>
+        <section id="services" className="scroll-mt-28">
+          <ServicesBand />
+        </section>
+      </AnimatedSection>
+
+      {/* ✅ 6. Booking section */}
+      <AnimatedSection>
+        <section id="booking" className="scroll-mt-28">
+          <BookingSection />
+        </section>
+      </AnimatedSection>
 
       {/* 💡 Why Organizations Work With JLT-Lane */}
       <AnimatedSection>
@@ -215,6 +220,7 @@ export default function HomePage() {
                 Practical guides, patterns, and field notes from real engagements.
               </p>
             </div>
+
             <div className="hidden sm:block">
               <Link
                 href="/blog"
@@ -262,10 +268,12 @@ export default function HomePage() {
           <h2 className="mb-6 text-2xl font-semibold sm:text-3xl">
             Certifications &amp; Expertise
           </h2>
+
           <p className="mb-10 text-base text-gray-700 dark:text-gray-300 sm:text-lg">
             AWS and Microsoft certifications that back every architecture decision
             and automation pipeline I deliver.
           </p>
+
           <CertificationsGrid />
         </section>
       </AnimatedSection>
@@ -276,4 +284,4 @@ export default function HomePage() {
       </AnimatedSection>
     </main>
   );
-} 
+}

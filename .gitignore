@@ -84,3 +84,8 @@ packages/shared/dist/
 
 # clerk configuration (can include secrets)
 /.clerk/
+.terraform/
+**/.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl

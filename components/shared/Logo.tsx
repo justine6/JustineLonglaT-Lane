@@ -5,7 +5,7 @@ export default function Logo() {
   return (
     <div className="flex items-center space-x-2">
       <Image
-        src="/brand/justine-logo.png"
+        src="/brand/logo-shield.png"
         alt="Justine Longla T Logo"
         width={40}
         height={40}

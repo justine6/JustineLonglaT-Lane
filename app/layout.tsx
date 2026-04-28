@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/brand/favicon.ico",
     shortcut: "/brand/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    apple: "/brand/apple-touch-icon.png",
   },
   openGraph: {
     title: "Justine Longla T. — Cloud Confidence. Delivered.",
