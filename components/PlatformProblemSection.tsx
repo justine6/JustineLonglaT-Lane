@@ -3,22 +3,29 @@ export default function PlatformProblemSection() {
     <section className="bg-white px-4 py-20 dark:bg-slate-950">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="inline-flex rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-blue-700 dark:border-blue-400/20 dark:bg-blue-500/10 dark:text-blue-300">
+            <p className="inline-flex ...">
             The Platform Problem
-          </p>
+            </p>
 
-          <h2 className="mt-6 text-3xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-4xl">
-            Most teams don’t have a platform.
+            <p className="mt-4 text-sm font-medium text-blue-600 dark:text-blue-400">
+            A pattern I’ve observed across teams
+            </p>
+
+            {/* 🔥 THIS MUST BE HERE */}
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-4xl">
+            Many teams don’t struggle because of their tools.
             <span className="block text-blue-600 dark:text-blue-400">
-              They have disconnected tools.
+                Their systems are fragmented.
             </span>
-          </h2>
+            </h2>
+                        {/* THEN your paragraph */}
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">
+            As a platform engineer, I’ve realized that many teams are not failing because they lack tools—
+            they struggle because their <span className="font-semibold text-slate-900 dark:text-white">systems are fragmented</span>.
 
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">
-            Infrastructure, CI/CD, access control, observability, and operations
-            often grow separately. Over time, this creates fragmented systems,
-            inconsistent access, unclear ownership, and reactive operations.
-          </p>
+            Over time, infrastructure, CI/CD, access control, and operations evolve separately,
+            leading to duplicated effort, inconsistent experiences, and a lack of long-term architectural direction.
+            </p>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
