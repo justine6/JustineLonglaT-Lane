@@ -5,7 +5,14 @@ import postgres from 'postgres';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Connect using Vercel/Neon env
-const sql = postgres(process.env.DATABASE_URL!);
+const connectionString =
+  process.env.DATABASE_URL || process.env.POSTGRES_URL;
+
+if (!connectionString) {
+  throw new Error("Missing database connection string");
+}
+
+const sql = postgres(connectionString);
 
 export async function POST(req: Request) {
   try {
