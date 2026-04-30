@@ -1,18 +1,31 @@
-// app/components/NewsletterSignup.tsx
 'use client';
 
 import { useState } from 'react';
-import { LINKS } from '@/config/links';
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    setSubmitted(true);
-    // Here you could call an API or integration
+
+    setStatus('loading');
+
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!res.ok) throw new Error('Failed');
+
+      setStatus('success');
+      setEmail('');
+    } catch (err) {
+      setStatus('error');
+    }
   };
 
   return (
@@ -25,13 +38,24 @@ export default function NewsletterSignup() {
         placeholder="Enter your email"
         className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition"
+        disabled={status === 'loading'}
+        className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
       >
-        {submitted ? 'Thank you!' : 'Sign Up for Updates'}
+        {status === 'loading'
+          ? 'Subscribing...'
+          : status === 'success'
+          ? 'Subscribed ✓'
+          : 'Sign Up for Updates'}
       </button>
+
+      {status === 'error' && (
+        <p className="text-sm text-red-500 text-center">
+          Something went wrong. Please try again.
+        </p>
+      )}
     </form>
   );
 }
-

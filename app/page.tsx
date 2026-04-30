@@ -14,33 +14,86 @@ import TestimonialSlider from "@/components/TestimonialSlider";
 import VideosTeaser from "@/components/VideosTeaser";
 import CommonEngagementPatterns from "@/components/services-solutions/CommonEngagementPatterns";
 import PlatformProblemSection from "@/components/PlatformProblemSection";
+import NewsletterSection from "@/components/NewsletterSection";
 
 import { heroExplainerData } from "@/data/home";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white px-4 py-8 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10">
-      {/* ✅ 1. Entry: Business + positioning */}
-      <div className="mx-auto max-w-7xl">
-        <HeroCTA />
-      </div>
-            {/* ✅ Logo + navigation CTAs */}
-      <section className="bg-slate-50 py-14 dark:bg-slate-950/40">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="rounded-3xl bg-white/95 p-8 shadow-lg ring-1 ring-slate-200 dark:bg-slate-900/80 dark:ring-slate-700">
+<main className="min-h-screen bg-white px-4 py-8 text-gray-900 dark:bg-gray-950 dark:text-gray-100 sm:px-6 sm:py-10">
+  {/* ✅ 1. Entry: Business + positioning */}
+  <div className="mx-auto max-w-7xl">
+    <HeroCTA />
+  </div>
 
-            {/* Logo */}
-            <div className="mx-auto max-w-sm">
-              <Image
-                src="/brand/justine-logo.png"
-                alt="Justine Longla T. logo"
-                width={420}
-                height={420}
-                className="mx-auto h-auto w-52 sm:w-60 md:w-64"
-                priority
-              />
+  {/* ✅ Logo + navigation CTAs */}
+  <section className="bg-slate-50 py-14 dark:bg-slate-950/40">
+    <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="rounded-3xl bg-white/95 p-8 shadow-lg ring-1 ring-slate-200 dark:bg-slate-900/80 dark:ring-slate-700">
+
+        {/* Logo */}
+        <div className="mx-auto max-w-sm">
+          <Image
+            src="/brand/justine-logo.png"
+            alt="Justine Longla T. logo"
+            width={420}
+            height={420}
+            className="mx-auto h-auto w-52 sm:w-60 md:w-64"
+            priority
+          />
+        </div>
+
+        {/* 🔥 Newsletter Section (NEW) */}
+        <div className="mt-12">
+          <div className="mx-auto max-w-4xl rounded-2xl border border-slate-200 bg-slate-50/70 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900/60">
+
+            <p className="text-center text-xs font-semibold uppercase tracking-[0.25em] text-sky-500">
+              JLT Platform Notes
+            </p>
+
+            <h2 className="mt-3 text-center text-2xl font-bold tracking-tight sm:text-3xl">
+              Build platforms that are controlled, observable, and operable.
+            </h2>
+
+            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-slate-600 dark:text-slate-400">
+              A short newsletter on platform engineering, DevSecOps, access control,
+              observability, and the operating models behind reliable cloud systems.
+            </p>
+
+            {/* Tags */}
+            <div className="mt-5 flex flex-wrap justify-center gap-2 text-xs text-slate-500">
+              <span className="rounded-full bg-sky-100 px-3 py-1 dark:bg-sky-900/40">
+                Identity → Access
+              </span>
+              <span className="rounded-full bg-emerald-100 px-3 py-1 dark:bg-emerald-900/40">
+                Observability → Operations
+              </span>
+              <span className="rounded-full bg-violet-100 px-3 py-1 dark:bg-violet-900/40">
+                Architecture → Platforms
+              </span>
             </div>
 
+            {/* Form */}
+            <form className="mx-auto mt-6 flex max-w-md flex-col gap-3 sm:flex-row">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-full rounded-lg border border-slate-300 px-4 py-2 text-sm outline-none focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950"
+              />
+
+              <button
+                type="submit"
+                className="rounded-lg bg-sky-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-sky-400"
+              >
+                Subscribe
+              </button>
+            </form>
+
+            <p className="mt-3 text-center text-xs text-slate-500">
+              No noise. Just clear platform thinking.
+            </p>
+          </div>
+        </div>
             {/* CTA Grid */}
             <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 
