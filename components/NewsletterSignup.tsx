@@ -1,35 +1,47 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 
 export default function NewsletterSignup() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!email) return;
+    console.log("🟡 submit fired");
+
+    if (!email) {
+      console.log("⛔ no email provided");
+      return;
+    }
 
     setStatus("loading");
 
     try {
+      console.log("📤 sending request to /api/newsletter", email);
+
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
+      const data = await res.json();
+
+      console.log("📥 response status:", res.status);
+      console.log("📥 response body:", data);
+
       if (!res.ok) {
-        throw new Error("Newsletter signup failed");
+        throw new Error(data?.error || "Newsletter signup failed");
       }
 
+      console.log("✅ success");
       setStatus("success");
       setEmail("");
     } catch (error) {
-      console.error(error);
+      console.error("❌ submit error:", error);
       setStatus("error");
     }
   };
@@ -49,25 +61,25 @@ export default function NewsletterSignup() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="rounded-xl bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-xl bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300 disabled:opacity-60"
         >
           {status === "loading"
             ? "Subscribing..."
             : status === "success"
-              ? "Subscribed ✓"
-              : "Subscribe"}
+            ? "Subscribed ✓"
+            : "Subscribe TEST"}
         </button>
       </div>
 
       {status === "success" && (
-        <p className="text-center text-sm text-emerald-300">
-          You’re subscribed to JLT Platform Notes.
+        <p className="text-sm text-emerald-300 text-center">
+          You’re subscribed 🎉
         </p>
       )}
 
       {status === "error" && (
-        <p className="text-center text-sm text-red-300">
-          Something went wrong. Please try again.
+        <p className="text-sm text-red-300 text-center">
+          Something went wrong. Try again.
         </p>
       )}
     </form>
