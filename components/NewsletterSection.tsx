@@ -44,7 +44,9 @@ export default function NewsletterSection() {
               into governed platform systems.
             </p>
 
-             <NewsletterSignup />
+             <div className="mt-6">
+              <NewsletterSignup />
+             </div>
 
             <p className="mt-4 text-xs text-slate-500">
               No noise. Just clear platform thinking.
