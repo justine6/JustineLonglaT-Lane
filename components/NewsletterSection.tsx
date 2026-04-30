@@ -1,3 +1,4 @@
+import NewsletterSignup from "./NewsletterSignup";
 export default function NewsletterSection() {
   return (
     <section className="relative overflow-hidden bg-slate-950 px-6 py-20 text-white">
@@ -43,20 +44,7 @@ export default function NewsletterSection() {
               into governed platform systems.
             </p>
 
-            <form className="mt-6 space-y-4">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-sky-400"
-              />
-
-              <button
-                type="submit"
-                className="w-full rounded-xl bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300"
-              >
-                Subscribe
-              </button>
-            </form>
+             <NewsletterSignup />
 
             <p className="mt-4 text-xs text-slate-500">
               No noise. Just clear platform thinking.
