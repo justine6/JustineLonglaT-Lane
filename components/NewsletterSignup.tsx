@@ -2,14 +2,19 @@
 
 import { useState } from "react";
 import type { FormEvent } from "react";
+import NewsletterSubscriptionSuccess from "./NewsletterSubscriptionSuccess";
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+    "idle"
+  );
   const [message, setMessage] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!email.trim()) return;
 
     setStatus("loading");
     setMessage("");
@@ -17,7 +22,9 @@ export default function NewsletterSignup() {
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ email: email.trim() }),
       });
 
@@ -34,7 +41,8 @@ export default function NewsletterSignup() {
           ? "You are already subscribed."
           : "You’re subscribed! Please check your email."
       );
-    } catch {
+    } catch (error) {
+      console.error("Newsletter signup error:", error);
       setStatus("error");
       setMessage("Something went wrong. Please try again.");
     }
@@ -61,15 +69,7 @@ export default function NewsletterSignup() {
         </button>
       </div>
 
-      {message && (
-        <p
-          className={`text-center text-sm ${
-            status === "success" ? "text-emerald-400" : "text-red-400"
-          }`}
-        >
-          {message}
-        </p>
-      )}
+      <NewsletterSubscriptionSuccess status={status} message={message} />
     </form>
   );
 }
