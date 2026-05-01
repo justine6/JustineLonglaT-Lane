@@ -1,83 +1,87 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import type { FormEvent } from 'react';
+import { useState } from "react";
+import type { FormEvent } from "react";
 
 export default function NewsletterSignup() {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+    "idle"
+  );
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    console.log('🟡 submit fired');
+    console.log("🟡 Newsletter submit fired:", email);
 
-    if (!email) return;
+    if (!email.trim()) return;
 
-    setStatus('loading');
+    setStatus("loading");
+    setMessage("");
 
     try {
-      console.log('📤 sending request to /api/newsletter', email);
-
-      const res = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: email.trim() }),
       });
 
       const data = await res.json();
 
-      console.log('📥 response status:', res.status);
-      console.log('📥 response body:', data);
+      console.log("📥 Newsletter response status:", res.status);
+      console.log("📥 Newsletter response body:", data);
 
       if (!res.ok) {
-        throw new Error(data?.error || 'Newsletter signup failed');
+        throw new Error(data?.error || "Newsletter signup failed");
       }
 
-      setStatus('success');
-      setEmail('');
+      setStatus("success");
+      setEmail("");
+      setMessage(
+        data?.duplicate
+          ? "You are already subscribed."
+          : "You’re subscribed 🎉"
+      );
     } catch (error) {
-      console.error('❌ submit error:', error);
-      setStatus('error');
+      console.error("❌ Newsletter submit error:", error);
+      setStatus("error");
+      setMessage("Something went wrong. Please try again.");
     }
-  };
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="flex flex-col gap-3 sm:flex-row">
+    <form onSubmit={handleSubmit} className="mx-auto mt-6 flex max-w-md flex-col gap-3 sm:flex-row">
+      <div className="w-full">
         <input
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
-          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-sky-400"
+          className="w-full rounded-lg border border-slate-300 px-4 py-2 text-sm outline-none focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950"
         />
 
-        <button
-          type="submit"
-          disabled={status === 'loading'}
-          className="rounded-xl bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {status === 'loading'
-            ? 'Subscribing...'
-            : status === 'success'
-            ? 'Subscribed ✓'
-            : 'Subscribe TEST'}
-        </button>
+        {message && (
+          <p
+            className={`mt-3 text-center text-xs ${
+              status === "success" ? "text-emerald-500" : "text-red-500"
+            }`}
+          >
+            {message}
+          </p>
+        )}
       </div>
 
-      {status === 'success' && (
-        <p className="text-center text-sm text-emerald-300">
-          You’re subscribed 🎉
-        </p>
-      )}
-
-      {status === 'error' && (
-        <p className="text-center text-sm text-red-300">
-          Something went wrong. Please try again.
-        </p>
-      )}
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        className="rounded-lg bg-sky-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {status === "loading" ? "Subscribing..." : "Subscribe TEST"}
+      </button>
     </form>
   );
 }
