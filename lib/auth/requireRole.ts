@@ -10,6 +10,16 @@ const ROLE_RANK: Record<AppRole, number> = {
   admin: 4,
 };
 
+function isAdminEmail(email?: string | null) {
+  const adminEmails = process.env.ADMIN_EMAILS ?? "";
+
+  return adminEmails
+    .split(",")
+    .map((item) => item.trim().toLowerCase())
+    .filter(Boolean)
+    .includes((email ?? "").toLowerCase());
+}
+
 export async function requireRole(requiredRole: AppRole) {
   const user = await currentUser();
 
@@ -17,13 +27,19 @@ export async function requireRole(requiredRole: AppRole) {
     redirect("/sign-in");
   }
 
+  const email = user.emailAddresses?.[0]?.emailAddress;
+  const metadataRole = user.publicMetadata?.role as AppRole | undefined;
+
+  const role: AppRole = isAdminEmail(email)
+    ? "admin"
+    : metadataRole ?? "user";
+
   console.log("ROLE CHECK:", {
-    email: user.emailAddresses?.[0]?.emailAddress,
-    role: user.publicMetadata?.role,
+    email,
+    metadataRole,
+    effectiveRole: role,
     requiredRole,
   });
-
-  const role = (user.publicMetadata?.role as AppRole | undefined) ?? "user";
 
   if (ROLE_RANK[role] < ROLE_RANK[requiredRole]) {
     redirect("/");
