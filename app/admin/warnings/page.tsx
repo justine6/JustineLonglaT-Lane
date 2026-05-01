@@ -1,5 +1,8 @@
 import fs from "fs";
-import path from "path";;
+import path from "path";
+
+export const dynamic = "force-dynamic";
+
 type Warning = {
   message: string;
   timestamp: number;
@@ -9,14 +12,15 @@ export default function WarningsPage() {
   const logFile = path.join(process.cwd(), ".project-warnings.json");
   let warnings: Record<string, Warning> = {};
 
+try {
   if (fs.existsSync(logFile)) {
-    try {
-      const raw = fs.readFileSync(logFile, "utf-8");
-      warnings = JSON.parse(raw);
-    } catch {
-      warnings = {};
-    }
+    const raw = fs.readFileSync(logFile, "utf-8");
+    warnings = JSON.parse(raw);
   }
+} catch (err) {
+  console.error("⚠️ Failed to read warnings file:", err);
+  warnings = {};
+}
 
   const entries = Object.entries(warnings);
 
