@@ -15,6 +15,8 @@ export async function POST(req: Request) {
     const email = String(body.email || "").trim().toLowerCase();
     const source = String(body.source || "website");
     const page = String(body.page || "/");
+    const environment =
+      process.env.VERCEL_ENV || process.env.NODE_ENV || "local";
 
     if (!email || !isValidEmail(email)) {
       return NextResponse.json(
@@ -24,10 +26,14 @@ export async function POST(req: Request) {
     }
 
     await sql`
-      insert into newsletter_subscribers (email, source, page)
-      values (${email}, ${source}, ${page})
+      insert into newsletter_subscribers (email, source, page, environment)
+      values (${email}, ${source}, ${page}, ${environment})
       on conflict (email)
-      do update set last_seen_at = now()
+      do update set
+        last_seen_at = now(),
+        source = excluded.source,
+        page = excluded.page,
+        environment = excluded.environment
     `;
 
     console.log("✅ Subscriber stored:", email);
@@ -58,8 +64,8 @@ export async function POST(req: Request) {
       from,
       to: admin,
       subject: "New Newsletter Subscriber",
-      html: `<p>${email} just subscribed.</p>`,
-      text: `${email} just subscribed.`,
+      html: `<p>${email} just subscribed from ${environment}.</p>`,
+      text: `${email} just subscribed from ${environment}.`,
     });
 
     return NextResponse.json({
@@ -69,6 +75,7 @@ export async function POST(req: Request) {
         email,
         source,
         page,
+        environment,
       },
     });
   } catch (error) {
