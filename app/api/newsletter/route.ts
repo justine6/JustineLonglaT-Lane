@@ -62,7 +62,15 @@ export async function POST(req: Request) {
       text: `${email} just subscribed.`,
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      message: "Welcome to JLT Platform Notes 🎉",
+      data: {
+        email,
+        source,
+        page,
+      },
+    });
   } catch (error) {
     console.error("❌ Newsletter error:", error);
 
