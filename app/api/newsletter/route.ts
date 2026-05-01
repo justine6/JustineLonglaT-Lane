@@ -27,13 +27,15 @@ export async function POST(req: Request) {
 
     try {
       await sql`
-        insert into newsletter_subscribers (email)
-        values (${email})
+        insert into newsletter_subscribers (email, source, status)
+        values (${email}, 'website', 'active')
       `;
     } catch (err: any) {
       if (err.code === "23505") {
         return NextResponse.json({ success: true, duplicate: true });
       }
+
+      console.error("Newsletter DB insert failed:", err);
       throw err;
     }
 
@@ -58,7 +60,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error(error);
+    console.error("Newsletter route error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
