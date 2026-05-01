@@ -17,6 +17,12 @@ export async function requireRole(requiredRole: AppRole) {
     redirect("/sign-in");
   }
 
+  console.log("ROLE CHECK:", {
+    email: user.emailAddresses?.[0]?.emailAddress,
+    role: user.publicMetadata?.role,
+    requiredRole,
+  });
+
   const role = (user.publicMetadata?.role as AppRole | undefined) ?? "user";
 
   if (ROLE_RANK[role] < ROLE_RANK[requiredRole]) {
