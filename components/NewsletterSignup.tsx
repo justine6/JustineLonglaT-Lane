@@ -10,39 +10,35 @@ export default function NewsletterSignup() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("🟡 submit fired");
+    console.log('🟡 submit fired');
 
-    if (!email) {
-      console.log("⛔ no email provided");
-      return;
-    }
+    if (!email) return;
 
-    setStatus("loading");
+    setStatus('loading');
 
     try {
-      console.log("📤 sending request to /api/newsletter", email);
+      console.log('📤 sending request to /api/newsletter', email);
 
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
 
       const data = await res.json();
 
-      console.log("📥 response status:", res.status);
-      console.log("📥 response body:", data);
+      console.log('📥 response status:', res.status);
+      console.log('📥 response body:', data);
 
       if (!res.ok) {
-        throw new Error(data?.error || "Newsletter signup failed");
+        throw new Error(data?.error || 'Newsletter signup failed');
       }
 
-      console.log("✅ success");
-      setStatus("success");
-      setEmail("");
+      setStatus('success');
+      setEmail('');
     } catch (error) {
-      console.error("❌ submit error:", error);
-      setStatus("error");
+      console.error('❌ submit error:', error);
+      setStatus('error');
     }
   };
 
@@ -60,26 +56,26 @@ export default function NewsletterSignup() {
 
         <button
           type="submit"
-          disabled={status === "loading"}
-          className="rounded-xl bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300 disabled:opacity-60"
+          disabled={status === 'loading'}
+          className="rounded-xl bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {status === "loading"
-            ? "Subscribing..."
-            : status === "success"
-            ? "Subscribed ✓"
-            : "Subscribe TEST"}
+          {status === 'loading'
+            ? 'Subscribing...'
+            : status === 'success'
+            ? 'Subscribed ✓'
+            : 'Subscribe TEST'}
         </button>
       </div>
 
-      {status === "success" && (
-        <p className="text-sm text-emerald-300 text-center">
+      {status === 'success' && (
+        <p className="text-center text-sm text-emerald-300">
           You’re subscribed 🎉
         </p>
       )}
 
-      {status === "error" && (
-        <p className="text-sm text-red-300 text-center">
-          Something went wrong. Try again.
+      {status === 'error' && (
+        <p className="text-center text-sm text-red-300">
+          Something went wrong. Please try again.
         </p>
       )}
     </form>
