@@ -1,25 +1,11 @@
-type NewsletterSubscriptionSuccessProps = {
-  status: "idle" | "loading" | "success" | "error";
-  message?: string;
-};
-
-export default function NewsletterSubscriptionSuccess({
-  status,
-  message,
-}: NewsletterSubscriptionSuccessProps) {
-  if (!message || status === "idle" || status === "loading") {
-    return null;
-  }
-
+export default function NewsletterSubscriptionSuccess() {
   return (
-    <div
-      className={`mt-4 rounded-lg px-4 py-3 text-center text-sm font-medium ${
-        status === "success"
-          ? "border border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300"
-          : "border border-red-300 bg-red-50 text-red-700 dark:border-red-700 dark:bg-red-950/40 dark:text-red-300"
-      }`}
-    >
-      {message}
+    <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-5 text-sm text-emerald-100">
+      <p className="font-semibold">You’re subscribed 🎉</p>
+      <p className="mt-1 text-emerald-100/80">
+        Welcome to the JLT-Lane platform journey. Please check your inbox for
+        the confirmation message.
+      </p>
     </div>
   );
 }

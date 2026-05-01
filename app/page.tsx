@@ -15,6 +15,7 @@ import VideosTeaser from "@/components/VideosTeaser";
 import CommonEngagementPatterns from "@/components/services-solutions/CommonEngagementPatterns";
 import PlatformProblemSection from "@/components/PlatformProblemSection";
 import NewsletterSection from "@/components/NewsletterSection";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 import { heroExplainerData } from "@/data/home";
 
@@ -74,20 +75,15 @@ export default function HomePage() {
             </div>
 
             {/* Form */}
-            <form className="mx-auto mt-6 flex max-w-md flex-col gap-3 sm:flex-row">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full rounded-lg border border-slate-300 px-4 py-2 text-sm outline-none focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950"
-              />
+            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-slate-600 dark:text-slate-400">
+              A short newsletter on platform engineering, DevSecOps, access control,
+              observability, and the operating models behind reliable cloud systems.
+            </p>
 
-              <button
-                type="submit"
-                className="rounded-lg bg-sky-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-sky-400"
-              >
-                Subscribe
-              </button>
-            </form>
+            {/* ✅ REAL NEWSLETTER COMPONENT */}
+            <div className="mt-6">
+              <NewsletterSignup />
+            </div>
 
             <p className="mt-3 text-center text-xs text-slate-500">
               No noise. Just clear platform thinking.

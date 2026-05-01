@@ -4,18 +4,25 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import NewsletterSubscriptionSuccess from "./NewsletterSubscriptionSuccess";
 
+type Status = "idle" | "loading" | "success" | "error";
+
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("🔥 SUBMIT CLICKED:", email);
 
-    if (!email.trim()) return;
+    console.log("🔥 FORM SUBMITTED:", email); // DEBUG
+
+    const cleanEmail = email.trim();
+
+    if (!cleanEmail) {
+      setStatus("error");
+      setMessage("Please enter your email address.");
+      return;
+    }
 
     setStatus("loading");
     setMessage("");
@@ -26,27 +33,39 @@ export default function NewsletterSignup() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({
+          email: cleanEmail,
+          source: "newsletter-section",
+          page: window.location.pathname,
+        }),
       });
+
+      console.log("📡 API RESPONSE STATUS:", res.status); // DEBUG
 
       const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data?.error || "Newsletter signup failed");
+      console.log("📦 API RESPONSE DATA:", data); // DEBUG
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Subscription failed.");
       }
 
-      setEmail("");
       setStatus("success");
-      setMessage(
-        data?.duplicate
-          ? "You are already subscribed."
-          : "You’re subscribed! Please check your email."
-      );
+      setEmail("");
     } catch (error) {
-      console.error("Newsletter signup error:", error);
+      console.error("❌ SUBMISSION ERROR:", error); // DEBUG
+
       setStatus("error");
-      setMessage("Something went wrong. Please try again.");
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      );
     }
+  }
+
+  if (status === "success") {
+    return <NewsletterSubscriptionSuccess />;
   }
 
   return (
@@ -58,19 +77,21 @@ export default function NewsletterSignup() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
-          className="w-full rounded-lg border border-slate-300 px-4 py-2 text-sm outline-none focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950"
+          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-sky-400"
         />
 
         <button
           type="submit"
           disabled={status === "loading"}
-          className="rounded-lg bg-sky-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-xl bg-sky-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {status === "loading" ? "Subscribing..." : "Subscribe LIVE TEST"}
+          {status === "loading" ? "Subscribing..." : "Subscribe"}
         </button>
       </div>
 
-      <NewsletterSubscriptionSuccess status={status} message={message} />
+      {status === "error" && (
+        <p className="text-sm text-red-300">{message}</p>
+      )}
     </form>
   );
 }

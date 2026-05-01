@@ -1,66 +1,81 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import postgres from "postgres";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 export async function POST(req: Request) {
   try {
-    const connectionString =
-      process.env.DATABASE_URL || process.env.POSTGRES_URL;
+    const body = await req.json();
 
-    if (!connectionString) {
-      console.error("Missing database connection string");
+    const email = String(body.email || "").trim().toLowerCase();
+    const source = String(body.source || "website");
+    const page = String(body.page || "/");
+
+    if (!email || !isValidEmail(email)) {
       return NextResponse.json(
-        { error: "Database not configured" },
+        { success: false, message: "Please enter a valid email address." },
+        { status: 400 }
+      );
+    }
+
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json(
+        { success: false, message: "Email service is not configured." },
         { status: 500 }
       );
     }
 
-    const sql = postgres(connectionString);
+    const from =
+      process.env.NEWSLETTER_FROM_EMAIL ||
+      "JLT-Lane <onboarding@resend.dev>";
 
-    const { email } = await req.json();
+    const adminEmail =
+      process.env.NEWSLETTER_ADMIN_EMAIL ||
+      "info@justinelonglat-lane.com";
 
-    if (!email) {
-      return NextResponse.json({ error: "Email required" }, { status: 400 });
-    }
-
-    try {
-      await sql`
-        insert into newsletter_subscribers (email, source, status)
-        values (${email}, 'website', 'active')
-      `;
-    } catch (err: any) {
-      if (err.code === "23505") {
-        return NextResponse.json({ success: true, duplicate: true });
-      }
-
-      console.error("Newsletter DB insert failed:", err);
-      throw err;
-    }
-
-    if (process.env.NEXT_PUBLIC_APP_ENV !== "production") {
-      console.log("STAGE: Skipping email send", email);
-      return NextResponse.json({ success: true, stage: true });
-    }
+  await resend.emails.send({
+    from,
+    to: email,
+    subject: "Welcome to JLT-Lane",
+    html: `
+      <h2>Welcome to JLT-Lane</h2>
+      <p>Hi there,</p>
+      <p>Thanks for subscribing to JLT Platform Notes.</p>
+      <p>You’ll receive practical insights on platform engineering, DevSecOps, cloud security, automation, and observability.</p>
+      <p>— Justine</p>
+    `,
+    text: "Welcome to JLT-Lane. Thanks for subscribing to JLT Platform Notes.",
+  });
 
     await resend.emails.send({
-      from: process.env.NEWSLETTER_FROM_EMAIL!,
-      to: email,
-      subject: "Welcome to JLT Platform Notes",
-      html: `<p>You're now subscribed.</p>`,
+      from,
+      to: adminEmail,
+      subject: "New Newsletter Subscriber",
+      html: `
+        <h2>New Newsletter Subscriber</h2>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Source:</strong> ${source}</p>
+        <p><strong>Page:</strong> ${page}</p>
+      `,
     });
 
-    await resend.emails.send({
-      from: process.env.NEWSLETTER_FROM_EMAIL!,
-      to: process.env.NEWSLETTER_ADMIN_EMAIL!,
-      subject: "New Subscriber",
-      html: `<p>${email}</p>`,
+    return NextResponse.json({
+      success: true,
+      message: "Subscription successful.",
     });
-
-    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Newsletter route error:", error);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    console.error("Newsletter subscription error:", error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Something went wrong. Please try again.",
+      },
+      { status: 500 }
+    );
   }
 }
