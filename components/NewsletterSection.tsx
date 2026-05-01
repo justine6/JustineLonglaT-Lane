@@ -1,4 +1,5 @@
 import NewsletterSignup from "./NewsletterSignup";
+
 export default function NewsletterSection() {
   return (
     <section className="relative overflow-hidden bg-slate-950 px-6 py-20 text-white">
@@ -44,9 +45,9 @@ export default function NewsletterSection() {
               into governed platform systems.
             </p>
 
-             <div className="mt-6">
+            <div className="mt-6">
               <NewsletterSignup />
-             </div>
+            </div>
 
             <p className="mt-4 text-xs text-slate-500">
               No noise. Just clear platform thinking.
