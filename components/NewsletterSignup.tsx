@@ -13,6 +13,7 @@ export default function NewsletterSignup() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    console.log("🔥 SUBMIT CLICKED:", email);
 
     if (!email.trim()) return;
 
@@ -65,7 +66,7 @@ export default function NewsletterSignup() {
           disabled={status === "loading"}
           className="rounded-lg bg-sky-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {status === "loading" ? "Subscribing..." : "Subscribe"}
+          {status === "loading" ? "Subscribing..." : "Subscribe LIVE TEST"}
         </button>
       </div>
 
