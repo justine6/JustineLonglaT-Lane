@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sql } from "@/lib/db";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -17,64 +18,59 @@ export async function POST(req: Request) {
 
     if (!email || !isValidEmail(email)) {
       return NextResponse.json(
-        { success: false, message: "Please enter a valid email address." },
+        { success: false, message: "Invalid email address" },
         { status: 400 }
       );
     }
 
-    if (!process.env.RESEND_API_KEY) {
-      return NextResponse.json(
-        { success: false, message: "Email service is not configured." },
-        { status: 500 }
-      );
-    }
+    await sql`
+      insert into newsletter_subscribers (email, source, page)
+      values (${email}, ${source}, ${page})
+      on conflict (email)
+      do update set last_seen_at = now()
+    `;
+
+    console.log("✅ Subscriber stored:", email);
 
     const from =
       process.env.NEWSLETTER_FROM_EMAIL ||
-      "JLT-Lane <onboarding@resend.dev>";
+      "JLT Platform Notes <newsletter@justinelonglat-lane.com>";
 
-    const adminEmail =
+    const admin =
       process.env.NEWSLETTER_ADMIN_EMAIL ||
       "info@justinelonglat-lane.com";
 
-  await resend.emails.send({
-    from,
-    to: email,
-    subject: "Welcome to JLT-Lane",
-    html: `
-      <h2>Welcome to JLT-Lane</h2>
-      <p>Hi there,</p>
-      <p>Thanks for subscribing to JLT Platform Notes.</p>
-      <p>You’ll receive practical insights on platform engineering, DevSecOps, cloud security, automation, and observability.</p>
-      <p>— Justine</p>
-    `,
-    text: "Welcome to JLT-Lane. Thanks for subscribing to JLT Platform Notes.",
-  });
+    await resend.emails.send({
+      from,
+      to: email,
+      subject: "Welcome to JLT-Lane",
+      html: `
+        <h2>Welcome to JLT-Lane</h2>
+        <p>Hi there,</p>
+        <p>Thanks for subscribing to JLT Platform Notes.</p>
+        <p>You’ll receive insights on platform engineering, DevSecOps, and cloud systems.</p>
+        <p>— Justine</p>
+      `,
+      text: "Welcome to JLT-Lane. Thanks for subscribing.",
+    });
 
     await resend.emails.send({
       from,
-      to: adminEmail,
+      to: admin,
       subject: "New Newsletter Subscriber",
-      html: `
-        <h2>New Newsletter Subscriber</h2>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Source:</strong> ${source}</p>
-        <p><strong>Page:</strong> ${page}</p>
-      `,
+      html: `<p>${email} just subscribed.</p>`,
+      text: `${email} just subscribed.`,
     });
 
-    return NextResponse.json({
-      success: true,
-      message: "Subscription successful.",
-    });
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Newsletter subscription error:", error);
+    console.error("❌ Newsletter error:", error);
+
+    const message =
+      error instanceof Error ? error.message : "Unknown newsletter error";
 
     return NextResponse.json(
-      {
-        success: false,
-        message: "Something went wrong. Please try again.",
-      },
+      { success: false, message },
       { status: 500 }
     );
   }
