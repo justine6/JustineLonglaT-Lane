@@ -2,7 +2,10 @@ import NewsletterSignup from "./NewsletterSignup";
 
 export default function NewsletterSection() {
   return (
-    <section className="relative overflow-hidden bg-slate-950 px-6 py-20 text-white">
+    <section
+      id="newsletter"
+      className="relative overflow-hidden bg-slate-950 px-6 py-20 text-white"
+    >
       <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-sky-400">
