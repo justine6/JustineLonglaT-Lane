@@ -26,27 +26,31 @@ export default function NewsletterPage() {
           identity, access control, automation, observability, and operations.
         </p>
 
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          {/* Primary */}
           <a
             href="#newsletter"
-            className="inline-flex rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-500"
+            className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-500"
           >
             Subscribe
           </a>
 
+          {/* Secondary - Read inline */}
           <a
             href="#issue-1"
-            className="inline-flex rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-900 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-50 dark:hover:bg-slate-900"
+            className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-50 dark:hover:bg-slate-900"
           >
             Read Latest Issue
           </a>
 
+          {/* Secondary - Open PDF */}
           <a
             href={latestIssuePdf}
-            download
-            className="inline-flex rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-900 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-50 dark:hover:bg-slate-900"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-50 dark:hover:bg-slate-900"
           >
-            Download PDF
+            📖 Open PDF
           </a>
         </div>
       </section>
@@ -69,6 +73,9 @@ export default function NewsletterPage() {
       </section>
 
       <section id="issue-1" className="mx-auto max-w-5xl px-6 py-16">
+        <span className="inline-flex items-center rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-700 dark:bg-sky-900/40 dark:text-sky-300">
+          Latest Issue
+        </span>
         <p className="text-sm font-semibold uppercase tracking-[0.25em] text-sky-500">
           Issue #1
         </p>
@@ -211,29 +218,31 @@ export default function NewsletterPage() {
             </section>
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            {/* Primary */}
             <a
               href="#newsletter"
-              className="inline-flex rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-500"
+              className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-500"
             >
               Subscribe
             </a>
 
+            {/* Secondary - Read inline */}
+            <a
+              href="#issue-1"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-50 dark:hover:bg-slate-900"
+            >
+              Read Latest Issue
+            </a>
+
+            {/* Secondary - Open PDF */}
             <a
               href={latestIssuePdf}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-900 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-50 dark:hover:bg-slate-900"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-50 dark:hover:bg-slate-900"
             >
-              Open PDF
-            </a>
-
-            <a
-              href={latestIssuePdf}
-              download
-              className="inline-flex rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-900 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-50 dark:hover:bg-slate-900"
-            >
-              Download PDF
+              📖 Open PDF
             </a>
           </div>
         </article>
