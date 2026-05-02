@@ -36,8 +36,6 @@ export async function POST(req: Request) {
         environment = excluded.environment
     `;
 
-    console.log("✅ Subscriber stored:", email);
-
     const from =
       process.env.NEWSLETTER_FROM_EMAIL ||
       "JLT Platform Notes <newsletter@justinelonglat-lane.com>";
@@ -46,7 +44,7 @@ export async function POST(req: Request) {
       process.env.NEWSLETTER_ADMIN_EMAIL ||
       "info@justinelonglat-lane.com";
 
-    await resend.emails.send({
+    const subscriberEmail = await resend.emails.send({
       from,
       to: email,
       subject: "Welcome to JLT-Lane",
@@ -60,7 +58,12 @@ export async function POST(req: Request) {
       text: "Welcome to JLT-Lane. Thanks for subscribing.",
     });
 
-    await resend.emails.send({
+    if (subscriberEmail.error) {
+      console.error("❌ Subscriber email failed:", subscriberEmail.error);
+      throw new Error(subscriberEmail.error.message);
+    }
+
+    const adminEmail = await resend.emails.send({
       from,
       to: admin,
       subject: "New Newsletter Subscriber",
@@ -68,14 +71,26 @@ export async function POST(req: Request) {
       text: `${email} just subscribed from ${environment}.`,
     });
 
+    if (adminEmail.error) {
+      console.error("❌ Admin email failed:", adminEmail.error);
+    }
+
+    console.log("✅ Newsletter email sent:", {
+      email,
+      resendId: subscriberEmail.data?.id,
+      environment,
+    });
+
     return NextResponse.json({
       success: true,
-      message: "Welcome to JLT Platform Notes 🎉",
+      message:
+        "Welcome to JLT Platform Notes 🎉 Please check your inbox or spam folder.",
       data: {
         email,
         source,
         page,
         environment,
+        emailId: subscriberEmail.data?.id,
       },
     });
   } catch (error) {

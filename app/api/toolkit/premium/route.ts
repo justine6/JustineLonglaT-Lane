@@ -25,6 +25,16 @@ function normalizeRole(value: unknown): AppRole {
   return "user";
 }
 
+function isAdminEmail(email?: string | null) {
+  const adminEmails = process.env.ADMIN_EMAILS ?? "";
+
+  return adminEmails
+    .split(",")
+    .map((item) => item.trim().toLowerCase())
+    .filter(Boolean)
+    .includes((email ?? "").toLowerCase());
+}
+
 export async function GET() {
   const user = await currentUser();
 
@@ -35,9 +45,14 @@ export async function GET() {
     );
   }
 
-  const role = normalizeRole(user.publicMetadata?.role);
+  const email = user.emailAddresses?.[0]?.emailAddress;
+  const metadataRole = normalizeRole(user.publicMetadata?.role);
 
-  if (ROLE_RANK[role] < ROLE_RANK.premium) {
+  const effectiveRole: AppRole = isAdminEmail(email)
+    ? "admin"
+    : metadataRole;
+
+  if (ROLE_RANK[effectiveRole] < ROLE_RANK.premium) {
     return NextResponse.json(
       { ok: false, error: "Forbidden" },
       { status: 403 }
@@ -47,6 +62,7 @@ export async function GET() {
   return NextResponse.json({
     ok: true,
     message: "Premium API access granted",
-    role,
+    email,
+    role: effectiveRole,
   });
 }
