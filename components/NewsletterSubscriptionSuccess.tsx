@@ -14,12 +14,31 @@ export default function NewsletterSubscriptionSuccess() {
         If you don’t receive it within a few minutes, or if you have any questions,
         contact info@justinelonglat-lane.com.
       </p>
+
+      {/* Primary CTA */}
       <Link
         href="/engineering-mesh"
         className="mt-4 inline-flex rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-500"
       >
         Check your inbox → Then explore the platform
       </Link>
+
+      {/* Secondary CTAs */}
+      <div className="mt-6 flex flex-wrap gap-3">
+        <Link
+          href="/newsletter"
+          className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-500"
+        >
+          📖 Read the Newsletter
+        </Link>
+
+        <Link
+          href="/blog"
+          className="rounded-xl border border-emerald-300/60 px-5 py-3 text-sm font-semibold text-emerald-900 transition hover:bg-emerald-50 dark:text-emerald-100 dark:hover:bg-emerald-400/10"
+        >
+          Explore Posts
+        </Link>
+      </div>
     </div>
   );
 }
