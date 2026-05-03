@@ -59,7 +59,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="hover:underline"
               >
-                Blog ↗
+                Platform Notes ↗
               </a>
             </li>
             <li>
@@ -160,10 +160,6 @@ export default function Footer() {
             Main
           </a>
 
-          <a href={LINKS.mainSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
-            Main
-          </a>
-
           <a href={LINKS.docsSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
             Docs
           </a>
@@ -177,7 +173,7 @@ export default function Footer() {
           </a>
 
           <a href={LINKS.blogSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
-            Blog
+            Platform Notes
           </a>
 
           <a href={LINKS.toolkit} target="_blank" rel="noopener noreferrer" className="hover:underline">
@@ -192,7 +188,7 @@ export default function Footer() {
           </div>
 
           <div className="text-[11px] text-gray-400 dark:text-gray-500">
-            Platform Surfaces: Main · Docs · Blog · Sandbox · Stripe
+            Platform Surfaces: Main · Docs · Platform Notes · Sandbox · Stripe
           </div>
 
           <div className="flex gap-4 text-[11px] text-gray-400 dark:text-gray-500">

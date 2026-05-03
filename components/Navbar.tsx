@@ -59,7 +59,7 @@ const ECOSYSTEM: EcoGroup[] = [
       { label: "Docs Platform", href: LINKS.docsSite },
       { label: "Runbooks", href: `${LINKS.docsSite}/runbooks/` },
       { label: "Platform Docs", href: `${LINKS.docsSite}/platform/` },
-      { label: "Blog Platform", href: LINKS.blogSite },
+      { label: "Platform Notes", href: LINKS.blogSite },
     ],
   },
 ];
@@ -71,7 +71,7 @@ const NAV_LINKS: NavItem[] = [
   { name: "Resources", href: LINKS.files }, // ← renamed
   { name: "About", href: LINKS.about },
   { name: "Projects", href: LINKS.projects },
-  { name: "Blog", href: LINKS.blogSite },
+  { name: "Platform Notes", href: LINKS.blogSite },
   { name: "Contact", href: LINKS.contact },
 ];
 
