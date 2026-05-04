@@ -12,7 +12,8 @@ function AnimatedCount({ value }: { value: number }) {
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
 
-      setDisplay(Math.floor(eased * value));
+      const startValue = Math.max(0, value - 20);
+        setDisplay(Math.floor(startValue + eased * (value - startValue)));
 
       if (progress < 1) {
         requestAnimationFrame(tick);
@@ -53,7 +54,7 @@ export default function NewsletterCTA() {
 
       {count !== null && count > 0 ? (
         <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
-          Join <AnimatedCount value={count} />+ readers following JLT Platform Notes.
+          Join <AnimatedCount value={count} />+ engineers building real platforms.
         </p>
       ) : (
         <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
