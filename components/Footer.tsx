@@ -133,7 +133,7 @@ export default function Footer() {
               </span>
               <span className="block">128 W I 240 Service Rd PMB [###]</span>
               <span className="block">Oklahoma City, OK 73139</span>
-              <span className="block">United States</span>
+              <span className="block">USA</span>
             </li>
 
             <li>
