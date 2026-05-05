@@ -112,20 +112,36 @@ export default function Footer() {
           <h4 className="mb-2 font-semibold text-slate-900 dark:text-white">CONTACT</h4>
           <ul className="space-y-2">
             <li>
-              <a className="hover:underline" href="mailto:justine@justinelonglat-lane.com">
+              <a
+                className="hover:underline"
+                href="mailto:justine@justinelonglat-lane.com"
+              >
                 justine@justinelonglat-lane.com
               </a>
             </li>
-            <li>
-              <Link href={LINKS.videos} className="hover:underline">
-                Videos
-              </Link>
-            </li>
+
             <li>
               <a className="hover:underline" href="tel:+14054374528">
                 +1 405.437-4528
               </a>
             </li>
+
+            {/* 🏢 Business Address */}
+            <li className="leading-relaxed text-slate-600 dark:text-slate-300">
+              <span className="block font-medium text-slate-800 dark:text-slate-100">
+                JLT-Lane
+              </span>
+              <span className="block">128 W I 240 Service Rd PMB [###]</span>
+              <span className="block">Oklahoma City, OK 73139</span>
+              <span className="block">United States</span>
+            </li>
+
+            <li>
+              <Link href={LINKS.videos} className="hover:underline">
+                Videos
+              </Link>
+            </li>
+
             <li>
               <a
                 className="hover:underline"
@@ -138,66 +154,98 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-      </div>
 
-      {/* 🧾 Footer bottom bar */}
-      <div className="mt-6 border-t border-blue-100/70 px-4 py-4 dark:border-gray-800/80">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 text-center">
-          <p className="text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
-            © {year} <span className="font-semibold">Justine Longla T-Lane.</span> ·
-            DevSecOps • Cloud • Sustainability
-          </p>
+        {/* 🧾 Footer bottom bar */}
+        <div className="mt-6 border-t border-blue-100/70 px-4 py-4 dark:border-gray-800/80">
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 text-center">
+            <p className="text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
+              © {year}{" "}
+              <span className="font-semibold">Justine Longla T-Lane</span> · DevSecOps •
+              Cloud • Sustainability
+            </p>
 
-          <p className="text-xs text-gray-400 dark:text-gray-500">
-            Operating under <span className="font-medium">JustineLonglaT-Lane LLC.</span>
-          </p>
+            <p className="text-xs text-gray-400 dark:text-gray-500">
+              Operating under{" "}
+              <span className="font-medium">Justine Longla T-Lane LLC</span> · JLT-Lane
+            </p>
 
-        <nav
-          aria-label="Platform network"
-          className="mt-2 flex flex-wrap justify-center gap-4 text-xs sm:text-sm text-blue-700 dark:text-blue-300"
-        >
-          <a href={LINKS.mainSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
-            Main
-          </a>
+            <nav
+              aria-label="Platform network"
+              className="mt-2 flex flex-wrap justify-center gap-4 text-xs sm:text-sm text-blue-700 dark:text-blue-300"
+            >
+              <a
+                href={LINKS.mainSite}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Main
+              </a>
 
-          <a href={LINKS.docsSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
-            Docs
-          </a>
+              <a
+                href={LINKS.docsSite}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Docs
+              </a>
 
-          <a href={`${LINKS.docsSite}/runbooks/`} target="_blank" rel="noopener noreferrer" className="hover:underline">
-            Runbooks
-          </a>
+              <a
+                href={`${LINKS.docsSite}/runbooks/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Runbooks
+              </a>
 
-          <a href={`${LINKS.docsSite}/platform/`} target="_blank" rel="noopener noreferrer" className="hover:underline">
-            Platform
-          </a>
+              <a
+                href={`${LINKS.docsSite}/platform/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Platform
+              </a>
 
-          <a href={LINKS.blogSite} target="_blank" rel="noopener noreferrer" className="hover:underline">
-            Publications
-          </a>
+              <a
+                href={LINKS.blogSite}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Publications
+              </a>
 
-          <a href={LINKS.toolkit} target="_blank" rel="noopener noreferrer" className="hover:underline">
-            Toolkit
-          </a>
-        </nav>
+              <a
+                href={LINKS.toolkit}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Toolkit
+              </a>
+            </nav>
 
-          <div className="mt-4 w-full max-w-xl border-t border-blue-100/70 dark:border-gray-800/80" />
+            <div className="mt-4 w-full max-w-xl border-t border-blue-100/70 dark:border-gray-800/80" />
 
-          <div className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
-            {formatPlatformVersion()}
-          </div>
+            <div className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
+              {formatPlatformVersion()}
+            </div>
 
-          <div className="text-[11px] text-gray-400 dark:text-gray-500">
-            Platform Surfaces: Main · Docs · Publications · Sandbox · Stripe
-          </div>
+            <div className="text-[11px] text-gray-400 dark:text-gray-500">
+              Platform Surfaces: Main · Docs · Publications · Sandbox · Stripe
+            </div>
 
-          <div className="flex gap-4 text-[11px] text-gray-400 dark:text-gray-500">
-            <a href="/automation-toolkit/" className="hover:underline">
-              Automation toolkit
-            </a>
-            <a href="/sitemap.html" className="hover:underline">
-              Sitemap
-            </a>
+            <div className="flex gap-4 text-[11px] text-gray-400 dark:text-gray-500">
+              <a href="/automation-toolkit/" className="hover:underline">
+                Automation toolkit
+              </a>
+              <a href="/sitemap.html" className="hover:underline">
+                Sitemap
+              </a>
+            </div>
           </div>
         </div>
       </div>
