@@ -27,6 +27,16 @@ export default function PlatformProblemSection() {
             leading to duplicated effort, inconsistent experiences, and a lack of long-term architectural direction.
             </p>
         </div>
+        <div className="mt-8 flex justify-center">
+          <a
+            href="https://youtu.be/aGcVJ0o7loo"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center rounded-2xl border border-sky-500/30 bg-sky-500/10 px-5 py-3 text-sm font-medium text-sky-300 transition hover:border-sky-400 hover:bg-sky-500/20"
+          >
+            ▶ Watch the JLT Blueprint Presentation
+          </a>
+        </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">

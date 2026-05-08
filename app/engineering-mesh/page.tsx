@@ -9,10 +9,9 @@ import MeshContextSection from "@/components/EngineeringMesh/MeshContextSection"
 import MeshResultsSection from "@/components/EngineeringMesh/MeshResultsSection";
 
 /** Set these to real IDs when ready. Leave empty to show the placeholder UI. */
-const OVERVIEW_VIDEO_ID = "";
+const OVERVIEW_VIDEO_ID = process.env.NEXT_PUBLIC_OVERVIEW_VIDEO_ID;
 const LAMBDA_VIDEO_ID = "";
 const PLAYLIST_ID = "";
-
 const MESH_STORIES: MeshImpactStory[] = [
   {
     title: "Engineering Mesh — Multi-Site Ecosystem",
@@ -361,42 +360,66 @@ export default function EngineeringMeshPage() {
         </div>
       </div>
 
-      <section id="overview-video" className={`scroll-mt-24 ${PAGE_SECTION}`}>
-        <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
-          <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
-            Featured Video — Overview of the Mesh
-          </h2>
+      <section
+        id="overview-video"
+        className={`scroll-mt-24 ${PAGE_SECTION}`}
+      >
+        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6">
+          {/* Header */}
+          <div className="mb-10 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-400">
+              JLT Blueprint Presentation
+            </p>
 
-          <p className={`mt-2 max-w-3xl text-sm md:text-base ${MUTED}`}>
-            A walk-through of the mesh: how the sites connect, where CI/CD enforces trust, and how platform layers like documentation, projects, and billing now work together.
-          </p>
+            <h2
+              className={`mt-4 text-3xl font-bold tracking-tight sm:text-4xl ${HEADING}`}
+            >
+              Fragmentation vs Platform Design
+            </h2>
 
-          <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50">
+            <p
+              className={`mx-auto mt-5 max-w-3xl text-sm leading-7 md:text-base ${MUTED}`}
+            >
+              A systems-thinking presentation exploring unified governance,
+              platform orchestration, operational architecture, and the evolution
+              from fragmented systems to coordinated platforms.
+            </p>
+
+            <p className="mt-6 text-xs uppercase tracking-[0.3em] text-sky-400">
+              Identity. Observability. Execution. Unified.
+            </p>
+          </div>
+
+          {/* Video Container */}
+          <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 shadow-2xl backdrop-blur">
             {OVERVIEW_VIDEO_ID ? (
               <div className="aspect-video w-full">
                 <iframe
                   className="h-full w-full"
                   loading="lazy"
                   referrerPolicy="strict-origin-when-cross-origin"
-                  src={`https://www.youtube.com/embed/${OVERVIEW_VIDEO_ID}?rel=0`}
-                  title="Engineering Mesh overview"
+                  src="https://youtu.be/aGcVJ0o7loo"
+                  title="JLT Blueprint Presentation"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
               </div>
             ) : (
-              <div className="flex aspect-video w-full items-center justify-center text-sm text-slate-500 dark:text-slate-300">
-                JLT YouTube ID in{" "}
-                <code className="ml-1 rounded bg-white px-1.5 py-0.5 text-xs text-slate-700 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:ring-slate-700">
+              <div className="flex aspect-video w-full items-center justify-center text-sm text-slate-400">
+                JLT YouTube ID missing in{" "}
+                <code className="ml-1 rounded bg-slate-900 px-1.5 py-0.5 text-xs text-sky-300 ring-1 ring-white/10">
                   OVERVIEW_VIDEO_ID
-                </code>{" "}
-                to embed the overview.
+                </code>
               </div>
             )}
           </div>
+
+          {/* Footer */}
+          <p className="mt-5 text-center text-xs uppercase tracking-[0.25em] text-slate-500">
+            Unified operating models for modern platform systems.
+          </p>
         </div>
       </section>
-
       <section id="problem" className={`scroll-mt-24 ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
@@ -623,15 +646,15 @@ export default function EngineeringMeshPage() {
               href="https://docs.justinelonglat-lane.com"
             />
             <ResourceRow
-              title="Blog Site"
+              title="Publications & Blogs"
               description="Deep-dive articles on CI/CD, DevSecOps, observability, and platform reliability."
               href="https://blogs.justinelonglat-lane.com"
             />
-            {PLAYLIST_ID && (
+            {OVERVIEW_VIDEO_ID && (
               <ResourceRow
-                title="YouTube Playlist — Engineering Mesh"
-                description="All videos that explain the mesh, Lambda stories, and platform breakdowns."
-                href={`https://www.youtube.com/playlist?list=${PLAYLIST_ID}`}
+                title="YouTube Video — The JLT Blueprint"
+                description="A short presentation on fragmentation, unified governance, and platform operating models."
+                href="https://youtu.be/aGcVJ0o7loo?si=RQMK6HhD9tCwNpYw"
               />
             )}
           </div>
