@@ -8,8 +8,6 @@ export type VideoItem = {
   thumbnail?: string;
   duration?: string;
   tags?: string[];
-
-  // NEW
   youtubeId?: string;
 };
 
@@ -30,7 +28,6 @@ export const VIDEOS: VideoItem[] = [
       "Governance",
     ],
   },
-
   {
     slug: "devsecops-pipeline-walkthrough",
     title: "DevSecOps Pipeline Walkthrough",
@@ -41,7 +38,6 @@ export const VIDEOS: VideoItem[] = [
     duration: "06:32",
     tags: ["DevSecOps", "CI/CD", "Automation"],
   },
-
   {
     slug: "cloud-migration-blueprint",
     title: "Cloud Migration Blueprint (AWS & Azure)",
@@ -54,8 +50,14 @@ export const VIDEOS: VideoItem[] = [
   },
 ];
 
-export function getVideoBySlug(
-  slug: string
-): VideoItem | undefined {
-  return VIDEOS.find((v) => v.slug === slug);
+export function getVideoBySlug(slug: string): VideoItem | undefined {
+  return VIDEOS.find((video) => video.slug === slug);
+}
+
+export function getYouTubeWatchUrl(youtubeId?: string): string | null {
+  return youtubeId ? `https://youtu.be/${youtubeId}` : null;
+}
+
+export function getYouTubeEmbedUrl(youtubeId?: string): string | null {
+  return youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : null;
 }
