@@ -68,9 +68,13 @@ const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
   { name: "README", href: LINKS.readme },
   { name: "Docs", href: LINKS.docsSite },
-  { name: "Resources", href: LINKS.files }, // ← renamed
+  { name: "Resources", href: LINKS.files },
   { name: "About", href: LINKS.about },
   { name: "Projects", href: LINKS.projects },
+
+  // NEW
+  { name: "Videos", href: "/videos" },
+
   { name: "Publications", href: LINKS.blogSite },
   { name: "Contact", href: LINKS.contact },
 ];
@@ -239,6 +243,16 @@ export default function Navbar() {
                 >
                   <span className="flex items-center rounded-full bg-white px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-slate-900 transition hover:bg-slate-50">
                     Engineering <span className="ml-1 text-sky-600">Mesh</span> Hub
+                  </span>
+                </Link>
+                <Link
+                  href="/videos"
+                  className="inline-flex rounded-full bg-gradient-to-r from-fuchsia-400/55 via-violet-300/45 to-sky-500/55 p-[2px] shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  aria-label="JLT Video Library"
+                  onClick={closeMenu}
+                >
+                  <span className="flex items-center rounded-full bg-white px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-slate-900 transition hover:bg-slate-50">
+                    JLT <span className="ml-1 text-violet-600">Videos</span>
                   </span>
                 </Link>
               </div>
