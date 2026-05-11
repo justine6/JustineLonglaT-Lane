@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PROJECTS } from "./data";
+import MeshHubNext from "@/components/meshhub/MeshHubNext";
 import ProjectsCard from "@/components/ProjectsCard";
 
 // Derived collections
@@ -188,6 +189,14 @@ export default function ProjectsPage() {
           </div>
         </section>
       </section>
+      <div className="mx-auto mt-20 max-w-6xl px-4 md:px-6">
+        <MeshHubNext
+          title="Discuss Your Platform Goals"
+          description="Explore how these architectural patterns can be adapted to your own systems, operations, delivery pipelines, and platform strategy."
+          href="/intro-call"
+          cta="Schedule Intro Call"
+        />
+      </div>
     </main>
   );
 }

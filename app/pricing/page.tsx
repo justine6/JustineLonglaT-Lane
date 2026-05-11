@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import MeshHubNext from "@/components/meshhub/MeshHubNext";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -286,6 +287,14 @@ export default function PricingPage() {
           );
         })}
       </section>
+      <div className="mx-auto mt-20 max-w-6xl px-4 md:px-6">
+        <MeshHubNext
+          title="Start Your Platform Conversation"
+          description="Book an architecture review, operational strategy session, or implementation discussion tailored to your platform environment."
+          href="/booking"
+          cta="Book Session"
+        />
+      </div>
     </main>
   );
 }
