@@ -5,6 +5,7 @@ import MeshHeroClient from "@/components/EngineeringMesh/MeshHeroClient";
 import MeshImpactStories, {
   type MeshImpactStory,
 } from "@/components/EngineeringMesh/MeshImpactStories";
+import MeshHubNext from "@/components/meshhub/MeshHubNext";
 import MeshContextSection from "@/components/EngineeringMesh/MeshContextSection";
 import MeshResultsSection from "@/components/EngineeringMesh/MeshResultsSection";
 
@@ -726,6 +727,14 @@ export default function EngineeringMeshPage() {
                 title="Runbooks"
                 description="Operational playbooks for debugging, recovery, and platform procedures."
                 href="https://docs.justinelonglat-lane.com/runbooks.html"
+              />
+            </div>
+            <div className="mx-auto mt-16 max-w-5xl px-4 md:px-6">
+              <MeshHubNext
+                title="Watch The Operational Model In Motion"
+                description="Explore cinematic walkthroughs explaining platform governance, observability, operational architecture, and the Engineering Mesh in action."
+                href="/videos"
+                cta="Open Video Platform"
               />
             </div>
           </div>

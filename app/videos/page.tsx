@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import VideoGrid from "@/components/videos/VideoGrid";
-
+import MeshHubNext from "@/components/meshhub/MeshHubNext";
 export default function VideosPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-sky-50 px-4 py-14 text-slate-950 dark:from-slate-950 dark:via-slate-950 dark:to-black dark:text-white sm:px-6">
@@ -40,6 +40,14 @@ export default function VideosPage() {
         </header>
 
         <VideoGrid />
+        <div className="mt-20">
+          <MeshHubNext
+            title="Read The Thinking Behind The Systems"
+            description="Continue into long-form publications covering platform engineering, governance, observability, and systems thinking."
+            href="/blog"
+            cta="Open Publications"
+          />
+        </div>
 
         <div className="mt-16 text-center">
           <p className="text-xs uppercase tracking-[0.25em] text-slate-500 dark:text-slate-500">
