@@ -32,8 +32,39 @@ export interface VideoItem {
 
 export const VIDEO_LIBRARY: VideoItem[] = [
   {
-    slug: "jlt-blueprint-fragmentation",
+    slug: "jlt-ai-operational-systems-talk-v1",
 
+    title: "JLT AI Operational Systems Talk v1",
+
+    description:
+      "A systems-thinking presentation exploring the shift from fragmented AI tools into governed operational intelligence systems.",
+
+    youtubeId: "7COEMdnVq1s",
+
+    duration: "05:01",
+
+    category: "architecture",
+
+    featured: true,
+
+    engineeringMesh: true,
+
+    tags: [
+      "AI",
+      "Operational Intelligence",
+      "Platform Engineering",
+      "Governance",
+      "Observability",
+    ],
+
+    relatedVideos: [
+      "jlt-blueprint-fragmentation",
+      "engineering-mesh-intro",
+    ],
+  },
+
+  {
+    slug: "jlt-blueprint-fragmentation",
     title:
       "The JLT Blueprint — Fragmentation vs Platform Design",
 
