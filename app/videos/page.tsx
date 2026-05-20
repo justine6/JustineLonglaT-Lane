@@ -38,6 +38,57 @@ export default function VideosPage() {
             </Link>
           </div>
         </header>
+        {/* FEATURED VIDEO */}
+        <div className="mb-16 overflow-hidden rounded-3xl border border-slate-200 bg-white/80 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-white/5">
+          <div className="grid gap-0 lg:grid-cols-2">
+            {/* VIDEO */}
+            <div className="relative aspect-video w-full">
+              <iframe
+                className="h-full w-full"
+                src="https://www.youtube.com/embed/7COEMdnVq1s"
+                title="JLT AI Operational Systems Talk v1"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+
+            {/* CONTENT */}
+            <div className="flex flex-col justify-center p-8 sm:p-10">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-600 dark:text-sky-400">
+                Featured JLT Talk
+              </p>
+
+              <h2 className="mt-4 text-3xl font-bold tracking-tight">
+                AI Operational Systems Talk v1
+              </h2>
+
+              <p className="mt-5 text-sm leading-7 text-slate-600 dark:text-slate-400 sm:text-base">
+                A systems-thinking presentation exploring the transition from fragmented
+                AI tooling toward governed operational intelligence platforms built on
+                identity, observability, execution, and architectural control.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href="https://youtu.be/7COEMdnVq1s"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-2xl bg-sky-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-500"
+                >
+                  Watch on YouTube
+                </a>
+
+                <Link
+                  href="/engineering-mesh"
+                  className="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-semibold transition hover:border-sky-400 hover:text-sky-600 dark:border-white/10 dark:hover:border-sky-400 dark:hover:text-sky-300"
+                >
+                  Explore the Architecture
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <VideoGrid />
         <div className="mt-20">
