@@ -48,6 +48,16 @@ export default function Footer() {
               </Link>
             </li>
             <li>
+              <a
+                href={LINKS.blueprintFactory}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                🏭 Blueprint Factory ↗
+              </a>
+            </li>
+            <li>
               <Link href={LINKS.projects} className="hover:underline">
                 Projects
               </Link>
@@ -175,6 +185,15 @@ export default function Footer() {
               className="mt-2 flex flex-wrap justify-center gap-4 text-xs sm:text-sm text-blue-700 dark:text-blue-300"
             >
               <a
+                href={LINKS.blueprintFactory}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                🏭 Factory
+              </a>
+
+              <a
                 href={LINKS.mainSite}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -190,24 +209,6 @@ export default function Footer() {
                 className="hover:underline"
               >
                 Docs
-              </a>
-
-              <a
-                href={`${LINKS.docsSite}/runbooks/`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline"
-              >
-                Runbooks
-              </a>
-
-              <a
-                href={`${LINKS.docsSite}/platform/`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline"
-              >
-                Platform
               </a>
 
               <a
@@ -236,7 +237,8 @@ export default function Footer() {
             </div>
 
             <div className="text-[11px] text-gray-400 dark:text-gray-500">
-              Platform Surfaces: Main · Docs · Publications · Sandbox · Stripe
+              Platform Surfaces:
+              Factory · Registry · Main · Docs · Insights · Sandbox · Stripe
             </div>
 
             <div className="flex gap-4 text-[11px] text-gray-400 dark:text-gray-500">

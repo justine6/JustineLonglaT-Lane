@@ -14,6 +14,7 @@ import { LINKS } from "@/config/links";
 type NavItem = { name: string; href: string };
 
 type EcoLink = { label: string; href: string };
+
 type EcoGroup = {
   title: string;
   items: EcoLink[];
@@ -41,8 +42,8 @@ const ECOSYSTEM: EcoGroup[] = [
   {
     title: "BUSINESS",
     items: [
+      { label: "🏭 Blueprint Factory", href: LINKS.blueprintFactory },
       { label: "Main Site", href: LINKS.mainSite },
-      { label: "Main Site", href: LINKS.mainSite }
     ],
   },
   {
@@ -59,23 +60,21 @@ const ECOSYSTEM: EcoGroup[] = [
       { label: "Docs Platform", href: LINKS.docsSite },
       { label: "Runbooks", href: `${LINKS.docsSite}/runbooks/` },
       { label: "Platform Docs", href: `${LINKS.docsSite}/platform/` },
-      { label: "Publications", href: LINKS.blogSite },
+      { label: "Insights", href: LINKS.blogSite },
     ],
   },
 ];
 
 const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
+  { name: "🏭 Blueprint Factory", href: LINKS.blueprintFactory },
   { name: "README", href: LINKS.readme },
   { name: "Docs", href: LINKS.docsSite },
   { name: "Resources", href: LINKS.files },
   { name: "About", href: LINKS.about },
   { name: "Projects", href: LINKS.projects },
-
-  // NEW
   { name: "Videos", href: "/videos" },
-
-  { name: "Publications", href: LINKS.blogSite },
+  { name: "Insights", href: LINKS.blogSite },
   { name: "Contact", href: LINKS.contact },
 ];
 
@@ -92,8 +91,10 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
+
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -103,13 +104,16 @@ export default function Navbar() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeMenu();
     };
+
     window.addEventListener("keydown", onKey);
+
     return () => window.removeEventListener("keydown", onKey);
   }, [closeMenu]);
 
   const navWithActive = useMemo(() => {
     return NAV_LINKS.map((link) => {
       const external = isExternalHref(link.href);
+
       const active =
         !external &&
         (pathname === link.href ||
@@ -129,6 +133,7 @@ export default function Navbar() {
   ].join(" ");
 
   const shellBorder = "border-b border-white/10";
+
   const shellShadow = scrolled
     ? "shadow-[0_18px_40px_-26px_rgba(0,0,0,0.75)]"
     : "shadow-sm";
@@ -208,6 +213,20 @@ export default function Navbar() {
                     </span>
                   </span>
                 </a>
+                <a
+                href={LINKS.blueprintFactory}
+                className="inline-flex rounded-full bg-gradient-to-r from-cyan-300/60 via-white/15 to-blue-400/60 p-[2px] shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                aria-label="JLT Blueprint Factory"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="flex items-center gap-2 rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
+                  🏭 Blueprint <span className="hidden lg:inline">Factory</span>
+                  <span aria-hidden="true" className="text-[0.7rem]">
+                    ↗
+                  </span>
+                </span>
+              </a>
 
                 <Link
                   href={LINKS.services}
