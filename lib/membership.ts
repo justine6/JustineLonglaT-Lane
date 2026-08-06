@@ -28,12 +28,11 @@ export type MembershipRecord = {
 
 const PLAN_SCOPES: Record<SupportedPlanKey, string[]> = {
   "intro-call": [],
-  "arch-review": ["docs:premium", "mesh:premium", "files:premium"],
+  "arch-review": ["advisory:priority"],
   "retainer": [
     "docs:premium",
     "mesh:premium",
     "files:premium",
-    "advisory:priority"
   ],
 };
 
