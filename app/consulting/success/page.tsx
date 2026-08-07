@@ -10,32 +10,36 @@ function getServiceContent(service?: string) {
       return {
         title: "Payment received for your Intro Platform Consultation",
         description:
-          "Thank you for your purchase. Your consultation is confirmed on our side. The next step is to book a time that works for you.",
+          "Thank you for your purchase. Your consultation is confirmed. The next step is to choose a time that works for you.",
         nextStepLabel: "Book your intro session",
+        nextStepHref: "/availability",
       };
 
     case "review":
       return {
-        title: "Payment received for your Platform Architecture Review",
+        title: "Welcome to Platform Architect",
         description:
-          "Thank you for your purchase. Your review engagement is now in motion. Please choose a time for your architecture session so we can begin.",
-        nextStepLabel: "Book your review session",
+          "Your Platform Architect subscription is now active. The next step is to schedule your architecture kickoff so we can align on your platform priorities and begin the engagement.",
+        nextStepLabel: "Schedule architecture kickoff",
+        nextStepHref: "/availability",
       };
 
     case "retainer":
       return {
-        title: "Payment received for your Platform Retainer",
+        title: "Welcome to Platform Access",
         description:
-          "Thank you for starting your retainer engagement. The next step is to schedule our kickoff session so we can align on scope, priorities, and immediate next actions.",
-        nextStepLabel: "Schedule kickoff session",
+          "Your Platform Access subscription is now active. You can now enter the Premium Toolkit and access the available premium platform resources.",
+        nextStepLabel: "Enter the Premium Toolkit",
+        nextStepHref: "/toolkit/premium",
       };
 
     default:
       return {
         title: "Payment received",
         description:
-          "Thank you. Your consulting payment was received successfully. Please choose a time for the next step so we can move forward smoothly.",
-        nextStepLabel: "Book your session",
+          "Thank you. Your payment was received successfully. Continue below to access the appropriate next step.",
+        nextStepLabel: "Continue",
+        nextStepHref: "/",
       };
   }
 }
