@@ -1,5 +1,4 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { requireAdmin } from "@/lib/auth/requireAdmin";
 import { sql } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -16,17 +15,7 @@ type Subscriber = {
 };
 
 export default async function AdminSubscribersPage() {
-  const user = await currentUser();
-
-  const role = user?.publicMetadata?.role;
-
-  if (!user) {
-    redirect("/sign-in");
-  }
-
-  if (role !== "admin") {
-    redirect("/");
-  }
+  await requireAdmin();
 
   const subscribers = await sql<Subscriber[]>`
     select
