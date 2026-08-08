@@ -12,23 +12,29 @@ type SupportedPlanKey =
 const PRICE_IDS: Record<SupportedPlanKey, string | undefined> = {
   "intro-call": process.env.STRIPE_PRICE_INTRO_CALL,
   "arch-review": process.env.STRIPE_PRICE_ARCH_REVIEW,
-  "retainer": process.env.STRIPE_PRICE_RETAINER,
+  retainer: process.env.STRIPE_PRICE_RETAINER,
 };
 
-const PLAN_MODES: Record<SupportedPlanKey, "payment" | "subscription"> = {
+const PLAN_MODES: Record<
+  SupportedPlanKey,
+  "payment" | "subscription"
+> = {
   "intro-call": "payment",
-  "arch-review": "subscription",
-  "retainer": "subscription",
+  "arch-review": "payment",
+  retainer: "subscription",
 };
 
 function getSuccessUrl(baseUrl: string, plan: SupportedPlanKey) {
   switch (plan) {
     case "intro-call":
       return `${baseUrl}/consulting/success?service=intro&session_id={CHECKOUT_SESSION_ID}`;
+
     case "arch-review":
       return `${baseUrl}/consulting/success?service=review&session_id={CHECKOUT_SESSION_ID}`;
+
     case "retainer":
       return `${baseUrl}/consulting/success?service=retainer&session_id={CHECKOUT_SESSION_ID}`;
+
     default:
       return `${baseUrl}/membership/success?session_id={CHECKOUT_SESSION_ID}`;
   }
@@ -42,7 +48,9 @@ export async function POST(req: Request) {
       const authResult = await auth();
       userId = authResult?.userId ?? null;
     } catch {
-      console.warn("Clerk auth unavailable in checkout route, continuing as guest");
+      console.warn(
+        "Clerk auth unavailable in checkout route, continuing as guest"
+      );
     }
 
     const body = await req.json();
@@ -52,9 +60,15 @@ export async function POST(req: Request) {
     if (!plan || !PRICE_IDS[plan]) {
       console.error("checkout config error", {
         receivedPlan: plan,
-        introCallPrice: process.env.STRIPE_PRICE_INTRO_CALL ? "set" : "missing",
-        archReviewPrice: process.env.STRIPE_PRICE_ARCH_REVIEW ? "set" : "missing",
-        retainerPrice: process.env.STRIPE_PRICE_RETAINER ? "set" : "missing",
+        introCallPrice: process.env.STRIPE_PRICE_INTRO_CALL
+          ? "set"
+          : "missing",
+        archReviewPrice: process.env.STRIPE_PRICE_ARCH_REVIEW
+          ? "set"
+          : "missing",
+        retainerPrice: process.env.STRIPE_PRICE_RETAINER
+          ? "set"
+          : "missing",
       });
 
       return NextResponse.json(
@@ -64,8 +78,7 @@ export async function POST(req: Request) {
     }
 
     const baseUrl =
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      new URL(req.url).origin;
+      process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin;
 
     const successUrl = getSuccessUrl(baseUrl, plan);
 
@@ -121,7 +134,9 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(
-      { error: error?.message || "Unable to create checkout session." },
+      {
+        error: error?.message || "Unable to create checkout session.",
+      },
       { status: 500 }
     );
   }

@@ -1,17 +1,18 @@
+import { LINKS } from "@/config/links";
 const tiers = [
   {
     name: "Intro Platform Consultation",
     price: "$250",
     description:
       "A focused session to review your system and provide immediate guidance.",
-    link: process.env.NEXT_PUBLIC_STRIPE_INTRO_CALL_URL || "",
+    link: LINKS.stripeServiceIntro,
   },
   {
     name: "Platform Architecture Review",
     price: "$500",
     description:
       "A deeper analysis of your architecture, security, and deployment workflows.",
-    link: process.env.NEXT_PUBLIC_STRIPE_ARCH_REVIEW_URL || "",
+    link: LINKS.stripeServiceReview,
     featured: true,
   },
   {
@@ -19,7 +20,7 @@ const tiers = [
     price: "$5,000",
     description:
       "A comprehensive assessment with roadmap, risk analysis, and optimization plan.",
-    link: process.env.NEXT_PUBLIC_STRIPE_RETAINER_URL || "",
+    link: LINKS.stripeServiceRetainer,
   },
 ];
 

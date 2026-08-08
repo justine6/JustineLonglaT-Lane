@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type FormState = {
   name: string;
@@ -21,28 +21,53 @@ type FormState = {
 export default function DiscoveryIntakeFormClient() {
   const [busy, setBusy] = useState(false);
 
-  const defaults = useMemo<FormState>(
-    () => ({
-      name: "",
-      email: "",
-      org: "",
-      role: "",
-      website: "",
-      service: "architecture-review",
-      budget: "unsure",
-      timeline: "2-4 weeks",
-      cloud: "AWS",
-      stack: "",
-      goals: "",
-      notes: "",
-      honey: "",
-    }),
-    []
-  );
+const defaults = useMemo<FormState>(
+  () => ({
+    name: "",
+    email: "",
+    org: "",
+    role: "",
+    website: "",
+    service: "architecture-review",
+    budget: "unsure",
+    timeline: "2-4 weeks",
+    cloud: "AWS",
+    stack: "",
+    goals: "",
+    notes: "",
+    honey: "",
+  }),
+  []
+);
 
   const [f, setF] = useState<FormState>(defaults);
 
-  function update<K extends keyof FormState>(key: K, value: FormState[K]) {
+  useEffect(() => {
+    const requestedService = new URLSearchParams(
+      window.location.search
+    ).get("service");
+
+    const supportedServices = new Set([
+      "intro-call",
+      "architecture-review",
+      "monthly-retainer",
+      "security-assessment",
+      "platform-build",
+      "enterprise",
+    ]);
+
+    if (requestedService && supportedServices.has(requestedService)) {
+      setF((current) => ({
+        ...current,
+        service: requestedService,
+      }));
+    }
+  }, []);
+
+  function update<K extends keyof FormState>(
+    key: K,
+    value: FormState[K]
+  ) {
     setF((prev) => ({ ...prev, [key]: value }));
   }
 
@@ -159,6 +184,7 @@ export default function DiscoveryIntakeFormClient() {
             <option value="monthly-retainer">Monthly Retainer</option>
             <option value="security-assessment">Security Assessment</option>
             <option value="platform-build">Platform Build</option>
+            <option value="enterprise">Enterprise Platform</option>
           </select>
         </Field>
 
