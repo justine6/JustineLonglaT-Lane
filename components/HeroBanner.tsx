@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useMemo, useRef, useState } from "react";
 
@@ -60,7 +61,11 @@ export default function HeroBanner() {
 
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.04]);
   const y = useTransform(scrollYProgress, [0, 1], [0, -18]);
-  const imageOpacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0.95]);
+  const imageOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.8, 1],
+    [1, 1, 0.95]
+  );
 
   return (
     <section
@@ -146,15 +151,16 @@ export default function HeroBanner() {
             </motion.div>
 
             <div className="mt-5 flex flex-wrap gap-4">
-              <a
+              <Link
                 href="/projects"
                 className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:scale-[1.02] dark:bg-white dark:text-slate-900"
               >
                 Explore Projects
-              </a>
+              </Link>
+
               <a
                 href="/about"
-                className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
+                className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700transition hover:bg-slate-50 dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
               >
                 Learn More
               </a>

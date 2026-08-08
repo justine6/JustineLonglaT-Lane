@@ -23,13 +23,16 @@ export default function VideoModal({
   const relatedVideos = video ? getRelatedVideos(video, 3) : [];
 
   function playNext() {
-    if (!autoplayNext || relatedVideos.length === 0) return;
+    if (!autoplayNext || relatedVideos.length === 0) {
+      return;
+    }
+
     onSelectVideo(relatedVideos[0]);
   }
 
   return (
     <AnimatePresence>
-      {video && (
+      {video ? (
         <motion.div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 py-6 backdrop-blur-md"
           initial={{ opacity: 0 }}
@@ -37,6 +40,9 @@ export default function VideoModal({
           exit={{ opacity: 0 }}
         >
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="video-modal-title"
             layout
             initial={{ opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -47,7 +53,8 @@ export default function VideoModal({
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-4 top-4 z-20 rounded-full bg-black/60 px-3 py-1.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
+              aria-label="Close video"
+              className="absolute right-4 top-4 z-20 rounded-full border border-white/10 bg-black/60 px-4 py-2 text-sm font-medium text-white backdrop-blur transition hover:border-white/30 hover:bg-black/80"
             >
               Close
             </button>
@@ -55,17 +62,23 @@ export default function VideoModal({
             <div className="grid max-h-[88vh] overflow-y-auto lg:grid-cols-[1fr_320px]">
               <div className="space-y-5 p-4 sm:p-6">
                 <div className="overflow-hidden rounded-2xl border border-white/10 bg-black">
-                  {video.videoSrc? (
-                    <video
-                      key={video.slug}
-                      src={video.videoSrc}
-                      poster={video.thumbnailSrc}
-                      controls
-                      autoPlay
-                      playsInline
-                      onEnded={playNext}
-                      className="aspect-video w-full bg-black"
-                    />
+                  {video.videoSrc ? (
+                    <>
+                      {/* Caption files are not yet available for the local
+                          presentation videos. Add a genuine WebVTT track and
+                          remove this suppression when captions are produced. */}
+                      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                      <video
+                        key={video.slug}
+                        src={video.videoSrc}
+                        poster={video.thumbnailSrc}
+                        controls
+                        autoPlay
+                        playsInline
+                        onEnded={playNext}
+                        className="aspect-video w-full bg-black"
+                      />
+                    </>
                   ) : video.youtubeId ? (
                     <iframe
                       key={video.slug}
@@ -82,7 +95,7 @@ export default function VideoModal({
                   )}
                 </div>
 
-                {video.videoSrc && video.youtubeId && (
+                {video.videoSrc && video.youtubeId ? (
                   <a
                     href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
                     target="_blank"
@@ -91,19 +104,23 @@ export default function VideoModal({
                   >
                     Open YouTube fallback
                   </a>
-                )}
+                ) : null}
 
                 <div>
-                  <h2 className="text-2xl font-bold text-white">
+                  <h2
+                    id="video-modal-title"
+                    className="text-2xl font-bold text-white"
+                  >
                     {video.title}
                   </h2>
+
                   <p className="mt-3 leading-7 text-slate-400">
                     {video.description}
                   </p>
                 </div>
               </div>
 
-              <aside className="border-t border-white/10 bg-white/[0.03] p-4 lg:border-l lg:border-t-0 sm:p-6">
+              <aside className="border-t border-white/10 bg-white/[0.03] p-4 sm:p-6 lg:border-l lg:border-t-0">
                 <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
                   Related Videos
                 </h3>
@@ -117,6 +134,7 @@ export default function VideoModal({
                       className="w-full rounded-2xl border border-white/10 bg-slate-900/80 p-4 text-left transition hover:border-sky-400/40 hover:bg-slate-900"
                     >
                       <p className="font-semibold text-white">{item.title}</p>
+
                       <p className="mt-1 line-clamp-2 text-sm text-slate-400">
                         {item.description}
                       </p>
@@ -127,7 +145,7 @@ export default function VideoModal({
             </div>
           </motion.div>
         </motion.div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 }

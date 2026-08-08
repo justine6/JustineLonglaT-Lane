@@ -40,7 +40,7 @@ jobs:
       - name: Security audit (high+)
         run: pnpm audit --audit-level=high
 
-      - name: Platform checks (repair + lint + coverage strict)
+      - name: Platform checks (lint + coverage strict)
         run: pnpm run ci-check
 
   build:
