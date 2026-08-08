@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className="bg-gradient-to-b from-slate-100 via-white to-slate-50 px-6 py-28 text-center text-slate-900 dark:from-slate-900 dark:to-slate-950 dark:text-white">
+    <section className="bg-gradient-to-b from-slate-100 via-white to-slate-50 px-6 pb-28 pt-16 text-center text-slate-900 dark:from-slate-900 dark:to-slate-950 dark:text-white sm:pt-20 lg:pt-24">
       <div className="mx-auto max-w-4xl">
         {/* Breadcrumb */}
         <p className="text-sm text-slate-500 dark:text-slate-400">

@@ -2,6 +2,11 @@ import Link from "next/link";
 
 const services = [
   {
+    title: "Define",
+    description:
+      "Turn a business idea into clear requirements, a feasible MVP boundary, and an architecture-informed delivery direction.",
+  },
+  {
     title: "Launch",
     description:
       "Design and build cloud platforms, modernization paths, and delivery foundations that help organizations move forward with clarity.",
@@ -23,15 +28,16 @@ export default function ServicesBand() {
     <section className="bg-white py-16 dark:bg-slate-950">
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <div className="mx-auto mb-10 max-w-3xl text-center">
-          <h2 className="text-2xl font-semibold sm:text-3xl">
+          <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-50 sm:text-3xl">
             How JLT-Lane Helps
           </h2>
           <p className="mt-3 text-base text-gray-600 dark:text-gray-400 sm:text-lg">
-            From platform design to secure delivery and operational reliability.
+            From product definition and platform design to secure delivery and
+            operational reliability.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {services.map((service) => (
             <article
               key={service.title}
