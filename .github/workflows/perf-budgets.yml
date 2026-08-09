@@ -21,17 +21,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.0.0
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Install
-        run: npm ci
+      - name: Install (deterministic)
+        run: pnpm install --frozen-lockfile
 
       - name: Build (collect sizes)
-        run: npm run build
+        run: pnpm run build
 
       # Soft budget check: fail only if huge regression.
       # You can tighten this later.

@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 function isValidEmail(email: string): boolean {
   if (email.length === 0 || email.length > 254) {
@@ -65,6 +64,23 @@ export async function POST(req: Request) {
         { status: 400 },
       );
     }
+    const resendApiKey = process.env.RESEND_API_KEY;
+
+if (!resendApiKey) {
+  console.error(
+    "Newsletter service is unavailable: RESEND_API_KEY is missing.",
+  );
+
+  return NextResponse.json(
+    {
+      success: false,
+      message: "Newsletter service is temporarily unavailable.",
+    },
+    { status: 503 },
+  );
+}
+
+const resend = new Resend(resendApiKey);
 
     await sql`
       insert into newsletter_subscribers (email, source, page, environment)
