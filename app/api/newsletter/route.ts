@@ -4,8 +4,49 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-function isValidEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+function isValidEmail(email: string): boolean {
+  if (email.length === 0 || email.length > 254) {
+    return false;
+  }
+
+  const atIndex = email.indexOf("@");
+
+  if (
+    atIndex <= 0 ||
+    atIndex > 64 ||
+    atIndex !== email.lastIndexOf("@") ||
+    atIndex === email.length - 1
+  ) {
+    return false;
+  }
+
+  for (const character of email) {
+    if (
+      character === " " ||
+      character === "\t" ||
+      character === "\n" ||
+      character === "\r" ||
+      character === "\f" ||
+      character === "\v"
+    ) {
+      return false;
+    }
+  }
+
+  const domain = email.slice(atIndex + 1);
+  const labels = domain.split(".");
+
+  return (
+    domain.length <= 253 &&
+    labels.length >= 2 &&
+    labels.every(
+      (label) =>
+        label.length > 0 &&
+        label.length <= 63 &&
+        !label.startsWith("-") &&
+        !label.endsWith("-"),
+    )
+  );
 }
 
 export async function POST(req: Request) {
@@ -21,7 +62,7 @@ export async function POST(req: Request) {
     if (!email || !isValidEmail(email)) {
       return NextResponse.json(
         { success: false, message: "Invalid email address" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -101,7 +142,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       { success: false, message },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
