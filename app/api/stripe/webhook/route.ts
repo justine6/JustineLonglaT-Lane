@@ -1,31 +1,22 @@
-import type Stripe from "stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+
+import type Stripe from "stripe";
+
+import {
+  deactivateClerkRoleById,
+  setClerkRoleById,
+} from "@/lib/clerk-role-sync";
 import {
   deactivateMembershipBySubscriptionId,
   upsertMembership,
 } from "@/lib/membership";
 import { markProposalPaid } from "@/lib/proposal-store";
-import {
-  deactivateClerkRoleById,
-  setClerkRoleById,
-  type SupportedPlanKey,
-} from "@/lib/clerk-role-sync";
 import { getStripe } from "@/lib/stripe";
-
-function normalizePlan(
-  value: string | undefined | null
-): SupportedPlanKey | null {
-  if (
-    value === "intro-call" ||
-    value === "arch-review" ||
-    value === "retainer"
-  ) {
-    return value;
-  }
-
-  return null;
-}
+import {
+  classifyCheckoutFulfillment,
+  classifySubscriptionFulfillment,
+} from "@/lib/stripe-fulfillment";
 
 function mapSubscriptionStatus(
   status: Stripe.Subscription.Status
@@ -61,15 +52,21 @@ async function getCustomerEmail(
 export async function POST(req: Request) {
   try {
     const body = await req.text();
-    const signature = (await headers()).get("stripe-signature");
+    const signature = (await headers()).get(
+      "stripe-signature"
+    );
 
     if (!signature) {
-      return new NextResponse("Missing stripe-signature header", {
-        status: 400,
-      });
+      return new NextResponse(
+        "Missing stripe-signature header",
+        {
+          status: 400,
+        }
+      );
     }
 
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+    const webhookSecret =
+      process.env.STRIPE_WEBHOOK_SECRET;
 
     if (!webhookSecret) {
       console.error("Missing STRIPE_WEBHOOK_SECRET");
@@ -88,21 +85,61 @@ export async function POST(req: Request) {
 
     switch (event.type) {
       case "checkout.session.completed": {
-        const session = event.data.object as Stripe.Checkout.Session;
-        const plan = normalizePlan(session.metadata?.plan);
+        const session =
+          event.data.object as Stripe.Checkout.Session;
 
-        if (!plan) {
+        const subscriptionId =
+          typeof session.subscription === "string"
+            ? session.subscription
+            : null;
+
+        const fulfillment =
+          classifyCheckoutFulfillment({
+            metadata: session.metadata,
+            subscriptionId,
+          });
+
+        if (fulfillment.kind === "invalid") {
           console.error(
-            "Missing or invalid plan in checkout session metadata",
+            "Checkout fulfillment classification failed",
             {
               sessionId: session.id,
-              metadata: session.metadata,
+              reason: fulfillment.reason,
             }
           );
           break;
         }
 
-        const clerkUserId = session.metadata?.clerkUserId ?? null;
+        const paid =
+          session.payment_status === "paid" ||
+          (session.status === "complete" &&
+            session.payment_status !== "unpaid");
+
+        if (fulfillment.kind === "service") {
+          break;
+        }
+
+        if (fulfillment.kind === "proposal") {
+          if (paid) {
+            try {
+              markProposalPaid(
+                session.id,
+                session.amount_total ?? undefined,
+                session.currency ?? undefined
+              );
+            } catch (error) {
+              console.error(
+                "Failed to mark proposal paid:",
+                error
+              );
+            }
+          }
+
+          break;
+        }
+
+        const clerkUserId =
+          session.metadata?.clerkUserId ?? null;
 
         const email =
           session.customer_details?.email ||
@@ -114,41 +151,22 @@ export async function POST(req: Request) {
             ? session.customer
             : null;
 
-        const subscriptionId =
-          typeof session.subscription === "string"
-            ? session.subscription
-            : null;
-
-        const paid =
-          session.payment_status === "paid" ||
-          (session.status === "complete" &&
-            session.payment_status !== "unpaid");
-
         if (email) {
           await upsertMembership({
             email,
             stripeCustomerId: customerId,
             subscriptionId,
             checkoutSessionId: session.id,
-            plan,
+            plan: fulfillment.plan,
             status: paid ? "active" : "incomplete",
           });
         }
 
-        if (paid && session.id) {
-          try {
-            markProposalPaid(
-              session.id,
-              session.amount_total ?? undefined,
-              session.currency ?? undefined
-            );
-          } catch (error) {
-            console.error("Failed to mark proposal paid:", error);
-          }
-        }
-
         if (paid && clerkUserId) {
-          await setClerkRoleById(clerkUserId, plan);
+          await setClerkRoleById(
+            clerkUserId,
+            fulfillment.plan
+          );
         }
 
         break;
@@ -159,26 +177,36 @@ export async function POST(req: Request) {
         const subscription =
           event.data.object as Stripe.Subscription;
 
-        const customerId =
-          typeof subscription.customer === "string"
-            ? subscription.customer
-            : subscription.customer.id;
+        const fulfillment =
+          classifySubscriptionFulfillment(
+            subscription.metadata
+          );
 
-        const email = await getCustomerEmail(stripe, customerId);
-        const plan = normalizePlan(subscription.metadata?.plan);
-
-        if (!plan) {
+        if (fulfillment.kind === "invalid") {
           console.error(
-            "Missing or invalid plan in subscription metadata",
+            "Subscription fulfillment classification failed",
             {
               subscriptionId: subscription.id,
-              metadata: subscription.metadata,
+              reason: fulfillment.reason,
             }
           );
           break;
         }
 
-        const status = mapSubscriptionStatus(subscription.status);
+        const customerId =
+          typeof subscription.customer === "string"
+            ? subscription.customer
+            : subscription.customer.id;
+
+        const email = await getCustomerEmail(
+          stripe,
+          customerId
+        );
+
+        const status = mapSubscriptionStatus(
+          subscription.status
+        );
+
         const clerkUserId =
           subscription.metadata?.clerkUserId ?? null;
 
@@ -187,7 +215,7 @@ export async function POST(req: Request) {
             email,
             stripeCustomerId: customerId,
             subscriptionId: subscription.id,
-            plan,
+            plan: fulfillment.plan,
             status,
           });
         }
@@ -198,7 +226,10 @@ export async function POST(req: Request) {
 
         if (activeLike) {
           if (clerkUserId) {
-            await setClerkRoleById(clerkUserId, plan);
+            await setClerkRoleById(
+              clerkUserId,
+              fulfillment.plan
+            );
           }
         } else if (clerkUserId) {
           await deactivateClerkRoleById(clerkUserId);
