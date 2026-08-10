@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section className="bg-gradient-to-b from-slate-100 via-white to-slate-50 px-6 py-28 text-center text-slate-900 dark:from-slate-900 dark:to-slate-950 dark:text-white">
@@ -33,19 +35,19 @@ export default function Hero() {
             Contact
           </a>
 
-          <a
+          <Link
             href="/#booking"
             className="rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-500 dark:hover:bg-slate-800"
           >
             Book a Service
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="/projects"
             className="rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-500 dark:hover:bg-slate-800"
           >
             View Projects
-          </a>
+          </Link>
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-3 text-xs text-slate-500 dark:text-slate-400">

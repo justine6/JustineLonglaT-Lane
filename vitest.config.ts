@@ -3,6 +3,8 @@ import { defineConfig } from "vitest/config";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { fileURLToPath } from "node:url";
 
+const isWindows = process.platform === "win32";
+
 export default defineConfig({
   plugins: [tsconfigPaths({ projects: ["./tsconfig.json"] })],
   resolve: {
@@ -13,7 +15,11 @@ export default defineConfig({
   test: {
     globals: false,
     environment: "jsdom",
-    passWithNoTests: true,
+    passWithNoTests: false,
+    pool: isWindows ? "vmThreads" : undefined,
+    maxWorkers: isWindows ? 1 : undefined,
+    fileParallelism: isWindows ? false : undefined,
+
     include: ["**/*.{test,spec}.{ts,tsx}"],
     exclude: [
       "**/node_modules/**",

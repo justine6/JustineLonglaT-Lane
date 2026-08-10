@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type SuccessPageProps = {
   searchParams?: Promise<{
     session_id?: string;
@@ -22,9 +24,9 @@ export default async function MembershipSuccessPage({
         </h1>
 
         <p className="mt-4 text-base text-neutral-300">
-          Your payment was received successfully. The platform is now waiting for the
-          verified Stripe webhook to activate the correct membership state and unlock
-          the appropriate access.
+          Your payment was received successfully. The platform is now waiting
+          for the verified Stripe webhook to activate the correct membership
+          state and unlock the appropriate access.
         </p>
 
         {sessionId ? (
@@ -39,12 +41,12 @@ export default async function MembershipSuccessPage({
         ) : null}
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <a
+          <Link
             href="/"
             className="rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:opacity-90"
           >
             Return home
-          </a>
+          </Link>
 
           <a
             href="/docs"

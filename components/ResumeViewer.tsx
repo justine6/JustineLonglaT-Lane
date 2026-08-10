@@ -1,12 +1,11 @@
-// components/ResumeViewer.client.tsx
 "use client";
 
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 type Props = {
-  fullSrc?: string;    // e.g. /docs/resume.pdf
-  summarySrc?: string; // e.g. /docs/resume_summary.pdf
-  height?: number;     // object height in px
+  fullSrc?: string;
+  summarySrc?: string;
+  height?: number;
 };
 
 type TabKey = "full" | "summary";
@@ -21,31 +20,25 @@ const Skeleton = ({ height = 900 }: { height?: number }) => (
 
 const Viewer = ({
   src,
+  title,
   height = 900,
   onLoad,
   onError,
 }: {
   src: string;
+  title: string;
   height?: number;
   onLoad: () => void;
   onError: () => void;
 }) => (
-  <object
-    data={src}
-    type="application/pdf"
+  <iframe
+    src={src}
+    title={`${title} PDF preview`}
     className="w-full"
     style={{ height }}
     onLoad={onLoad}
-    onError={onError as any}
-  >
-    <p className="p-4">
-      Your browser can’t display PDFs inline.{" "}
-      <a href={src} download className="text-blue-600 underline">
-        Download the PDF
-      </a>
-      .
-    </p>
-  </object>
+    onError={onError}
+  />
 );
 
 export default function ResumeViewer({
@@ -66,34 +59,44 @@ export default function ResumeViewer({
   );
 
   const switchTab = (next: TabKey) => {
-    if (next === tab) return;
+    if (next === tab) {
+      return;
+    }
+
     setTab(next);
     setLoading(true);
     setFailed(false);
   };
 
   const handlePrint = () => {
-    if (typeof window === "undefined") return;
-    const w = window.open(current.src, "_blank", "noopener,noreferrer");
-    if (w) {
-      const tryPrint = () => {
-        try {
-          w.focus();
-          w.print();
-        } catch {
-          // best-effort: some browsers block printing until the PDF fully loads
-        }
-      };
-      tryPrint();
-      setTimeout(tryPrint, 600);
+    const printWindow = window.open(
+      current.src,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+    if (!printWindow) {
+      return;
     }
+
+    const tryPrint = () => {
+      try {
+        printWindow.focus();
+        printWindow.print();
+      } catch {
+        // Some browsers block printing until the PDF finishes loading.
+      }
+    };
+
+    tryPrint();
+    window.setTimeout(tryPrint, 600);
   };
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-8">
-      {/* Tabs */}
       <div className="mb-4 flex items-center gap-2">
         <button
+          type="button"
           onClick={() => switchTab("full")}
           className={`rounded-lg px-3 py-2 text-sm transition ${
             tab === "full"
@@ -101,12 +104,12 @@ export default function ResumeViewer({
               : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
           }`}
           aria-pressed={tab === "full"}
-          type="button"
         >
           Full
         </button>
 
         <button
+          type="button"
           onClick={() => switchTab("summary")}
           className={`rounded-lg px-3 py-2 text-sm transition ${
             tab === "summary"
@@ -114,7 +117,6 @@ export default function ResumeViewer({
               : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
           }`}
           aria-pressed={tab === "summary"}
-          type="button"
         >
           One-Page
         </button>
@@ -127,10 +129,11 @@ export default function ResumeViewer({
           >
             Download PDF
           </a>
+
           <button
+            type="button"
             onClick={handlePrint}
             className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-900 dark:hover:bg-slate-800"
-            type="button"
           >
             Print
           </button>
@@ -139,32 +142,39 @@ export default function ResumeViewer({
 
       <header className="mb-3">
         <h2 className="text-2xl font-semibold">{current.title}</h2>
-        <p className="text-sm text-slate-500">PDF preview with download & print</p>
+        <p className="text-sm text-slate-500">
+          PDF preview with download and print
+        </p>
       </header>
 
       <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700">
         {failed ? (
-          <div className="p-4 text-sm text-red-600 dark:text-red-400">
+          <div
+            role="alert"
+            className="p-4 text-sm text-red-600 dark:text-red-400"
+          >
             Couldn’t load the PDF preview. You can still{" "}
             <a href={current.src} download className="underline">
               download the file
             </a>
             .
           </div>
-        ) : loading ? (
-          <Skeleton height={height} />
-        ) : null}
+        ) : (
+          <>
+            {loading ? <Skeleton height={height} /> : null}
 
-        {!failed && (
-          <Viewer
-            src={current.src}
-            height={height}
-            onLoad={() => setLoading(false)}
-            onError={() => {
-              setLoading(false);
-              setFailed(true);
-            }}
-          />
+            <Viewer
+              key={current.src}
+              src={current.src}
+              title={current.title}
+              height={height}
+              onLoad={() => setLoading(false)}
+              onError={() => {
+                setLoading(false);
+                setFailed(true);
+              }}
+            />
+          </>
         )}
       </div>
     </section>

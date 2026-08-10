@@ -1,4 +1,4 @@
-import { redis } from "@/lib/redis";
+import { getRedis } from "@/lib/redis";
 
 export type SupportedPlanKey =
   | "intro-call"
@@ -63,6 +63,7 @@ export async function upsertMembership(
   const email = normalizeEmail(input.email);
   const key = memberKey(email);
 
+  const redis = getRedis();
   const existing = await redis.get<MembershipRecord>(key);
   const now = new Date().toISOString();
 
@@ -88,6 +89,7 @@ export async function getMembershipByEmail(
   email: string
 ): Promise<MembershipRecord | null> {
   const key = memberKey(email);
+  const redis = getRedis();
   const record = await redis.get<MembershipRecord>(key);
   return record ?? null;
 }
@@ -95,6 +97,7 @@ export async function getMembershipByEmail(
 export async function deactivateMembershipBySubscriptionId(
   subscriptionId: string
 ): Promise<MembershipRecord | null> {
+  const redis = getRedis();
   const keys = await redis.keys("member:*");
 
   for (const key of keys) {

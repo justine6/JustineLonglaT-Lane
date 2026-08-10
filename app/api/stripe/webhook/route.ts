@@ -1,4 +1,4 @@
-import Stripe from "stripe";
+import type Stripe from "stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import {
@@ -11,10 +11,11 @@ import {
   setClerkRoleById,
   type SupportedPlanKey,
 } from "@/lib/clerk-role-sync";
+import { getStripe } from "@/lib/stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-
-function normalizePlan(value: string | undefined | null): SupportedPlanKey | null {
+function normalizePlan(
+  value: string | undefined | null
+): SupportedPlanKey | null {
   if (
     value === "intro-call" ||
     value === "arch-review" ||
@@ -26,7 +27,9 @@ function normalizePlan(value: string | undefined | null): SupportedPlanKey | nul
   return null;
 }
 
-function mapSubscriptionStatus(status: Stripe.Subscription.Status) {
+function mapSubscriptionStatus(
+  status: Stripe.Subscription.Status
+) {
   switch (status) {
     case "active":
       return "active";
@@ -45,7 +48,10 @@ function mapSubscriptionStatus(status: Stripe.Subscription.Status) {
   }
 }
 
-async function getCustomerEmail(customerId: string): Promise<string | null> {
+async function getCustomerEmail(
+  stripe: Stripe,
+  customerId: string
+): Promise<string | null> {
   const customer = await stripe.customers.retrieve(customerId);
 
   if ("deleted" in customer) return null;
@@ -67,8 +73,12 @@ export async function POST(req: Request) {
 
     if (!webhookSecret) {
       console.error("Missing STRIPE_WEBHOOK_SECRET");
-      return new NextResponse("Webhook not configured", { status: 500 });
+      return new NextResponse("Webhook not configured", {
+        status: 500,
+      });
     }
+
+    const stripe = getStripe();
 
     const event = stripe.webhooks.constructEvent(
       body,
@@ -79,23 +89,30 @@ export async function POST(req: Request) {
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
-
-       const plan = normalizePlan(session.metadata?.plan);
+        const plan = normalizePlan(session.metadata?.plan);
 
         if (!plan) {
-          console.error("Missing or invalid plan in checkout session metadata", {
-            sessionId: session.id,
-            metadata: session.metadata,
-          });
+          console.error(
+            "Missing or invalid plan in checkout session metadata",
+            {
+              sessionId: session.id,
+              metadata: session.metadata,
+            }
+          );
           break;
         }
+
         const clerkUserId = session.metadata?.clerkUserId ?? null;
 
         const email =
-          session.customer_details?.email || session.customer_email || null;
+          session.customer_details?.email ||
+          session.customer_email ||
+          null;
 
         const customerId =
-          typeof session.customer === "string" ? session.customer : null;
+          typeof session.customer === "string"
+            ? session.customer
+            : null;
 
         const subscriptionId =
           typeof session.subscription === "string"
@@ -104,7 +121,8 @@ export async function POST(req: Request) {
 
         const paid =
           session.payment_status === "paid" ||
-          (session.status === "complete" && session.payment_status !== "unpaid");
+          (session.status === "complete" &&
+            session.payment_status !== "unpaid");
 
         if (email) {
           await upsertMembership({
@@ -124,8 +142,8 @@ export async function POST(req: Request) {
               session.amount_total ?? undefined,
               session.currency ?? undefined
             );
-          } catch (e) {
-            console.error("Failed to mark proposal paid:", e);
+          } catch (error) {
+            console.error("Failed to mark proposal paid:", error);
           }
         }
 
@@ -138,25 +156,31 @@ export async function POST(req: Request) {
 
       case "customer.subscription.created":
       case "customer.subscription.updated": {
-        const subscription = event.data.object as Stripe.Subscription;
+        const subscription =
+          event.data.object as Stripe.Subscription;
 
         const customerId =
           typeof subscription.customer === "string"
             ? subscription.customer
             : subscription.customer.id;
 
-        const email = await getCustomerEmail(customerId);
+        const email = await getCustomerEmail(stripe, customerId);
         const plan = normalizePlan(subscription.metadata?.plan);
 
-          if (!plan) {
-            console.error("Missing or invalid plan in subscription metadata", {
+        if (!plan) {
+          console.error(
+            "Missing or invalid plan in subscription metadata",
+            {
               subscriptionId: subscription.id,
               metadata: subscription.metadata,
-            });
-            break;
-          }
+            }
+          );
+          break;
+        }
+
         const status = mapSubscriptionStatus(subscription.status);
-        const clerkUserId = subscription.metadata?.clerkUserId ?? null;
+        const clerkUserId =
+          subscription.metadata?.clerkUserId ?? null;
 
         if (email) {
           await upsertMembership({
@@ -176,21 +200,23 @@ export async function POST(req: Request) {
           if (clerkUserId) {
             await setClerkRoleById(clerkUserId, plan);
           }
-        } else {
-          if (clerkUserId) {
-            await deactivateClerkRoleById(clerkUserId);
-          }
+        } else if (clerkUserId) {
+          await deactivateClerkRoleById(clerkUserId);
         }
 
         break;
       }
 
       case "customer.subscription.deleted": {
-        const subscription = event.data.object as Stripe.Subscription;
+        const subscription =
+          event.data.object as Stripe.Subscription;
 
-        await deactivateMembershipBySubscriptionId(subscription.id);
+        await deactivateMembershipBySubscriptionId(
+          subscription.id
+        );
 
-        const clerkUserId = subscription.metadata?.clerkUserId ?? null;
+        const clerkUserId =
+          subscription.metadata?.clerkUserId ?? null;
 
         if (clerkUserId) {
           await deactivateClerkRoleById(clerkUserId);
@@ -206,6 +232,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ received: true });
   } catch (error) {
     console.error("stripe webhook error", error);
-    return new NextResponse("Webhook Error", { status: 400 });
+    return new NextResponse("Webhook Error", {
+      status: 400,
+    });
   }
 }

@@ -1,16 +1,64 @@
-import type { ComponentType } from "react";
+import type { ComponentType, ReactNode } from "react";
 
-// Inline MDXComponents to avoid needing "mdx/types"
-type MDXComponents = Record<string, ComponentType<any>>;
+type MDXComponentProps = {
+  children?: ReactNode;
+  [key: string]: unknown;
+};
 
-/** Map MDX tags to styled components (server-safe; no React context) */
-export function useMDXComponents(components: MDXComponents): MDXComponents {
+type MDXComponents = Record<
+  string,
+  ComponentType<MDXComponentProps>
+>;
+
+export function useMDXComponents(
+  components: MDXComponents
+): MDXComponents {
   return {
-    h1: (p) => <h1 className="text-3xl font-bold mt-6 mb-4" {...p} />,
-    h2: (p) => <h2 className="text-2xl font-semibold mt-6 mb-3" {...p} />,
-    p:  (p) => <p className="leading-7 my-3 text-slate-700" {...p} />,
-    ul: (p) => <ul className="list-disc pl-6 my-3" {...p} />,
-    code: (p) => <code className="px-1 py-0.5 rounded bg-slate-100" {...p} />,
+    h1: ({ children, ...props }) => (
+      <h1
+        className="mb-4 mt-6 text-3xl font-bold"
+        {...props}
+      >
+        {children}
+      </h1>
+    ),
+
+    h2: ({ children, ...props }) => (
+      <h2
+        className="mb-3 mt-6 text-2xl font-semibold"
+        {...props}
+      >
+        {children}
+      </h2>
+    ),
+
+    p: ({ children, ...props }) => (
+      <p
+        className="my-3 leading-7 text-slate-700"
+        {...props}
+      >
+        {children}
+      </p>
+    ),
+
+    ul: ({ children, ...props }) => (
+      <ul
+        className="my-3 list-disc pl-6"
+        {...props}
+      >
+        {children}
+      </ul>
+    ),
+
+    code: ({ children, ...props }) => (
+      <code
+        className="rounded bg-slate-100 px-1 py-0.5"
+        {...props}
+      >
+        {children}
+      </code>
+    ),
+
     ...components,
   };
 }

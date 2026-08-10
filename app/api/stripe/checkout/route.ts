@@ -1,8 +1,6 @@
-import Stripe from "stripe";
-import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+import { NextResponse } from "next/server";
+import { getStripe } from "@/lib/stripe";
 
 type SupportedPlanKey =
   | "intro-call"
@@ -12,16 +10,22 @@ type SupportedPlanKey =
 const PRICE_IDS: Record<SupportedPlanKey, string | undefined> = {
   "intro-call": process.env.STRIPE_PRICE_INTRO_CALL,
   "arch-review": process.env.STRIPE_PRICE_ARCH_REVIEW,
-  "retainer": process.env.STRIPE_PRICE_RETAINER,
+  retainer: process.env.STRIPE_PRICE_RETAINER,
 };
 
-const PLAN_MODES: Record<SupportedPlanKey, "payment" | "subscription"> = {
+const PLAN_MODES: Record<
+  SupportedPlanKey,
+  "payment" | "subscription"
+> = {
   "intro-call": "payment",
   "arch-review": "subscription",
-  "retainer": "subscription",
+  retainer: "subscription",
 };
 
-function getSuccessUrl(baseUrl: string, plan: SupportedPlanKey) {
+function getSuccessUrl(
+  baseUrl: string,
+  plan: SupportedPlanKey
+): string {
   switch (plan) {
     case "intro-call":
       return `${baseUrl}/consulting/success?service=intro&session_id={CHECKOUT_SESSION_ID}`;
@@ -42,7 +46,9 @@ export async function POST(req: Request) {
       const authResult = await auth();
       userId = authResult?.userId ?? null;
     } catch {
-      console.warn("Clerk auth unavailable in checkout route, continuing as guest");
+      console.warn(
+        "Clerk auth unavailable in checkout route, continuing as guest"
+      );
     }
 
     const body = await req.json();
@@ -52,9 +58,15 @@ export async function POST(req: Request) {
     if (!plan || !PRICE_IDS[plan]) {
       console.error("checkout config error", {
         receivedPlan: plan,
-        introCallPrice: process.env.STRIPE_PRICE_INTRO_CALL ? "set" : "missing",
-        archReviewPrice: process.env.STRIPE_PRICE_ARCH_REVIEW ? "set" : "missing",
-        retainerPrice: process.env.STRIPE_PRICE_RETAINER ? "set" : "missing",
+        introCallPrice: process.env.STRIPE_PRICE_INTRO_CALL
+          ? "set"
+          : "missing",
+        archReviewPrice: process.env.STRIPE_PRICE_ARCH_REVIEW
+          ? "set"
+          : "missing",
+        retainerPrice: process.env.STRIPE_PRICE_RETAINER
+          ? "set"
+          : "missing",
       });
 
       return NextResponse.json(
@@ -63,9 +75,10 @@ export async function POST(req: Request) {
       );
     }
 
+    const stripe = getStripe();
+
     const baseUrl =
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      new URL(req.url).origin;
+      process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin;
 
     const successUrl = getSuccessUrl(baseUrl, plan);
 
@@ -112,16 +125,21 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const checkoutError =
+      error instanceof Error ? error : new Error(String(error));
+
     console.error("checkout route error", {
-      message: error?.message,
-      type: error?.type,
-      code: error?.code,
+      message: checkoutError.message,
       raw: error,
     });
 
     return NextResponse.json(
-      { error: error?.message || "Unable to create checkout session." },
+      {
+        error:
+          checkoutError.message ||
+          "Unable to create checkout session.",
+      },
       { status: 500 }
     );
   }
