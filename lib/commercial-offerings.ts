@@ -129,7 +129,8 @@ export const COMMERCIAL_OFFERINGS = {
     authorizationEffect: "membership",
     amountCents: null,
     displayPrice: "Legacy",
-    stripePriceEnvironmentKey: null,
+    stripePriceEnvironmentKey:
+      "STRIPE_PRICE_ARCH_REVIEW",
   },
   retainer: {
     name: "Legacy Retainer Membership",
@@ -139,7 +140,8 @@ export const COMMERCIAL_OFFERINGS = {
     authorizationEffect: "membership",
     amountCents: null,
     displayPrice: "Legacy",
-    stripePriceEnvironmentKey: null,
+    stripePriceEnvironmentKey:
+      "STRIPE_PRICE_RETAINER",
   },
 } as const satisfies Record<
   | ServiceOfferingKey
