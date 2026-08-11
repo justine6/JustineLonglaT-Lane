@@ -126,8 +126,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         error:
-          checkoutError.message ||
-          "Unable to create checkout session.",
+          "We could not start checkout. Please try again or contact us for assistance.",
       },
       { status: 500 }
     );

@@ -211,5 +211,23 @@ describe("POST /api/stripe/checkout", () => {
     });
     expect(mocks.getStripe).not.toHaveBeenCalled();
     expect(mocks.createSession).not.toHaveBeenCalled();
+    });
+
+    it("returns a safe error when Stripe checkout creation fails", async () => {
+  mocks.createSession.mockRejectedValueOnce(
+    new Error("No such price: price_internal_identifier")
+  );
+
+  const response = await POST(
+    createRequest({
+      plan: "focused-architecture",
+    })
+  );
+
+  expect(response.status).toBe(500);
+  expect(await response.json()).toEqual({
+    error:
+      "We could not start checkout. Please try again or contact us for assistance.",
   });
+});
 });
