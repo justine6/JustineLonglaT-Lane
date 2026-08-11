@@ -71,55 +71,54 @@ describe("GovernedCommercialCatalog", () => {
       );
     }
   });
-
-  it("submits only the canonical offering key for checkout", async () => {
-    const checkoutOffering =
-      PUBLIC_COMMERCIAL_PRESENTATIONS.find(
-        (offering) => offering.action.kind === "checkout"
-      );
-
-    if (
-      !checkoutOffering ||
-      checkoutOffering.action.kind !== "checkout"
-    ) {
-      throw new Error("Expected a governed checkout offering.");
-    }
-
-    const fetchMock = vi.fn().mockResolvedValue({
-      ok: false,
-      json: vi.fn().mockResolvedValue({
-        error: "Controlled checkout test failure.",
-      }),
-    });
-
-    vi.stubGlobal("fetch", fetchMock);
-
-    render(<GovernedCommercialCatalog />);
-
-    fireEvent.click(
-      screen.getByRole("button", {
-        name: checkoutOffering.action.label,
-      })
+  it("submits every checkout offering with only its canonical key", async () => {
+    const checkoutOfferings = PUBLIC_COMMERCIAL_PRESENTATIONS.filter(
+      (offering) => offering.action.kind === "checkout"
     );
 
-    await waitFor(() => {
-      expect(fetchMock).toHaveBeenCalledWith(
-        "/api/stripe/checkout",
-        {
+    expect(checkoutOfferings.length).toBeGreaterThan(0);
+
+    for (const offering of checkoutOfferings) {
+      if (offering.action.kind !== "checkout") {
+        throw new Error("Expected a governed checkout offering.");
+      }
+
+      cleanup();
+
+      const fetchMock = vi.fn().mockResolvedValue({
+        ok: false,
+        json: vi.fn().mockResolvedValue({
+          error: "Controlled checkout test failure.",
+        }),
+      });
+
+      vi.stubGlobal("fetch", fetchMock);
+
+      render(<GovernedCommercialCatalog />);
+
+      fireEvent.click(
+        screen.getByRole("button", {
+          name: offering.action.label,
+        })
+      );
+
+      await waitFor(() => {
+        expect(fetchMock).toHaveBeenCalledWith("/api/stripe/checkout", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            plan: checkoutOffering.action.offeringKey,
+            plan: offering.action.offeringKey,
           }),
-        }
-      );
-    });
+        });
+      });
 
-    expect(
-      (await screen.findByRole("alert")).textContent
-    ).toContain("Controlled checkout test failure.");
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect((await screen.findByRole("alert")).textContent).toContain(
+        "Controlled checkout test failure."
+      );
+    }
   });
 
   it("does not expose checkout buttons for proposal offerings", () => {
