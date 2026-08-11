@@ -1,44 +1,79 @@
 import ContactSection from "@/components/ContactSection";
-
-type SearchParams = Record<string, string | string[] | undefined>;
+import {
+  getSingleSearchParam,
+  resolveDiscoveryContextFromSearchParams,
+  type SearchParamsRecord,
+} from "@/lib/discovery-context";
 
 type Props = {
-  searchParams?: Promise<SearchParams>;
+  searchParams?: Promise<SearchParamsRecord>;
 };
 
-function getSP(sp: SearchParams | undefined, key: string) {
-  const v = sp?.[key];
-  return Array.isArray(v) ? v[0] : v;
-}
+export default async function ContactPage({
+  searchParams,
+}: Props) {
+  const resolvedSearchParams =
+    (await searchParams) ?? {};
 
-export default async function ContactPage({ searchParams }: Props) {
-  const sp = (await searchParams) ?? {};
+  const discoveryContext =
+    resolveDiscoveryContextFromSearchParams(
+      resolvedSearchParams
+    );
 
-  const intent = getSP(sp, "intent") || "";
-  const service = getSP(sp, "service") || "";
+  const isDiscoveryHandoff =
+    getSingleSearchParam(
+      resolvedSearchParams,
+      "discovery"
+    ) === "1";
+
+  const intent = isDiscoveryHandoff
+    ? "Discovery Intake"
+    : "";
+
+  const service =
+    discoveryContext.kind === "proposal"
+      ? discoveryContext.offeringName
+      : isDiscoveryHandoff
+        ? discoveryContext.offeringName
+        : "";
 
   const prefill = {
     intent,
     service,
-    name: getSP(sp, "name") || "",
-    email: getSP(sp, "email") || "",
-    phone: getSP(sp, "phone") || "",
-    message: getSP(sp, "message") || "",
+    name: getSingleSearchParam(
+      resolvedSearchParams,
+      "name"
+    ),
+    email: getSingleSearchParam(
+      resolvedSearchParams,
+      "email"
+    ),
+    phone: getSingleSearchParam(
+      resolvedSearchParams,
+      "phone"
+    ),
+    message: getSingleSearchParam(
+      resolvedSearchParams,
+      "message"
+    ),
   };
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-16 dark:bg-slate-950">
-      {(intent || service) && (
+      {isDiscoveryHandoff && (
         <div className="mx-auto mb-8 max-w-3xl rounded-2xl border border-blue-200 bg-blue-50 px-6 py-4 text-center text-blue-900 shadow-sm dark:border-blue-900/50 dark:bg-blue-950/40 dark:text-blue-100">
           <p className="text-sm uppercase tracking-wide opacity-80">
             Consultation request
           </p>
+
           <h2 className="mt-1 text-lg font-semibold">
-            Request received{intent ? ` for: ${intent}` : ""}
-            {service ? ` (${service})` : ""}
+            Request received for:{" "}
+            {discoveryContext.offeringName}
           </h2>
+
           <p className="mt-1 text-sm opacity-80">
-            Share goals, timeline, and environment — I’ll respond with next steps.
+            Share goals, timeline, and environment — I’ll
+            respond with next steps.
           </p>
         </div>
       )}
