@@ -16,9 +16,9 @@ export const metadata: Metadata = {
   description:
     "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
   icons: {
-    icon: "/brand/favicon.ico",
-    shortcut: "/brand/favicon.ico",
-    apple: "/brand/apple-touch-icon.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Justine Longla T. — Cloud Confidence. Delivered.",
@@ -26,7 +26,6 @@ export const metadata: Metadata = {
       "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
     url: "https://justinelonglat-lane.com",
     type: "website",
-    images: ["/brand/og-default.png"],
   },
 };
 
@@ -57,7 +56,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     "Justine Longla T-Lane",
                   ],
                   url: "https://justinelonglat-lane.com",
-                  logo: "https://justinelonglat-lane.com/logo.png",
+                  logo: "https://justinelonglat-lane.com/brand/logo-shield.png",
                   founder: {
                     "@type": "Person",
                     name: "Justine Longla T.",
