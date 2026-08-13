@@ -139,7 +139,7 @@ export default function Footer() {
             {/* 🏢 Business Address */}
             <li className="leading-relaxed text-slate-600 dark:text-slate-300">
               <span className="block font-medium text-slate-800 dark:text-slate-100">
-                JLT-Lane  
+                JLT-Lane
                 Platform Engineering & DevSecOps
               </span>
               <span className="block">128 W I-240 Service Rd, PMB [###]</span>

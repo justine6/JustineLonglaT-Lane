@@ -70,7 +70,7 @@ export function buildCalUrl(opts: {
     const base = opts.successBase ?? SUCCESS_BASE;
     const cleanBase = base.replace(/\/+$/, "");
     const cleanPath = opts.successPath.startsWith("/") ? opts.successPath : `/${opts.successPath}`;
-    
+
     // Safely combine strings to prevent native URL runtime errors during SSR/Turbopack builds
     url.searchParams.set("success_url", `${cleanBase}${cleanPath}`);
   }
@@ -182,7 +182,7 @@ export const LINKS = {
 
   stripeServiceRetainer:
     process.env.NEXT_PUBLIC_STRIPE_SERVICE_RETAINER_URL ?? "",
-    
+
   // Runtime
   runtimeBase: RUNTIME_BASE,
 } as const;
