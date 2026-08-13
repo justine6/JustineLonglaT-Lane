@@ -1,41 +1,164 @@
-import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import { NextResponse } from "next/server";
+import { sql } from "@/lib/db";
+import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+
+function isValidEmail(email: string): boolean {
+  if (email.length === 0 || email.length > 254) {
+    return false;
+  }
+
+  const atIndex = email.indexOf("@");
+
+  if (
+    atIndex <= 0 ||
+    atIndex > 64 ||
+    atIndex !== email.lastIndexOf("@") ||
+    atIndex === email.length - 1
+  ) {
+    return false;
+  }
+
+  for (const character of email) {
+    if (
+      character === " " ||
+      character === "\t" ||
+      character === "\n" ||
+      character === "\r" ||
+      character === "\f" ||
+      character === "\v"
+    ) {
+      return false;
+    }
+  }
+
+  const domain = email.slice(atIndex + 1);
+  const labels = domain.split(".");
+
+  return (
+    domain.length <= 253 &&
+    labels.length >= 2 &&
+    labels.every(
+      (label) =>
+        label.length > 0 &&
+        label.length <= 63 &&
+        !label.startsWith("-") &&
+        !label.endsWith("-"),
+    )
+  );
+}
 
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json();
+    const body = await req.json();
 
-    if (!email) {
-      return NextResponse.json({ error: 'Email required' }, { status: 400 });
+    const email = String(body.email || "").trim().toLowerCase();
+    const source = String(body.source || "website");
+    const page = String(body.page || "/");
+    const environment =
+      process.env.VERCEL_ENV || process.env.NODE_ENV || "local";
+
+    if (!email || !isValidEmail(email)) {
+      return NextResponse.json(
+        { success: false, message: "Invalid email address" },
+        { status: 400 },
+      );
+    }
+    const resendApiKey = process.env.RESEND_API_KEY;
+
+if (!resendApiKey) {
+  console.error(
+    "Newsletter service is unavailable: RESEND_API_KEY is missing.",
+  );
+
+  return NextResponse.json(
+    {
+      success: false,
+      message: "Newsletter service is temporarily unavailable.",
+    },
+    { status: 503 },
+  );
+}
+
+const resend = new Resend(resendApiKey);
+
+    await sql`
+      insert into newsletter_subscribers (email, source, page, environment)
+      values (${email}, ${source}, ${page}, ${environment})
+      on conflict (email)
+      do update set
+        last_seen_at = now(),
+        source = excluded.source,
+        page = excluded.page,
+        environment = excluded.environment
+    `;
+
+    const from =
+      process.env.NEWSLETTER_FROM_EMAIL ||
+      "JLT Platform Notes <newsletter@justinelonglat-lane.com>";
+
+    const admin =
+      process.env.NEWSLETTER_ADMIN_EMAIL ||
+      "info@justinelonglat-lane.com";
+
+    const subscriberEmail = await resend.emails.send({
+      from,
+      to: email,
+      subject: "Welcome to JLT-Lane",
+      html: `
+        <h2>Welcome to JLT-Lane</h2>
+        <p>Hi there,</p>
+        <p>Thanks for subscribing to JLT Platform Notes.</p>
+        <p>You’ll receive insights on platform engineering, DevSecOps, and cloud systems.</p>
+        <p>— Justine</p>
+      `,
+      text: "Welcome to JLT-Lane. Thanks for subscribing.",
+    });
+
+    if (subscriberEmail.error) {
+      console.error("❌ Subscriber email failed:", subscriberEmail.error);
+      throw new Error(subscriberEmail.error.message);
     }
 
-    // ✅ Send confirmation email to user
-    await resend.emails.send({
-      from: process.env.NEWSLETTER_FROM_EMAIL!,
-      to: email,
-      subject: 'Welcome to JLT Platform Notes',
-      html: `
-        <h2>Welcome to JLT Platform Notes</h2>
-        <p>You're now subscribed.</p>
-        <p>Expect insights on platform engineering, access control, and system design.</p>
-        <br/>
-        <p><strong>Cloud Confidence. Delivered.</strong></p>
-      `,
+    const adminEmail = await resend.emails.send({
+      from,
+      to: admin,
+      subject: "New Newsletter Subscriber",
+      html: `<p>${email} just subscribed from ${environment}.</p>`,
+      text: `${email} just subscribed from ${environment}.`,
     });
 
-    // ✅ Notify YOU
-    await resend.emails.send({
-      from: process.env.NEWSLETTER_FROM_EMAIL!,
-      to: process.env.NEWSLETTER_ADMIN_EMAIL!,
-      subject: 'New Newsletter Subscriber',
-      html: `<p>New subscriber: ${email}</p>`,
+    if (adminEmail.error) {
+      console.error("❌ Admin email failed:", adminEmail.error);
+    }
+
+    console.log("✅ Newsletter email sent:", {
+      email,
+      resendId: subscriberEmail.data?.id,
+      environment,
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      message:
+        "Welcome to JLT Platform Notes 🎉 Please check your inbox or spam folder.",
+      data: {
+        email,
+        source,
+        page,
+        environment,
+        emailId: subscriberEmail.data?.id,
+      },
+    });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    console.error("❌ Newsletter error:", error);
+
+    const message =
+      error instanceof Error ? error.message : "Unknown newsletter error";
+
+    return NextResponse.json(
+      { success: false, message },
+      { status: 500 },
+    );
   }
 }

@@ -26,12 +26,12 @@ export default function CTASection() {
             View Proposal Options
           </Link>
 
-          <a
+          <Link
             href="/#booking"
             className="inline-flex rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
           >
             Book a Service
-          </a>
+          </Link>
 
           <Link
             href="/contact"
@@ -42,7 +42,8 @@ export default function CTASection() {
         </div>
 
         <p className="mt-5 text-sm text-slate-500 dark:text-slate-500">
-          Explore services, review engagement options, or start with a conversation.
+          Explore services, review engagement options, or start with a
+          conversation.
         </p>
       </div>
     </section>

@@ -1,19 +1,14 @@
-import { currentUser } from "@clerk/nextjs/server";
+import { getCurrentAuthorization } from "@/lib/auth/effectiveRole";
 import type { AppRole } from "@/lib/auth/roles";
 
 export async function getCurrentRole(): Promise<AppRole> {
-  const user = await currentUser();
+  const { role } = await getCurrentAuthorization();
 
-  if (!user) return "public";
-
-  return (user.publicMetadata?.role as AppRole | undefined) ?? "user";
+  return role;
 }
 
 export async function getCurrentUserWithRole() {
-  const user = await currentUser();
-  const role = user
-    ? ((user.publicMetadata?.role as AppRole | undefined) ?? "user")
-    : "public";
+  const { user, role } = await getCurrentAuthorization();
 
   return { user, role };
 }

@@ -10,28 +10,16 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { ProfilePill } from "@/components/ProfilePill";
 import ThemeToggle from "@/components/ThemeToggle";
 import { LINKS } from "@/config/links";
+import { hasMinimumRole, normalizeRole } from "@/lib/auth/roles";
 
 type NavItem = { name: string; href: string };
 
 type EcoLink = { label: string; href: string };
+
 type EcoGroup = {
   title: string;
   items: EcoLink[];
 };
-
-type AppRole = "public" | "user" | "client" | "premium" | "admin";
-
-const ROLE_RANK: Record<AppRole, number> = {
-  public: 0,
-  user: 1,
-  client: 2,
-  premium: 3,
-  admin: 4,
-};
-
-function hasMinimumRole(role: AppRole, minimum: AppRole) {
-  return ROLE_RANK[role] >= ROLE_RANK[minimum];
-}
 
 function isExternalHref(href: string) {
   return /^(https?:)?\/\//i.test(href);
@@ -41,8 +29,8 @@ const ECOSYSTEM: EcoGroup[] = [
   {
     title: "BUSINESS",
     items: [
+      { label: "🏭 Blueprint Factory", href: LINKS.blueprintFactory },
       { label: "Main Site", href: LINKS.mainSite },
-      { label: "Main Site", href: LINKS.mainSite }
     ],
   },
   {
@@ -59,19 +47,21 @@ const ECOSYSTEM: EcoGroup[] = [
       { label: "Docs Platform", href: LINKS.docsSite },
       { label: "Runbooks", href: `${LINKS.docsSite}/runbooks/` },
       { label: "Platform Docs", href: `${LINKS.docsSite}/platform/` },
-      { label: "Blog Platform", href: LINKS.blogSite },
+      { label: "Insights", href: LINKS.blogSite },
     ],
   },
 ];
 
 const NAV_LINKS: NavItem[] = [
   { name: "Home", href: LINKS.home },
+  { name: "🏭 Blueprint Factory", href: LINKS.blueprintFactory },
   { name: "README", href: LINKS.readme },
   { name: "Docs", href: LINKS.docsSite },
-  { name: "Resources", href: LINKS.files }, // ← renamed
+  { name: "Resources", href: LINKS.files },
   { name: "About", href: LINKS.about },
   { name: "Projects", href: LINKS.projects },
-  { name: "Blog", href: LINKS.blogSite },
+  { name: "Videos", href: "/videos" },
+  { name: "Insights", href: LINKS.blogSite },
   { name: "Contact", href: LINKS.contact },
 ];
 
@@ -81,15 +71,18 @@ export default function Navbar() {
   const pathname = usePathname();
   const { user, isLoaded } = useUser();
 
-  const role = (user?.publicMetadata?.role as AppRole | undefined) ?? "public";
+  const role = normalizeRole(user?.publicMetadata?.role, "public");
   const isSignedIn = !!user;
-  const canSeePremium = isLoaded && isSignedIn && hasMinimumRole(role, "premium");
+  const canSeePremium =
+    isLoaded && isSignedIn && hasMinimumRole(role, "premium");
   const canSeeAdmin = isLoaded && isSignedIn && role === "admin";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
+
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -99,13 +92,16 @@ export default function Navbar() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeMenu();
     };
+
     window.addEventListener("keydown", onKey);
+
     return () => window.removeEventListener("keydown", onKey);
   }, [closeMenu]);
 
   const navWithActive = useMemo(() => {
     return NAV_LINKS.map((link) => {
       const external = isExternalHref(link.href);
+
       const active =
         !external &&
         (pathname === link.href ||
@@ -125,6 +121,7 @@ export default function Navbar() {
   ].join(" ");
 
   const shellBorder = "border-b border-white/10";
+
   const shellShadow = scrolled
     ? "shadow-[0_18px_40px_-26px_rgba(0,0,0,0.75)]"
     : "shadow-sm";
@@ -168,16 +165,16 @@ export default function Navbar() {
                 aria-label="Justine Longla T-Lane home"
                 onClick={closeMenu}
               >
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 shadow-sm">
-                <Image
-                  src="/brand/logo-shield.png"
-                  alt="Justine Longla T-Lane logo"
-                  width={36}
-                  height={36}
-                  className="rounded-full"
-                  priority
-                />
-              </div>
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 shadow-sm">
+                  <Image
+                    src="/brand/logo-shield.png"
+                    alt="Justine Longla T-Lane logo"
+                    width={36}
+                    height={36}
+                    className="rounded-full"
+                    priority
+                  />
+                </div>
 
                 <div className="flex flex-col items-start justify-center leading-snug">
                   <div className="text-sm font-semibold tracking-wide sm:text-base">
@@ -198,7 +195,23 @@ export default function Navbar() {
                   rel="noopener noreferrer"
                 >
                   <span className="flex items-center gap-2 rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
-                    Automation <span className="hidden lg:inline">Platform</span>
+                    Automation{" "}
+                    <span className="hidden lg:inline">Platform</span>
+                    <span aria-hidden="true" className="text-[0.7rem]">
+                      ↗
+                    </span>
+                  </span>
+                </a>
+                <a
+                  href={LINKS.blueprintFactory}
+                  className="inline-flex rounded-full bg-gradient-to-r from-cyan-300/60 via-white/15 to-blue-400/60 p-[2px] shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  aria-label="JLT Blueprint Factory"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="flex items-center gap-2 rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
+                    🏭 Blueprint{" "}
+                    <span className="hidden lg:inline">Factory</span>
                     <span aria-hidden="true" className="text-[0.7rem]">
                       ↗
                     </span>
@@ -212,7 +225,8 @@ export default function Navbar() {
                   onClick={closeMenu}
                 >
                   <span className="flex items-center gap-2 rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
-                    Services <span className="hidden lg:inline">Consulting</span>
+                    Services{" "}
+                    <span className="hidden lg:inline">Consulting</span>
                   </span>
                 </Link>
 
@@ -224,7 +238,8 @@ export default function Navbar() {
                   rel="noopener noreferrer"
                 >
                   <span className="flex items-center rounded-full bg-white/12 px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-white backdrop-blur transition hover:bg-white/20">
-                    Publishing <span className="hidden lg:inline">Platform</span>
+                    Publishing{" "}
+                    <span className="hidden lg:inline">Platform</span>
                     <span aria-hidden="true" className="ml-1 text-[0.7rem]">
                       ↗
                     </span>
@@ -238,7 +253,18 @@ export default function Navbar() {
                   onClick={closeMenu}
                 >
                   <span className="flex items-center rounded-full bg-white px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-slate-900 transition hover:bg-slate-50">
-                    Engineering <span className="ml-1 text-sky-600">Mesh</span> Hub
+                    Engineering <span className="ml-1 text-sky-600">Mesh</span>{" "}
+                    Hub
+                  </span>
+                </Link>
+                <Link
+                  href="/videos"
+                  className="inline-flex rounded-full bg-gradient-to-r from-fuchsia-400/55 via-violet-300/45 to-sky-500/55 p-[2px] shadow-sm transition hover:-translate-y-[1px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  aria-label="JLT Video Library"
+                  onClick={closeMenu}
+                >
+                  <span className="flex items-center rounded-full bg-white px-3 py-[3px] text-[0.7rem] font-semibold tracking-[0.12em] text-slate-900 transition hover:bg-slate-50">
+                    JLT <span className="ml-1 text-violet-600">Videos</span>
                   </span>
                 </Link>
               </div>
@@ -314,7 +340,11 @@ export default function Navbar() {
                 onClick={() => setMenuOpen((v) => !v)}
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
               >
-                {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {menuOpen ? (
+                  <X className="h-5 w-5" />
+                ) : (
+                  <Menu className="h-5 w-5" />
+                )}
               </button>
             </div>
           </div>
@@ -322,7 +352,10 @@ export default function Navbar() {
           <div className="hidden items-center justify-center gap-2 pb-3 md:flex">
             <div className="flex flex-wrap items-center justify-center gap-2">
               {navWithActive.map((link) => {
-                const className = [pillBase, link.active ? pillActive : pillIdle].join(" ");
+                const className = [
+                  pillBase,
+                  link.active ? pillActive : pillIdle,
+                ].join(" ");
 
                 return link.external ? (
                   <a
@@ -333,7 +366,10 @@ export default function Navbar() {
                     rel="noopener noreferrer"
                   >
                     <span>{link.name}</span>
-                    <span aria-hidden="true" className="pl-1 text-[0.7rem] text-white/85">
+                    <span
+                      aria-hidden="true"
+                      className="pl-1 text-[0.7rem] text-white/85"
+                    >
                       ↗
                     </span>
                   </a>
@@ -384,7 +420,10 @@ export default function Navbar() {
                                 rel="noopener noreferrer"
                               >
                                 <span>{item.label}</span>
-                                <span aria-hidden="true" className="text-[0.7rem] text-white/65">
+                                <span
+                                  aria-hidden="true"
+                                  className="text-[0.7rem] text-white/65"
+                                >
                                   ↗
                                 </span>
                               </a>

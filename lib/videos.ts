@@ -1,4 +1,5 @@
 // lib/videos.ts
+
 export type VideoItem = {
   slug: string;
   title: string;
@@ -7,9 +8,26 @@ export type VideoItem = {
   thumbnail?: string;
   duration?: string;
   tags?: string[];
+  youtubeId?: string;
 };
 
 export const VIDEOS: VideoItem[] = [
+  {
+    slug: "jlt-blueprint-fragmentation",
+    title: "The JLT Blueprint — Fragmentation vs Platform Design",
+    description:
+      "A systems-thinking presentation exploring the transition from fragmented digital environments to unified platform architecture.",
+    src: "/videos/jlt-fragmentation-landscape.mp4",
+    youtubeId: "aGcVJ0o7loo",
+    thumbnail: "/videos/jlt-fragmentation-poster.jpg",
+    duration: "02:00",
+    tags: [
+      "Platform Engineering",
+      "DevSecOps",
+      "Cloud Architecture",
+      "Governance",
+    ],
+  },
   {
     slug: "devsecops-pipeline-walkthrough",
     title: "DevSecOps Pipeline Walkthrough",
@@ -33,5 +51,13 @@ export const VIDEOS: VideoItem[] = [
 ];
 
 export function getVideoBySlug(slug: string): VideoItem | undefined {
-  return VIDEOS.find((v) => v.slug === slug);
+  return VIDEOS.find((video) => video.slug === slug);
+}
+
+export function getYouTubeWatchUrl(youtubeId?: string): string | null {
+  return youtubeId ? `https://youtu.be/${youtubeId}` : null;
+}
+
+export function getYouTubeEmbedUrl(youtubeId?: string): string | null {
+  return youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : null;
 }

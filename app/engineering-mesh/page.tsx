@@ -5,13 +5,15 @@ import MeshHeroClient from "@/components/EngineeringMesh/MeshHeroClient";
 import MeshImpactStories, {
   type MeshImpactStory,
 } from "@/components/EngineeringMesh/MeshImpactStories";
+import MeshHubNext from "@/components/meshhub/MeshHubNext";
 import MeshContextSection from "@/components/EngineeringMesh/MeshContextSection";
 import MeshResultsSection from "@/components/EngineeringMesh/MeshResultsSection";
 
-/** Set these to real IDs when ready. Leave empty to show the placeholder UI. */
-const OVERVIEW_VIDEO_ID = "";
+/** Set these to real IDs when ready. Fallback keeps the overview video live. */
+const OVERVIEW_VIDEO_ID =
+  process.env.NEXT_PUBLIC_OVERVIEW_VIDEO_ID || "aGcVJ0o7loo";
+
 const LAMBDA_VIDEO_ID = "";
-const PLAYLIST_ID = "";
 
 const MESH_STORIES: MeshImpactStory[] = [
   {
@@ -295,7 +297,9 @@ function CaseStudyCard({
       className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/60 dark:hover:border-blue-400"
     >
       <div className="flex items-center justify-between gap-3">
-        <span className={`px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] ${PILL}`}>
+        <span
+          className={`px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] ${PILL}`}
+        >
           {pill}
         </span>
         <span className="text-sm text-slate-400 transition group-hover:text-slate-700 dark:group-hover:text-slate-200">
@@ -312,7 +316,9 @@ function CaseStudyCard({
             key={metric.label}
             className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-center dark:border-slate-800 dark:bg-slate-950/60"
           >
-            <div className={`text-sm font-semibold ${HEADING}`}>{metric.value}</div>
+            <div className={`text-sm font-semibold ${HEADING}`}>
+              {metric.value}
+            </div>
             <div className="mt-1 text-[0.65rem] uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
               {metric.label}
             </div>
@@ -362,56 +368,77 @@ export default function EngineeringMeshPage() {
       </div>
 
       <section id="overview-video" className={`scroll-mt-24 ${PAGE_SECTION}`}>
-        <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
-          <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
-            Featured Video — Overview of the Mesh
-          </h2>
+        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6">
+          <div className="mb-10 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-400">
+              JLT Blueprint Presentation
+            </p>
 
-          <p className={`mt-2 max-w-3xl text-sm md:text-base ${MUTED}`}>
-            A walk-through of the mesh: how the sites connect, where CI/CD enforces trust, and how platform layers like documentation, projects, and billing now work together.
-          </p>
+            <h2
+              className={`mt-4 text-3xl font-bold tracking-tight sm:text-4xl ${HEADING}`}
+            >
+              Fragmentation vs Platform Design
+            </h2>
 
-          <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50">
-            {OVERVIEW_VIDEO_ID ? (
-              <div className="aspect-video w-full">
-                <iframe
-                  className="h-full w-full"
-                  loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  src={`https://www.youtube.com/embed/${OVERVIEW_VIDEO_ID}?rel=0`}
-                  title="Engineering Mesh overview"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            ) : (
-              <div className="flex aspect-video w-full items-center justify-center text-sm text-slate-500 dark:text-slate-300">
-                JLT YouTube ID in{" "}
-                <code className="ml-1 rounded bg-white px-1.5 py-0.5 text-xs text-slate-700 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:ring-slate-700">
-                  OVERVIEW_VIDEO_ID
-                </code>{" "}
-                to embed the overview.
-              </div>
-            )}
+            <p
+              className={`mx-auto mt-5 max-w-3xl text-sm leading-7 md:text-base ${MUTED}`}
+            >
+              A systems-thinking presentation exploring unified governance,
+              platform orchestration, operational architecture, and the evolution
+              from fragmented systems to coordinated platforms.
+            </p>
+
+            <p className="mt-6 text-xs uppercase tracking-[0.3em] text-sky-400">
+              Identity. Observability. Execution. Unified.
+            </p>
           </div>
+
+          <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70 shadow-2xl backdrop-blur">
+            <div className="aspect-video w-full">
+              <iframe
+                className="h-full w-full"
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                src={`https://www.youtube.com/embed/${OVERVIEW_VIDEO_ID}`}
+                title="JLT Blueprint Presentation"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </div>
+
+          <p className="mt-5 text-center text-xs uppercase tracking-[0.25em] text-slate-500">
+            Unified operating models for modern platform systems.
+          </p>
         </div>
       </section>
 
       <section id="problem" className={`scroll-mt-24 ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
-          <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
+          <h2
+            className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}
+          >
             The Problem: Growth Without a Shared Operating Model
           </h2>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            As the consulting platform expanded, it stopped being just a website. It became a growing ecosystem of services, documentation, blogs, project case studies, automation assets, and now billing infrastructure.
+            As the consulting platform expanded, it stopped being just a website.
+            It became a growing ecosystem of services, documentation, blogs,
+            project case studies, automation assets, and now billing
+            infrastructure.
           </p>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            Without a shared operating model, each new layer risked becoming another isolated surface. Deployments could drift, environment variables could diverge, documentation could lag reality, and platform capabilities could remain disconnected from the story being told publicly.
+            Without a shared operating model, each new layer risked becoming
+            another isolated surface. Deployments could drift, environment
+            variables could diverge, documentation could lag reality, and
+            platform capabilities could remain disconnected from the story being
+            told publicly.
           </p>
 
-          <ul className={`mt-4 list-disc space-y-2 pl-5 text-sm md:text-base ${MUTED}`}>
+          <ul
+            className={`mt-4 list-disc space-y-2 pl-5 text-sm md:text-base ${MUTED}`}
+          >
             <li>Multiple surfaces with different responsibilities</li>
             <li>Growing need for environment parity and deployment trust</li>
             <li>Operational complexity across sites, docs, and integrations</li>
@@ -422,22 +449,33 @@ export default function EngineeringMeshPage() {
 
       <section id="role" className={`scroll-mt-24 ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
-          <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
+          <h2
+            className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}
+          >
             My Role: Platform Engineer, Systems Integrator, and Builder
           </h2>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            I wasn’t just shipping features. I was shaping the environment in which every property, workflow, and service could operate predictably together.
+            I wasn’t just shipping features. I was shaping the environment in
+            which every property, workflow, and service could operate
+            predictably together.
           </p>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            That meant designing the connective tissue: CI/CD patterns, DNS behavior, environment parity, cross-site architecture, documentation pathways, project storytelling, and monetization entry points.
+            That meant designing the connective tissue: CI/CD patterns, DNS
+            behavior, environment parity, cross-site architecture, documentation
+            pathways, project storytelling, and monetization entry points.
           </p>
 
-          <ul className={`mt-4 list-disc space-y-2 pl-5 text-sm md:text-base ${MUTED}`}>
+          <ul
+            className={`mt-4 list-disc space-y-2 pl-5 text-sm md:text-base ${MUTED}`}
+          >
             <li>Unified delivery patterns across sites and services</li>
             <li>Standardized environment and deployment behavior</li>
-            <li>Introduced observability and stability thinking into the platform narrative</li>
+            <li>
+              Introduced observability and stability thinking into the platform
+              narrative
+            </li>
             <li>Connected public-facing assets to real engineering implementation</li>
             <li>Added billing architecture as a platform capability, not a bolt-on feature</li>
           </ul>
@@ -446,19 +484,29 @@ export default function EngineeringMeshPage() {
 
       <section id="solution" className={`scroll-mt-24 ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
-          <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
+          <h2
+            className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}
+          >
             The Solution: The Engineering Mesh as a Platform Story
           </h2>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            The Engineering Mesh became the shared architecture behind everything: consulting, projects, documentation, blogs, automation, and now billing.
+            The Engineering Mesh became the shared architecture behind
+            everything: consulting, projects, documentation, blogs, automation,
+            and now billing.
           </p>
 
           <p className={`mt-4 text-sm md:text-base ${MUTED}`}>
-            Instead of isolated surfaces, the system now behaves like a coordinated platform. CI/CD enforces consistency. Environment management supports trust between local and production. Documentation and projects reinforce each other. Billing creates a live entry point into the platform itself.
+            Instead of isolated surfaces, the system now behaves like a
+            coordinated platform. CI/CD enforces consistency. Environment
+            management supports trust between local and production. Documentation
+            and projects reinforce each other. Billing creates a live entry point
+            into the platform itself.
           </p>
 
-          <ul className={`mt-4 list-disc space-y-2 pl-5 text-sm md:text-base ${MUTED}`}>
+          <ul
+            className={`mt-4 list-disc space-y-2 pl-5 text-sm md:text-base ${MUTED}`}
+          >
             <li>Shared CI/CD patterns across web properties</li>
             <li>Consistent routing, deployment, and environment practices</li>
             <li>Cross-linked storytelling between projects, docs, and platform surfaces</li>
@@ -470,12 +518,15 @@ export default function EngineeringMeshPage() {
 
       <section id="enables" className={`scroll-mt-24 ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
-          <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
+          <h2
+            className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}
+          >
             What the Mesh Enables
           </h2>
 
           <p className={`mt-2 max-w-3xl text-sm md:text-base ${MUTED}`}>
-            The value of the mesh is not just architectural neatness. It creates a foundation for real platform capabilities.
+            The value of the mesh is not just architectural neatness. It creates
+            a foundation for real platform capabilities.
           </p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -498,25 +549,42 @@ export default function EngineeringMeshPage() {
               },
             ].map((item) => (
               <div key={item.title} className={CARD + " p-5"}>
-                <h3 className={`text-sm font-semibold ${HEADING}`}>{item.title}</h3>
-                <p className={`mt-2 text-sm leading-7 ${MUTED}`}>{item.body}</p>
+                <h3 className={`text-sm font-semibold ${HEADING}`}>
+                  {item.title}
+                </h3>
+                <p className={`mt-2 text-sm leading-7 ${MUTED}`}>
+                  {item.body}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <MeshContextSection PAGE_SECTION={PAGE_SECTION} HEADING={HEADING} MUTED={MUTED} />
-      <MeshResultsSection PAGE_SECTION={PAGE_SECTION} HEADING={HEADING} MUTED={MUTED} CARD={CARD} />
+      <MeshContextSection
+        PAGE_SECTION={PAGE_SECTION}
+        HEADING={HEADING}
+        MUTED={MUTED}
+      />
+
+      <MeshResultsSection
+        PAGE_SECTION={PAGE_SECTION}
+        HEADING={HEADING}
+        MUTED={MUTED}
+        CARD={CARD}
+      />
 
       <section id="timeline" className={`scroll-mt-24 ${PAGE_SECTION}`}>
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
-          <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
+          <h2
+            className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}
+          >
             How the Mesh Came Together
           </h2>
 
           <p className={`mt-2 max-w-3xl text-sm md:text-base ${MUTED}`}>
-            A quick timeline of how separate sites, tooling, and platform capabilities evolved into one mesh.
+            A quick timeline of how separate sites, tooling, and platform
+            capabilities evolved into one mesh.
           </p>
 
           <ol className="mt-6 space-y-4 border-l border-slate-200 pl-4 md:mt-8 md:space-y-5 md:pl-6 dark:border-slate-800">
@@ -548,11 +616,14 @@ export default function EngineeringMeshPage() {
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
+              <h2
+                className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}
+              >
                 Case Studies Built on the Mesh
               </h2>
               <p className={`mt-2 max-w-3xl text-sm md:text-base ${MUTED}`}>
-                These projects show how the Engineering Mesh turns platform thinking into visible, working systems.
+                These projects show how the Engineering Mesh turns platform
+                thinking into visible, working systems.
               </p>
             </div>
 
@@ -580,22 +651,23 @@ export default function EngineeringMeshPage() {
         stories={MESH_STORIES}
       />
 
-      {/* Resources */}
       <section
         id="resources"
         className="scroll-mt-24 bg-white pb-16 pt-10 dark:bg-slate-950 md:pb-20 md:pt-14"
       >
         <div className="mx-auto max-w-5xl px-4 md:px-6">
-          <h2 className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}>
+          <h2
+            className={`text-lg font-semibold tracking-tight md:text-xl ${HEADING}`}
+          >
             Mesh-Aware Resources
           </h2>
 
           <p className={`mt-2 max-w-3xl text-sm md:text-base ${MUTED}`}>
-            The directory for everything that touches the Engineering Mesh — across
-            websites, docs, projects, billing, and long-form technical narrative.
+            The directory for everything that touches the Engineering Mesh —
+            across websites, docs, projects, billing, and long-form technical
+            narrative.
           </p>
 
-          {/* Core platform surfaces */}
           <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
             <ResourceRow
               title="Consulting Platform"
@@ -623,28 +695,26 @@ export default function EngineeringMeshPage() {
               href="https://docs.justinelonglat-lane.com"
             />
             <ResourceRow
-              title="Blog Site"
+              title="Publications & Blogs"
               description="Deep-dive articles on CI/CD, DevSecOps, observability, and platform reliability."
               href="https://blogs.justinelonglat-lane.com"
             />
-            {PLAYLIST_ID && (
-              <ResourceRow
-                title="YouTube Playlist — Engineering Mesh"
-                description="All videos that explain the mesh, Lambda stories, and platform breakdowns."
-                href={`https://www.youtube.com/playlist?list=${PLAYLIST_ID}`}
-              />
-            )}
+            <ResourceRow
+              title="YouTube Video — The JLT Blueprint"
+              description="A short presentation on fragmentation, unified governance, and platform operating models."
+              href={`https://youtu.be/${OVERVIEW_VIDEO_ID}`}
+            />
           </div>
 
-          {/* Operations */}
           <div className="mt-8">
             <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
               Operations
             </div>
 
             <p className={`mt-2 max-w-3xl text-sm ${MUTED}`}>
-              The operational layer of the mesh: reusable tooling, execution guides,
-              and playbooks that help turn platform knowledge into repeatable delivery.
+              The operational layer of the mesh: reusable tooling, execution
+              guides, and playbooks that help turn platform knowledge into
+              repeatable delivery.
             </p>
 
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -657,6 +727,14 @@ export default function EngineeringMeshPage() {
                 title="Runbooks"
                 description="Operational playbooks for debugging, recovery, and platform procedures."
                 href="https://docs.justinelonglat-lane.com/runbooks.html"
+              />
+            </div>
+            <div className="mx-auto mt-16 max-w-5xl px-4 md:px-6">
+              <MeshHubNext
+                title="Watch The Operational Model In Motion"
+                description="Explore cinematic walkthroughs explaining platform governance, observability, operational architecture, and the Engineering Mesh in action."
+                href="/videos"
+                cta="Open Video Platform"
               />
             </div>
           </div>

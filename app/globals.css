@@ -54,7 +54,9 @@ nav {
     color 0.25s ease,
     border-color 0.25s ease;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   @apply bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 antialiased;
   -webkit-font-smoothing: antialiased;

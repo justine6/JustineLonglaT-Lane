@@ -1,37 +1,19 @@
-import Stripe from "stripe";
-import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+import { resolveDirectCheckoutOffering } from "@/lib/checkout-offering";
+import { getStripe } from "@/lib/stripe";
 
-type SupportedPlanKey =
-  | "intro-call"
-  | "arch-review"
-  | "retainer";
-
-const PRICE_IDS: Record<SupportedPlanKey, string | undefined> = {
-  "intro-call": process.env.STRIPE_PRICE_INTRO_CALL,
-  "arch-review": process.env.STRIPE_PRICE_ARCH_REVIEW,
-  "retainer": process.env.STRIPE_PRICE_RETAINER,
+type CheckoutRequestBody = {
+  plan?: unknown;
+  email?: unknown;
 };
 
-const PLAN_MODES: Record<SupportedPlanKey, "payment" | "subscription"> = {
-  "intro-call": "payment",
-  "arch-review": "subscription",
-  "retainer": "subscription",
-};
-
-function getSuccessUrl(baseUrl: string, plan: SupportedPlanKey) {
-  switch (plan) {
-    case "intro-call":
-      return `${baseUrl}/consulting/success?service=intro&session_id={CHECKOUT_SESSION_ID}`;
-    case "arch-review":
-      return `${baseUrl}/consulting/success?service=review&session_id={CHECKOUT_SESSION_ID}`;
-    case "retainer":
-      return `${baseUrl}/consulting/success?service=retainer&session_id={CHECKOUT_SESSION_ID}`;
-    default:
-      return `${baseUrl}/membership/success?session_id={CHECKOUT_SESSION_ID}`;
-  }
+function getSuccessUrl(baseUrl: string): string {
+  return (
+    `${baseUrl}/consulting/success` +
+    "?session_id={CHECKOUT_SESSION_ID}"
+  );
 }
 
 export async function POST(req: Request) {
@@ -42,86 +24,103 @@ export async function POST(req: Request) {
       const authResult = await auth();
       userId = authResult?.userId ?? null;
     } catch {
-      console.warn("Clerk auth unavailable in checkout route, continuing as guest");
+      console.warn(
+        "Clerk auth unavailable in checkout route, continuing as guest"
+      );
     }
 
-    const body = await req.json();
-    const plan = body?.plan as SupportedPlanKey;
-    const email = body?.email as string | undefined;
+    const body = (await req.json()) as CheckoutRequestBody;
+    const requestedPlan =
+      typeof body?.plan === "string" ? body.plan : null;
+    const email =
+      typeof body?.email === "string" ? body.email : undefined;
 
-    if (!plan || !PRICE_IDS[plan]) {
-      console.error("checkout config error", {
-        receivedPlan: plan,
-        introCallPrice: process.env.STRIPE_PRICE_INTRO_CALL ? "set" : "missing",
-        archReviewPrice: process.env.STRIPE_PRICE_ARCH_REVIEW ? "set" : "missing",
-        retainerPrice: process.env.STRIPE_PRICE_RETAINER ? "set" : "missing",
+    const offering =
+      resolveDirectCheckoutOffering(requestedPlan);
+
+    if (!offering) {
+      console.error("checkout offering rejected", {
+        receivedPlan: requestedPlan,
       });
 
       return NextResponse.json(
-        { error: "Invalid or unconfigured plan." },
+        { error: "Invalid checkout offering." },
         { status: 400 }
       );
     }
 
+    const priceEnvironmentKey =
+      offering.stripePriceEnvironmentKey;
+    const priceId = priceEnvironmentKey
+      ? process.env[priceEnvironmentKey]
+      : undefined;
+
+    if (!priceEnvironmentKey || !priceId) {
+      console.error("checkout configuration missing", {
+        offeringKey: offering.offeringKey,
+        priceEnvironmentKey:
+          priceEnvironmentKey ?? "not-configured",
+      });
+
+      return NextResponse.json(
+        { error: "Checkout offering is not configured." },
+        { status: 400 }
+      );
+    }
+
+    const stripe = getStripe();
     const baseUrl =
       process.env.NEXT_PUBLIC_SITE_URL ||
       new URL(req.url).origin;
+    const successUrl = getSuccessUrl(baseUrl);
 
-    const successUrl = getSuccessUrl(baseUrl, plan);
+    const metadata = {
+      plan: offering.offeringKey,
+      offeringKey: offering.offeringKey,
+      purchaseType: offering.purchaseType,
+      authorizationEffect:
+        offering.authorizationEffect,
+      ...(userId ? { clerkUserId: userId } : {}),
+    };
 
-    console.log("checkout request", {
-      plan,
-      priceId: PRICE_IDS[plan],
-      mode: PLAN_MODES[plan],
-      clerkUserId: userId ?? "anonymous",
-      hasEmail: Boolean(email),
-      baseUrl,
-      successUrl,
-    });
 
-    const session = await stripe.checkout.sessions.create({
-      mode: PLAN_MODES[plan],
-      customer_email: email,
-      line_items: [
-        {
-          price: PRICE_IDS[plan],
-          quantity: 1,
-        },
-      ],
-      metadata: {
-        plan,
-        ...(userId ? { clerkUserId: userId } : {}),
-      },
-      subscription_data:
-        PLAN_MODES[plan] === "subscription"
-          ? {
-              metadata: {
-                plan,
-                ...(userId ? { clerkUserId: userId } : {}),
-              },
-            }
-          : undefined,
-      success_url: successUrl,
-      cancel_url: `${baseUrl}/membership/cancel`,
-    });
+    const session =
+      await stripe.checkout.sessions.create({
+        mode: offering.stripeMode,
+        customer_email: email,
+        line_items: [
+          {
+            price: priceId,
+            quantity: 1,
+          },
+        ],
+        metadata,
+        subscription_data:
+          offering.stripeMode === "subscription"
+            ? { metadata }
+            : undefined,
+        success_url: successUrl,
+        cancel_url: `${baseUrl}/pricing`,
+      });
 
-    console.log("checkout session created", {
-      plan,
-      sessionId: session.id,
-      hasUrl: Boolean(session.url),
-    });
 
     return NextResponse.json({ url: session.url });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const checkoutError =
+      error instanceof Error
+        ? error
+        : new Error(String(error));
+
     console.error("checkout route error", {
-      message: error?.message,
-      type: error?.type,
-      code: error?.code,
+      message: checkoutError.message,
       raw: error,
     });
 
     return NextResponse.json(
-      { error: error?.message || "Unable to create checkout session." },
+      {
+        error:
+          "We could not start checkout. Please try again or contact us for assistance.",
+      },
       { status: 500 }
     );
   }

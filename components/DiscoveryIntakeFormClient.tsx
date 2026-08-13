@@ -2,13 +2,14 @@
 
 import { useMemo, useState } from "react";
 
+import type { DiscoveryContext } from "@/lib/discovery-context";
+
 type FormState = {
   name: string;
   email: string;
   org: string;
   role: string;
   website: string;
-  service: string;
   budget: string;
   timeline: string;
   cloud: string;
@@ -18,7 +19,11 @@ type FormState = {
   honey: string; // spam trap
 };
 
-export default function DiscoveryIntakeFormClient() {
+export default function DiscoveryIntakeFormClient({
+  context,
+}: {
+  context: DiscoveryContext;
+}) {
   const [busy, setBusy] = useState(false);
 
   const defaults = useMemo<FormState>(
@@ -28,7 +33,7 @@ export default function DiscoveryIntakeFormClient() {
       org: "",
       role: "",
       website: "",
-      service: "architecture-review",
+
       budget: "unsure",
       timeline: "2-4 weeks",
       cloud: "AWS",
@@ -48,7 +53,7 @@ export default function DiscoveryIntakeFormClient() {
 
   function buildMessage() {
     return (
-      `Discovery Intake — ${f.service}\n\n` +
+      `Discovery Intake — ${context.offeringName}\n\n` +
       `Name: ${f.name}\n` +
       `Email: ${f.email}\n` +
       `Org: ${f.org}\n` +
@@ -72,16 +77,16 @@ export default function DiscoveryIntakeFormClient() {
 
     setBusy(true);
 
-    const subject = `Discovery intake: ${f.service}`;
     const message = buildMessage();
 
     const qs = new URLSearchParams({
-      intent: "Discovery Intake",
-      service: f.service,
-      // these two help the prefill client fill your existing form:
-      subject,
+      discovery: "1",
       message,
     });
+
+    if (context.offeringKey) {
+      qs.set("service", context.offeringKey);
+    }
 
     // Redirect to Contact page to submit using your existing pipeline
     window.location.href = `/contact?${qs.toString()}`;
@@ -148,18 +153,13 @@ export default function DiscoveryIntakeFormClient() {
           />
         </Field>
 
-        <Field label="Service interest">
-          <select
-            value={f.service}
-            onChange={(e) => update("service", e.target.value)}
+        <Field label="Discovery context">
+          <div
             className={inputCls}
+            data-testid="governed-discovery-context"
           >
-            <option value="intro-call">Intro Call</option>
-            <option value="architecture-review">Architecture Review</option>
-            <option value="monthly-retainer">Monthly Retainer</option>
-            <option value="security-assessment">Security Assessment</option>
-            <option value="platform-build">Platform Build</option>
-          </select>
+            {context.offeringName}
+          </div>
         </Field>
 
         <Field label="Budget range">

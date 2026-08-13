@@ -1,6 +1,7 @@
 "use client";
 
-import { X, Copy, CheckCircle } from "lucide-react";
+import { CheckCircle, Copy, X } from "lucide-react";
+import { useEffect } from "react";
 
 type RecordItem = {
   id: string;
@@ -24,27 +25,66 @@ export default function AdminDetailsDrawer({
   record: RecordItem | null;
   onClose: () => void;
 }) {
-  if (!record) return null;
+  useEffect(() => {
+    if (!record) {
+      return;
+    }
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "";
+    };
+  }, [record, onClose]);
+
+  if (!record) {
+    return null;
+  }
 
   const copy = (text?: string | null) => {
-    if (!text) return;
-    navigator.clipboard.writeText(text);
+    if (!text) {
+      return;
+    }
+
+    void navigator.clipboard.writeText(text);
   };
 
   return (
     <div className="fixed inset-0 z-50 flex">
-      {/* backdrop */}
-      <div
+      {/* Backdrop */}
+      <button
+        type="button"
         onClick={onClose}
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        aria-label="Close proposal details"
+        className="absolute inset-0 cursor-default bg-black/50"
       />
 
-      {/* panel */}
-      <div className="ml-auto h-full w-full max-w-md bg-white p-6 shadow-2xl dark:bg-slate-950">
+      {/* Panel */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="proposal-details-title"
+        className="relative z-10 ml-auto h-full w-full max-w-md bg-white p-6 shadow-2xl dark:bg-slate-950"
+      >
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold">Proposal Details</h2>
-          <button onClick={onClose}>
-            <X />
+          <h2 id="proposal-details-title" className="text-lg font-bold">
+            Proposal Details
+          </h2>
+
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close proposal details"
+          >
+            <X aria-hidden="true" />
           </button>
         </div>
 
@@ -58,15 +98,21 @@ export default function AdminDetailsDrawer({
 
           <div>
             <div className="text-xs text-slate-500">Stripe Session</div>
+
             <div className="flex items-center gap-2">
               <code className="text-xs">
                 {record.stripeSessionId || "—"}
               </code>
-              {record.stripeSessionId && (
-                <button onClick={() => copy(record.stripeSessionId)}>
-                  <Copy size={14} />
+
+              {record.stripeSessionId ? (
+                <button
+                  type="button"
+                  onClick={() => copy(record.stripeSessionId)}
+                  aria-label="Copy Stripe session ID"
+                >
+                  <Copy aria-hidden="true" size={14} />
                 </button>
-              )}
+              ) : null}
             </div>
           </div>
 
@@ -84,12 +130,15 @@ export default function AdminDetailsDrawer({
 
           <div className="pt-6">
             <button
-              onClick={() =>
-                alert("Manual override coming in v3 😎")
-              }
+              type="button"
+              onClick={() => alert("Manual override coming in v3 😎")}
               className="w-full rounded-xl bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
             >
-              <CheckCircle className="inline mr-2" size={16} />
+              <CheckCircle
+                aria-hidden="true"
+                className="mr-2 inline"
+                size={16}
+              />
               Mark as paid (manual)
             </button>
           </div>
@@ -103,7 +152,7 @@ function Field({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <div className="text-xs text-slate-500">{label}</div>
-      <div className="font-semibold">{value}</div>
+      <div>{value}</div>
     </div>
   );
 }

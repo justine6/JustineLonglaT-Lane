@@ -1,3 +1,4 @@
+import Link from "next/link";
 import AdminControls from "./AdminControls";
 import AdminClient from "./AdminClient";
 import { readProposals } from "@/lib/proposal-store";
@@ -41,6 +42,7 @@ export default async function AdminPage({
         r.phone ?? "",
         r.stripeSessionId ?? "",
       ].join(" | ");
+
       return includesCI(blob, q);
     });
   }
@@ -52,6 +54,7 @@ export default async function AdminPage({
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
             Admin Dashboard
           </h1>
+
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
             Proposal approvals + Stripe payment status (file-backed storage).
           </p>
@@ -62,6 +65,26 @@ export default async function AdminPage({
             <Stat label="Unpaid" value={unpaidCount} />
           </div>
         </header>
+
+        <section className="grid gap-4 sm:grid-cols-3">
+          <AdminLink
+            href="/admin/subscribers"
+            title="Subscribers"
+            description="View newsletter signups, source, page, and environment."
+          />
+
+          <AdminLink
+            href="/admin/warnings"
+            title="Warnings"
+            description="Review project metadata and operational warnings."
+          />
+
+          <AdminLink
+            href="/admin/metrics"
+            title="Metrics"
+            description="See subscriber counts by source and environment."
+          />
+        </section>
 
         <AdminControls />
 
@@ -82,9 +105,35 @@ function Stat({ label, value }: { label: string; value: number }) {
       <div className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
         {label}
       </div>
+
       <div className="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-50">
         {value}
       </div>
     </div>
+  );
+}
+
+function AdminLink({
+  href,
+  title,
+  description,
+}: {
+  href: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-950"
+    >
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-sky-600 dark:text-sky-400">
+        {title}
+      </h2>
+
+      <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+        {description}
+      </p>
+    </Link>
   );
 }

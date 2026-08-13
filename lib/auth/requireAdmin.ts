@@ -1,5 +1,16 @@
-import { requireRole } from "@/lib/auth/requireRole";
+import { redirect } from "next/navigation";
+import { getCurrentAuthorization } from "@/lib/auth/effectiveRole";
 
 export async function requireAdmin() {
-  return requireRole("admin");
+  const { user, role } = await getCurrentAuthorization();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  if (role !== "admin") {
+    redirect("/");
+  }
+
+  return user;
 }
