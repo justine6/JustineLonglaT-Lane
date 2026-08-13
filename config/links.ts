@@ -112,20 +112,6 @@ export const LINKS = {
     "/hire-me?booked=1"
   ),
 
-  consultingSuccessIntro: joinUrl(
-    ORIGINS.main,
-    "/consulting/success?service=intro"
-  ),
-
-  consultingSuccessReview: joinUrl(
-    ORIGINS.main,
-    "/consulting/success?service=review"
-  ),
-
-  consultingSuccessRetainer: joinUrl(
-    ORIGINS.main,
-    "/consulting/success?service=retainer"
-  ),
 
   introAbsolute: joinUrl(
     ORIGINS.main,
