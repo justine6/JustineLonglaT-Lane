@@ -107,8 +107,7 @@ describe("POST /api/stripe/checkout", () => {
       subscription_data: undefined,
       success_url:
         "https://www.jlt-lane.com/consulting/success" +
-        "?service=focused-architecture" +
-        "&session_id={CHECKOUT_SESSION_ID}",
+        "?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: "https://www.jlt-lane.com/pricing",
     });
   });
@@ -136,8 +135,7 @@ describe("POST /api/stripe/checkout", () => {
         }),
         success_url:
           "https://www.jlt-lane.com/consulting/success" +
-          "?service=intro-consultation" +
-          "&session_id={CHECKOUT_SESSION_ID}",
+          "?session_id={CHECKOUT_SESSION_ID}",
       })
     );
   });

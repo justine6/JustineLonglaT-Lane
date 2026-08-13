@@ -1,12 +1,29 @@
 import Link from "next/link";
 
+import { resolveDirectCheckoutOffering } from "@/lib/checkout-offering";
+import { getStripe } from "@/lib/stripe";
+
 type SearchParams = Promise<{
-  service?: string;
+  session_id?: string;
 }>;
 
-type NextStepType = "scheduling" | "resource" | "general";
+type NextStepType = "scheduling" | "general";
 
-type ServiceContent = {
+type SuccessState =
+  | "unverified"
+  | "payment-pending"
+  | "paid-service"
+  | "fulfillment-pending";
+
+type VerifiedSuccessInput = {
+  sessionStatus: string | null;
+  paymentStatus: string | null;
+  offeringKey: string | null;
+};
+
+type VerifiedSuccessContent = {
+  state: SuccessState;
+  eyebrow: string;
   title: string;
   description: string;
   nextStepLabel: string;
@@ -14,66 +31,86 @@ type ServiceContent = {
   nextStepType: NextStepType;
 };
 
-export function getServiceContent(
-  service?: string
-): ServiceContent {
-  switch (service) {
-    case "intro":
-    case "intro-consultation":
-      return {
-        title:
-          "Payment received for your Intro Platform Consultation",
-        description:
-          "Thank you for your purchase. Your consultation is confirmed. The next step is to choose a time that works for you.",
-        nextStepLabel: "Book your intro session",
-        nextStepHref: "/availability",
-        nextStepType: "scheduling",
-      };
+const UNVERIFIED_CONTENT: VerifiedSuccessContent = {
+  state: "unverified",
+  eyebrow: "Payment not verified",
+  title: "We could not verify this payment",
+  description:
+    "No verified Stripe checkout session is available. If you completed payment, please contact us so we can review it safely.",
+  nextStepLabel: "Contact us",
+  nextStepHref: "/contact",
+  nextStepType: "general",
+};
 
-    case "focused-architecture":
-      return {
-        title:
-          "Payment received for your Focused Architecture Consultation",
-        description:
-          "Thank you for your purchase. The next step is to schedule your architecture consultation so we can review the defined area and prepare your written recommendations.",
-        nextStepLabel:
-          "Schedule architecture consultation",
-        nextStepHref: "/availability",
-        nextStepType: "scheduling",
-      };
+export function getVerifiedSuccessContent({
+  sessionStatus,
+  paymentStatus,
+  offeringKey,
+}: VerifiedSuccessInput): VerifiedSuccessContent {
+  const offering = resolveDirectCheckoutOffering(offeringKey);
 
-    case "review":
-    case "arch-review":
-      return {
-        title: "Welcome to Platform Architect",
-        description:
-          "Your Platform Architect subscription is now active. The next step is to schedule your architecture kickoff so we can align on your platform priorities and begin the engagement.",
-        nextStepLabel:
-          "Schedule architecture kickoff",
-        nextStepHref: "/availability",
-        nextStepType: "scheduling",
-      };
-
-    case "retainer":
-      return {
-        title: "Welcome to Platform Access",
-        description:
-          "Your Platform Access subscription is now active. You can now enter the Premium Toolkit and access the available premium platform resources.",
-        nextStepLabel: "Enter the Premium Toolkit",
-        nextStepHref: "/toolkit/premium",
-        nextStepType: "resource",
-      };
-
-    default:
-      return {
-        title: "Payment received",
-        description:
-          "Thank you. Your payment was received successfully. Continue below to access the appropriate next step.",
-        nextStepLabel: "Continue",
-        nextStepHref: "/",
-        nextStepType: "general",
-      };
+  if (!offering) {
+    return UNVERIFIED_CONTENT;
   }
+
+  if (
+    sessionStatus !== "complete" ||
+    paymentStatus !== "paid"
+  ) {
+    return {
+      state: "payment-pending",
+      eyebrow: "Payment pending",
+      title: "Your payment is not yet confirmed",
+      description:
+        "Stripe has not reported this checkout as fully paid. Please wait or contact us if you need assistance.",
+      nextStepLabel: "Contact us",
+      nextStepHref: "/contact",
+      nextStepType: "general",
+    };
+  }
+
+  if (offering.purchaseType === "membership") {
+    return {
+      state: "fulfillment-pending",
+      eyebrow: "Payment verified",
+      title: "Your payment has been verified",
+      description:
+        "Your membership fulfillment is being processed. Access is granted only after the verified webhook completes the authorization update.",
+      nextStepLabel: "Return home",
+      nextStepHref: "/",
+      nextStepType: "general",
+    };
+  }
+
+  if (offering.offeringKey === "intro-consultation") {
+    return {
+      state: "paid-service",
+      eyebrow: "Payment verified",
+      title:
+        "Payment verified for your Intro Platform Consultation",
+      description:
+        "Your purchase has been verified. The next step is to choose a consultation time.",
+      nextStepLabel: "Book your intro session",
+      nextStepHref: "/availability",
+      nextStepType: "scheduling",
+    };
+  }
+
+  if (offering.offeringKey === "focused-architecture") {
+    return {
+      state: "paid-service",
+      eyebrow: "Payment verified",
+      title:
+        "Payment verified for your Focused Architecture Consultation",
+      description:
+        "Your purchase has been verified. The next step is to schedule the architecture consultation.",
+      nextStepLabel: "Schedule architecture consultation",
+      nextStepHref: "/availability",
+      nextStepType: "scheduling",
+    };
+  }
+
+  return UNVERIFIED_CONTENT;
 }
 
 function NextStepInstructions({
@@ -85,66 +122,28 @@ function NextStepInstructions({
     return (
       <div className="mt-4 space-y-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
         <p>
-          1. Use the button below to choose a time on the
-          calendar.
+          Use the button below to choose an available time.
         </p>
         <p>
-          2. You will receive confirmation after booking.
-        </p>
-        <p>
-          3. If scheduling does not work, contact{" "}
-          <a
-            href="mailto:justine@justinelonglat-lane.com"
-            className="font-medium text-blue-600 hover:underline dark:text-blue-400"
-          >
-            justine@justinelonglat-lane.com
-          </a>
-          .
-        </p>
-      </div>
-    );
-  }
-
-  if (nextStepType === "resource") {
-    return (
-      <div className="mt-4 space-y-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
-        <p>
-          1. Use the button below to enter the Premium
-          Toolkit.
-        </p>
-        <p>
-          2. Sign in with the account associated with your
-          purchase if prompted.
-        </p>
-        <p>
-          3. If access is unavailable, contact{" "}
-          <a
-            href="mailto:justine@justinelonglat-lane.com"
-            className="font-medium text-blue-600 hover:underline dark:text-blue-400"
-          >
-            justine@justinelonglat-lane.com
-          </a>
-          .
+          Scheduling confirmation is separate from payment
+          verification.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="mt-4 space-y-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
-      <p>
-        Use the button below to continue, or contact us if
-        you need assistance identifying the appropriate
-        next step.
-      </p>
+    <div className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">
+      Continue using the safe next step below. Contact us if
+      you need help verifying the transaction.
     </div>
   );
 }
 
 export const metadata = {
-  title: "Consulting Success | Justine Longla T.",
+  title: "Payment Status | Justine Longla T.",
   description:
-    "Payment confirmation and next steps for consulting services.",
+    "Verified payment status and governed next steps for commercial services.",
 };
 
 export default async function ConsultingSuccessPage({
@@ -153,13 +152,41 @@ export default async function ConsultingSuccessPage({
   searchParams: SearchParams;
 }) {
   const params = await searchParams;
-  const content = getServiceContent(params?.service);
+  const sessionId =
+    typeof params?.session_id === "string"
+      ? params.session_id
+      : null;
+
+  let content = UNVERIFIED_CONTENT;
+
+  if (sessionId) {
+    try {
+      const session =
+        await getStripe().checkout.sessions.retrieve(sessionId);
+
+      content = getVerifiedSuccessContent({
+        sessionStatus: session.status,
+        paymentStatus: session.payment_status,
+        offeringKey:
+          session.metadata?.offeringKey ??
+          session.metadata?.plan ??
+          null,
+      });
+    } catch (error: unknown) {
+      console.error("checkout success verification failed", {
+        message:
+          error instanceof Error
+            ? error.message
+            : "Unknown verification error",
+      });
+    }
+  }
 
   return (
     <main className="min-h-screen bg-white px-6 py-20 dark:bg-slate-950">
       <section className="mx-auto max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
-          Payment confirmed
+          {content.eyebrow}
         </p>
 
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
@@ -189,15 +216,8 @@ export default async function ConsultingSuccessPage({
           </Link>
 
           <Link
-            href="/contact"
-            className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-900"
-          >
-            Contact directly
-          </Link>
-
-          <Link
             href="/"
-            className="inline-flex items-center justify-center rounded-xl border border-transparent px-5 py-3 text-sm font-semibold text-slate-500 transition hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+            className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-900"
           >
             Return home
           </Link>

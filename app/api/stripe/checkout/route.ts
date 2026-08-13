@@ -9,14 +9,10 @@ type CheckoutRequestBody = {
   email?: unknown;
 };
 
-function getSuccessUrl(
-  baseUrl: string,
-  offeringKey: string
-): string {
+function getSuccessUrl(baseUrl: string): string {
   return (
     `${baseUrl}/consulting/success` +
-    `?service=${encodeURIComponent(offeringKey)}` +
-    "&session_id={CHECKOUT_SESSION_ID}"
+    "?session_id={CHECKOUT_SESSION_ID}"
   );
 }
 
@@ -76,10 +72,7 @@ export async function POST(req: Request) {
     const baseUrl =
       process.env.NEXT_PUBLIC_SITE_URL ||
       new URL(req.url).origin;
-    const successUrl = getSuccessUrl(
-      baseUrl,
-      offering.offeringKey
-    );
+    const successUrl = getSuccessUrl(baseUrl);
 
     const metadata = {
       plan: offering.offeringKey,
