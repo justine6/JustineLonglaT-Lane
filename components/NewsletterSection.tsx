@@ -7,7 +7,7 @@ export default function NewsletterSection() {
       className="relative overflow-hidden bg-slate-950 px-6 py-20 text-white"
     >
       <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-        
+
         {/* LEFT SIDE */}
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-sky-400">
@@ -20,7 +20,7 @@ export default function NewsletterSection() {
 
           {/* 🔥 YOUR SIGNATURE POSITIONING */}
           <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
-            Most teams don’t have a platform.  
+            Most teams don’t have a platform.
             They have a shared environment.
           </p>
 
