@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ),
-  title: "Justine Longla T. — Cloud Confidence. Delivered.",
+  title: "JLT-LANE — Cloud Confidence. Delivered.",
   description:
     "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
   icons: {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Justine Longla T. — Cloud Confidence. Delivered.",
+    title: "JLT-LANE — Cloud Confidence. Delivered.",
     description:
       "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
     url: "https://justinelonglat-lane.com",
@@ -48,12 +48,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 __html: JSON.stringify({
                   "@context": "https://schema.org",
                   "@type": "Organization",
-                  name: "JLT-Lane",
+                  name: "JLT-LANE",
                   legalName: "Justine Longla T-Lane LLC",
                   alternateName: [
                     "JLT Lane",
-                    "JLT-Lane Engineering Mesh",
-                    "Justine Longla T-Lane",
+                    "JLT-LANE Engineering Mesh",
                   ],
                   url: "https://justinelonglat-lane.com",
                   logo: "https://justinelonglat-lane.com/brand/logo-shield.png",

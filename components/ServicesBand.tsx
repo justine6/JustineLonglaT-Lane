@@ -24,7 +24,7 @@ export default function ServicesBand() {
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <div className="mx-auto mb-10 max-w-3xl text-center">
           <h2 className="text-2xl font-semibold sm:text-3xl">
-            How JLT-Lane Helps
+            How JLT-LANE Helps
           </h2>
           <p className="mt-3 text-base text-gray-600 dark:text-gray-400 sm:text-lg">
             From platform design to secure delivery and operational reliability.

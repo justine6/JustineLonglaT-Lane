@@ -30,7 +30,7 @@ const HERO_CARDS: HeroCard[] = [
     tag: "Platform • DX",
     href: "/posts/platform-ecosystem-architecture",
     description:
-      "Behind the scenes of the Justine Longla T. multi-site platform…",
+      "Behind the scenes of the JLT-LANE multi-site platform…",
   },
 ];
 

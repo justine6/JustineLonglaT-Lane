@@ -6,7 +6,7 @@ export default function NewsletterSubscriptionSuccess() {
       <p className="font-semibold">You’re subscribed 🎉</p>
 
       <p className="mt-2 text-sm text-emerald-900 dark:text-emerald-100">
-        Welcome to the JLT-Lane platform journey. Please check your inbox for the
+        Welcome to the JLT-LANE platform journey. Please check your inbox for the
         confirmation message.
       </p>
 

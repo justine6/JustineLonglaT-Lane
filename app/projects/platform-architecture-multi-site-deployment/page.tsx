@@ -5,7 +5,7 @@ export const metadata = {
   title:
     "Platform Architecture & Multi-Site Deployment | Justine Longla T.",
   description:
-    "A deeper look at the platform architecture and CI/CD pipelines that keep the Justine Longla T. multi-site ecosystem reliable.",
+    "A deeper look at the platform architecture and CI/CD pipelines that keep the JLT-LANE multi-site ecosystem reliable.",
   openGraph: {
     title:
       "Platform Architecture & Multi-Site Deployment | Justine Longla T.",
@@ -40,7 +40,7 @@ export default function PlatformArchitecturePage() {
         </h1>
 
         <p className="page-subtitle max-w-3xl">
-          Building the Justine Longla T. engineering ecosystem as a resilient,
+          Building the JLT-LANE engineering ecosystem as a resilient,
           observable, and automation-friendly platform — not just a collection
           of separate sites.
         </p>

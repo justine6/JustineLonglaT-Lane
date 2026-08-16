@@ -28,7 +28,7 @@ export default function PlatformEcosystemArchitecture() {
           </h1>
 
           <p className="max-w-2xl text-lg text-slate-700 dark:text-slate-300">
-            How the JustineLonglaT-Lane engineering ecosystem evolved from a
+            How the JLT-LANE engineering ecosystem evolved from a
             single static website into a resilient, observable, multi-site
             platform powering marketing, documentation, blogs, projects, and
             the Nouvo Ayiti 2075 foundation — all on disciplined CI/CD,

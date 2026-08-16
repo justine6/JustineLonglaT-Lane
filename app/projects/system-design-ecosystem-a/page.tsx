@@ -2,11 +2,11 @@ import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
 
 export const metadata = {
-  title: "System Design: Justine Longla T. Ecosystem (A) | Justine Longla T.",
+  title: "System Design: JLT-LANE Ecosystem (A) | Justine Longla T.",
   description:
-    "How the Justine Longla T. main hub, blog engine, and documentation site were unified into a consistent, reliable multi-site ecosystem.",
+    "How the JLT-LANE main hub, blog engine, and documentation site were unified into a consistent, reliable multi-site ecosystem.",
   openGraph: {
-    title: "System Design: Justine Longla T. Ecosystem (A) | Justine Longla T.",
+    title: "System Design: JLT-LANE Ecosystem (A) | Justine Longla T.",
     description:
       "Case study: turning scattered sites into a stable, observable multi-site system powered by CI/CD and shared branding.",
     type: "article",
@@ -34,11 +34,11 @@ export default function SystemDesignEcosystemA() {
         </div>
 
         <h1 className="page-title">
-          System Design: Justine Longla T. Ecosystem
+          System Design: JLT-LANE Ecosystem
         </h1>
 
         <p className="page-subtitle max-w-3xl">
-          How I unified the Justine Longla T. main hub, blog engine, and
+          How I unified the JLT-LANE main hub, blog engine, and
           documentation site into a consistent, reliable multi-site ecosystem —
           with shared branding, predictable routing, and independent CI/CD
           pipelines.

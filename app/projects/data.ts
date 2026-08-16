@@ -14,9 +14,9 @@ export type BasicProject = {
 export const PROJECTS: BasicProject[] = [
   {
     slug: "system-design-ecosystem-a",
-    title: "System Design: Justine Longla T. Ecosystem",
+    title: "System Design: JLT-LANE Ecosystem",
     description:
-      "How I unified the Justine Longla T. main hub, blog engine, and documentation sites into a consistent, reliable multi-site ecosystem with shared branding and predictable routing.",
+      "How I unified the JLT-LANE main hub, blog engine, and documentation sites into a consistent, reliable multi-site ecosystem with shared brandingand predictable routing.",
     category: "Platform",
     featured: true,
     pinned: true,
@@ -25,9 +25,9 @@ export const PROJECTS: BasicProject[] = [
   },
   {
   slug: "jlt-lane-secure-billing-gateway",
-  title: "JLT-Lane Secure Billing Gateway",
+  title: "JLT-LANE Secure Billing Gateway",
   description:
-    "Stripe Checkout integration powering subscription billing and consulting payments for the JLT-Lane engineering platform.",
+    "Stripe Checkout integration powering subscription billing and consulting payments for the JLT-LANE engineering platform.",
   category: "Platform",
   featured: true,
   pinned: true,
@@ -83,9 +83,9 @@ export const PROJECTS: BasicProject[] = [
   {
     slug: "platform-architecture-multi-site-deployment",
     title:
-      "Platform Architecture & Multi-Site Deployment: JustineLonglaT-Lane Ecosystem",
+      "Platform Architecture & Multi-Site Deployment: JLT-LANE Ecosystem",
     description:
-      "Case study covering the architecture behind the JustineLonglaT-Lane sites: predictable routing, versioned assets, and independent CI/CD pipelines.",
+      "Case study covering the architecture behind the JLT-LANE sites: predictable routing, versioned assets, and independent CI/CD pipelines.",
     category: "Platform",
     tags: ["platform engineering", "architecture"],
     updated: "2025-01-14",
@@ -110,9 +110,9 @@ export const PROJECTS: BasicProject[] = [
   },
   {
     slug: "system-design-ecosystem-b",
-    title: "System Design: JustineLonglaT-Lane Ecosystem (Execution)",
+    title: "System Design: JLT-LANE Ecosystem (Execution)",
     description:
-      "End-to-end implementation story of the JustineLonglaT-Lane ecosystem as a resilient, observable, multi-site platform.",
+      "End-to-end implementation story of the JLT-LANE ecosystem as a resilient, observable, multi-site platform.",
     category: "Platform",
     tags: ["system design", "execution"],
     updated: "2025-01-08",

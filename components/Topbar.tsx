@@ -137,13 +137,13 @@ export default function Topbar() {
               <Link
                 href={LINKS.home}
                 className="flex items-center gap-3 sm:gap-4"
-                aria-label="Justine Longla T-Lane home"
+                aria-label="JLT-LANE home"
                 onClick={closeMenu}
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 shadow-sm">
                   <Image
                     src="/brand/logo-shield.png"
-                    alt="Justine Longla T-Lane logo"
+                    alt="JLT-LANE logo"
                     width={32}
                     height={32}
                     className="rounded-full"
@@ -153,7 +153,7 @@ export default function Topbar() {
 
                 <div className="flex flex-col items-start justify-center leading-tight">
                   <div className="text-sm font-semibold tracking-wide sm:text-base">
-                    Justine Longla T-Lane.
+                    JLT-LANE
                   </div>
                   <div className="hidden text-[11px] text-white/60 sm:block">
                     Cloud Confidence. Delivered.

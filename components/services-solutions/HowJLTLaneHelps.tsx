@@ -37,7 +37,7 @@ export default function HowJLTLaneHelps() {
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-600 dark:text-sky-300/80">
-            How JLT-Lane Helps
+            How JLT-LANE Helps
           </p>
 
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white md:text-4xl">
@@ -45,7 +45,7 @@ export default function HowJLTLaneHelps() {
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-400">
-            JLT-Lane helps organizations move from fragmented tooling and
+            JLT-LANE helps organizations move from fragmented tooling and
             engineering uncertainty toward secure, scalable, and reliable
             delivery systems.
           </p>

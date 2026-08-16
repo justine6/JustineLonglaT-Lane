@@ -3,13 +3,13 @@ import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
 
 export const metadata = {
-  title: "System Design: JustineLonglaT-Lane Ecosystem (Operate & Optimize)",
+  title: "System Design: JLT-LANE Ecosystem (Operate & Optimize)",
   description:
-    "Part C of the JustineLonglaT-Lane ecosystem story — operating a multi-site, multi-repo platform with observability, guardrails, and cost-aware optimization.",
+    "Part C of the JLT-LANE ecosystem story — operating a multi-site, multi-repo platform with observability, guardrails, and cost-aware optimization.",
   openGraph: {
-    title: "System Design: JustineLonglaT-Lane Ecosystem (Operate & Optimize)",
+    title: "System Design: JLT-LANE Ecosystem (Operate & Optimize)",
     description:
-      "How the JustineLonglaT-Lane platform is run day-to-day: SLOs, dashboards, incident habits, and cost optimization across a multi-site, automation-heavy ecosystem.",
+      "How the JLT-LANE platform is run day-to-day: SLOs, dashboards, incident habits, and cost optimization across a multi-site, automation-heavy ecosystem.",
     type: "article",
     url: "https://justinelonglat-lane.com/projects/operate-and-optimize",
   },
@@ -47,7 +47,7 @@ export default function OperateAndOptimizePage() {
       {/* Hero */}
       <SectionFadeIn as="header" delay={0.08} className="space-y-5">
         <h1 className="page-title">
-          System Design: JustineLonglaT-Lane Ecosystem (Operate &amp; Optimize)
+          System Design: JLT-LANE Ecosystem (Operate &amp; Optimize)
         </h1>
 
         <p className="page-subtitle max-w-3xl">
@@ -178,7 +178,7 @@ export default function OperateAndOptimizePage() {
           <section id="overview" className="space-y-3">
             <h2 className="section-heading">Overview</h2>
             <p className="section-body">
-              By the time this phase started, the JustineLonglaT-Lane ecosystem
+              By the time this phase started, the JLT-LANE ecosystem
               was already live: marketing site, blogs, docs, Nouvo Ayiti 2075,
               and shared automation all flowing through a set of repeatable
               pipelines. The challenge was no longer “How do we ship?” but{" "}
@@ -353,7 +353,7 @@ export default function OperateAndOptimizePage() {
               Together with Parts A and B, this case study forms a{" "}
               <span className="font-semibold">complete story arc</span>: from
               architecture, to execution, to everyday operations — the exact
-              journey behind the JustineLonglaT-Lane platform.
+              journey behind the JLT-LANE platform.
             </p>
           </section>
         </div>

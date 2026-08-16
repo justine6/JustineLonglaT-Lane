@@ -33,7 +33,7 @@ export default function HomeHero() {
           <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full bg-slate-900/5 ring-1 ring-slate-200 shadow-lg dark:bg-white/5 dark:ring-white/10">
             <Image
               src="/brand/logo-shield.png"
-              alt="JLT-Lane Logo"
+              alt="JLT-LANE Logo"
               width={92}
               height={92}
               priority

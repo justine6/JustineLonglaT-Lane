@@ -8,8 +8,8 @@ layout: project
 ---
 slug: system-design-ecosystem-b
 layout: project
-title: "System Design: JustineLonglaT-Lane Ecosystem (Execution)"
-summary: "Execution story of how the JustineLonglaT-Lane ecosystem was rolled out in stages: repos, pipelines, DNS, and migration work that turned the architecture into a living, evolving platform."
+title: "System Design: JLT-LANE Ecosystem (Execution)"
+summary: "Execution story of how the JLT-LANE ecosystem was rolled out in stages: repos, pipelines, DNS, and migration work that turned the architecture into a living, evolving platform."
 topic: "platform"
 status: "case-study"
 tags:

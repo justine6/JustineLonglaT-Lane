@@ -8,8 +8,8 @@ layout: project
 ---
 slug: platform-architecture-multi-site-deployment
 layout: project
-title: "Platform Architecture & Multi-Site Deployment: JustineLonglaT-Lane"
-summary: "How the JustineLonglaT-Lane platform was wired to run multiple sites — consulting hub, blog, docs, and humanitarian initiatives — with predictable routing, shared branding, and independent deployments."
+title: "Platform Architecture & Multi-Site Deployment: JLT-LANE"
+summary: "How the JLT-LANE platform was wired to run multiple sites — consulting hub, blog, docs, and humanitarian initiatives — with predictable routing, shared branding, and independent deployments."
 topic: "platform"
 status: "case-study"
 tags:
@@ -22,7 +22,7 @@ tags:
 
 This case study zooms in on the **multi-site deployment story**: how several independently deployed sites were stitched together into a single, predictable platform.
 
-Instead of one monolithic app, the JustineLonglaT-Lane ecosystem runs as a **constellation of sites** that feel unified to visitors but remain decoupled behind the scenes.
+Instead of one monolithic app, the JLT-LANE ecosystem runs as a **constellation of sites** that feel unified to visitors but remain decoupled behind the scenes.
 
 ---
 
@@ -77,4 +77,4 @@ The result is a **multi-site platform that feels like a single product**:
 - Engineering work stays manageable thanks to clear boundaries and predictable deployment stories.  
 - New sites can be added to the constellation without redesigning the whole galaxy.
 
-This multi-site architecture is the backbone that supports the richer case studies — from CI/CD automation bots to Lambda reliability patterns — across the JustineLonglaT-Lane ecosystem.
+This multi-site architecture is the backbone that supports the richer case studies — from CI/CD automation bots to Lambda reliability patterns — across the JLT-LANE ecosystem.
