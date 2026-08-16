@@ -1,19 +1,19 @@
 ---
 slug: "system-design-ecosystem-c"
-title: "System Design: JustineLonglaT-Lane Ecosystem (Operate & Optimize)"
-summary: "How the multi-site JustineLonglaT-Lane platform is operated day-to-day — observability, guardrails, routing clarity, cost optimization, and the habits that keep everything healthy as the ecosystem grows."
-description: "Part C of the ecosystem story, covering the real-world operations behind the JustineLonglaT-Lane multi-site environment: SLOs, DNS routing, deploy governance, caching, cost insights, incident handling, automation guardrails, and the cross-repo workflows that power the brand."
+title: "System Design: JLT-LANE Ecosystem (Operate & Optimize)"
+summary: "How the multi-site JLT-LANE platform is operated day-to-day — observability, guardrails, routing clarity, cost optimization, and the habits that keep everything healthy as the ecosystem grows."
+description: "Part C of the ecosystem story, covering the real-world operations behind the JLT-LANE multi-site environment: SLOs, DNS routing, deploy governance, caching, cost insights, incident handling, automation guardrails, and the cross-repo workflows that power the brand."
 stack: ["Next.js", "Vercel", "GitHub Actions", "GitHub Pages", "PowerShell", "Resend", "DNS / IONOS", "Static Generation", "CI/CD", "Routing Mesh"]
 tags: ["platform", "execution", "multi-site", "observability", "ops", "cost", "automation"]
 date: "2025-01-20"
 ---
 
-# System Design: JustineLonglaT-Lane Ecosystem (Operate & Optimize)
+# System Design: JLT-LANE Ecosystem (Operate & Optimize)
 
 Part C focuses on what happened after the platform went live —  
 **how the ecosystem is actually operated, monitored, and optimized every day**, across multiple sites, pipelines, DNS records, and automation flows.
 
-This phase is powered entirely by the real tools that run the JustineLonglaT-Lane platform:
+This phase is powered entirely by the real tools that run the JLT-LANE platform:
 Next.js 15, Vercel’s global edge network, GitHub Actions pipelines, GitHub Pages for docs, PowerShell toolkits, IONOS DNS, and Resend for email.
 
 ---

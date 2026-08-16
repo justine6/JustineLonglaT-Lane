@@ -83,9 +83,9 @@ export const PROJECTS: BasicProject[] = [
   {
     slug: "platform-architecture-multi-site-deployment",
     title:
-      "Platform Architecture & Multi-Site Deployment: JustineLonglaT-Lane Ecosystem",
+      "Platform Architecture & Multi-Site Deployment: JLT-LANE Ecosystem",
     description:
-      "Case study covering the architecture behind the JustineLonglaT-Lane sites: predictable routing, versioned assets, and independent CI/CD pipelines.",
+      "Case study covering the architecture behind the JLT-LANE sites: predictable routing, versioned assets, and independent CI/CD pipelines.",
     category: "Platform",
     tags: ["platform engineering", "architecture"],
     updated: "2025-01-14",
@@ -110,9 +110,9 @@ export const PROJECTS: BasicProject[] = [
   },
   {
     slug: "system-design-ecosystem-b",
-    title: "System Design: JustineLonglaT-Lane Ecosystem (Execution)",
+    title: "System Design: JLT-LANE Ecosystem (Execution)",
     description:
-      "End-to-end implementation story of the JustineLonglaT-Lane ecosystem as a resilient, observable, multi-site platform.",
+      "End-to-end implementation story of the JLT-LANE ecosystem as a resilient, observable, multi-site platform.",
     category: "Platform",
     tags: ["system design", "execution"],
     updated: "2025-01-08",
