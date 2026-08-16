@@ -25,9 +25,9 @@ export const PROJECTS: BasicProject[] = [
   },
   {
   slug: "jlt-lane-secure-billing-gateway",
-  title: "JLT-Lane Secure Billing Gateway",
+  title: "JLT-LANE Secure Billing Gateway",
   description:
-    "Stripe Checkout integration powering subscription billing and consulting payments for the JLT-Lane engineering platform.",
+    "Stripe Checkout integration powering subscription billing and consulting payments for the JLT-LANE engineering platform.",
   category: "Platform",
   featured: true,
   pinned: true,

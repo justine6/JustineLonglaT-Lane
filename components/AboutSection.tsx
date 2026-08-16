@@ -117,7 +117,7 @@ export default function AboutSection() {
           transition={{ duration: 0.45, ease: "easeOut" }}
           className="mb-5 text-base leading-relaxed text-slate-700 sm:text-lg"
         >
-          I maintain the JLT-Lane platform as both a live production environment
+          I maintain the JLT-LANE platform as both a live production environment
           and a teaching system, similar to reference architectures such as
           Microsoft Contoso or AWS sample platforms.
         </motion.p>

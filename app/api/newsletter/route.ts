@@ -104,15 +104,15 @@ const resend = new Resend(resendApiKey);
     const subscriberEmail = await resend.emails.send({
       from,
       to: email,
-      subject: "Welcome to JLT-Lane",
+      subject: "Welcome to JLT-LANE",
       html: `
-        <h2>Welcome to JLT-Lane</h2>
+        <h2>Welcome to JLT-LANE</h2>
         <p>Hi there,</p>
         <p>Thanks for subscribing to JLT Platform Notes.</p>
         <p>You’ll receive insights on platform engineering, DevSecOps, and cloud systems.</p>
         <p>— Justine</p>
       `,
-      text: "Welcome to JLT-Lane. Thanks for subscribing.",
+      text: "Welcome to JLT-LANE. Thanks for subscribing.",
     });
 
     if (subscriberEmail.error) {

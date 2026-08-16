@@ -5,7 +5,7 @@ const latestIssuePdf = "/files/jlt-platform-notes-latest.pdf";
 export const metadata = {
   title: "JLT Platform Notes Newsletter",
   description:
-    "Platform engineering, DevSecOps, observability, automation, and cloud operating model insights from JLT-Lane.",
+    "Platform engineering, DevSecOps, observability, automation, and cloud operating model insights from JLT-LANE.",
 };
 
 export default function NewsletterPage() {
@@ -157,10 +157,10 @@ export default function NewsletterPage() {
 
             <section>
               <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                The JLT-Lane Platform View
+                The JLT-LANE Platform View
               </h3>
               <p className="mt-3 leading-7">
-                At JLT-Lane, I think about platforms through a simple operating
+                At JLT-LANE, I think about platforms through a simple operating
                 flow:
               </p>
 

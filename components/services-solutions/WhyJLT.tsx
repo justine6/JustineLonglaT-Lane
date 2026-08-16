@@ -3,7 +3,7 @@ export default function WhyJLT() {
     <section className="bg-white px-6 py-20 text-slate-900 dark:bg-slate-900 dark:text-white">
       <div className="mx-auto max-w-5xl text-center">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-600 dark:text-sky-300/80">
-          Why JLT-Lane
+          Why JLT-LANE
         </p>
 
         <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white md:text-4xl">
@@ -11,7 +11,7 @@ export default function WhyJLT() {
         </h2>
 
         <p className="mt-6 leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
-          JLT-Lane brings together cloud architecture, DevSecOps, observability,
+          JLT-LANE brings together cloud architecture, DevSecOps, observability,
           automation, and platform engineering into one practical delivery
           approach. The goal is not only to build systems that work, but to
           build systems that are secure, maintainable, and ready to scale.

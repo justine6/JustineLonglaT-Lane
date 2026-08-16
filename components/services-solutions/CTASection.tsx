@@ -14,7 +14,7 @@ export default function CTASection() {
 
         <p className="mt-5 text-base leading-8 text-slate-600 dark:text-slate-400 md:text-lg">
           Whether you need architecture guidance, DevSecOps implementation, or
-          platform engineering support, JLT-Lane can help you design, secure,
+          platform engineering support, JLT-LANE can help you design, secure,
           and operate with confidence.
         </p>
 

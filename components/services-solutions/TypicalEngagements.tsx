@@ -41,7 +41,7 @@ export default function TypicalEngagements() {
           </p>
 
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-4xl">
-            Common ways organizations work with JLT-Lane
+            Common ways organizations work with JLT-LANE
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-slate-400">

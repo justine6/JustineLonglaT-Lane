@@ -10,12 +10,12 @@ export default function ProjectPage() {
         </p>
 
         <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-          JLT-Lane Secure Billing Gateway
+          JLT-LANE Secure Billing Gateway
         </h1>
 
         <p className="mt-4 max-w-3xl text-lg text-gray-600 dark:text-gray-300">
           Stripe Checkout integration powering subscription billing and
-          consulting payments for the JLT-Lane engineering platform.
+          consulting payments for the JLT-LANE engineering platform.
           Built with Next.js API routes, Stripe Billing, and deployed on
           Vercel serverless infrastructure.
         </p>
@@ -30,7 +30,7 @@ export default function ProjectPage() {
         <div className="rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
           <Image
             src="/images/projects/stripe-billing-architecture.png"
-            alt="JLT-Lane Secure Billing Architecture"
+            alt="JLT-LANE Secure Billing Architecture"
             width={1400}
             height={800}
             className="w-full h-auto"
@@ -47,7 +47,7 @@ export default function ProjectPage() {
 
           <p className="text-gray-600 dark:text-gray-300 mb-4">
             This project implements the monetization layer for the
-            JLT-Lane platform using Stripe Checkout. The system enables
+            JLT-LANE platform using Stripe Checkout. The system enables
             both one-time consulting payments and recurring subscription
             plans while maintaining secure key management and environment
             parity between local development and production.

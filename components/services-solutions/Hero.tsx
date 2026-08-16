@@ -11,7 +11,7 @@ export default function Hero() {
 
         {/* Brand eyebrow */}
         <p className="mt-4 text-sm font-semibold uppercase tracking-[0.22em] text-sky-600 dark:text-sky-300/80">
-          JLT-Lane
+          JLT-LANE
         </p>
 
         {/* Headline */}

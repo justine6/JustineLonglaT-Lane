@@ -178,7 +178,7 @@ export default function HeroBanner() {
             >
               <Image
                 src="/brand/platform-architecture.png"
-                alt="JLT-Lane platform control, execution, and operations model"
+                alt="JLT-LANE platform control, execution, and operations model"
                 width={1800}
                 height={1200}
                 priority
