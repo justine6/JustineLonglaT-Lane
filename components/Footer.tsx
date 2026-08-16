@@ -139,7 +139,7 @@ export default function Footer() {
             {/* 🏢 Business Address */}
             <li className="leading-relaxed text-slate-600 dark:text-slate-300">
               <span className="block font-medium text-slate-800 dark:text-slate-100">
-                JLT-Lane
+                JLT-LANE
                 Platform Engineering & DevSecOps
               </span>
               <span className="block">128 W I-240 Service Rd, PMB [###]</span>
@@ -171,13 +171,13 @@ export default function Footer() {
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 text-center">
             <p className="text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
               © {year}{" "}
-              <span className="font-semibold">Justine Longla T-Lane</span> · DevSecOps •
+              <span className="font-semibold">JLT-LANE</span> · Platform Engineering •
               Cloud • Sustainability
             </p>
 
             <p className="text-xs text-gray-400 dark:text-gray-500">
-              Operating under{" "}
-              <span className="font-medium">Justine Longla T-Lane LLC</span> · JLT-Lane
+              JLT-LANE is operated by{" "}
+              <span className="font-medium">Justine Longla T-Lane LLC</span>.
             </p>
 
             <nav
