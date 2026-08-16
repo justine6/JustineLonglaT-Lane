@@ -16,7 +16,7 @@ export default function BookingSection() {
         <header className="mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-sm text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200">
             <Sparkles className="h-4 w-4" />
-            Pricing by Justine Longla T-Lane
+            JLT-LANE Consulting
           </div>
 
           <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
