@@ -14,9 +14,9 @@ export type BasicProject = {
 export const PROJECTS: BasicProject[] = [
   {
     slug: "system-design-ecosystem-a",
-    title: "System Design: Justine Longla T. Ecosystem",
+    title: "System Design: JLT-LANE Ecosystem",
     description:
-      "How I unified the Justine Longla T. main hub, blog engine, and documentation sites into a consistent, reliable multi-site ecosystem with shared branding and predictable routing.",
+      "How I unified the JLT-LANE main hub, blog engine, and documentation sites into a consistent, reliable multi-site ecosystem with shared brandingand predictable routing.",
     category: "Platform",
     featured: true,
     pinned: true,

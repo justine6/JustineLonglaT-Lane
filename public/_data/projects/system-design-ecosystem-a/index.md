@@ -8,8 +8,8 @@ layout: project
 ---
 slug: system-design-ecosystem-a
 layout: project
-title: "System Design: Justine Longla T. Ecosystem (Architecture)"
-summary: "How the Justine Longla T. consulting ecosystem was designed as a single, cohesive platform that connects the main hub, blog engine, docs, and humanitarian initiatives under one cloud-native roof."
+title: "System Design: JLT-LANE Ecosystem (Architecture)"
+summary: "How the JLT-LANE ecosystem was designed as a single, cohesive platform that connects the main hub, blog engine, docs, and humanitarian initiatives under one cloud-native roof."
 topic: "platform"
 status: "case-study"
 tags:
@@ -20,7 +20,7 @@ tags:
   - aws
 ---
 
-The Justine Longla T. consulting brand is more than a single website.  
+JLT-LANE is more than a single website.
 It’s a small platform: a marketing hub, a long-form blog, a documentation site, and the Nouvo Ayiti 2075 initiative — all sharing the same identity but running on different stacks.
 
 This case study focuses on the **architecture** behind that ecosystem and how the pieces fit together without becoming a tangle of ad-hoc links and DNS hacks.
