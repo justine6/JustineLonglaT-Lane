@@ -3,11 +3,11 @@ import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
 
 export const metadata = {
-  title: "System Design: JustineLonglaT-Lane Ecosystem (Execution) | Justine Longla T.",
+  title: "System Design: JLT-LANE Ecosystem (Execution) | Justine Longla T.",
   description:
-    "Execution story of how the JustineLonglaT-Lane ecosystem was rolled out in stages: repos, pipelines, DNS, migrations, and guardrails that turned the architecture into a living platform.",
+    "Execution story of how the JLT-LANE ecosystem was rolled out in stages: repos, pipelines, DNS, migrations, and guardrails that turned the architecture into a living platform.",
   openGraph: {
-    title: "System Design: JustineLonglaT-Lane Ecosystem (Execution)",
+    title: "System Design: JLT-LANE Ecosystem (Execution)",
     description:
       "From scattered experiments to a disciplined, multi-site platform with reproducible builds, clean routing, and room to grow.",
     type: "article",
@@ -40,11 +40,11 @@ export default function SystemDesignEcosystemBPage() {
       {/* Hero */}
       <SectionFadeIn as="header" delay={0.08} className="space-y-5">
         <h1 className="page-title">
-          System Design: JustineLonglaT-Lane Ecosystem (Execution)
+          System Design: JLT-LANE Ecosystem (Execution)
         </h1>
 
         <p className="page-subtitle max-w-3xl">
-          How the JustineLonglaT-Lane ecosystem moved from architecture on
+          How the JLT-LANE ecosystem moved from architecture on
           paper to a living, multi-site platform — with repos, pipelines, DNS,
           and migrations that ship the brand with confidence.
         </p>

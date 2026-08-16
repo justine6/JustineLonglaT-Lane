@@ -65,7 +65,7 @@ export default function MeshHeroClient(props: {
         >
           <span className="relative inline-block">
             <span className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 blur-2xl opacity-30" />
-            The Justine Longla T-Lane Engineering Mesh
+            The JLT-LANE Engineering Mesh
           </span>
         </motion.h1>
 

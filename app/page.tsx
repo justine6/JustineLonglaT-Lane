@@ -181,11 +181,11 @@ export default function HomePage() {
         </section>
       </AnimatedSection>
 
-      {/* 💡 Why Organizations Work With JLT-Lane */}
+      {/* 💡 Why Organizations Work With JLT-LANE */}
       <AnimatedSection>
         <section className="mx-auto mt-16 mb-24 max-w-5xl px-4 md:px-6">
           <h2 className="mb-10 text-center text-3xl font-semibold tracking-tight sm:text-4xl">
-            Why Organizations Work With JLT-Lane
+            Why Organizations Work With JLT-LANE
           </h2>
 
           <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[200px,1fr] md:gap-12">
@@ -210,7 +210,7 @@ export default function HomePage() {
               </p>
 
               <p className="mb-5 text-base leading-8 text-gray-700 dark:text-gray-300">
-                JLT-Lane supports organizations that need practical cloud architecture,
+                JLT-LANE supports organizations that need practical cloud architecture,
                 DevSecOps delivery, automation systems, and platform engineering guidance
                 focused on real-world delivery, reliability, and long-term maintainability.
               </p>

@@ -16,7 +16,7 @@ export default function Capabilities() {
             Capabilities
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-slate-600 dark:text-slate-300">
-            JLT-Lane helps organizations strengthen their engineering posture
+            JLT-LANE helps organizations strengthen their engineering posture
             across architecture, automation, security, and delivery.
           </p>
         </div>

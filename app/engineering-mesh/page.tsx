@@ -29,7 +29,7 @@ const MESH_STORIES: MeshImpactStory[] = [
     href: "/projects/system-design-ecosystem-a",
   },
   {
-    title: "JLT-Lane Secure Billing Gateway",
+    title: "JLT-LANE Secure Billing Gateway",
     summary:
       "How Stripe Checkout was integrated into the platform to support consulting payments, subscriptions, and a production-ready monetization layer.",
     tags: ["Stripe", "Billing", "Next.js", "Vercel"],
@@ -110,7 +110,7 @@ const CASE_STUDIES = [
     ],
   },
   {
-    title: "JLT-Lane Secure Billing Gateway",
+    title: "JLT-LANE Secure Billing Gateway",
     summary:
       "Stripe-powered billing architecture for one-time consulting payments and recurring platform subscriptions.",
     href: "/projects/jlt-lane-secure-billing-gateway",

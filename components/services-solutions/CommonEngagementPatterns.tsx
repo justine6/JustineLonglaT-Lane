@@ -45,7 +45,7 @@ export default function CommonEngagementPatterns() {
       </h2>
 
       <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-400">
-        Organizations typically engage JLT-Lane when they need stronger
+        Organizations typically engage JLT-LANE when they need stronger
         platform foundations, more reliable delivery, clearer architecture,
         or a scalable path for growth.
       </p>

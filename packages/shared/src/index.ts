@@ -3,7 +3,7 @@ export type Health = {
   now: string;
 };
 
-export const siteName = "Justine Longla T-Lane";
+export const siteName = "JLT-LANE";
 
 export function nowIso(): string {
   return new Date().toISOString();

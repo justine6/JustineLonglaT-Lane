@@ -1,8 +1,8 @@
 {
-  "title": "JLT-Lane Secure Billing Gateway",
-  "description": "Stripe Checkout integration powering subscription billing and consulting payments for the JLT-Lane engineering platform.",
+  "title": "JLT-LANE Secure Billing Gateway",
+  "description": "Stripe Checkout integration powering subscription billing and consulting payments for the JLT-LANE engineering platform.",
   "excerpt": "Secure billing architecture with Next.js, Stripe Checkout, and Vercel.",
-  "summary": "Implemented a secure monetization layer for the JLT-Lane platform using Stripe Checkout, subscription billing, and production-ready Vercel deployment.",
+  "summary": "Implemented a secure monetization layer for the JLT-LANE platform using Stripe Checkout, subscription billing, and production-ready Vercel deployment.",
   "updatedAt": "2026-03-12",
   "image": "/images/projects/stripe-billing-architecture.png",
   "featured": true,

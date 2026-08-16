@@ -75,7 +75,7 @@ export default function ServicesPage() {
         <div className="max-w-6xl mx-auto px-6 py-20">
           <div className="max-w-4xl">
             <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-medium text-slate-600">
-              JLT-Lane Services
+              JLT-LANE Services
             </span>
 
             <h1 className="mt-6 text-4xl md:text-5xl font-bold tracking-tight leading-tight">
@@ -173,7 +173,7 @@ export default function ServicesPage() {
           <p className="mt-4 max-w-3xl mx-auto text-slate-300 text-lg leading-8">
             Whether you are planning a new platform, improving cloud security,
             strengthening access control, or making your delivery workflows more
-            reliable, JLT-Lane can help you move forward with structure and confidence.
+            reliable, JLT-LANE can help you move forward with structure and confidence.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
