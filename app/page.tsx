@@ -33,13 +33,13 @@ export default function HomePage() {
       <div className="rounded-3xl bg-white/95 p-8 shadow-lg ring-1 ring-slate-200 dark:bg-slate-900/80 dark:ring-slate-700">
 
         {/* Logo */}
-        <div className="mx-auto max-w-sm">
+        <div className="mx-auto max-w-3xl">
           <Image
-            src="/brand/justine-logo.png"
-            alt="Justine Longla T. logo"
-            width={420}
-            height={420}
-            className="mx-auto h-auto w-52 sm:w-60 md:w-64"
+            src="/brand/jlt-lane-institutional-lockup.png"
+            alt="JLT-LANE — Platform Engineering, Cloud Architecture, and DevSecOps"
+            width={1536}
+            height={1024}
+            className="mx-auto h-auto w-full max-w-2xl"
             priority
           />
         </div>
