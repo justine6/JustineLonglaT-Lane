@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata = {
   title: "Automation Rescue: Fixing Flaky Lambdas | Justine Longla T.",
@@ -9,7 +10,7 @@ export const metadata = {
     title: "Automation Rescue: Fixing Flaky Lambdas",
     description:
       "A practical story of tracing failing automations, tuning resources, and adding observability around serverless workloads.",
-    url: "https://justinelonglat-lane.com/projects/project-a",
+    url: `${ORIGINS.main}/projects/project-a`,
     type: "article",
   },
 };

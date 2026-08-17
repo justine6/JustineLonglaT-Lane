@@ -5,6 +5,7 @@ import MeshHeroClient from "@/components/EngineeringMesh/MeshHeroClient";
 import MeshImpactStories, {
   type MeshImpactStory,
 } from "@/components/EngineeringMesh/MeshImpactStories";
+import { ORIGINS } from "@/config/links";
 import MeshHubNext from "@/components/meshhub/MeshHubNext";
 import MeshContextSection from "@/components/EngineeringMesh/MeshContextSection";
 import MeshResultsSection from "@/components/EngineeringMesh/MeshResultsSection";
@@ -672,7 +673,7 @@ export default function EngineeringMeshPage() {
             <ResourceRow
               title="Consulting Platform"
               description="Main Next.js site for services, intro calls, pricing, and client engagement."
-              href="https://www.justinelonglat-lane.com"
+              href={ORIGINS.main}
             />
             <ResourceRow
               title="Pricing Surface"

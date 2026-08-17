@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata = {
   title: "System Design: JLT-LANE Ecosystem (A) | Justine Longla T.",
@@ -10,7 +11,7 @@ export const metadata = {
     description:
       "Case study: turning scattered sites into a stable, observable multi-site system powered by CI/CD and shared branding.",
     type: "article",
-    url: "https://justinelonglat-lane.com/projects/system-design-ecosystem-a",
+    url: `${ORIGINS.main}/projects/system-design-ecosystem-a`,
   },
 };
 

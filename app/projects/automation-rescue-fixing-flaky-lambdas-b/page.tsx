@@ -1,6 +1,7 @@
 // app/projects/automation-rescue-fixing-flaky-lambdas-b/page.tsx
 import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata = {
   title: "Patterns Library: Reliable Lambdas (Automation Rescue – Part B) | Justine Longla T.",
@@ -11,7 +12,7 @@ export const metadata = {
     description:
       "From one-off fixes to a reusable patterns library for AWS Lambda — timeouts, retries, DLQs, observability, and guardrails that make reliability the default.",
     type: "article",
-    url: "https://justinelonglat-lane.com/projects/automation-rescue-fixing-flaky-lambdas-b",
+    url: `${ORIGINS.main}/projects/automation-rescue-fixing-flaky-lambdas-b`,
   },
 };
 

@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata: Metadata = {
   title: "CI/CD Automation Bot | Justine Longla T.",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
     description:
       "Case study: a CI/CD automation bot that turns raw pipeline events into readable, actionable notifications in Microsoft Teams.",
     type: "article",
-    url: "https://justinelonglat-lane.com/projects/cicd-automation-bot",
+    url: `${ORIGINS.main}/projects/cicd-automation-bot`,
   },
 };
 
