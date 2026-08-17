@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { LINKS } from '@/config/links';
+import { ORIGINS } from "@/config/links";
 import { getAllProjects } from "@/lib/projects";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://justinelonglat-lane.com";
+  const base = ORIGINS.main;
   const items = await getAllProjects();
   const now = new Date().toISOString();
 
@@ -16,4 +16,3 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
 }
-
