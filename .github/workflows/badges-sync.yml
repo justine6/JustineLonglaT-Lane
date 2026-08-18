@@ -27,7 +27,7 @@ jobs:
             -Owner justine6 `
             -Repo Justine Longla T.-Solutions `
             -WorkflowFileName deploy.yml `
-            -DefaultSiteUrl "https://justinelonglat-lane.com" `
+            -DefaultSiteUrl "https://jlt-lane.com" `
             -DefaultBlogUrl "https://justine6.github.io/jutellane-blogs" `
             -DetectCNAME
 

@@ -90,11 +90,11 @@ It is built not only as a website, but as a **digital operations platform**.
 
 <!-- CI/CD & Site Badges -->
 [![Build & Deploy — Justine Longla T.](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/deploy.yml)
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fjutellane.com)](https://justinelonglat-lane.com)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fjutellane.com)](https://jlt-lane.com)
 [![Last commit](https://img.shields.io/github/last-commit/justine6/Justine Longla T.-Solutions/main)](https://github.com/justine6/Justine Longla T.-Solutions/commits/main)
 [![Docs](https://img.shields.io/badge/Docs-Justine Longla T.%20Blogs-blue)](https://justine6.github.io/jutellane-blogs/)
 
-**Live site:** https://justinelonglat-lane.com
+**Live site:** https://jlt-lane.com
 
 [![Preview (Vercel)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/preview-pr.yml/badge.svg?branch=main)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/preview-pr.yml)
 [![Production (Vercel)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/deploy-prod.yml/badge.svg?branch=main)](https://github.com/justine6/Justine Longla T.-Solutions/actions/workflows/deploy-prod.yml)
@@ -408,7 +408,7 @@ Please reach out through the appropriate channel below.
 
 ## 🌐 Business & Consulting
 
-**Website:** https://justinelonglat-lane.com  
+**Website:** https://jlt-lane.com
 Use the contact or booking options available on the site for service-related inquiries.
 
 ---

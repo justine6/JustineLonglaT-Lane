@@ -10,9 +10,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ORIGINS } from "@/config/links";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? ORIGINS.main
-  ),
+  metadataBase: new URL(ORIGINS.main),
   title: "JLT-LANE — Cloud Confidence. Delivered.",
   description:
     "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
