@@ -1,3 +1,4 @@
+import { ORIGINS } from "@/config/links";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
@@ -69,9 +70,7 @@ export async function POST(req: Request) {
     }
 
     const stripe = getStripe();
-    const baseUrl =
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      new URL(req.url).origin;
+    const baseUrl = ORIGINS.main;
     const successUrl = getSuccessUrl(baseUrl);
 
     const metadata = {

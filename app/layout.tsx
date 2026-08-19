@@ -7,11 +7,10 @@ import Footer from "@/components/Footer";
 import { Providers } from "./providers";
 import Script from "next/script";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ORIGINS } from "@/config/links";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-  ),
+  metadataBase: new URL(ORIGINS.main),
   title: "JLT-LANE — Cloud Confidence. Delivered.",
   description:
     "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
@@ -24,7 +23,7 @@ export const metadata: Metadata = {
     title: "JLT-LANE — Cloud Confidence. Delivered.",
     description:
       "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
-    url: "https://justinelonglat-lane.com",
+    url: ORIGINS.main,
     type: "website",
   },
 };
@@ -54,8 +53,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     "JLT Lane",
                     "JLT-LANE Engineering Mesh",
                   ],
-                  url: "https://justinelonglat-lane.com",
-                  logo: "https://justinelonglat-lane.com/brand/logo-shield.png",
+                  url: ORIGINS.main,
+                  logo: `${ORIGINS.main}/brand/logo-shield.png`,
                   founder: {
                     "@type": "Person",
                     name: "Justine Longla T.",

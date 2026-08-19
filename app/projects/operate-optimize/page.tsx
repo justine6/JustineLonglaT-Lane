@@ -1,6 +1,7 @@
 // app/projects/operate-and-optimize/page.tsx
 import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata = {
   title: "System Design: JLT-LANE Ecosystem (Operate & Optimize)",
@@ -11,7 +12,7 @@ export const metadata = {
     description:
       "How the JLT-LANE platform is run day-to-day: SLOs, dashboards, incident habits, and cost optimization across a multi-site, automation-heavy ecosystem.",
     type: "article",
-    url: "https://justinelonglat-lane.com/projects/operate-and-optimize",
+    url: `${ORIGINS.main}/projects/operate-and-optimize`,
   },
 };
 

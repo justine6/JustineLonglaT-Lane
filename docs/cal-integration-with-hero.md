@@ -37,7 +37,7 @@ npm install framer-motion
    - **Slug:** `/intro-call` (creates `https://cal.justinelonglat-lane.com/intro-call`)
    - **Location:** Cal Video / Google Meet / Zoom
    - **Availability:** Choose hours and enable timezone detection.
-   - **Confirmation Page:** Optional redirect → `https://justinelonglat-lane.com/thank-you`.
+   - **Confirmation Page:** Optional redirect → `https://jlt-lane.com/thank-you`.
 
 3. **Verify Event**
    - Open [https://cal.justinelonglat-lane.com/intro-call](https://cal.justinelonglat-lane.com/intro-call) in an incognito browser window.

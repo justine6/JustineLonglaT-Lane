@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata = {
   title:
@@ -12,7 +13,7 @@ export const metadata = {
     description:
       "Case study: designing CI/CD, routing, and asset strategies for a portfolio of related sites.",
     type: "article",
-    url: "https://justinelonglat-lane.com/projects/platform-architecture-multi-site-deployment",
+    url: `${ORIGINS.main}/projects/platform-architecture-multi-site-deployment`,
   },
 };
 

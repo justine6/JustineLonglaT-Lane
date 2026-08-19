@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata = {
   title:
@@ -12,7 +13,7 @@ export const metadata = {
     description:
       "From one-off fixes to a patterns library: standard templates, observability baselines, and guardrails for reliable AWS Lambda workloads.",
     type: "article",
-    url: "https://justinelonglat-lane.com/projects/automation-rescue-fixing-flaky-lambdas-b",
+    url: `${ORIGINS.main}/projects/automation-rescue-fixing-flaky-lambdas-b`,
   },
 };
 

@@ -1,6 +1,7 @@
 // app/projects/system-design-ecosystem-b/page.tsx
 import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata = {
   title: "System Design: JLT-LANE Ecosystem (Execution) | Justine Longla T.",
@@ -11,7 +12,7 @@ export const metadata = {
     description:
       "From scattered experiments to a disciplined, multi-site platform with reproducible builds, clean routing, and room to grow.",
     type: "article",
-    url: "https://justinelonglat-lane.com/projects/system-design-ecosystem-b",
+    url: `${ORIGINS.main}/projects/system-design-ecosystem-b`,
   },
 };
 

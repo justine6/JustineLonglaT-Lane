@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata = {
   title: "Secure & Scale | Justine Longla T.",
@@ -10,7 +11,7 @@ export const metadata = {
     description:
       "Case study: adding practical security controls and scaling patterns to a fast-moving engineering organisation.",
     type: "article",
-    url: "https://justinelonglat-lane.com/projects/secure-and-scale",
+    url: `${ORIGINS.main}/projects/secure-and-scale`,
   },
 };
 

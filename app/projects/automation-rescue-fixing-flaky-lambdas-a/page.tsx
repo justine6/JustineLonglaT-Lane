@@ -1,6 +1,7 @@
 // app/projects/automation-rescue-fixing-flaky-lambdas-a/page.tsx
 import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata = {
   title: "Automation Rescue: Fixing Flaky Lambdas — Part A | Justine Longla T.",
@@ -11,7 +12,7 @@ export const metadata = {
     description:
       "How we rescued a noisy, flaky Lambda landscape — stabilizing production with consistent retries, unified timeouts, structured logging, and better alarms.",
     type: "article",
-    url: "https://justinelonglat-lane.com/projects/automation-rescue-fixing-flaky-lambdas-a",
+    url: `${ORIGINS.main}/projects/automation-rescue-fixing-flaky-lambdas-a`,
   },
 };
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata = {
   title: "Operate & Optimize | Justine Longla T.",
@@ -10,7 +11,7 @@ export const metadata = {
     description:
       "Case study: turning scattered scripts and spreadsheets into a focused operations toolkit for cost, reliability, and insight.",
     type: "article",
-    url: "https://justinelonglat-lane.com/projects/operate-and-optimize",
+    url: `${ORIGINS.main}/projects/operate-and-optimize`,
   },
 };
 

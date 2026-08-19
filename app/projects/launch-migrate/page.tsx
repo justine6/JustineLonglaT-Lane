@@ -1,6 +1,7 @@
 // app/projects/launch-migrate/page.tsx
 import Link from "next/link";
 import { SectionFadeIn } from "@/components/ui/SectionFadeIn";
+import { ORIGINS } from "@/config/links";
 
 export const metadata = {
   title: "Launch & Migrate | Justine Longla T.",
@@ -11,7 +12,7 @@ export const metadata = {
     description:
       "Case study: a guided AWS migration that replaces “lift and hope” with structured landing zones, guardrails, and business-friendly communication.",
     type: "article",
-    url: "https://justinelonglat-lane.com/projects/launch-migrate",
+    url: `${ORIGINS.main}/projects/launch-migrate`,
   },
 };
 

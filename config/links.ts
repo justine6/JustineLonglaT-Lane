@@ -1,7 +1,7 @@
 // config/links.ts
 
 export const ORIGINS = {
-  main: "https://justinelonglat-lane.com",
+  main: "https://jlt-lane.com",
   blog: "https://blogs.justinelonglat-lane.com",
   docs: "https://docs.justinelonglat-lane.com",
 

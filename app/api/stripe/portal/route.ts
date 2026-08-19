@@ -1,10 +1,11 @@
+import { ORIGINS } from "@/config/links";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 
 export const runtime = "nodejs";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const SITE_URL = ORIGINS.main;
 
 export async function POST(req: Request) {
   try {

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://jutellane-solutions.vercel.app/sitemap.xml

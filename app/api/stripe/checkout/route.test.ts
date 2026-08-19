@@ -20,7 +20,7 @@ function createRequest(
   body: Record<string, unknown>
 ): Request {
   return new Request(
-    "https://www.jlt-lane.com/api/stripe/checkout",
+    "https://jlt-lane.com/api/stripe/checkout",
     {
       method: "POST",
       headers: {
@@ -33,10 +33,7 @@ function createRequest(
 
 describe("POST /api/stripe/checkout", () => {
   beforeEach(() => {
-    vi.stubEnv(
-      "NEXT_PUBLIC_SITE_URL",
-      "https://www.jlt-lane.com"
-    );
+
     vi.stubEnv(
       "STRIPE_PRICE_INTRO_CONSULTATION",
       "price_intro"
@@ -106,9 +103,9 @@ describe("POST /api/stripe/checkout", () => {
       },
       subscription_data: undefined,
       success_url:
-        "https://www.jlt-lane.com/consulting/success" +
+        "https://jlt-lane.com/consulting/success" +
         "?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "https://www.jlt-lane.com/pricing",
+      cancel_url: "https://jlt-lane.com/pricing",
     });
   });
 
@@ -134,7 +131,7 @@ describe("POST /api/stripe/checkout", () => {
           authorizationEffect: "none",
         }),
         success_url:
-          "https://www.jlt-lane.com/consulting/success" +
+          "https://jlt-lane.com/consulting/success" +
           "?session_id={CHECKOUT_SESSION_ID}",
       })
     );
