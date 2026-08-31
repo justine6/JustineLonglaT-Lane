@@ -28,7 +28,7 @@ export default async function OG() {
             Cloud Confidence. Delivered.
           </div>
           <div style={{ marginTop: 18, fontSize: 28, color: "rgba(255,255,255,.85)" }}>
-            DevSecOps & Cloud Automation by Justine Tekang
+            Platform Engineering • DevSecOps • Cloud Security
           </div>
           <div style={{ marginTop: "auto", fontSize: 24, color: "rgba(255,255,255,.75)" }}>
             {site.url.replace(/^https?:\/\//, "")}
