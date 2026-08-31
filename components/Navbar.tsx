@@ -165,25 +165,14 @@ export default function Navbar() {
                 aria-label="JLT-LANE home"
                 onClick={closeMenu}
               >
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 shadow-sm">
-                  <Image
-                    src="/brand/logo-shield.png"
-                    alt="JLT-LANE logo"
-                    width={36}
-                    height={36}
-                    className="rounded-full"
-                    priority
-                  />
-                </div>
-
-                <div className="flex flex-col items-start justify-center leading-snug">
-                  <div className="text-sm font-semibold tracking-wide sm:text-base">
-                    JLT-LANE
-                  </div>
-                  <div className="hidden text-[11px] text-white/60 sm:block">
-                    Cloud Confidence. Delivered.
-                  </div>
-                </div>
+                <Image
+                  src="/brand/justine-logo.png"
+                  alt="JLT-LANE — Cloud Confidence. Delivered."
+                  width={780}
+                  height={235}
+                  className="h-auto w-[170px] sm:w-[190px] lg:w-[210px]"
+                  priority
+                />
               </Link>
 
               <div className="hidden flex-wrap items-center gap-2 md:flex">
