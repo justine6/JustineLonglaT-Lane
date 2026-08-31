@@ -1,11 +1,11 @@
 {
-  "name": "Justine Longla T.",
-  "short_name": "Justine Longla T.",
-  "description": "Certified DevSecOps and Cloud Automation for startups and growing teams.",
+  "name": "JLT-LANE",
+  "short_name": "JLT-LANE",
+  "description": "Secure, performance-tuned cloud solutions with certified DevSecOps expertise.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#0047a1",
+  "theme_color": "#1e40af",
   "icons": [
     {
       "src": "/icon-192.png",

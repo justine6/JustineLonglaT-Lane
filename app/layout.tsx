@@ -10,6 +10,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ORIGINS } from "@/config/links";
 
 export const metadata: Metadata = {
+  manifest: "/manifest.json",
   metadataBase: new URL(ORIGINS.main),
   title: "JLT-LANE — Cloud Confidence. Delivered.",
   description:
