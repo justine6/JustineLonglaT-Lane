@@ -1,0 +1,17 @@
+{
+  "title": "The Governed Change Court",
+  "summary": "An executable governance model for evidence-led, contract-driven, and independently verified platform change.",
+  "excerpt": "How custody, provenance, bounded authority, controlled mutation, and independent verification turn software change into a disciplined operating model.",
+  "description": "A platform-engineering case study showing how JLT-LANE governs change from repository custody and discovery through authorization, implementation, validation, integration, production verification, and closure.",
+  "updatedAt": "2026-09-05",
+  "featured": false,
+  "pinned": true,
+  "tags": [
+    "platform engineering",
+    "governance",
+    "change control",
+    "devsecops",
+    "evidence",
+    "ci/cd"
+  ]
+}

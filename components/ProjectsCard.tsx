@@ -1,8 +1,3 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import type { Project } from "@/lib/get-all-projects";
-
 import {
   Cloud,
   ShieldCheck,
@@ -11,6 +6,11 @@ import {
   Cpu,
   Sparkles,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+import type { Project } from "@/lib/get-all-projects";
 
 type Props = {
   project: Project & {
@@ -133,14 +133,7 @@ export default function ProjectsCard({ project }: Props) {
             <p className="mt-1 text-xs text-slate-200 line-clamp-2 sm:text-sm">
               {project.description}
             </p>
-            <div className="absolute bottom-3 left-4 right-4">
-              <h3 className="text-lg font-semibold leading-snug line-clamp-2 drop-shadow">
-                {project.title}
-              </h3>
-              <p className="mt-1 text-xs text-slate-600 line-clamp-2 sm:text-sm dark:text-slate-300">
-                {project.description}
-              </p>
-            </div>
+
           </div>
         </div>
       </article>
