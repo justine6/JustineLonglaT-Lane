@@ -36,6 +36,24 @@ export const PROJECTS: BasicProject[] = [
   updated: "2026-03-12",
  },  
   {
+    slug: "governed-change-court",
+    title: "The Governed Change Court",
+    description:
+      "An executable governance model showing how custody, contracts, evidence, authorization, controlled mutation, independent validation, and release verification turn platform change into a disciplined operating system.",
+    category: "Platform",
+    pinned: true,
+    tags: [
+      "platform engineering",
+      "governance",
+      "change control",
+      "devsecops",
+      "evidence",
+      "ci/cd",
+    ],
+    image: "/img/governed-change.png",
+    updated: "2026-09-05",
+  },
+  {
     slug: "automation-rescue-fixing-flaky-lambdas-a",
     title: "Automation Rescue: Fixing Flaky Lambdas",
     description:
