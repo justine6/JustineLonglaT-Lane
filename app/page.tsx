@@ -8,15 +8,13 @@ import ContactSection from "@/components/ContactSection";
 import HeroBanner from "@/components/HeroBanner";
 import HeroCTA from "@/components/HeroCTA";
 import HeroExplainer from "@/components/HeroExplainer";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import PlatformProblemSection from "@/components/PlatformProblemSection";
 import PostHeroCards from "@/components/PostHeroCards";
+import CommonEngagementPatterns from "@/components/services-solutions/CommonEngagementPatterns";
 import ServicesBand from "@/components/ServicesBand";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import VideosTeaser from "@/components/VideosTeaser";
-import CommonEngagementPatterns from "@/components/services-solutions/CommonEngagementPatterns";
-import PlatformProblemSection from "@/components/PlatformProblemSection";
-import NewsletterSection from "@/components/NewsletterSection";
-import NewsletterSignup from "@/components/NewsletterSignup";
-
 import { heroExplainerData } from "@/data/home";
 
 export default function HomePage() {
@@ -37,8 +35,8 @@ export default function HomePage() {
           <Image
             src="/brand/jlt-lane-institutional-lockup.png"
             alt="JLT-LANE — Platform Engineering, Cloud Architecture, and DevSecOps"
-            width={1536}
-            height={1024}
+            width={995}
+            height={370}
             className="mx-auto h-auto w-full max-w-2xl"
             priority
           />
@@ -75,10 +73,7 @@ export default function HomePage() {
             </div>
 
             {/* Form */}
-            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-slate-600 dark:text-slate-400">
-              A short newsletter on platform engineering, DevSecOps, access control,
-              observability, and the operating models behind reliable cloud systems.
-            </p>
+
 
             {/* ✅ REAL NEWSLETTER COMPONENT */}
             <div className="mt-6">
